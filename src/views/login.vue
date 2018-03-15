@@ -1,5 +1,5 @@
 <template>
-  <Form ref="signinForm" :model="formData" :rules="rule" class="login-form" :label-width="80">
+  <Form autocomplete="on" ref="signinForm" :model="formData" :rules="rule" class="login-form" :label-width="80">
         <FormItem prop="username" label="Username">
             <Input type="text" v-model="formData.username" placeholder="输入密码" transfer></Input>
         </FormItem>
@@ -40,6 +40,18 @@ export default {
       }
     }
   },
+  mounted () {
+      if (navigator.userAgent.toLowerCase().indexOf("chrome") >= 0) {
+            $(window).load(function(){
+                $('input:-webkit-autofill').each(function(){
+                    var text = $(this).val();
+                    var name = $(this).attr('name');
+                    $(this).after(this.outerHTML).remove();
+                    $('input[name=' + name + ']').val(text);
+                });
+            });
+        }
+  },
   methods: {
       logIn (name) {
           this.$refs[name].validate(valid => {
@@ -53,12 +65,12 @@ export default {
     .login-form {
         width: 400px;
         height: 400px;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
+        margin: 300px auto;
     }
     input {
         background-color: #fff !important;
+    }
+    input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 1000px white inset !important;
     }
 </style>
