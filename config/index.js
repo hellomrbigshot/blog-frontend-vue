@@ -20,7 +20,16 @@ module.exports = {
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-    
+    proxyTable: {
+      '/signin': {
+          target: 'http://localhost:4500',
+          changeOrigin: true
+      },
+      '/signup': {
+          target: 'http://localhost:4500',
+          changeOrigin: true
+      },
+    },
     /**
      * Source Maps
      */
@@ -44,16 +53,6 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {
-      '/signin': {
-          target: 'http://localhost:4500',
-          changeOrigin: true
-      },
-      '/signup': {
-          target: 'http://localhost:4500',
-          changeOrigin: true
-      },
-    },
 
     /**
      * Source Maps
