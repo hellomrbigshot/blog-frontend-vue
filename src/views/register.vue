@@ -2,20 +2,39 @@
     <div class="main-content">
         <div class="login-div">
             <h1 class="head">
-                Login
+                注册
             </h1>
-            <Form  ref="signinForm" :model="formData" :rules="rule" class="login-form">
+            <Form  ref="registerForm" :model="formData" :rules="rule" class="login-form">
                 <FormItem prop="username">
                     <Input style="display:none"></Input>
-                    <Input type="text" v-model="formData.username" placeholder="Username" transfer></Input>
+                    <Input type="text" v-model="formData.user" placeholder="用户名" transfer></Input>
                 </FormItem>
                 <FormItem prop="password">
                     <Input type="password" style="display:none"></Input>            
-                    <Input type="password" v-model="formData.password" placeholder="Password"></Input>
+                    <Input type="password" v-model="formData.password" placeholder="密码"></Input>
+                </FormItem>
+                <FormItem prop="">
+                    <Input type="password" style="display:none"></Input>            
+                    <Input type="password" v-model="formData.repassword" placeholder="再次输入密码"></Input>
+                </FormItem>
+                <FormItem prop="" label="性别">
+                    <RadioGroup v-model="formData.gender">
+                        <Radio label="m">♂</Radio>
+                        <Radio label="f">♀</Radio>
+                        <Radio label="x">x</Radio>
+                    </RadioGroup>
                 </FormItem>
                 <FormItem>
-                    <Button type="primary" size="large" long @click="logIn('signinForm')" >登录</Button>
-                    <Button type="ghost" size="large" long style="margin-top: 10px;" @click="toRegisterPage">注册</Button>
+                    <Upload action="/signup/uploadAvatar">
+                        <Button>上传头像</Button>
+                    </Upload>
+                </FormItem>
+                <FormItem prop="">
+                    <Input type="textarea" placeholder="个人介绍" v-model="formData.bio"></Input>
+                </FormItem>
+                
+                <FormItem>
+                    <Button type="primary" size="large" long @click="register('registerForm')" >注册</Button>
                 </FormItem>
             </Form>
         </div>
@@ -23,7 +42,7 @@
 </template>
 <script>
 export default {
-  name: 'Login',
+  name: 'Register',
   data () {
     const validatorName = (rule, value, callback) => {
         if (!value) {
@@ -42,7 +61,10 @@ export default {
     return {
       formData: {
           username: '',
-          password: ''
+          password: '',
+          gender: '',
+          avatar: '',
+          bio: '',
       },
       rule: {
           username: [{ validator: validatorName, trigger: 'blur' }],
@@ -53,14 +75,11 @@ export default {
   mounted () {
   },
   methods: {
-      logIn (name) {
+      register (name) {
           this.$refs[name].validate(valid => {
 
           })
       },
-      toRegisterPage () {
-          this.$router.push('/register')
-      }
   }
 }
 </script>
@@ -73,9 +92,9 @@ export default {
     }
     .login-div {
         width: 400px;
-        height: 400px;
-        margin: 250px auto;
-        padding: 0 50px;
+        /* height: 400px; */
+        margin: 100px auto;
+        padding: 20px 50px;
         /* border: 1px solid #cdcdcd; */
         border-radius: 10px;
         background: #fff;
@@ -86,7 +105,7 @@ export default {
     .head {
         width: 100%;
         text-align: center;
-        font-size: 60px;
+        font-size: 35px;
         margin-bottom: 40px; 
     }
     
