@@ -7,17 +7,17 @@
             <Form  ref="registerForm" :model="formData" :rules="rule" class="login-form">
                 <FormItem prop="username">
                     <Input style="display:none"></Input>
-                    <Input type="text" v-model="formData.user" placeholder="用户名" transfer></Input>
+                    <Input type="text" v-model="formData.username" placeholder="用户名" transfer></Input>
                 </FormItem>
                 <FormItem prop="password">
                     <Input type="password" style="display:none"></Input>            
                     <Input type="password" v-model="formData.password" placeholder="密码"></Input>
                 </FormItem>
-                <FormItem prop="">
+                <FormItem prop="repassword">
                     <Input type="password" style="display:none"></Input>            
                     <Input type="password" v-model="formData.repassword" placeholder="再次输入密码"></Input>
                 </FormItem>
-                <FormItem prop="" label="性别">
+                <FormItem prop="gender" label="性别">
                     <RadioGroup v-model="formData.gender">
                         <Radio label="m">♂</Radio>
                         <Radio label="f">♀</Radio>
@@ -26,7 +26,7 @@
                 </FormItem>
                 <FormItem>
                     <Upload action="/signup/uploadAvatar">
-                        <Button>上传头像</Button>
+                        <Button type="ghost">上传头像</Button>
                     </Upload>
                 </FormItem>
                 <FormItem prop="">
@@ -41,6 +41,7 @@
     </div>
 </template>
 <script>
+import {Common} from '@/assets/js/common'
 export default {
   name: 'Register',
   data () {
@@ -50,10 +51,24 @@ export default {
             return false
         }
         callback()
-    };
+    }
     const validatorPass = (rule, value, callback) => {
         if (!value) {
             callback(new Error('请输入密码'))
+            return false
+        }
+        callback()
+    }
+    const validatorRepass = (rule, value, callback) => {
+        if (value !== this.formData.password) {
+            callback(new Error('两次密码输入不一致'))
+            return false
+        }
+        callback()
+    }
+    const gender = (rule, value, callback) => {
+        if (!value) {
+            callback(new Error('请选择性别'))
             return false
         }
         callback()
@@ -69,6 +84,8 @@ export default {
       rule: {
           username: [{ validator: validatorName, trigger: 'blur' }],
           password: [{ validator: validatorPass, trigger: 'blur' }],
+          repassword: [{ validator: validatorRepass, trigger: 'blur' }],
+          gender: [{ validator: gender, trigger: 'blur'}]
       }
     }
   },
@@ -77,7 +94,17 @@ export default {
   methods: {
       register (name) {
           this.$refs[name].validate(valid => {
-
+              if (valid) {
+                  Common.axios('/signup', this.formData).then(res => {
+                      if (res.data.code === 'OK') {
+                          
+                      } else {
+                          this.$Message.error(res.data.data)
+                      }
+                  })
+              } else {
+                  return false
+              }
           })
       },
   }

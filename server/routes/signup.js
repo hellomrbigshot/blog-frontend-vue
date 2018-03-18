@@ -59,9 +59,10 @@ router.post('/', checkNotLogin, (req, res, next) => {
         return false
     }
     try {
-        UserModel.getUserByName(username).then(username => {
-            if (username) {
+        UserModel.getUserByName(username).then(exist => {
+            if (exist) {
                 throw new Error('该用户已注册')
+                return false
             }
             // 密码加密
             password = sha1(password)
@@ -84,7 +85,7 @@ router.post('/', checkNotLogin, (req, res, next) => {
                     // delete user.password
                     // req.session.user = user
                     // 返回注册成功
-                    res.status(200).json({code: 'OK', data: '用户名已存在'})
+                    res.status(200).json({code: 'OK', data: '注册成功'})
                 })
                 .catch(e => {
                     // 注册失败

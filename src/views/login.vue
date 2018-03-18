@@ -55,7 +55,6 @@ export default {
   methods: {
       logIn (name) {
           this.$refs[name].validate(valid => {
-
           })
       },
       toRegisterPage () {
