@@ -2,16 +2,16 @@
     <div class="main-content">
         <div class="login-div">
             <h1 class="head">
-                Login
+                登录
             </h1>
             <Form  ref="signinForm" :model="formData" :rules="rule" class="login-form">
                 <FormItem prop="username">
                     <Input style="display:none"></Input>
-                    <Input type="text" v-model="formData.username" placeholder="Username" transfer></Input>
+                    <Input type="text" v-model="formData.username" placeholder="用户名" transfer></Input>
                 </FormItem>
                 <FormItem prop="password">
                     <Input type="password" style="display:none"></Input>            
-                    <Input type="password" v-model="formData.password" placeholder="Password"></Input>
+                    <Input type="password" v-model="formData.password" placeholder="密码"></Input>
                 </FormItem>
                 <FormItem>
                     <Button type="primary" size="large" long @click="logIn('signinForm')" >登录</Button>
@@ -22,6 +22,7 @@
     </div>
 </template>
 <script>
+import {Common} from '@/assets/js/common'
 export default {
   name: 'Login',
   data () {
@@ -50,11 +51,20 @@ export default {
       }
     }
   },
-  mounted () {
-  },
   methods: {
       logIn (name) {
           this.$refs[name].validate(valid => {
+              if (valid) {
+                  Common.axios('/signin', this.formData).then(res => {
+                      if (res.data.code === 'OK') {
+                        this.$router.push('/main')
+                      } else {
+                        this.$Message.error(res.data.data)
+                      }
+                  })
+              } else {
+                  
+              }
           })
       },
       toRegisterPage () {
@@ -74,7 +84,7 @@ export default {
         width: 400px;
         height: 400px;
         margin: 250px auto;
-        padding: 0 50px;
+        padding: 20px 50px;
         /* border: 1px solid #cdcdcd; */
         border-radius: 10px;
         background: #fff;
@@ -85,7 +95,7 @@ export default {
     .head {
         width: 100%;
         text-align: center;
-        font-size: 60px;
+        font-size: 40px;
         margin-bottom: 40px; 
     }
     

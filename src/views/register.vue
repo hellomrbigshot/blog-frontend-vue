@@ -89,8 +89,6 @@ export default {
       }
     }
   },
-  mounted () {
-  },
   methods: {
       register (name) {
           this.$refs[name].validate(valid => {
