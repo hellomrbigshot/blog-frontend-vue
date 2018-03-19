@@ -57,7 +57,12 @@ export default {
               if (valid) {
                   Common.axios('/signin', this.formData).then(res => {
                       if (res.data.code === 'OK') {
-                        this.$router.push('/main')
+                          if (this.formData.username === 'admin') {
+                              this.$router.push('/admin')
+                          } else {
+                            this.$router.push('/main')
+                          }
+                        
                       } else {
                         this.$Message.error(res.data.data)
                       }

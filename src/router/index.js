@@ -5,6 +5,7 @@ import login from '@/views/login'
 import register from '@/views/register'
 import main from '@/views/main'
 import page404 from '@/views/404'
+import admin from '@/views/admin/index'
 
 Vue.use(Router)
 
@@ -35,6 +36,6 @@ export default new Router({
       path: '/main',
       name: 'Main',
       component: main
-    }
+    },
   ]
 })

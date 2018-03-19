@@ -1,6 +1,8 @@
 
 <template>
-  <div></div>
+  <div>
+      
+  </div>
 </template>
 <script>
 import {Common} from '@/assets/js/common'
