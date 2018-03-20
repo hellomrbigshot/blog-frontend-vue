@@ -52,7 +52,7 @@ export default new Router({
           children: [
             {
               path: 'list',
-              component: pageList
+              component: pageList,
               name: '文章列表'
             }
           ]
