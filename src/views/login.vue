@@ -55,7 +55,7 @@ export default {
       logIn (name) {
           this.$refs[name].validate(valid => {
               if (valid) {
-                  Common.axios('/signin', this.formData).then(res => {
+                  Common.axios('/api/signin', this.formData).then(res => {
                       if (res.data.code === 'OK') {
                           if (this.formData.username === 'admin') {
                               this.$router.push('/admin')

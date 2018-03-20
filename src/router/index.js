@@ -37,5 +37,10 @@ export default new Router({
       name: 'Main',
       component: main
     },
+    {
+      path: '/admin',
+      name: 'Admin',
+      component: admin
+    }
   ]
 })
