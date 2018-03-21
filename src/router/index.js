@@ -18,6 +18,7 @@ export default new Router({
     },
     {
       path: '/',
+      redirect: '/main',
       name: 'HelloWorld',
       component: HelloWorld
     },
