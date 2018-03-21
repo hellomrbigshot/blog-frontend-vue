@@ -93,7 +93,7 @@ export default {
       register (name) {
           this.$refs[name].validate(valid => {
               if (valid) {
-                  Common.axios('/signup', this.formData).then(res => {
+                  Common.axios('/api/signup', this.formData).then(res => {
                       if (res.data.code === 'OK') {
                           
                       } else {

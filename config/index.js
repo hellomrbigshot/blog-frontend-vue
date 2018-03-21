@@ -10,17 +10,6 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {
-      '/signin': {
-          target: 'http://localhost:4500',
-          changeOrigin: true
-      },
-      '/signup': {
-          target: 'http://localhost:4500',
-          changeOrigin: true
-      },
-    },
-
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
     port: 7000, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
@@ -30,14 +19,10 @@ module.exports = {
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
     proxyTable: {
-      '/signin': {
+      '/api': {
           target: 'http://localhost:4500',
           changeOrigin: true
-      },
-      '/signup': {
-          target: 'http://localhost:4500',
-          changeOrigin: true
-      },
+      }
     },
     /**
      * Source Maps

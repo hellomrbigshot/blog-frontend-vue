@@ -1,5 +1,5 @@
 module.exports = function (app) {
-	app.use('/signup', require('./signup'))
-	app.use('/signin', require('./signin'))
-	// app.use('/signout', require('./signout'))
+	app.use('/api/signup', require('./signup'))
+	app.use('/api/signin', require('./signin'))
+	app.use('/api/signout', require('./signout'))
 }
