@@ -27,28 +27,14 @@
             <Layout>
                 <Sider hide-trigger :style="{background: '#fff'}">
                     <Menu active-name="1-2" theme="light" width="auto" :open-names="['1-1']">
-                        <Submenu name="1">
+                        <Submenu v-for="(route, i) in routes" name="i+1" :key="i">
                             <template slot="title">
                                 <Icon type="ios-navigate"></Icon>
-                                文章管理
+                                {{ route.name }}
                             </template>
-                            <router-link>
-                                <MenuItem name="1-1">文章列表</MenuItem>
-                            </router-link>
-                        </Submenu>
-                        <Submenu name="2">
-                            <template slot="title">
-                                <Icon type="ios-keypad"></Icon>
-                                用户管理
-                            </template>
-                            <MenuItem name="2-1">用户列表</MenuItem>
-                        </Submenu>
-                        <Submenu name="3">
-                            <template slot="title">
-                                <Icon type="ios-analytics"></Icon>
-                                标签管理
-                            </template>
-                            <MenuItem name="3-1">标签列表</MenuItem>
+                            <MenuItem v-for="(child, j) in route.children" :name="i+1+'-'+(j+1)">
+                                <router-link :to="'/'+route.path+'/'+child.path">{{ child.name }}</router-link>
+                            </MenuItem>
                         </Submenu>
                     </Menu>
                 </Sider>
@@ -71,7 +57,7 @@ import {Common} from '@/assets/js/common'
 export default {
     data () {
         return {
-
+            routes: this.$router.options.routes.find(page => page.name === 'Admin').children
         }
     }
 }
