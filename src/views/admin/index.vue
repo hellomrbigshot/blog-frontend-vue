@@ -32,7 +32,7 @@
                                 <Icon type="ios-navigate"></Icon>
                                 {{ route.name }}
                             </template>
-                            <MenuItem v-for="(child, j) in route.children" :name="i+1+'-'+(j+1)">
+                            <MenuItem v-for="(child, j) in route.children" :name="i+1+'-'+(j+1)" :key="j">
                                 <router-link :to="'/'+route.path+'/'+child.path">{{ child.name }}</router-link>
                             </MenuItem>
                         </Submenu>
