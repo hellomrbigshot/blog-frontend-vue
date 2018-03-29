@@ -2,7 +2,7 @@
   <div>
     <Layout>
             <Header>
-                <Menu mode="horizontal" theme="dark" active-name="1">
+                <Menu mode="horizontal" theme="dark" active-name="1" @on-select="menuChange">
                     <div class="layout-logo"></div>
                     <div class="layout-nav">
                         <MenuItem name="1">
@@ -27,13 +27,13 @@
             <Layout>
                 <Sider hide-trigger :style="{background: '#fff'}">
                     <Menu active-name="1-2" theme="light" width="auto" :open-names="['1-1']">
-                        <Submenu v-for="(route, i) in routes" name="i+1" :key="i">
+                        <Submenu v-for="(route, i) in routes.children" name="i+1" :key="i">
                             <template slot="title">
                                 <Icon type="ios-navigate"></Icon>
-                                {{ route.name }}
+                                {{ route.title }}
                             </template>
                             <MenuItem v-for="(child, j) in route.children" :name="i+1+'-'+(j+1)" :key="j">
-                                <router-link :to="'/'+route.path+'/'+child.path">{{ child.name }}</router-link>
+                                <router-link :to="'/'+route.path+'/'+child.path">{{ child.title }}</router-link>
                             </MenuItem>
                         </Submenu>
                     </Menu>
@@ -57,7 +57,18 @@ import {Common} from '@/assets/js/common'
 export default {
     data () {
         return {
-            routes: this.$router.options.routes.find(page => page.name === 'Admin').children
+        }
+    },
+    computed: {
+        routes () {
+            return this.$store.state.admin.routers
+        }
+    },
+    methods: {
+        menuChange (name) {
+            this.$router.push({
+                name
+            })
         }
     }
 }
