@@ -5,28 +5,13 @@
                 <Menu mode="horizontal" theme="dark" active-name="1">
                     <div class="layout-logo"></div>
                     <div class="layout-nav">
-                        <MenuItem name="1">
-                            <Icon type="ios-navigate"></Icon>
-                            Item 1
-                        </MenuItem>
-                        <MenuItem name="2">
-                            <Icon type="ios-keypad"></Icon>
-                            Item 2
-                        </MenuItem>
-                        <MenuItem name="3">
-                            <Icon type="ios-analytics"></Icon>
-                            Item 3
-                        </MenuItem>
-                        <MenuItem name="4">
-                            <Icon type="ios-paper"></Icon>
-                            Item 4
-                        </MenuItem>
+                        
                     </div>
                 </Menu>
             </Header>
             <Layout>
                 <Sider hide-trigger :style="{background: '#fff'}">
-                    <Menu active-name="1-2" theme="light" width="auto" :open-names="['1-1']" accordion @on-select="menuChange">
+                    <Menu active-name="1-2" theme="light" width="auto" accordion @on-select="menuChange">
                         <Submenu v-for="(route, i) in routes.children" :name="route.name" :key="i">
                             <template slot="title">
                                 <Icon type="ios-navigate"></Icon>
@@ -41,12 +26,11 @@
                 <Layout :style="{padding: '0 24px 24px'}">
                     <Breadcrumb :style="{margin: '24px 0'}">
                         <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
-                            <router-view>
-                                
-                            </router-view>
+                            <keep-alive>
+                                <router-view></router-view>
+                            </keep-alive>
                         </Content>
                     </Breadcrumb>
-                    
                 </Layout>
             </Layout>
         </Layout>
@@ -66,11 +50,10 @@ export default {
     },
     methods: {
         menuChange (name) {
-            console.log(name)
             this.$router.push({
                 name
             })
-        }
+        },
     }
 }
 </script>

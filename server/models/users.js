@@ -10,5 +10,13 @@ module.exports = {
 		return User
 			.findOne({ username: username })
 			.exec()
+	},
+	// 获取所有用户列表
+	getUserList (pageSize, Count) {
+		return User
+			.find()
+			.skip(Count)
+			.limit(pageSize)
+			.exec()
 	}
 }

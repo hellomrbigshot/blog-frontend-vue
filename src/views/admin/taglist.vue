@@ -1,8 +1,6 @@
 <template>
     <div class="main-content">
-        <div class="login-div">
-           
-        </div>
+        标签列表
     </div>
 </template>
 <script>

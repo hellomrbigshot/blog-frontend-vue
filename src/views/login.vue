@@ -58,9 +58,9 @@ export default {
                   Common.axios('/api/signin', this.formData).then(res => {
                       if (res.data.code === 'OK') {
                           if (this.formData.username === 'admin') {
-                              this.$router.push('/admin')
+                              this.$router.push({name: 'admin'})
                           } else {
-                            this.$router.push('/main')
+                            this.$router.push({name: 'main'})
                           }
                         
                       } else {
@@ -73,7 +73,7 @@ export default {
           })
       },
       toRegisterPage () {
-          this.$router.push('/register')
+          this.$router.push({name: 'register'})
       }
   }
 }

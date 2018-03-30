@@ -1,3 +1,4 @@
+import admin from '@/views/admin/home'
 export const longinRouter = {
     path: '/login',
     name: 'login',
@@ -25,13 +26,14 @@ export const longinRouter = {
   export const adminRouter = {
     path: '/admin',
     name: 'admin',
-    component: () => import('@/views/admin/index'),
+    component: () => import('@/views/admin/home'),
     children: [
     {
         path: 'page',
         name: 'page',
         title: '文章管理',
         redirect: 'page/list',
+        component: {template: '<router-view></router-view>'},
         children: [
         {
             path: 'list',
@@ -46,6 +48,7 @@ export const longinRouter = {
         name: 'user',
         title: '用户管理',
         redirect: 'user/list',
+        component: {template: '<router-view></router-view>'},
         children: [
         {
             path: 'list',
@@ -60,6 +63,7 @@ export const longinRouter = {
         name: 'tag',
         redirect: 'tag/list',
         title: '标签管理',
+        component: {template: '<router-view></router-view>'},        
         children: [
         {
             path: 'list',
