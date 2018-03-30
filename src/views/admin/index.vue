@@ -2,7 +2,7 @@
   <div>
     <Layout>
             <Header>
-                <Menu mode="horizontal" theme="dark" active-name="1" @on-select="menuChange">
+                <Menu mode="horizontal" theme="dark" active-name="1">
                     <div class="layout-logo"></div>
                     <div class="layout-nav">
                         <MenuItem name="1">
@@ -26,14 +26,14 @@
             </Header>
             <Layout>
                 <Sider hide-trigger :style="{background: '#fff'}">
-                    <Menu active-name="1-2" theme="light" width="auto" :open-names="['1-1']">
-                        <Submenu v-for="(route, i) in routes.children" name="i+1" :key="i">
+                    <Menu active-name="1-2" theme="light" width="auto" :open-names="['1-1']" accordion @on-select="menuChange">
+                        <Submenu v-for="(route, i) in routes.children" :name="route.name" :key="i">
                             <template slot="title">
                                 <Icon type="ios-navigate"></Icon>
                                 {{ route.title }}
                             </template>
-                            <MenuItem v-for="(child, j) in route.children" :name="i+1+'-'+(j+1)" :key="j">
-                                <router-link :to="'/'+route.path+'/'+child.path">{{ child.title }}</router-link>
+                            <MenuItem v-for="(child, j) in route.children" :name="child.name" :key="j">
+                                {{ child.title }}
                             </MenuItem>
                         </Submenu>
                     </Menu>
@@ -66,6 +66,7 @@ export default {
     },
     methods: {
         menuChange (name) {
+            console.log(name)
             this.$router.push({
                 name
             })
