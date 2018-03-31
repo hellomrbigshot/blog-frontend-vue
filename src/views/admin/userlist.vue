@@ -1,7 +1,7 @@
 <template>
     <div class="main-content">
         <div>
-           这是一个用户列表
+           <Table stripe :columns="user_column" :data="user_list"></Table>
         </div>
     </div>
 </template>
@@ -10,7 +10,23 @@ import {Common} from '@/assets/js/common'
 export default {
   name: 'userList',
   data () {
-    user_list: []
+    return {
+        user_column: [
+            {
+                title: '用户名',
+                key: 'username'
+            },
+            {
+                title: '密码',
+                key: 'password'
+            },
+            {
+                title: '性别',
+                key: 'gender'
+            }
+        ],
+        user_list: []
+    }
   },
   mounted () {
       this.getUserList()
@@ -18,7 +34,9 @@ export default {
   methods: {
     getUserList (pageSize='10', page='1') {
         Common.axios('/api/user/list', {pageSize, page}).then(res => {
-
+            if (res.data.code === 'OK') {
+                this.user_list = res.data.data.list
+            }
         })
     }  
   }
