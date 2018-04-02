@@ -6,8 +6,13 @@ import {router} from './router'
 import store from './vuex'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
+import {Common} from '@/assets/js/common.js'
+import Cookies from 'js-cookie'
 
 Vue.use(iView)
+Vue.prototype.Common = Common
+Vue.prototype.Cookies = Cookies
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

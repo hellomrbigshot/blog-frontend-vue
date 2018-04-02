@@ -19,8 +19,8 @@ router.beforeEach((to, from, next) => {
     next({
       name: 'login'
     })
-  } else if (Cookies.get('name') && to.name === 'login') {
-    if (Cookies.get('name') === 'admin') {
+  } else if (Cookies.get('user') && to.name === 'login') {
+    if (Cookies.get('user') === 'admin') {
       next({
         name: 'admin'
       })

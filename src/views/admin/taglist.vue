@@ -4,7 +4,6 @@
     </div>
 </template>
 <script>
-import {Common} from '@/assets/js/common'
 export default {
   name: 'Login',
   data () {

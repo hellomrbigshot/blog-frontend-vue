@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     getUserList (pageSize='10', page='1') {
-        Common.axios('/api/user/list', {pageSize, page}).then(res => {
+        this.Common.axios('/api/user/list', {pageSize, page}).then(res => {
             if (res.data.code === 'OK') {
                 this.user_list = res.data.data.list
             }

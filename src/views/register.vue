@@ -41,7 +41,6 @@
     </div>
 </template>
 <script>
-import {Common} from '@/assets/js/common'
 export default {
   name: 'Register',
   data () {
@@ -93,7 +92,7 @@ export default {
       register (name) {
           this.$refs[name].validate(valid => {
               if (valid) {
-                  Common.axios('/api/signup', this.formData).then(res => {
+                  this.Common.axios('/api/signup', this.formData).then(res => {
                       if (res.data.code === 'OK') {
                           
                       } else {

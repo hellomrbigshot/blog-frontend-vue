@@ -22,8 +22,6 @@
     </div>
 </template>
 <script>
-import Cookies from 'js-cookie'
-import {Common} from '@/assets/js/common'
 export default {
   name: 'Login',
   data () {
@@ -56,9 +54,9 @@ export default {
       logIn (name) {
           this.$refs[name].validate(valid => {
               if (valid) {
-                  Common.axios('/api/signin', this.formData).then(res => {
+                  this.Common.axios('/api/signin', this.formData).then(res => {
                       if (res.data.code === 'OK') {
-                          Cookies.set('username', formData.username)
+                          this.Cookies.set('user', this.formData.username)
                           if (this.formData.username === 'admin') {
                               this.$router.push({name: 'admin'})
                           } else {
