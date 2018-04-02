@@ -94,7 +94,12 @@ export default {
               if (valid) {
                   this.Common.axios('/api/signup', this.formData).then(res => {
                       if (res.data.code === 'OK') {
-                          
+                          this.Cookies.set('user', this.formData.username)
+                          if (this.Cookies.user === 'admin') {
+                              this.$router.push({name: admin})
+                          } else {
+                              this.$router.push({name: main})
+                          }
                       } else {
                           this.$Message.error(res.data.data)
                       }

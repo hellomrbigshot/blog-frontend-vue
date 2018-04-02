@@ -18,5 +18,12 @@ module.exports = {
 			.skip(Count)
 			.limit(pageSize)
 			.exec()
+	},
+	// 获取用户数量
+	getUserNum () {
+		return User
+			.find()
+			.count()
+			.exec() 
 	}
 }

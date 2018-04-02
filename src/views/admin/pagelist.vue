@@ -6,7 +6,7 @@
 <script>
 import {Common} from '@/assets/js/common'
 export default {
-  name: 'Login',
+  name: 'pageList',
   data () {
     return {
     }
