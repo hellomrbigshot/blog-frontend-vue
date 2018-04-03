@@ -18,7 +18,7 @@ router.post('/list', checkLogin, (req, res, next) => {
                 delete user.password
                 return user
             })
-            res.status(200).json({code: 'OK', data: {list: list, page_num: Math.ceil(num/pageSize)}})
+            res.status(200).json({code: 'OK', data: {list: list, total_num: num}})
         })
         .catch(e => {
             res.status(200).json({code: 'ERROR', data: e})

@@ -3,9 +3,10 @@
     <Layout>
             <Header>
                 <Menu mode="horizontal" theme="dark" active-name="1">
-                    <div class="layout-logo"></div>
+                    <div class="layout-logo">!!!</div>
                     <div class="layout-nav">
-                        
+                        <div></div>
+                        <div style="background: #fff">{{ user }}</div>
                     </div>
                 </Menu>
             </Header>
@@ -25,19 +26,19 @@
                 </Sider>
                 <Layout :style="{padding: '0 24px 24px'}">
                     <Breadcrumb :style="{margin: '24px 0'}">
-                        <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
-                            <keep-alive>
-                                <router-view></router-view>
-                            </keep-alive>
-                        </Content>
+                        <BreadcrumbItem v-for="(item, i) in $router.currentRoute.matched" :key="i">{{ item.name }}</BreadcrumbItem>
                     </Breadcrumb>
+                    <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
+                        <keep-alive>
+                            <router-view></router-view>
+                        </keep-alive>
+                    </Content>
                 </Layout>
             </Layout>
         </Layout>
   </div>
 </template>
 <script>
-import {Common} from '@/assets/js/common'
 export default {
     data () {
         return {
@@ -46,6 +47,9 @@ export default {
     computed: {
         routes () {
             return this.$store.state.admin.routers
+        },
+        user () {
+            return this.Cookies.get('user') || ''
         }
     },
     methods: {
@@ -76,7 +80,7 @@ export default {
     left: 20px;
 }
 .layout-nav{
-    width: 420px;
+    width: 200px;
     margin: 0 auto;
     margin-right: 20px;
 }

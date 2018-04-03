@@ -3,6 +3,10 @@
         <div>
            <Table stripe :columns="user_column" :data="user_list"></Table>
         </div>
+        <div style="margin-top: 20px">
+            <Page :total="total" show-sizer @on-change="pageChange" @on-page-size-change="pageSizeChange"></Page>
+        </div>
+        
     </div>
 </template>
 <script>
@@ -25,20 +29,32 @@ export default {
                 key: 'gender'
             }
         ],
-        user_list: []
+        user_list: [],
+        total: 0,
+        page_size: 10,
+        page: 1
     }
   },
   mounted () {
       this.getUserList()
   },
   methods: {
-    getUserList (pageSize='10', page='1') {
+    getUserList (pageSize='10', page='1') { // 获取用户列表
         this.Common.axios('/api/user/list', {pageSize, page}).then(res => {
             if (res.data.code === 'OK') {
                 this.user_list = res.data.data.list
+                this.total = res.data.data.total_num
             }
         })
-    }  
+    },
+    pageChange (page) {
+        this.page = page
+        this.getUserList(this.page_size, this.page)
+    },
+    pageSizeChange (pageSize) {
+        this.page_size = pageSize
+        this.getUserList(this.page_size, this.page)
+    }
   }
 }
 </script>
