@@ -15,10 +15,22 @@
             </Menu>
         </Sider>
         <Layout>
-            <Header :style="{background: '#fff', boxShadow: '0 2px 3px 2px rgba(0,0,0,0.1)'}">
-                <Breadcrumb>
+            <Header :style="{background: '#fff', boxShadow: '0 2px 3px 2px rgba(0,0,0,0.1)', position: 'relative'}">
+                <Breadcrumb class="user-breadcrumb">
                     <BreadcrumbItem v-for="(item, i) in $router.currentRoute.matched" :key="i">{{ item.name }}</BreadcrumbItem>
                 </Breadcrumb>
+                <div class="user-dropdown-menu">
+                    <Dropdown>
+                        <a href="javascript:void(0)">
+                            {{user}}
+                            <Icon type="arrow-down-b"></Icon>
+                        </a>
+                        <DropdownMenu slot="list">
+                            <DropdownItem>个人中心</DropdownItem>
+                            <DropdownItem @click="logout">退出</DropdownItem>
+                        </DropdownMenu>
+                    </Dropdown>
+                </div>
             </Header>
             <Content :style="{margin: '24px', minHeight: '280px', background: '#fff'}">
                 <keep-alive>
@@ -49,6 +61,13 @@ export default {
                 name
             })
         },
+        logout () {
+            this.Common.axios('/').then(res => {
+                if (res.data.code === 'OK') {
+                    
+                }
+            })
+        }
     }
 }
 </script>
@@ -58,5 +77,13 @@ export default {
     position: relative;
     border-radius: 4px;
     overflow: hidden;
+}
+.user-dropdown-menu {
+    position: absolute;
+    right: 30px;
+}
+.user-breadcrumb {
+    position: absolute;
+    left: 30px;
 }
 </style>
