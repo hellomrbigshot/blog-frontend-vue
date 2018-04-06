@@ -20,14 +20,14 @@
                     <BreadcrumbItem v-for="(item, i) in $router.currentRoute.matched" :key="i">{{ item.name }}</BreadcrumbItem>
                 </Breadcrumb>
                 <div class="user-dropdown-menu">
-                    <Dropdown>
+                    <Dropdown @on-click="handleClickUserDropDown">
                         <a href="javascript:void(0)">
                             {{user}}
                             <Icon type="arrow-down-b"></Icon>
                         </a>
                         <DropdownMenu slot="list">
-                            <DropdownItem>个人中心</DropdownItem>
-                            <DropdownItem @click="logout">退出</DropdownItem>
+                            <DropdownItem name="ownSpace">个人中心</DropdownItem>
+                            <DropdownItem name="loginout">退出</DropdownItem>
                         </DropdownMenu>
                     </Dropdown>
                 </div>
@@ -61,12 +61,17 @@ export default {
                 name
             })
         },
-        logout () {
-            this.Common.axios('/').then(res => {
-                if (res.data.code === 'OK') {
-                    
-                }
-            })
+        handleClickUserDropDown (name) {
+            if (name === 'loginout') {
+                this.Common.axios('/api/signout').then(res => {
+                    console.log('logout')
+                    if (res.data.code === 'OK') {
+                        this.Cookies.remove('user')
+                        this.$router.push({name: 'login'})
+                    }
+                })
+            }
+            
         }
     }
 }
