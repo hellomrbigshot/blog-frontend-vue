@@ -35,6 +35,7 @@
                 
                 <FormItem>
                     <Button type="primary" size="large" long @click="register('registerForm')" >注册</Button>
+                    <Button type="ghost" size="large" :style="{marginTop: '10px'}" long @click="toLogin('registerForm')" >登录</Button>
                 </FormItem>
             </Form>
         </div>
@@ -109,6 +110,9 @@ export default {
               }
           })
       },
+      toLogin () {
+          this.$router.push({ name: 'login' })
+      }
   }
 }
 </script>

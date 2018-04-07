@@ -15,7 +15,7 @@
                 </FormItem>
                 <FormItem>
                     <Button type="primary" size="large" long @click="logIn('signinForm')" >登录</Button>
-                    <Button type="ghost" size="large" long style="margin-top: 10px;" @click="toRegisterPage">注册</Button>
+                    <Button type="ghost" size="large" long :style="{marginTop: '10px'}" @click="toRegisterPage">注册</Button>
                 </FormItem>
             </Form>
         </div>
@@ -57,11 +57,16 @@ export default {
                   this.Common.axios('/api/signin', this.formData).then(res => {
                       if (res.data.code === 'OK') {
                           this.Cookies.set('user', this.formData.username)
-                          if (this.formData.username === 'admin') {
-                              this.$router.push({name: 'admin'})
+                          if (this.$route.query.redirect) {
+                              this.$router.push(decodeURIComponent(this.$route.query.redirect))
                           } else {
-                            this.$router.push({name: 'main'})
+                              if (this.formData.username === 'admin') {
+                                this.$router.push({name: 'admin'})
+                              } else {
+                                this.$router.push({name: 'main'})
+                              }
                           }
+                          
                         
                       } else {
                         this.$Message.error(res.data.data)

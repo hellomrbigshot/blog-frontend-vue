@@ -2,10 +2,11 @@
   <div class="layout">
     <Layout>
         <Sider hide-trigger>
+            <div class="sider-desc"><h1>管理员后台</h1></div>
             <Menu active-name="1-2" theme="dark" width="auto" accordion @on-select="menuChange" :style="{height: '100vh'}">
                 <Submenu v-for="(route, i) in routes.children" :name="route.name" :key="i">
                     <template slot="title">
-                        <Icon type="ios-navigate"></Icon>
+                        <Icon :type="route.meta.icon"></Icon>
                         {{ route.title }}
                     </template>
                     <MenuItem v-for="(child, j) in route.children" :name="child.name" :key="j">
@@ -90,5 +91,11 @@ export default {
 .user-breadcrumb {
     position: absolute;
     left: 30px;
+}
+.sider-desc {
+    color: #fff;
+    height: 64px;
+    line-height: 64px;
+    text-align: center;
 }
 </style>

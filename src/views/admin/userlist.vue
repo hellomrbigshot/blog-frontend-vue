@@ -41,6 +41,7 @@ export default {
   methods: {
     getUserList (pageSize='10', page='1') { // 获取用户列表
         this.Common.axios('/api/user/list', {pageSize, page}).then(res => {
+            console.log(res)
             if (res.data.code === 'OK') {
                 this.user_list = res.data.data.list
                 this.total = res.data.data.total_num

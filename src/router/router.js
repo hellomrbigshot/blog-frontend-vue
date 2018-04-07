@@ -3,7 +3,8 @@ export const longinRouter = {
     path: '/login',
     name: 'login',
     meta: {
-      title: '登录'
+      title: '登录',
+      login: false,
     },
     component: () => import('@/views/login')
   }
@@ -11,7 +12,8 @@ export const longinRouter = {
     path: '*',
     name: 'error-404',
     meta: {
-      title: '404-页面不存在'
+      title: '404-页面不存在',
+      login: false,
     },
     component: () => import('@/views/error-page/404')
   }
@@ -19,7 +21,8 @@ export const longinRouter = {
     path: '/register',
     name: 'register',
     meta: {
-      title: '注册'
+      title: '注册',
+      login: false,
     },
     component: () => import('@/views/register')
   }
@@ -34,12 +37,18 @@ export const longinRouter = {
         title: '文章管理',
         redirect: 'page/list',
         component: {template: '<router-view></router-view>'},
+        meta: {
+          icon: 'ios-paper'
+        },
         children: [
         {
             path: 'list',
             component: () => import('@/views/admin/pagelist'),
             name: 'pageList',
-            title: '文章列表'
+            title: '文章列表',
+            meta: {
+              login: true
+            }
         }
         ]
     },
@@ -49,12 +58,18 @@ export const longinRouter = {
         title: '用户管理',
         redirect: 'user/list',
         component: {template: '<router-view></router-view>'},
+        meta: {
+          icon: 'ios-people'
+        },
         children: [
         {
             path: 'list',
             component: () => import('@/views/admin/userlist'),
             name: 'userList',
-            title: '用户列表'
+            title: '用户列表',
+            meta: {
+              login: true
+            }
         }
         ]
     },
@@ -63,13 +78,19 @@ export const longinRouter = {
         name: 'tag',
         redirect: 'tag/list',
         title: '标签管理',
-        component: {template: '<router-view></router-view>'},        
+        component: {template: '<router-view></router-view>'},
+        meta: {
+          icon: 'ios-pricetags'
+        },        
         children: [
         {
             path: 'list',
             component: () => import('@/views/admin/taglist'),
             name: 'tagList',
-            title: '标签列表'
+            title: '标签列表',
+            meta: {
+              login: true
+            }
         }
         ]
     }
