@@ -1,7 +1,7 @@
 <template>
     <div class="main-content">
         <div>
-           <Table stripe :columns="user_column" :data="user_list"></Table>
+           <Table :columns="user_column" :data="user_list"></Table>
         </div>
         <div style="margin-top: 20px">
             <Page :total="total" show-sizer @on-change="pageChange" @on-page-size-change="pageSizeChange"></Page>
@@ -26,13 +26,24 @@ export default {
             },
             {
                 title: '性别',
-                key: 'gender'
+                render: (h, params) => {
+                    return h('span', this.gender_obj[params.row.gender])
+                }
+            },
+            {
+                title: '操作',
+
             }
         ],
         user_list: [],
         total: 0,
         page_size: 10,
-        page: 1
+        page: 1,
+        gender_obj: {
+            'f': '女',
+            'm': '男',
+            'x': '未知'
+        }
     }
   },
   mounted () {
@@ -41,7 +52,6 @@ export default {
   methods: {
     getUserList (pageSize='10', page='1') { // 获取用户列表
         this.Common.axios('/api/user/list', {pageSize, page}).then(res => {
-            console.log(res)
             if (res.data.code === 'OK') {
                 this.user_list = res.data.data.list
                 this.total = res.data.data.total_num

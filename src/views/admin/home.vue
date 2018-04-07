@@ -21,7 +21,7 @@
                     <BreadcrumbItem v-for="(item, i) in $router.currentRoute.matched" :key="i">{{ item.name }}</BreadcrumbItem>
                 </Breadcrumb>
                 <div class="user-dropdown-menu">
-                    <Dropdown @on-click="handleClickUserDropDown">
+                    <Dropdown @on-click="handleClickUserDropDown" :style="{lineHeight: '1.5'}">
                         <a href="javascript:void(0)">
                             {{user}}
                             <Icon type="arrow-down-b"></Icon>
@@ -33,7 +33,7 @@
                     </Dropdown>
                 </div>
             </Header>
-            <Content :style="{margin: '24px', minHeight: '280px', background: '#fff'}">
+            <Content :style="{margin: '24px', minHeight: '280px', background: '#fff', padding: '20px'}">
                 <keep-alive>
                     <router-view></router-view>
                 </keep-alive>
