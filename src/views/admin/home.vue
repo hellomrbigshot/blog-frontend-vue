@@ -2,14 +2,14 @@
   <div class="layout">
     <Layout>
         <Sider hide-trigger>
-            <div class="sider-desc"><h1>管理员后台</h1></div>
+            <div class="sider-desc"><h1><a :style="{color: '#fff'}" @click="$router.push({name: 'statistics'})">管理员后台</a></h1></div>
             <Menu active-name="1-2" theme="dark" width="auto" accordion @on-select="menuChange" :style="{height: '100vh'}">
-                <Submenu v-for="(route, i) in routes.children" :name="route.name" :key="i">
+                <Submenu v-for="(route, i) in routes.children" :name="route.name" :key="i" v-if="route.meta.sidebar">
                     <template slot="title">
                         <Icon :type="route.meta.icon"></Icon>
                         {{ route.title }}
                     </template>
-                    <MenuItem v-for="(child, j) in route.children" :name="child.name" :key="j">
+                    <MenuItem v-for="(child, j) in route.children" :name="child.name" :key="j" v-if="child.meta.sidebar">
                         {{ child.title }}
                     </MenuItem>
                 </Submenu>
@@ -73,7 +73,7 @@ export default {
                 })
             }
             
-        }
+        },
     }
 }
 </script>
