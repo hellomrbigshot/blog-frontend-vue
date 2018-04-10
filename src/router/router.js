@@ -37,7 +37,7 @@ export const adminRouter = {
   redirect: '/admin/statistics',
   children: [
     {
-      path: '/',
+      path: 'statistics',
       name: 'statistics',
       title: '数据统计',
       component: () => import('@/views/admin/statistics'),
