@@ -34,9 +34,9 @@
                 </div>
             </Header>
             <Content :style="{margin: '24px', minHeight: '280px', background: '#fff', padding: '20px'}">
-                <keep-alive>
+                <!-- <keep-alive> -->
                     <router-view></router-view>
-                </keep-alive>
+                <!-- </keep-alive> -->
             </Content>
         </Layout>
     </Layout>
