@@ -25,14 +25,23 @@ export default {
   data () {
       return {
           count: {
-              userNum: 100,
-              pageNum: 100,
-              tagNum: 100
+              userNum: 0,
+              pageNum: 0,
+              tagNum: 0
           }
       }
   },
+  mounted () {
+      this.initPage()
+  },
   methods: {
-      
+      initPage () {
+          this.Common.axios('/api/statistics').then(res => {
+              if (res.data.code === 'OK') {
+                  this.count = res.data.data
+              }
+          })
+      }
   }
 }
 </script>

@@ -9,7 +9,7 @@ app.use(session({
 	secret: 'express_session',
 	resave: true, // 强制更新 session
 	saveUninitialized: true,  // 
-	cookie: { maxAge: 60 * 1000 * 5} // 过期时间
+	cookie: { maxAge: 60 * 1000 * 60 * 3} // 过期时间
 }))
 
 
