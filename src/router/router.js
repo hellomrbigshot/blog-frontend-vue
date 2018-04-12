@@ -1,8 +1,4 @@
 import admin from '@/views/admin/home'
-export const init = {
-  path: '/',
-  redirect: '/main',
-}
 export const longinRouter = {
   path: '/login',
   name: 'login',
@@ -117,11 +113,19 @@ export const adminRouter = {
   }
   ]
 }
+export const normalRouter = [
+  {
+    path: '/',
+    redirect: '/main',
+    component: () => import('@/views/normal/home')
+  }
+  
+]
 export const routers = [ // 上面定义的路由均写在 routers 
-  init,
   longinRouter,
   page404,
   registerRouter,
+  normalRouter,
   adminRouter
 ]
   
