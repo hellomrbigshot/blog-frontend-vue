@@ -113,14 +113,12 @@ export const adminRouter = {
   }
   ]
 }
-export const normalRouter = [
-  {
+export const normalRouter = {
     path: '/',
-    redirect: '/main',
+    // redirect: '/main',
+    name: 'normal',
     component: () => import('@/views/normal/home')
-  }
-  
-]
+}
 export const routers = [ // 上面定义的路由均写在 routers 
   longinRouter,
   page404,

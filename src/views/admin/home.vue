@@ -1,9 +1,9 @@
 <template>
   <div class="layout">
     <Layout>
-        <Sider hide-trigger>
+        <Sider hide-trigger :style="{height: '100vh'}">
             <div class="sider-desc"><h1><a :style="{color: '#fff'}" @click="$router.push({name: 'statistics'})">管理员后台</a></h1></div>
-            <Menu active-name="1-2" theme="dark" width="auto" accordion @on-select="menuChange" :style="{height: '100vh'}">
+            <Menu active-name="1-2" theme="dark" width="auto" accordion @on-select="menuChange">
                 <Submenu v-for="(route, i) in routes.children" :name="route.name" :key="i" v-if="route.meta.sidebar">
                     <template slot="title">
                         <Icon :type="route.meta.icon"></Icon>
