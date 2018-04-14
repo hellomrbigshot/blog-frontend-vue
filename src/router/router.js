@@ -56,7 +56,7 @@ export const adminRouter = {
       {
           path: 'list',
           component: () => import('@/views/admin/pagelist'),
-          name: 'pageList',
+          name: 'adminPageList',
           title: '文章列表',
           meta: {
             login: true,
@@ -79,7 +79,7 @@ export const adminRouter = {
       {
           path: 'list',
           component: () => import('@/views/admin/userlist'),
-          name: 'userList',
+          name: 'adminUserList',
           title: '用户列表',
           meta: {
             login: true,
@@ -102,7 +102,7 @@ export const adminRouter = {
       {
           path: 'list',
           component: () => import('@/views/admin/taglist'),
-          name: 'tagList',
+          name: 'adminTagList',
           title: '标签列表',
           meta: {
             login: true,
@@ -115,9 +115,23 @@ export const adminRouter = {
 }
 export const normalRouter = {
     path: '/',
-    // redirect: '/main',
     name: 'normal',
-    component: () => import('@/views/normal/home')
+    meta: {
+      login: false
+    },
+    component: () => import('@/views/normal/home'),
+    redirect: '/pagelist',
+    children: [
+      {
+        name: 'pageList',
+        path: 'pagelist',
+        meta: {
+          login: false,
+          title: '首页'
+        },
+        component: () => import('@/views/normal/pagelist')
+      }
+    ]
 }
 export const routers = [ // 上面定义的路由均写在 routers 
   longinRouter,

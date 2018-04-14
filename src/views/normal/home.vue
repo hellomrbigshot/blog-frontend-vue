@@ -14,7 +14,7 @@
               
             <blog-header></blog-header>
           </Header>
-          <Content :style="{margin: '20px', background: '#fff', minHeight: '260px'}">
+          <Content :style="{background: '#fff', minHeight: '260px'}">
               <router-view></router-view>
           </Content>
       </Layout>
@@ -78,9 +78,9 @@ export default {
 .page-sider {
   background: #222;
   height: 100vh;
-  // width: 320px !important;
-  // min-width: 320px !important;
-  // max-width: 320px !important;
+  width: 320px !important;
+  min-width: 320px !important;
+  max-width: 320px !important;
   //  transition: width 2s ease 2s;
 }
 .collapsed-menu {
