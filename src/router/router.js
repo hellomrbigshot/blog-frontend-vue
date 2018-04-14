@@ -124,12 +124,30 @@ export const normalRouter = {
     children: [
       {
         name: 'pageList',
-        path: 'pagelist',
+        path: '',
         meta: {
           login: false,
           title: '首页'
         },
         component: () => import('@/views/normal/pagelist')
+      },
+      {
+        name: 'tagList',
+        path: 'categories',
+        meta: {
+          login: false,
+          title: '分类'
+        },
+        components: () => import('@/views/normal/tagList')
+      },
+      {
+        name: 'mine',
+        path: 'caregories',
+        meta: {
+          login: true,
+          title: '我的'
+        },
+        components: () => import('@/views/normal/myPageList')
       }
     ]
 }
