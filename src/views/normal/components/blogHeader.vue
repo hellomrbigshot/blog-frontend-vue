@@ -36,7 +36,11 @@
                 color: #222;
                 padding: 5px 10px;
                 line-height: 1.5;
+                &:hover {
+                    background: #e1e1e1;
+                }
             }
+            
             
         }
     }

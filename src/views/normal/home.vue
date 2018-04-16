@@ -10,7 +10,7 @@
   </div>
   <Layout>
       <Layout :style="{minHeight: '100vh'}">
-          <Header :style="{padding: 0, background: '#f5f5f5', height: '130px'}" class="layout-header-bar">
+          <Header :style="{padding: 0, background: '#f5f5f5', height: 'auto'}" class="layout-header-bar">
             <blog-header></blog-header>
           </Header>
           <Content :style="{background: '#fff', minHeight: '260px'}">
