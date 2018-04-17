@@ -17,17 +17,21 @@
               <router-view :style="{marginTop: '80px auto 0', width: '90%'}"></router-view>
           </Content>
       </Layout>
-      <Sider ref="pageSider" hide-trigger collapsible :collapsed-width="0" v-model="isCollapsed" :width="320">
-          <div :class="menuitemClasses"></div>
+      <Sider ref="pageSider" hide-trigger collapsible :collapsed-width="0" v-model="isCollapsed" :width="320" >
+          <div :class="menuitemClasses">
+            <user-info></user-info>
+          </div>
       </Sider>
   </Layout>
 </div>
 </template>
 <script>
 import blogHeader from './components/blogHeader'
+import userInfo from './components/userInfo'
 export default {
   components: {
-    blogHeader
+    blogHeader,
+    userInfo
   },
   data () {
       return {
@@ -48,7 +52,7 @@ export default {
           ]
       },
       user () {
-          return this.Cookies.get('user') || ''
+          return this.Cookies.get('user') || '1'
       }
   },
   methods: {
@@ -88,6 +92,7 @@ export default {
 .page-sider {
   background: #222;
   height: 100vh;
+  width: 320px;
   position: fixed;
   overflow: auto;
 }
