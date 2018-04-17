@@ -1,0 +1,82 @@
+.header-inner {
+    width: 700px;
+    margin: 0 auto;
+    padding: 40px 0;
+    line-height: 50px;
+    .site-meta {
+        float: left;
+        margin-left: -20px;
+        .brand {
+            padding: 1px 2px;
+            color: #222;
+            display: block;
+            font-family: Lato, "PingFang SC", "Microsoft YaHei", sans-serif;
+            .logo-line-before, .site-title, .logo-line-after {
+                display: block;
+                // line-height: 1.8;
+            }
+            .site-title {
+                font-size: 22px;
+                font-weight: bold;
+            }
+            .logo-line-before, .logo-line-after  {
+                overflow: hidden;
+                margin: 0 auto;
+                width: 75%;
+                height: 2px;
+                background: #222;
+            }
+        }
+    }
+    .site-nav {
+        ul.menu {
+            float: left;
+            margin: 0 0 0 20px;
+            padding: 0 20px;
+            li.menu-item {
+                display: inline-block;
+                font-size: 13px;
+                a {
+                    color: #222;
+                    padding: 5px 10px;
+                    &:hover {
+                        background: #e1e1e1;
+                    }
+                }
+                
+                
+            }
+        }
+        
+        .site-search {
+            float: right;
+            .site-search-form {
+                position: relative;
+                line-height: 24px;
+                margin-top: 14px;
+                .search-icon {
+                    position: absolute;
+                    left: 0;
+                    top: 1px;
+                }
+                .search-input {
+                    border: none;
+                    border-bottom: 1px solid #999;
+                    background: #f5f5f5;
+                    padding-left: 18px;
+                    // height: 24px;
+                }
+            }
+            
+        }
+    }
+    &:before,
+    &:after {
+        content: '';
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }   
+    
+}

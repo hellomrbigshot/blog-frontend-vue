@@ -14,7 +14,7 @@
             <blog-header></blog-header>
           </Header>
           <Content :style="{background: '#fff', minHeight: '260px'}">
-              <router-view></router-view>
+              <router-view :style="{marginTop: '80px auto 0', width: '90%'}"></router-view>
           </Content>
       </Layout>
       <Sider ref="pageSider" hide-trigger collapsible :collapsed-width="0" v-model="isCollapsed" :width="320">

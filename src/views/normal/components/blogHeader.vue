@@ -1,10 +1,26 @@
 <template>
     <div class="header-inner">
-        <ul class="menu">
-            <li v-for="(route, i) in routes.children" :key="i" class="menu-item">
-                <router-link :to="{name: route.name}">{{ route.meta.title }}</router-link>
-            </li>
-        </ul>
+        <div class="site-meta">
+            <router-link :to="{name: 'pageList'}" class="brand">
+                <span class="logo-line-before"></span>
+                <span class="site-title">My Blog</span>
+                <span class="logo-line-after"></span>
+            </router-link>
+        </div>
+        <div class="site-nav">
+            <ul class="menu">
+                <li v-for="(route, i) in routes.children" :key="i" class="menu-item">
+                    <router-link :to="{name: route.name}">{{ route.meta.title }}</router-link>
+                </li>
+            </ul>
+            <div class="site-search">
+                <form class="site-search-form">
+                    <Icon type="search" class="search-icon" size="22" color="#222"></Icon>
+                    <input class="search-input"></input>
+                </form>
+            </div>
+        </div>
+        
     </div>
 </template>
 <<script>
@@ -21,28 +37,6 @@
         }
     }
 </script>
-<style lang="scss" scopeed>
-.header-inner {
-    width: 700px;
-    margin: 0 auto;
-    padding: 40px 0;
-    margin-bottom: 80px;
-    ul.menu {
-        list-style: none;
-        li.menu-item {
-            float: left;
-            font-size: 13px;
-            a {
-                color: #222;
-                padding: 5px 10px;
-                line-height: 1.5;
-                &:hover {
-                    background: #e1e1e1;
-                }
-            }
-            
-            
-        }
-    }
-}
+<style lang="scss">
+@import './blogHeader.scss'
 </style>

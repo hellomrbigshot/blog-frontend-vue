@@ -141,13 +141,22 @@ export const normalRouter = {
         components: () => import('@/views/normal/tagList')
       },
       {
-        name: 'mine',
-        path: 'caregories',
+        name: 'archives',
+        path: 'myPageList',
         meta: {
           login: true,
-          title: '我的'
+          title: '归档'
         },
         components: () => import('@/views/normal/myPageList')
+      },
+      {
+        name: 'guestbook',
+        path: 'guestbook',
+        meta: {
+          login: true,
+          title: '留言'
+        },
+        components: () => import('@/views/normal/guestBook')
       }
     ]
 }
