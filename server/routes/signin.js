@@ -3,6 +3,7 @@ const express = require('express')
 const router = express.Router()
 
 const UserModel = require('../models/users')
+const FileModel = require('../models/files')
 const checkNotLogin = require('../middlewares/check').checkNotLogin
 
 // POST /signup 用户登录
@@ -27,6 +28,13 @@ router.post('/', checkNotLogin, (req, res, next) => {
 	})
 	.catch(e => {
 		res.status(200).json({code: 'ERROR', data: e})
+	})
+})
+// 获取用户头像接口
+router.get('/getAvatar/:id', (req, res, next) => {
+	const file_id = id
+	FileModel.getFilePath(id).then(filePath => {
+		res.status(200).sendFile(filePath)
 	})
 })
 
