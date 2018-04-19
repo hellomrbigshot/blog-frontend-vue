@@ -7,11 +7,12 @@ const FileModel = require('../models/files')
 const checkNotLogin = require('../middlewares/check').checkNotLogin
 
 // POST /signup 用户登录
-router.post('/', checkNotLogin, (req, res, next) => {
+router.post('/', checkNotLogin, async (req, res, next) => {
 	const username = req.body.username
 	const password = req.body.password
 
-	UserModel.getUserByName(username).then(user => {
+	try {
+		let user = await UserModel.getUserByName(username)
 		if (!user) {
 			res.status(200).json({code: 'ERROR', data: '用户不存在'})
 			return false
@@ -22,20 +23,15 @@ router.post('/', checkNotLogin, (req, res, next) => {
 			return false
 		}
 		delete user.password
-		req.session.user = user
+		req.session.user = JSON.parse(JSON.stringify(user))
+		user.avatar_url = FileModel.getFilePath(user.avatar)
 		// 返回登录成功
-		res.status(200).json({code: 'OK', data: '登陆成功'})
-	})
-	.catch(e => {
-		res.status(200).json({code: 'ERROR', data: e})
-	})
-})
-// 获取用户头像接口
-router.get('/getAvatar/:id', (req, res, next) => {
-	const file_id = id
-	FileModel.getFilePath(id).then(filePath => {
-		res.status(200).sendFile(filePath)
-	})
+		res.status(200).json({code: 'OK', data: user})
+	} catch (e) {
+		res.status(200).json({ code: 'ERROR', data: e.message })
+        return false
+	}
+	
 })
 
 module.exports = router

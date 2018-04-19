@@ -33,7 +33,7 @@ router.post('/uploadAvatar', checkNotLogin,  (req, res, next) => {
 })
 
 // POST /signup 用户注册
-router.post('/', checkNotLogin, (req, res, next) => {
+router.post('/', checkNotLogin, async (req, res, next) => {
     const username = req.body.username
     let password = req.body.password
     const repassword = req.body.repassword
@@ -59,49 +59,33 @@ router.post('/', checkNotLogin, (req, res, next) => {
         return false
     }
     try {
-        UserModel.getUserByName(username).then(exist => {
-            if (exist) {
-                throw new Error('该用户已注册')
-                return false
-            }
-            // 密码加密
-            password = sha1(password)
-
-            // 待写入数据库的用户信息
-            let user = {
-                username,
-                password,
-                avatar,
-                gender,
-                bio
-            }
-
-            // 用户信息写入数据库
-            UserModel.create(user)
-                .then(result => {
-                    // 次 user 是插入 mongodb 后的值，包含 _id
-                    user = result
-                    // 删除密码信息，将用户信息存入 session
-                    // delete user.password
-                    // req.session.user = user
-                    // 返回注册成功
-                    res.status(200).json({code: 'OK', data: '注册成功'})
-                })
-                .catch(e => {
-                    // 注册失败
-                    res.status(200).json({code: 'ERROR', data: e})
-                })
-        })
-        .catch (e => {
-            res.status(200).json({ code: 'ERROR', data: e.message })
+        let exist = await UserModel.getUserByName(username)
+        if (exist) {
+            throw new Error('该用户已注册')
             return false
-        })
+        }
+        // 密码加密
+        password = sha1(password)
+
+        // 待写入数据库的用户信息
+        let user = {
+            username,
+            password,
+            avatar,
+            gender,
+            bio
+        }
+
+        // 用户信息写入数据库
+        let result = JSON.parse(JSON.stringify(await UserModel.create(user)))
+        delete result.password
+        req.session.user = result
+        result.avatar_url = await FileModel.getFilePath(user.avatar)
+        res.status(200).json({code: 'OK', data: user})
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
         return false
     }
-    
-    
     
 })
 

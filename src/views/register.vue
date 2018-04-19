@@ -25,7 +25,7 @@
                     </RadioGroup>
                 </FormItem>
                 <FormItem>
-                    <Upload action="/signup/uploadAvatar">
+                    <Upload action="/api/signup/uploadAvatar" :on-success="uploadSuccess" :on-error="uploadError">
                         <Button type="ghost">上传头像</Button>
                     </Upload>
                 </FormItem>
@@ -90,6 +90,12 @@ export default {
     }
   },
   methods: {
+      uploadSuccess (response, file, fileList) { // 头像上传成功
+        this.formData.avatar = response.data
+      },
+      uploadError (response, file, fileList) { // 头像上传失败
+        this.$Message.error('头像上传失败')
+      },
       register (name) {
           this.$refs[name].validate(valid => {
               if (valid) {
@@ -99,7 +105,7 @@ export default {
                           if (this.Cookies.user === 'admin') {
                               this.$router.push({name: admin})
                           } else {
-                              this.$router.push({name: main})
+                              this.$router.push({name: normal})
                           }
                       } else {
                           this.$Message.error(res.data.data)
