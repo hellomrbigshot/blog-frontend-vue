@@ -25,7 +25,11 @@
                     </RadioGroup>
                 </FormItem>
                 <FormItem>
-                    <Upload action="/api/signup/uploadAvatar" :on-success="uploadSuccess" :on-error="uploadError">
+                    <Upload 
+                        action="/api/signup/uploadAvatar" 
+                        :on-success="uploadSuccess" 
+                        :on-error="uploadError"
+                        :format="['jpg','jpeg','png']">
                         <Button type="ghost">上传头像</Button>
                     </Upload>
                 </FormItem>

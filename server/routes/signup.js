@@ -81,7 +81,7 @@ router.post('/', checkNotLogin, async (req, res, next) => {
         delete result.password
         req.session.user = result
         result.avatar_url = await FileModel.getFilePath(user.avatar)
-        res.status(200).json({code: 'OK', data: user})
+        res.status(200).json({code: 'OK', data: result})
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
         return false
