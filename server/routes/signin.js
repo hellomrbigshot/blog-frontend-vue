@@ -24,7 +24,6 @@ router.post('/', checkNotLogin, async (req, res, next) => {
 		}
 		delete user.password
 		req.session.user = JSON.parse(JSON.stringify(user))
-		user.avatar_url = FileModel.getFilePath(user.avatar)
 		// 返回登录成功
 		res.status(200).json({code: 'OK', data: user})
 	} catch (e) {
@@ -32,6 +31,25 @@ router.post('/', checkNotLogin, async (req, res, next) => {
         return false
 	}
 	
+})
+
+// get /avatar/file_id
+router.get('/avatar', async (req, res, next) => {
+	const id = req.query.file_id
+	const fileObject = await handleFile.getFileById(id)
+	const url = path.join('../uploads',fileObject.filename)
+	let stream = fs.createReadStream( imageFilePath );
+	let responseData = [];//存储文件流
+	if (stream) {//判断状态
+		stream.on( 'data', chunk => {
+			responseData.push( chunk )
+		})
+		stream.on( 'end', () => {
+		let finalData = Buffer.concat( responseData );
+			res.write(finalData)
+			res.end();
+		});
+	}
 })
 
 module.exports = router
