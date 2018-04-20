@@ -1,5 +1,7 @@
 const sha1 = require('sha1')
 const express = require('express')
+const path = require('path')
+const fs = require('fs')
 const router = express.Router()
 
 const UserModel = require('../models/users')
@@ -36,16 +38,17 @@ router.post('/', checkNotLogin, async (req, res, next) => {
 // get /avatar/file_id
 router.get('/avatar', async (req, res, next) => {
 	const id = req.query.file_id
-	const fileObject = await handleFile.getFileById(id)
-	const url = path.join('../uploads',fileObject.filename)
-	let stream = fs.createReadStream( imageFilePath );
+	const fileObject = await FileModel.getFileById(id)
+	const url = path.join('./uploads',fileObject.filename)
+	res.set('content-type', 'image/jpg')
+	let stream = fs.createReadStream(url)
 	let responseData = [];//存储文件流
 	if (stream) {//判断状态
 		stream.on( 'data', chunk => {
 			responseData.push( chunk )
 		})
 		stream.on( 'end', () => {
-		let finalData = Buffer.concat( responseData );
+			let finalData = Buffer.concat(responseData)
 			res.write(finalData)
 			res.end();
 		});

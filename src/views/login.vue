@@ -63,7 +63,7 @@ export default {
                               if (this.formData.username === 'admin') {
                                 this.$router.push({name: 'admin'})
                               } else {
-                                this.$router.push({name: 'main'})
+                                this.$router.push({name: 'home'})
                               }
                           }
                           

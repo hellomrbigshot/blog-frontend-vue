@@ -107,9 +107,9 @@ export default {
                       if (res.data.code === 'OK') {
                           this.Cookies.set('user', this.formData.username)
                           if (this.Cookies.user === 'admin') {
-                              this.$router.push({name: admin})
+                              this.$router.push({name: 'admin'})
                           } else {
-                              this.$router.push({name: normal})
+                              this.$router.push({name: 'normal'})
                           }
                       } else {
                           this.$Message.error(res.data.data)
