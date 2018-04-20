@@ -26,7 +26,7 @@ router.beforeEach((to, from, next) => {
       })
     } else {
       next({
-        name: 'main'
+        name: 'normal'
       })
     }
   } else {

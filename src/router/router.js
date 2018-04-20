@@ -124,7 +124,7 @@ export const normalRouter = {
     children: [
       {
         name: 'pageList',
-        path: '',
+        path: 'pageList',
         meta: {
           login: false,
           title: '首页'

@@ -14,7 +14,7 @@ router.post('/', checkNotLogin, async (req, res, next) => {
 	const password = req.body.password
 
 	try {
-		let user = await UserModel.getUserByName(username)
+		let user = JSON.parse(JSON.stringify(await UserModel.getUserByName(username)))
 		if (!user) {
 			res.status(200).json({code: 'ERROR', data: '用户不存在'})
 			return false

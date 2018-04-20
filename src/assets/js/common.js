@@ -13,6 +13,7 @@ axios.interceptors.response.use(
             switch (error.response.status) {
                 case 401:
                     Cookies.remove('user')
+                    localStorage.remove('user')
                     router.replace({
                         name: 'login',
                         query: {redirect: router.currentRoute.fullPath}

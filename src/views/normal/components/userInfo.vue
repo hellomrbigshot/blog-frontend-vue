@@ -2,8 +2,8 @@
   <div class="sider-inner">
       <section>
           <div class="site-author">
-              <img src="" alt="" class="site-author-img">
-              <p class="site-author-name">嘤嘤嘤</p>
+              <img :src="'/api/signin/avatar?file_id='+user.avatar" alt="" class="site-author-img">
+              <p class="site-author-name">{{ user.username }}</p>
           </div>
       </section>
   </div>
@@ -15,7 +15,7 @@ export default {
     },
     data () {
         return {
-
+            user: JSON.parse(localStorage.getItem('user'))
         }
     }
 }

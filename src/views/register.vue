@@ -106,6 +106,7 @@ export default {
                   this.Common.axios('/api/signup', this.formData).then(res => {
                       if (res.data.code === 'OK') {
                           this.Cookies.set('user', this.formData.username)
+                          localStorage.setItem('user', JSON.stringify(res.data.data))
                           if (this.Cookies.user === 'admin') {
                               this.$router.push({name: 'admin'})
                           } else {

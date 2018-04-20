@@ -57,13 +57,14 @@ export default {
                   this.Common.axios('/api/signin', this.formData).then(res => {
                       if (res.data.code === 'OK') {
                           this.Cookies.set('user', this.formData.username)
+                          localStorage.setItem('user', JSON.stringify(res.data.data))
                           if (this.$route.query.redirect) {
                               this.$router.push(decodeURIComponent(this.$route.query.redirect))
                           } else {
                               if (this.formData.username === 'admin') {
                                 this.$router.push({name: 'admin'})
                               } else {
-                                this.$router.push({name: 'home'})
+                                this.$router.push({name: 'normal'})
                               }
                           }
                           
