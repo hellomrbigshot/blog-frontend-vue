@@ -52,7 +52,7 @@ export default {
           ]
       },
       user () {
-          return this.Cookies.get('user') || '1'
+          return this.Cookies.get('user') || ''
       }
   },
   methods: {
