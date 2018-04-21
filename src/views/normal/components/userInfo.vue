@@ -5,6 +5,8 @@
               <img :src="'/api/signin/avatar?file_id='+user.avatar" alt="" class="site-author-img">
               <p class="site-author-name">{{ user.username }}</p>
           </div>
+          <p class="site-description">{{ user.bio }}</p>
+          <nav class="user-state"></nav>
       </section>
   </div>
 </template>
@@ -32,6 +34,7 @@ export default {
         display: block;
         img.site-author-img {
             max-width: 96px;
+            max-height: 96px;
             margin: 0 auto;  
             border: 2px solid #333;
             height: auto;
@@ -40,7 +43,14 @@ export default {
         p.site-author-name {
             margin: 5px 0 0;
             color: #f5f5f5;
+            font-size: 14px;
         }
+    }
+    .site-description {
+        margin: 5px 0 25px;
+        font-size: 14px;
+        text-align: center;
+        color: #555;
     }
 }
 </style>
