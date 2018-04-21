@@ -38,8 +38,7 @@ router.post('/', checkNotLogin, async (req, res, next) => {
 // get /avatar/file_id
 router.get('/avatar', async (req, res, next) => {
 	const id = req.query.file_id
-	const fileObject = await FileModel.getFileById(id)
-	const url = path.join('./uploads',fileObject.filename)
+	const url = await FileModel.getFilePath(id)
 	res.set('content-type', 'image/jpg')
 	let stream = fs.createReadStream(url)
 	let responseData = [];//存储文件流
