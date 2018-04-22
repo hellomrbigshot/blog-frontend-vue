@@ -6,7 +6,9 @@
               <p class="site-author-name">{{ user.username }}</p>
           </div>
           <p class="site-description">{{ user.bio }}</p>
-          <nav class="user-state"></nav>
+          <nav class="user-state">
+              
+          </nav>
       </section>
   </div>
 </template>

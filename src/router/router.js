@@ -115,7 +115,6 @@ export const adminRouter = {
 }
 export const normalRouter = {
     path: '/',
-    name: 'normal',
     meta: {
       login: false
     },
@@ -123,16 +122,17 @@ export const normalRouter = {
     redirect: '/pagelist',
     children: [
       {
-        name: 'pageList',
-        path: 'pageList',
+        name: 'normalPageList',
+        component: () => import('@/views/normal/pagelist'),
+        path: 'pagelist',
         meta: {
           login: false,
           title: '首页'
         },
-        component: () => import('@/views/normal/pagelist')
+        
       },
       {
-        name: 'tagList',
+        name: 'normalTagList',
         path: 'categories',
         meta: {
           login: false,
@@ -141,7 +141,7 @@ export const normalRouter = {
         components: () => import('@/views/normal/tagList')
       },
       {
-        name: 'archives',
+        name: 'normalmyPageList',
         path: 'myPageList',
         meta: {
           login: true,
@@ -150,13 +150,14 @@ export const normalRouter = {
         components: () => import('@/views/normal/myPageList')
       },
       {
-        name: 'guestbook',
+        name: 'normalGuestBook',
+        components: () => import('@/views/normal/guestBook'),
         path: 'guestbook',
         meta: {
           login: true,
           title: '留言'
         },
-        components: () => import('@/views/normal/guestBook')
+        
       }
     ]
 }

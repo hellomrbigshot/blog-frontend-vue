@@ -11,10 +11,11 @@
   <Layout>
       <Layout :style="{minHeight: '100vh'}">
           <Header :style="{padding: 0, background: '#f5f5f5', height: 'auto'}" class="layout-header-bar">
-            <blog-header></blog-header>
+            <blog-header @on-change="handleRouter"></blog-header>
           </Header>
           <Content :style="{background: '#fff', minHeight: '260px'}">
               <router-view :style="{marginTop: '80px auto 0', width: '90%'}"></router-view>
+              <!-- <router-view></router-view> -->
           </Content>
       </Layout>
       <Sider ref="pageSider" hide-trigger collapsible :collapsed-width="0" v-model="isCollapsed" :width="320" >
@@ -66,6 +67,10 @@ export default {
             clearInterval(time)
         }
       }, 1)
+    },
+    handleRouter (name) { // 路由跳转
+    console.log(name)
+      this.$router.push({ name: name })
     }
   }
 }

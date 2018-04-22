@@ -1,7 +1,7 @@
 <template>
     <div class="header-inner">
         <div class="site-meta">
-            <router-link :to="{name: 'pageList'}" class="brand">
+            <router-link :to="{name: 'normalPageList'}" class="brand">
                 <span class="logo-line-before"></span>
                 <span class="site-title">My Blog</span>
                 <span class="logo-line-after"></span>
