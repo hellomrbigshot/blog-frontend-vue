@@ -64,7 +64,7 @@ export default {
                               if (this.formData.username === 'admin') {
                                 this.$router.push({name: 'admin'})
                               } else {
-                                this.$router.push({name: 'normal'})
+                                this.$router.push({name: 'normalPageList'})
                               }
                           }
                           
