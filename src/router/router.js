@@ -129,35 +129,42 @@ export const normalRouter = {
           login: false,
           title: '首页'
         },
-        
       },
       {
         name: 'normalTagList',
+        component: () => import('@/views/normal/tagList'),
         path: 'categories',
         meta: {
           login: false,
           title: '分类'
         },
-        components: () => import('@/views/normal/tagList')
       },
       {
         name: 'normalmyPageList',
-        path: 'myPageList',
+        component: () => import('@/views/normal/myPageList'),
+        path: 'mypagelist',
         meta: {
           login: true,
           title: '归档'
-        },
-        components: () => import('@/views/normal/myPageList')
+        }
       },
       {
         name: 'normalGuestBook',
-        components: () => import('@/views/normal/guestBook'),
+        component: () => import('@/views/normal/guestBook'),
         path: 'guestbook',
         meta: {
           login: true,
           title: '留言'
         },
-        
+      },
+      {
+        name: 'normalNew',
+        component: () => import('@/views/normal/newPage'),
+        path: 'new',
+        meta: {
+          login: true,
+          title: '新建'
+        }
       }
     ]
 }
