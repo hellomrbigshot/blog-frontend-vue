@@ -12,6 +12,12 @@
 
 <script>
 import marked from 'marked'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/googlecode.css'
+hljs.highlightCode =   function () { // 自定义highlightCode方法，将只执行一次的逻辑去掉
+    let blocks = document.querySelectorAll('pre code')
+    Array.prototype.forEach.call(blocks, hljs.highlightBlock)
+}
 export default {
     data () {
         return {
@@ -32,6 +38,9 @@ export default {
     watch: {
         input (val) {
             this.$emit('input', this.compiledMarkdown)
+            this.$nextTick(() => {
+                hljs.highlightCode()
+            })
         }
     }
 

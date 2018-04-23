@@ -14,6 +14,7 @@
 
 <script>
 import markdownEditor from './components/markdownEditor'
+import highlight from 'highlight'
 export default {
     components: {
         markdownEditor
