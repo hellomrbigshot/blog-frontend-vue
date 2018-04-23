@@ -1,7 +1,7 @@
 <template>
   <div id="editor" class="editor">
       <div class="editor-input">
-          <textarea v-model="input"></textarea>
+          <textarea v-model="input" spellcheck="false"></textarea>
       </div>
       <div class="editor-preview">
           <div v-html="compiledMarkdown"></div>
