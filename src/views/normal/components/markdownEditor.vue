@@ -15,12 +15,23 @@ import marked from 'marked'
 export default {
     data () {
         return {
-            input: '### 用 markdown 写一篇文章'
+            input: this.value
+        }
+    },
+    props: {
+        value: {
+            type: String,
+            default: '### 用 markdown 写一篇文章'
         }
     },
     computed: {
         compiledMarkdown () {
-
+            return marked(this.input)
+        }
+    },
+    watch: {
+        input (val) {
+            this.$emit('input', this.compiledMarkdown)
         }
     }
 
@@ -29,7 +40,7 @@ export default {
 
 <style lang="scss" scoped>
 .editor {
-    min-height: 500px;
+    height: 500px;
     color: #333;
     // box-sizing: border-box;
     border: 1px solid #dddee1;
@@ -41,10 +52,10 @@ export default {
         height: 100%;
         textarea {
             padding: 8px 12px;
-            // box-sizing: border-box;
+            box-sizing: border-box;
             width: 100%;
             min-height: 500px;
-            // height: 100%;
+            height: 100%;
             border: none;
             border-right: 1px solid #dddee1;
             outline: none;
@@ -56,6 +67,8 @@ export default {
             width: 100%;
             min-height: 500px;
             height: 100%;
+            overflow-y: auto;
+            background: #f6f6f6;
         }
     }
 }

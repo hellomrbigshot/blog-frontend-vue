@@ -7,7 +7,7 @@
             <Select placehoder="标签，用 , 分隔"></Select>
         </FormItem>
         <FormItem>
-            <markdown-editor></markdown-editor>
+            <markdown-editor v-model="pageObject.page_content"></markdown-editor>
         </FormItem>
     </Form>
 </template>
@@ -20,7 +20,11 @@ export default {
     },
     data () {
         return {
-            
+            pageObject: {
+                title: '',
+                tags: [],
+                page_content: '### 用 markdown 写一篇文章'
+            }
         }
     }
 }
