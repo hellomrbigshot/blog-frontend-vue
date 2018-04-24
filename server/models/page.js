@@ -6,7 +6,7 @@ module.exports = {
         return Page.create(page)
     },
     // 编辑文章
-    edit (id, updates) {
+    update (id, updates) {
         let condition = {_id: id}
         return Page
             .update(condition, { $set: updates })

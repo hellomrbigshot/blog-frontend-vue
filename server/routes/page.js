@@ -23,10 +23,41 @@ router.post('/new', checkLogin, async (req, res, next) => {
             status
         }
         let result = await PageModel.create(page)
-        res.status(200).json({code: 'OK', data: result})
+        res.status(200).json({ code: 'OK', data: result })
     } catch (e) {
-        res.status(200).json({code: 'ERROR', data: e.message})
+        res.status(200).json({ code: 'ERROR', data: e.message })
     }
     
+})
+router.post('/edit', checkLogin, async (req, res, next) => {
+    try {
+        const id = req.query.page_id
+        const update_date = new Date()
+        const title = req.body.title
+        const tags = req.body.tags
+        const content = req.body.content
+        const status = req.body.status
+        let page = {
+            title,
+            tags,
+            content,
+            update_date,
+            status
+        }
+        let result = await PageModel.update(id, page)
+        res.status(200).json({ code: 'OK', data: result })
+    } catch (e) {
+        res.status(200).json({ code: 'ERROR', data: e.message })
+    }
+    
+})
+router.get('/', async (req, res, next) => {
+    try {
+        const id = req.query.page_id
+        let result = await PageModel.getPageById(id)
+        res.status(200).json({ code: 'OK', data: result })
+    } catch (e) {
+        res.status(200).json({ code: 'ERROR', data: e.message })
+    }
 })
 module.exports = router
