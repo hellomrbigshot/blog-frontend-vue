@@ -140,7 +140,7 @@ export const normalRouter = {
         },
       },
       {
-        name: 'normalmyPageList',
+        name: 'normalMyPageList',
         component: () => import('@/views/normal/myPageList'),
         path: 'mypagelist',
         meta: {

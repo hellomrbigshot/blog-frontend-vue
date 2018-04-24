@@ -54,10 +54,10 @@ export default {
 .editor {
     height: 500px;
     color: #333;
-    // box-sizing: border-box;
+    box-sizing: border-box;
     border: 1px solid #dddee1;
     .editor-input, .editor-preview {
-        // box-sizing: border-box;
+        box-sizing: border-box;
         float: left;
         width: 50%;
         min-height: 500px;
@@ -66,8 +66,7 @@ export default {
             padding: 8px 12px;
             box-sizing: border-box;
             width: 100%;
-            min-height: 500px;
-            height: 100%;
+            height: 498px;
             border: none;
             border-right: 1px solid #dddee1;
             outline: none;
@@ -77,8 +76,7 @@ export default {
             padding: 8px 12px;
             // box-sizing: border-box;
             width: 100%;
-            min-height: 500px;
-            height: 100%;
+            height: 498px;
             overflow-y: auto;
             background: #f6f6f6;
         }
