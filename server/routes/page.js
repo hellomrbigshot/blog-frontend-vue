@@ -62,7 +62,10 @@ router.get('/', async (req, res, next) => {
 })
 router.get('/pagelist', async (req, res, next) => {
     try {
-        
+        let result = await PageModel.getPageList()
+        res.status(200).json({ code: 'OK', data: result })
+    } catch (e) {
+        res.status(200).json({ code: 'ERROR', data: e.message })
     }
 })
 module.exports = router

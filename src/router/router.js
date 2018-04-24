@@ -123,7 +123,7 @@ export const normalRouter = {
     children: [
       {
         name: 'normalPageList',
-        component: () => import('@/views/normal/pagelist'),
+        component: () => import('@/views/normal/pageList'),
         path: 'pagelist',
         meta: {
           login: false,

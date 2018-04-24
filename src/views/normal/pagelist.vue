@@ -7,6 +7,11 @@ export default {
       return {
           
       }
+  },
+  mounted () {
+    this.Common.axios('/api/page/pagelist').then(res => {
+      
+    })
   }
 }
 </script>
