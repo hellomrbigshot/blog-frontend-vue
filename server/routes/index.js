@@ -4,4 +4,5 @@ module.exports = function (app) {
 	app.use('/api/signout', require('./signout'))
 	app.use('/api/user', require('./user'))
 	app.use('/api/statistics', require('./statistics'))
+	app.use('/api/page', require('./page'))
 }

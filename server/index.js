@@ -5,11 +5,15 @@ const routes = require('./routes')
 
 const app = new express()
 app.use(bodyParser.urlencoded({extended: true}))
+
+const sessionStore = new session.MemoryStore({ reapInterval: 3600 * 1000 })
 app.use(session({
-	secret: 'express_session',
+	secret: 'Stefanie Sun',
+	store: sessionStore,
 	resave: true, // 强制更新 session
 	saveUninitialized: true,  // 
-	cookie: { maxAge: 60 * 1000 * 60 * 3} // 过期时间
+	cookie: { maxAge: 3600 * 1000 }, // 过期时间
+	rolling: true
 }))
 
 
