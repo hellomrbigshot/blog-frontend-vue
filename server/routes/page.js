@@ -60,4 +60,9 @@ router.get('/', async (req, res, next) => {
         res.status(200).json({ code: 'ERROR', data: e.message })
     }
 })
+router.get('/pagelist', async (req, res, next) => {
+    try {
+        
+    }
+})
 module.exports = router
