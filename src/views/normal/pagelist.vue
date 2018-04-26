@@ -9,7 +9,7 @@ export default {
       }
   },
   mounted () {
-    this.Common.axios('/api/page/pagelist').then(res => {
+    this.Common.axios('/api/page/pagelist', {}).then(res => {
       
     })
   }

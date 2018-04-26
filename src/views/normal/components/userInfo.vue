@@ -25,7 +25,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .sider-inner {
     padding: 20px 10px;
     position: relative;
