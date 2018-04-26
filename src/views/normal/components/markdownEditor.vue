@@ -9,18 +9,7 @@
       
   </div>
 </template>
-
 <script>
-import marked from 'marked'
-import hljs from 'highlight.js'
-import 'highlight.js/styles/googlecode.css'
-hljs.highlightCode =   function () { // 自定义 highlightCode 方法，循环执行方法
-    let blocks = document.querySelectorAll('pre code')
-    let dom = Array.prototype.slice.call(blocks)
-    dom.forEach(ele => {
-        hljs.highlightBlock(ele)
-    })
-}
 export default {
     data () {
         return {
@@ -35,14 +24,14 @@ export default {
     },
     computed: {
         compiledMarkdown () {
-            return marked(this.input)
+            return this.marked(this.input)
         }
     },
     watch: {
         input (val) {
             this.$emit('input', this.input)
             this.$nextTick(() => {
-                hljs.highlightCode()
+                this.hljs.highlightCode()
             })
         }
     }

@@ -10,9 +10,21 @@ import {Common} from '@/assets/js/common.js'
 
 import Cookies from 'js-cookie'
 
+import hljs from 'highlight.js'
+import marked from 'marked'
+import 'highlight.js/styles/googlecode.css'
+hljs.highlightCode =   function () { // 自定义 highlightCode 方法，循环执行方法
+    let blocks = document.querySelectorAll('pre code')
+    let dom = Array.prototype.slice.call(blocks)
+    dom.forEach(ele => {
+        hljs.highlightBlock(ele)
+    })
+}
 Vue.use(iView)
 Vue.prototype.Common = Common
 Vue.prototype.Cookies = Cookies
+Vue.prototype.marked = marked
+Vue.prototype.hljs = hljs
 
 Vue.config.productionTip = false
 
