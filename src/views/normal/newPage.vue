@@ -7,7 +7,7 @@
             <Select placehoder="标签，用 , 分隔" v-model="pageObject.tags"></Select>
         </FormItem>
         <FormItem prop="content">
-            <markdown-editor v-model="pageObject.page_content"></markdown-editor>
+            <markdown-editor v-model="pageObject.content"></markdown-editor>
         </FormItem>
         <FormItem>
             <Button @click="save('draft')">保存草稿</Button>

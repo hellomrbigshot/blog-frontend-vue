@@ -127,7 +127,8 @@ export const normalRouter = {
         path: 'pagelist',
         meta: {
           login: false,
-          title: '首页'
+          title: '首页',
+          inHeaderList: true
         },
       },
       {
@@ -136,7 +137,8 @@ export const normalRouter = {
         path: 'categories',
         meta: {
           login: false,
-          title: '分类'
+          title: '分类',
+          inHeaderList: true
         },
       },
       {
@@ -145,7 +147,8 @@ export const normalRouter = {
         path: 'mypagelist',
         meta: {
           login: true,
-          title: '归档'
+          title: '归档',
+          inHeaderList: true
         }
       },
       {
@@ -154,7 +157,8 @@ export const normalRouter = {
         path: 'guestbook',
         meta: {
           login: true,
-          title: '留言'
+          title: '留言',
+          inHeaderList: true
         },
       },
       {
@@ -163,7 +167,18 @@ export const normalRouter = {
         path: 'new',
         meta: {
           login: true,
-          title: '新建'
+          title: '新建',
+          inHeaderList: true
+        }
+      },
+      {
+        name: 'pageDetail',
+        component: () => import('@views/normal/pageDetail'),
+        path: 'page',
+        meta: {
+          login: false,
+          title: '详情',
+          inHeaderList: false
         }
       }
     ]

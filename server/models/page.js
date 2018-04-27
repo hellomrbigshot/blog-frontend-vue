@@ -32,7 +32,8 @@ module.exports = {
 
         } else {
             return Page
-                .find()
+                .find({ status: 'normal' })
+                .sort({ 'create_date': -1 })
                 .exec()
         }
     } 
