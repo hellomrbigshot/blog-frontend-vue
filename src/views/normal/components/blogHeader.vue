@@ -9,7 +9,7 @@
         </div>
         <div class="site-nav">
             <ul class="menu">
-                <li v-for="(route, i) in routes.children" :key="i" class="menu-item">
+                <li v-for="(route, i) in routes.children" :key="i" class="menu-item" v-if="route.meta.inHeaderList">
                     <router-link :to="{name: route.name}">{{ route.meta.title }}</router-link>
                 </li>
             </ul>

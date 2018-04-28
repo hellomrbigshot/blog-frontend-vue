@@ -19,3 +19,12 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+
+## 开发文档
+### 所有请求方式均用 post
+### 详情页
+
+前端路由 path: xxx/:id
+router-link :to="{ name: a, params: { id: b } }"
+后端接口 getxxxById

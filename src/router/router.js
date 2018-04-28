@@ -173,11 +173,21 @@ export const normalRouter = {
       },
       {
         name: 'pageDetail',
-        component: () => import('@views/normal/pageDetail'),
-        path: 'page',
+        component: () => import('@/views/normal/pageDetail'),
+        path: 'pagedetail/:id',
         meta: {
           login: false,
           title: '详情',
+          inHeaderList: false
+        }
+      },
+      {
+        name: 'editPage',
+        component: () => import('@/views/normal/newPage'),
+        path: 'edit/:id',
+        meta: {
+          login: true,
+          title: '编辑',
           inHeaderList: false
         }
       }

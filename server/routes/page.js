@@ -31,7 +31,7 @@ router.post('/new', checkLogin, async (req, res, next) => { // 新建文章
 })
 router.post('/edit', checkLogin, async (req, res, next) => { // 编辑文章
     try {
-        const id = req.query.page_id
+        const id = req.body.id
         const update_date = new Date()
         const title = req.body.title
         const tags = req.body.tags
@@ -51,9 +51,9 @@ router.post('/edit', checkLogin, async (req, res, next) => { // 编辑文章
     }
     
 })
-router.get('/page', async (req, res, next) => { // 获取文章详情
+router.post('/detail', async (req, res, next) => { // 获取文章详情
     try {
-        const id = req.query.page_id
+        const id = req.body.id
         let result = await PageModel.getPageById(id)
         res.status(200).json({ code: 'OK', data: result })
     } catch (e) {

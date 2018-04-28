@@ -18,11 +18,12 @@ export default {
     this.Common.axios('/api/page/pagelist', {}).then(res => {
       if (res.data.code === 'OK') {
         this.page_list = res.data.data
+        this.$nextTick(() => {
+          this.hljs.highlightCode()
+        })
       }
     })
-    this.$nextTick(() => {
-      this.hljs.highlightCode()
-    })
+    
   }
 }
 </script>

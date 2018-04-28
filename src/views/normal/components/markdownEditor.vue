@@ -33,6 +33,9 @@ export default {
             this.$nextTick(() => {
                 this.hljs.highlightCode()
             })
+        },
+        value (val) {
+            this.input = val
         }
     }
 

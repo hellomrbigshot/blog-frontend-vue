@@ -25,6 +25,7 @@ export default {
     },
     data () {
         return {
+            id: this.$route.params.id,
             pageObject: {
                 title: '',
                 tags: [],
@@ -47,14 +48,38 @@ export default {
             }
         }
     },
+    mounted () {
+        this.getPageDetail()
+    },
     methods: {
+        getPageDetail () {
+            if (this.id) {
+                this.Common.axios('/api/page/detail', { id: this.id }).then(res => {
+                    if (res.data.code === 'OK') {
+                        this.$set(this, 'pageObject', res.data.data)
+                    }
+                })
+            } else {
+                return false
+            }
+        },
         save (type) {
             this.$refs['pageForm'].validate(valid => {
                 if (valid) {
                     this.pageObject.status = type
-                    this.Common.axios('/api/page/new', this.pageObject).then(res => {
+                    let url = ''
+                    if (this.id) {
+                        url = '/api/page/edit'
+                        this.pageObject.id = this.id
+                    } else {
+                        url = '/api/page/new'
+                    }
+                    this.Common.axios(url, this.pageObject).then(res => {
                         if (res.data.code === 'OK') {
                             this.$Message.success('提交成功')
+                            if (type === 'normal') {
+                                this.$router.push({ name: 'pageDetail', params: { id: this.id } })
+                            }
                         } else {
                             this.$Message.error(res.data.data)
                         }

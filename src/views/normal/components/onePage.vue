@@ -1,7 +1,7 @@
 <template>
   <article>
       <header>
-          <router-link :to="{}">
+          <router-link :to="{name: 'pageDetail', params: {id: page._id}}">
               <h1 class="page-title">{{ page.title }}</h1>
           </router-link>
           <div class="page-info">
@@ -24,7 +24,8 @@ export default {
     }
 }
 </script>
-<style lang="scss" scope>
+<style lang="scss" scoped>
+
 article {
     header {
         font-family: Lato, "PingFang SC", "Microsoft YaHei", sans-serif;
@@ -41,8 +42,8 @@ article {
         }
     }
     margin-bottom: 120px;
-    max-height: 300px;
-    overflow: hidden;
+    // max-height: 300px;
+    // overflow: hidden;
 }
  
 </style>
