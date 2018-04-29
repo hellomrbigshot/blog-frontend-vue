@@ -1,6 +1,6 @@
 <template>
     <div class="main-content">
-        <div class="login-div">
+        <div class="login-div login">
             <h1 class="head">
                 登录
             </h1>
@@ -84,30 +84,6 @@ export default {
   }
 }
 </script>
-<style scoped>
-    .main-content {
-        background: #cdcdcd;
-        width: 100%;
-        height: 100%;
-        overflow:hidden;
-    }
-    .login-div {
-        width: 400px;
-        height: 400px;
-        margin: 250px auto;
-        padding: 20px 50px;
-        /* border: 1px solid #cdcdcd; */
-        border-radius: 10px;
-        background: #fff;
-    }
-    input {
-        background-color: #fff !important;
-    }
-    .head {
-        width: 100%;
-        text-align: center;
-        font-size: 40px;
-        margin-bottom: 40px; 
-    }
-    
+<style scoped lang="scss">
+@import './login.scss'
 </style>

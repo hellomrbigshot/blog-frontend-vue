@@ -1,0 +1,29 @@
+.main-content {
+    background: #cdcdcd;
+    width: 100vw;
+    height: 100vh;
+    overflow:hidden;
+    position: relative;
+    .login {
+        height: 400px;
+    }
+    .login-div {
+        width: 400px;
+        padding: 20px 50px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 10px;
+        background: #fff;
+    }
+    input {
+        background-color: #fff !important;
+    }
+    .head {
+        width: 100%;
+        text-align: center;
+        font-size: 40px;
+        margin-bottom: 40px; 
+    }
+}
