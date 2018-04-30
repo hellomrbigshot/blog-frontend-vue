@@ -190,6 +190,16 @@ export const normalRouter = {
           title: '编辑',
           inHeaderList: false
         }
+      },
+      {
+        name: 'userDetail',
+        component: () => import('@/views/normal/userDetail'),
+        path: 'user/:username',
+        meta: {
+          login: false,
+          title: '用户详情',
+          inHeaderList: false
+        }
       }
     ]
 }

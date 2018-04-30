@@ -6,7 +6,10 @@
           </router-link>
           <div class="page-info">
               <span class="create-time">创建于 <time>{{ page.create_date.substring(0,10) }}</time></span>
-              <span class="create-user">&nbsp;|&nbsp;作者 {{ page.create_user }}</span>
+              <span class="create-user">&nbsp;|&nbsp;作者 
+                <router-link :to="{name: 'userDetail', params :{username:  page.create_user}}">
+                    <span class="user-span">{{ page.create_user }}</span>  
+                </router-link></span>
               <span>&nbsp;|&nbsp;</span>
           </div>
       </header>
@@ -33,12 +36,26 @@ article {
             font-weight: 400;
             font-size: 26px;
             margin: 20px 0 10px;
+            width: auto;
+            display: inline-block;
             color: #000;
+            border-bottom: 2px solid #fff;
+            &:hover {
+                border-bottom: 2px solid #000;
+            }
         }
         .page-info {
             color: #999;
             font-size: 12px;
             margin: 0 0 20px;
+            .user-span {
+                color: #999;
+                display: inline-block;
+                border-bottom: 1px solid #fff;
+                &:hover {
+                    border-bottom: 1px solid #999;
+                }
+            }
         }
     }
     margin-bottom: 120px;
