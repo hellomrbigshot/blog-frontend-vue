@@ -193,7 +193,7 @@ export const normalRouter = {
       },
       {
         name: 'userDetail',
-        component: () => import('@/views/normal/userDetail'),
+        component: () => import('@/views/normal/userInfo/userDetail'),
         path: 'user/:username',
         meta: {
           login: false,

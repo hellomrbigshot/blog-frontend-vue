@@ -2,12 +2,11 @@ const sha1 = require('sha1')
 const express = require('express')
 const router = express.Router()
 
-const UserModel = require('../models/users')
+const UserModel = require('../models/user')
 const checkLogin = require('../middlewares/check').checkLogin
 
-// POST /signup 用户登录
+// POST 用户列表
 router.post('/list', checkLogin, (req, res, next) => {
-    // 返回登录成功
     let pageSize =  req.body.pageSize
     let page = req.body.page
     pageSize = typeof(pageSize) === 'number'?pageSize:parseInt(pageSize)
@@ -18,15 +17,28 @@ router.post('/list', checkLogin, (req, res, next) => {
                 delete user.password
                 return user
             })
-            res.status(200).json({code: 'OK', data: {list: list, total_num: num}})
+            res.status(200).json({ code: 'OK', data: { list: list, total_num: num }})
         })
         .catch(e => {
-            res.status(200).json({code: 'ERROR', data: e})
+            res.status(200).json({ code: 'ERROR', data: e })
         })
     }).catch(e => {
-        res.status(200).json({code: 'ERROR', data: e})
+        res.status(200).json({ code: 'ERROR', data: e })
     })
     
+})
+// POST 用户详情
+router.post('/detail', (req, res, next) => {
+    let username = req.body.username
+    UserModel.getUserByName(username).then(user => {
+        let result = JSON.parse(JSON.stringify(user))
+        delete result.password
+        res.status(200).json({ code: 'OK', data: result })
+    })
+    .catch(e => {
+        res.status(200).json({ code: 'ERROR', data: e })
+    })
+
 })
 
 module.exports = router

@@ -68,7 +68,6 @@ export default {
       }, 1)
     },
     handleRouter (name) { // 路由跳转
-    console.log(name)
       this.$router.push({ name: name })
     }
   }

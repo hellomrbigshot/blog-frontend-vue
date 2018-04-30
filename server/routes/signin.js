@@ -4,7 +4,7 @@ const path = require('path')
 const fs = require('fs')
 const router = express.Router()
 
-const UserModel = require('../models/users')
+const UserModel = require('../models/user')
 const FileModel = require('../models/files')
 const checkNotLogin = require('../middlewares/check').checkNotLogin
 

@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 
-const UserModel = require('../models/users')
 const checkLogin = require('../middlewares/check').checkLogin
 
 // POST /signup 用户登录
