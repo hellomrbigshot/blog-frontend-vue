@@ -9,12 +9,24 @@
           <nav class="user-state">
               <div class="site-item">
                   <router-link :to="{ name: 'normalMyPageList' }">
-                      <span>{{  }}</span>
-                      <span>文章</span>
+                      <span class="site-item-count">{{ 0 }}</span>
+                      <span class="site-item-name">文章</span>
+                  </router-link>
+              </div>
+              <div class="site-item">
+                  <router-link :to="{ name: 'normalMyPageList' }">
+                      <span class="site-item-count">{{ 0 }}</span>
+                      <span class="site-item-name">草稿</span>
+                  </router-link>
+              </div>
+              <div class="site-item">
+                  <router-link :to="{ name: 'normalMyPageList' }">
+                      <span class="site-item-count">{{ 0 }}</span>
+                      <span class="site-item-name">标签</span>
                   </router-link>
               </div>
           </nav>
-          <div>
+          <div class="site-operate">
               <router-link :to="{name: 'normalNew'}">写文章</router-link>
           </div>
       </section>
@@ -39,7 +51,9 @@ export default {
     position: relative;
     text-align: center;
     color: #999;
-
+    a {
+        color: #999;
+    }
     .site-author {
         display: block;
         img.site-author-img {
@@ -63,8 +77,35 @@ export default {
         color: #555;
     }
     .user-state {
+        line-height: 1.4;
         .site-item {
             padding: 0 15px;
+            display: inline-block;
+            .site-item-count, .site-item-name {
+                display: block;
+                text-align: center;
+                
+            }
+            .site-item-count {
+                font-size: 18px;
+            }
+            .site-item-name {
+                font-size: 12px;
+            }
+            &:nth-child(2), &:nth-child(3) {
+                border-left: 1px solid #333;
+            }
+            &:hover {
+                a {
+                    color: #fff;
+                }
+            }
+        }
+    }
+    .site-operate {
+        margin-top: 20px;
+        a:hover {
+            color: #fff;
         }
     }
 }
