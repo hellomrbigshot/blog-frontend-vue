@@ -7,8 +7,16 @@
           </div>
           <p class="site-description">{{ user.bio }}</p>
           <nav class="user-state">
-              
+              <div class="site-item">
+                  <router-link :to="{ name: 'normalMyPageList' }">
+                      <span>{{  }}</span>
+                      <span>文章</span>
+                  </router-link>
+              </div>
           </nav>
+          <div>
+              <router-link :to="{name: 'normalNew'}">写文章</router-link>
+          </div>
       </section>
   </div>
 </template>
@@ -53,6 +61,11 @@ export default {
         font-size: 14px;
         text-align: center;
         color: #555;
+    }
+    .user-state {
+        .site-item {
+            padding: 0 15px;
+        }
     }
 }
 </style>

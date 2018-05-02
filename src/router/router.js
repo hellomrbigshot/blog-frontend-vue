@@ -168,7 +168,7 @@ export const normalRouter = {
         meta: {
           login: true,
           title: '新建',
-          inHeaderList: true
+          inHeaderList: false
         }
       },
       {
