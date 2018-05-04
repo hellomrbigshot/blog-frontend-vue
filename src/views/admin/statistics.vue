@@ -12,6 +12,17 @@
             </router-link>
             
         </Col>
+        <Col :xs="24" :sm="12" :md="8">
+            <router-link :to="{name: 'pageList'}"> 
+                <info-card 
+                    info-text="文章数"
+                    id-name="page_num"
+                    color="#64d572"
+                    icon-type="document-text"
+                    :end-val="count.pageNum"></info-card>
+            </router-link>
+            
+        </Col>
     </Row>
   </div>
 </template>

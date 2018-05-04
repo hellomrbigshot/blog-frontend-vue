@@ -36,5 +36,18 @@ module.exports = {
                 .sort({ 'create_date': -1 })
                 .exec()
         }
-    } 
+    },
+    getPageNum (status='normal', create_user='') {
+        if (create_user) {
+            return Page
+                .find({ status: status, create_user: create_user })
+                .count()
+                .exec()               
+        } else {
+            return Page
+                .find({ status: status})
+                .count()
+                .exec() 
+        }
+    }
 }
