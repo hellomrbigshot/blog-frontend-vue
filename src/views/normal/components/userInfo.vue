@@ -9,13 +9,13 @@
           <nav class="user-state">
               <div class="site-item">
                   <router-link :to="{ name: 'normalMyPageList' }">
-                      <span class="site-item-count">{{ $store.state.page_num }}</span>
+                      <span class="site-item-count">{{ $store.state.user.page_num }}</span>
                       <span class="site-item-name">文章</span>
                   </router-link>
               </div>
               <div class="site-item">
                   <router-link :to="{ name: 'normalMyPageList' }">
-                      <span class="site-item-count">{{ $store.state.draft_num }}</span>
+                      <span class="site-item-count">{{ $store.state.user.draft_num }}</span>
                       <span class="site-item-name">草稿</span>
                   </router-link>
               </div>
