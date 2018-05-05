@@ -35,7 +35,7 @@ export default {
   },
   data () {
       return {
-          isCollapsed: false
+          isCollapsed: this.user?false:true
       }
   },
    computed: {

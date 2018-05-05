@@ -9,13 +9,27 @@
           <nav class="user-state">
               <div class="site-item">
                   <router-link :to="{ name: 'normalMyPageList' }">
-                      <span class="site-item-count">{{ $store.state.user.page_num }}</span>
+                      <span class="site-item-count">
+                          <count-up 
+                            idName="page_num" 
+                            countSize="18px" 
+                            fontWeight="normal" 
+                            color="#999" 
+                            :endVal="$store.state.user.page_num"></count-up>
+                      </span>
                       <span class="site-item-name">文章</span>
                   </router-link>
               </div>
               <div class="site-item">
                   <router-link :to="{ name: 'normalMyPageList' }">
-                      <span class="site-item-count">{{ $store.state.user.draft_num }}</span>
+                      <span class="site-item-count">
+                          <count-up
+                            idName="draft_num" 
+                            countSize="18px" 
+                            fontWeight="normal" 
+                            color="#999"
+                            :endVal="$store.state.user.draft_num"></count-up>
+                      </span>
                       <span class="site-item-name">草稿</span>
                   </router-link>
               </div>
@@ -28,18 +42,34 @@
           </nav>
           <div class="site-operate">
               <router-link :to="{name: 'normalNew'}">写文章</router-link>
+              <a @click="signout">注销</a>
           </div>
       </section>
   </div>
 </template>
 <script>
+import countUp from '../../admin/components/countUp'
 export default {
     props: {
 
     },
+    components: {
+        countUp
+    },
     data () {
         return {
             user: JSON.parse(localStorage.getItem('user'))
+        }
+    },
+    methods: {
+        signout () {
+            this.Common.axios('/api/signout').then(res => {
+                if (res.data.code === 'OK') {
+                    this.Cookies.remove('user')
+                    localStorage.removeItem('user')
+                    this.$router.push({ name: 'normalPageList' })
+                }
+            })
         }
     }
 }
