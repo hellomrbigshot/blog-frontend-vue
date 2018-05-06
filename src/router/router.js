@@ -152,6 +152,16 @@ export const normalRouter = {
         }
       },
       {
+        name: 'normalMyDraftList',
+        component: () => import('@/views/normal/myDraftList'),
+        path: 'mydraftlist',
+        meta: {
+          login: true,
+          title: '草稿',
+          inHeaderList: false
+        }
+      },
+      {
         name: 'normalGuestBook',
         component: () => import('@/views/normal/guestBook'),
         path: 'guestbook',

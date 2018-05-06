@@ -26,7 +26,7 @@
   </Card>
 </template>
 <script>
-import countUp from './countUp'
+import countUp from '../../components/countUp'
 export default {
     components: {
         countUp

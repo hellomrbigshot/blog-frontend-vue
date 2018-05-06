@@ -34,26 +34,29 @@ export default {
     userInfo
   },
   data () {
-      return {
-          isCollapsed: this.user?false:true
-      }
+    return {
+        isCollapsed: true,
+    }
   },
-   computed: {
-      rotateIcon () {
-          return [
-              'menu-icon',
-              this.isCollapsed ? 'rotate-icon' : ''
-          ];
-      },
-      menuitemClasses () {
-          return [
-              'page-sider',
-              this.isCollapsed ? 'collapsed-menu' : ''
-          ]
-      },
-      user () {
-          return this.Cookies.get('user') || ''
-      }
+  created () {
+    this.isCollapsed = this.user?false:true
+  },
+  computed: {
+    rotateIcon () {
+        return [
+            'menu-icon',
+            this.isCollapsed ? 'rotate-icon' : ''
+        ];
+    },
+    menuitemClasses () {
+        return [
+            'page-sider',
+            this.isCollapsed ? 'collapsed-menu' : ''
+        ]
+    },
+    user () {
+        return this.Cookies.get('user') || ''
+    }
   },
   methods: {
     collapsedSider () { // 侧边栏显示切换

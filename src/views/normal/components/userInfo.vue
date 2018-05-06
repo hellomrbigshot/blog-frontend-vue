@@ -13,22 +13,22 @@
                           <count-up 
                             idName="page_num" 
                             countSize="18px" 
-                            fontWeight="normal" 
+                            :countWeight="500" 
                             color="#999" 
-                            :endVal="$store.state.user.page_num"></count-up>
+                            :endVal="page_num"></count-up>
                       </span>
                       <span class="site-item-name">文章</span>
                   </router-link>
               </div>
               <div class="site-item">
-                  <router-link :to="{ name: 'normalMyPageList' }">
+                  <router-link :to="{ name: 'normalMyPageList', params: { type: 'draft' } }">
                       <span class="site-item-count">
                           <count-up
                             idName="draft_num" 
                             countSize="18px" 
-                            fontWeight="normal" 
+                            :countWeight="500" 
                             color="#999"
-                            :endVal="$store.state.user.draft_num"></count-up>
+                            :endVal="draft_num"></count-up>
                       </span>
                       <span class="site-item-name">草稿</span>
                   </router-link>
@@ -48,7 +48,7 @@
   </div>
 </template>
 <script>
-import countUp from '../../admin/components/countUp'
+import countUp from '../../components/countUp'
 export default {
     props: {
 
@@ -58,7 +58,9 @@ export default {
     },
     data () {
         return {
-            user: JSON.parse(localStorage.getItem('user'))
+            user: JSON.parse(localStorage.getItem('user')),
+            page_num: this.$store.state.user.page_num || JSON.parse(localStorage.getItem('user')).page_num,
+            draft_num: this.$store.state.user.draft_num || JSON.parse(localStorage.getItem('user')).draft_num
         }
     },
     methods: {

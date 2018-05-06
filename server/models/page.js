@@ -19,10 +19,10 @@ module.exports = {
             .exec()
     },
     // 获取文章列表
-    getPageList (type='', content='') {
+    getPageList (type='', content='', status='normal') {
         if (type === 'creator') {
             return Page
-                .find({ create_user: content })
+                .find({ create_user: content, status: status })
                 .exec()
 
         } else if (type === 'tag') {
@@ -32,7 +32,7 @@ module.exports = {
 
         } else {
             return Page
-                .find({ status: 'normal' })
+                .find({ status: status })
                 .sort({ 'create_date': -1 })
                 .exec()
         }
