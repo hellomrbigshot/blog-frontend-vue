@@ -21,7 +21,7 @@
                   </router-link>
               </div>
               <div class="site-item">
-                  <router-link :to="{ name: 'normalMyPageList', params: { type: 'draft' } }">
+                  <router-link :to="{ name: 'normalMyDraftList' }">
                       <span class="site-item-count">
                           <count-up
                             idName="draft_num" 

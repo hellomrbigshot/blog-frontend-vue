@@ -23,7 +23,11 @@ router.post('/new', checkLogin, async (req, res, next) => { // 新建文章
             status
         }
         let result = await PageModel.create(page)
-        res.status(200).json({ code: 'OK', data: result })
+        const [page_num, draft_num] = await Promise.all([
+			PageModel.getPageNum('normal', create_user),
+			PageModel.getPageNum('draft', create_user)
+		])
+        res.status(200).json({ code: 'OK', data: { page_num: page_num, draft_num: draft_num } })
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
     }
@@ -36,6 +40,7 @@ router.post('/edit', checkLogin, async (req, res, next) => { // 编辑文章
         const title = req.body.title
         const tags = req.body.tags
         const content = req.body.content
+        const create_user = req.session.user.username
         const status = req.body.status
         let page = {
             title,
@@ -45,7 +50,11 @@ router.post('/edit', checkLogin, async (req, res, next) => { // 编辑文章
             status
         }
         let result = await PageModel.update(id, page)
-        res.status(200).json({ code: 'OK', data: result })
+        const [page_num, draft_num] = await Promise.all([
+			PageModel.getPageNum('normal', create_user),
+			PageModel.getPageNum('draft', create_user)
+		])
+        res.status(200).json({ code: 'OK', data: { page_num: page_num, draft_num: draft_num } })
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
     }
@@ -63,6 +72,14 @@ router.post('/detail', async (req, res, next) => { // 获取文章详情
 router.post('/pagelist', async (req, res, next) => { // 获取文章列表
     try {
         let result = await PageModel.getPageList()
+        res.status(200).json({ code: 'OK', data: result })
+    } catch (e) {
+        res.status(200).json({ code: 'ERROR', data: e.message })
+    }
+})
+router.post('/limitpagelist', checkLogin, async (req, res, next) => { // 根据条件获取文章列表
+    try {
+        let result = await PageModel.getPageList(req.body.type, req.body.content, req.body.status)
         res.status(200).json({ code: 'OK', data: result })
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
