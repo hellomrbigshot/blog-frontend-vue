@@ -77,7 +77,7 @@ export default {
                     this.Common.axios(url, this.pageObject).then(res => {
                         if (res.data.code === 'OK') {
                             this.$Message.success('提交成功')
-                            this.$store.commit('updatePageNum', { page_num: res.data.data.page_num, draft_num: res.data.data.draft_num })
+                            this.$store.commit('updatePageNum', res.data.data)
                             if (type === 'normal') {
                                 this.$router.push({ name: 'pageDetail', params: { id: this.id } })
                             } else {

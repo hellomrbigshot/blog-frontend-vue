@@ -46,8 +46,19 @@ export default {
     },
     watch: {
         endVal (newVal, oldVal) {
-            console.log(newVal)
+            this.$nextTick(() => {
+                console.log('hehe')
+                setTimeout(() => {
+                    let numAnim = new CountUp(this.idName, this.startVal, newVal);
+                    if (!numAnim.error) {
+                        numAnim.start();
+                    } else {
+                        console.error(numAnim.error);
+                    }
+                }, this.delay)
+                
+            })
         }
-    }
+    },
 }
 </script>

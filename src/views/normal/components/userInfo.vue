@@ -59,8 +59,16 @@ export default {
     data () {
         return {
             user: JSON.parse(localStorage.getItem('user')),
-            page_num: this.$store.state.user.page_num || JSON.parse(localStorage.getItem('user')).page_num,
-            draft_num: this.$store.state.user.draft_num || JSON.parse(localStorage.getItem('user')).draft_num
+            // page_num: this.$store.state.user.page_num || JSON.parse(localStorage.getItem('user')).page_num,
+            // draft_num: this.$store.state.user.draft_num || JSON.parse(localStorage.getItem('user')).draft_num
+        }
+    },
+    computed: {
+        page_num () {
+            return this.$store.state.user.page_num || JSON.parse(localStorage.getItem('user')).page_num
+        },
+        draft_num () {
+            return this.$store.state.user.draft_num || JSON.parse(localStorage.getItem('user')).draft_num
         }
     },
     methods: {
