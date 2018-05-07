@@ -35,10 +35,10 @@ article {
         .page-title {
             font-weight: 400;
             font-size: 26px;
-            margin: 20px 0 10px;
+            margin-bottom: 10px;
             width: auto;
             display: inline-block;
-            color: #000;
+            color: #555;
             border-bottom: 2px solid #fff;
             &:hover {
                 border-bottom: 2px solid #000;
