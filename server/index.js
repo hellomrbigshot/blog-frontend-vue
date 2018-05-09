@@ -2,9 +2,11 @@ const express = require('express')
 const session = require('express-session')
 const bodyParser = require('body-parser')
 const routes = require('./routes')
+const history = require('connect-history-api-fallback')
 
 const app = new express()
 app.use(bodyParser.urlencoded({extended: true}))
+app.use(history())
 
 const sessionStore = new session.MemoryStore({ reapInterval: 3600 * 1000 })
 app.use(session({
@@ -21,4 +23,4 @@ routes(app)
 
 
 
-app.listen('4500', () => console.log('running'))
+app.listen('80', () => console.log('running'))
