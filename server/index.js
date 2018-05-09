@@ -5,8 +5,9 @@ const routes = require('./routes')
 const history = require('connect-history-api-fallback')
 
 const app = new express()
-app.use(bodyParser.urlencoded({extended: true}))
 app.use(history())
+app.use(bodyParser.urlencoded({extended: true}))
+
 
 const sessionStore = new session.MemoryStore({ reapInterval: 3600 * 1000 })
 app.use(session({
