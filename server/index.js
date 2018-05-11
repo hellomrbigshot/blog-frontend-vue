@@ -3,11 +3,13 @@ const session = require('express-session')
 const bodyParser = require('body-parser')
 const routes = require('./routes')
 const history = require('connect-history-api-fallback')
+const path = require('path')
+const favicon = require('serve-favicon')
 
 const app = new express()
 app.use(history())
 app.use(bodyParser.urlencoded({extended: true}))
-
+app.use(favicon(path.join(__dirname, './', 'favicon.ico')))
 
 const sessionStore = new session.MemoryStore({ reapInterval: 3600 * 1000 })
 app.use(session({
