@@ -49,12 +49,12 @@ router.get('/avatar', async (req, res, next) => {
 	const url = await FileModel.getFilePath(id)
 	res.set('content-type', 'image/jpg')
 	let stream = fs.createReadStream(url)
-	let responseData = [];//存储文件流
-	if (stream) {//判断状态
+	let responseData = []; // 存储文件流
+	if (stream) { // 判断状态
 		stream.on( 'data', chunk => {
 			responseData.push( chunk )
 		})
-		stream.on( 'end', () => {
+		stream.on('end', () => {
 			let finalData = Buffer.concat(responseData)
 			res.write(finalData)
 			res.end();
