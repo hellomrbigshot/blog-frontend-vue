@@ -9,7 +9,8 @@ const favicon = require('serve-favicon')
 const app = new express()
 
 app.use(bodyParser.urlencoded({extended: true}))
-app.use(favicon(path.join(__dirname, './', 'favicon.ico')))
+app.use(express.static(path.join(__dirname, '../dist')))
+app.use(favicon(path.join(__dirname, './favicon.ico')))
 
 app.use(history())
 
