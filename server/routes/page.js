@@ -13,6 +13,7 @@ router.post('/new', checkLogin, async (req, res, next) => { // 新建文章
         const content = req.body.content
         const create_user = req.session.user.username
         const status = req.body.status
+        const secret = req.body.secret
         let page = {
             title,
             tags,
@@ -20,7 +21,8 @@ router.post('/new', checkLogin, async (req, res, next) => { // 新建文章
             create_user,
             create_date,
             update_date,
-            status
+            status,
+            secret
         }
         let result = await PageModel.create(page)
         const [page_num, draft_num] = await Promise.all([
@@ -42,12 +44,14 @@ router.post('/edit', checkLogin, async (req, res, next) => { // 编辑文章
         const content = req.body.content
         const create_user = req.session.user.username
         const status = req.body.status
+        const secret = req.body.secret
         let page = {
             title,
             tags,
             content,
             update_date,
-            status
+            status,
+            secret
         }
         let result = await PageModel.update(id, page)
         const [page_num, draft_num] = await Promise.all([

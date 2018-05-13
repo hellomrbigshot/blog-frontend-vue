@@ -50,9 +50,10 @@ router.get('/avatar', async (req, res, next) => {
 	res.set('content-type', 'image/jpg')
 	let stream = fs.createReadStream(url)
 	let responseData = []; // 存储文件流
+	// res['cache-control'] = 'no-store'
 	if (stream) { // 判断状态
-		stream.on( 'data', chunk => {
-			responseData.push( chunk )
+		stream.on('data', chunk => {
+			responseData.push(chunk)
 		})
 		stream.on('end', () => {
 			let finalData = Buffer.concat(responseData)

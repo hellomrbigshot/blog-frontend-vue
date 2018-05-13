@@ -10,6 +10,12 @@
             <markdown-editor v-model="pageObject.content"></markdown-editor>
         </FormItem>
         <FormItem>
+            <i-switch v-model="pageObject.secret" size="large">
+                <span slot="open">私密</span>
+                <span slot="close">公开</span>
+            </i-switch>
+        </FormItem>
+        <FormItem>
             <Button @click="save('draft')">保存草稿</Button>
             <Button type="primary" @click="save('normal')">发布</Button>
         </FormItem>
@@ -30,7 +36,8 @@ export default {
                 title: '',
                 tags: [],
                 content: '### 用 markdown 写一篇文章',
-                status: ''
+                status: '',
+                secret: false
             },
             rule: {
                 title: [{
@@ -57,10 +64,18 @@ export default {
                 this.Common.axios('/api/page/detail', { id: this.id }).then(res => {
                     if (res.data.code === 'OK') {
                         this.$set(this, 'pageObject', res.data.data)
+                        if (typeof(this.pageObject.secret)==='undefined') {
+                            this.$set(this.pageObject, 'secret', false)
+                        }
                     }
                 })
             } else {
                 return false
+            }
+        },
+        radioChange () {
+            if (this.pageObject.status) {
+                this.pageObject.status = ''
             }
         },
         save (type) {
