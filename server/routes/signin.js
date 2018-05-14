@@ -48,9 +48,19 @@ router.get('/avatar', async (req, res, next) => {
 	const id = req.query.file_id
 	const url = await FileModel.getFilePath(id)
 	res.set('content-type', 'image/jpg')
+	// fs.readFile(url, 'binary', (err, file) => {
+	// 	if (err) {
+	// 	  console.log(err)
+	// 	  return;
+	// 	} else {
+	// 		res.writeHead(200, { 'Content-Type': 'image/jpeg' })
+	// 		res.write(file, 'binary')
+	// 		res.end()
+	// 		return
+	// 	}
+	// })
 	let stream = fs.createReadStream(url)
 	let responseData = []; // 存储文件流
-	// res['cache-control'] = 'no-store'
 	if (stream) { // 判断状态
 		stream.on('data', chunk => {
 			responseData.push(chunk)
@@ -58,8 +68,8 @@ router.get('/avatar', async (req, res, next) => {
 		stream.on('end', () => {
 			let finalData = Buffer.concat(responseData)
 			res.write(finalData)
-			res.end();
-		});
+			res.end()
+		})
 	}
 })
 
