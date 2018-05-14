@@ -8,7 +8,7 @@ const favicon = require('serve-favicon')
 
 const app = new express()
 
-app.use(history())
+// app.use(history())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static(path.join(__dirname, '../dist')))
 app.use(favicon(path.join(__dirname, './favicon.ico')))
@@ -30,4 +30,4 @@ routes(app)
 
 
 
-app.listen('80', () => console.log('running'))
+app.listen('4500', () => console.log('running'))
