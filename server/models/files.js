@@ -1,7 +1,11 @@
 const File = require('../lib/file').File
+const express = require('express')
 const path = require('path')
 const fs = require('fs')
 
+
+const router = express.Router()
+const uploads = router.get('../uploads')
 let handleFile = {
 	// 上传一个文件
 	create (file) {
@@ -25,7 +29,15 @@ handleFile.deleteFileById = async function  (id) {
 }
 // 获取文件路径
 handleFile.getFilePath = async function  (id) {
-	let fileObject = await handleFile.getFileById(id)
-	return path.join(__dirname, `../uploads/${fileObject.filename}`)
+	// if (!id) {
+	// 	return ''
+	// }
+	// try {
+		let fileObject = await handleFile.getFileById(id)
+		return path.join(__dirname, `../uploads/${fileObject.filename}`)
+	// } catch (e) {
+
+	// }
+	
 }
 module.exports = handleFile
