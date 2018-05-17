@@ -73,10 +73,30 @@ router.post('/detail', async (req, res, next) => { // 获取文章详情
         res.status(200).json({ code: 'ERROR', data: e.message })
     }
 })
+/**
+ * @params {number} req.body.pageSize-每页大小
+ * @params {number} req.body.page-页码
+ * @params {number} req.body.type
+ * @params {number} req.body.content
+ * @params {number} req.body.status
+ * @params {number} req.body.secret
+*/
 router.post('/pagelist', async (req, res, next) => { // 获取文章列表
+    let pageSize =  req.body.pageSize || 10
+    let page = req.body.page || 0
+    const type = req.body.type
+    const content = req.body.content
+    const status = req.body.status
+    const secret = req.body.secret
+    pageSize = typeof(pageSize) === 'number'?pageSize:parseInt(pageSize)
+    page = typeof(page) === 'number'?page:parseInt(page)
     try {
-        let result = await PageModel.getPageList()
-        res.status(200).json({ code: 'OK', data: result })
+
+        let [total, result] = await Promise.all([
+            PageModel.getPageNum(type, content, status, secret),
+            PageModel.getPageList(type, content, status, pageSize, pageSize*(page-1), secret)
+        ])
+        res.status(200).json({ code: 'OK', data: { result, total } })
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
     }

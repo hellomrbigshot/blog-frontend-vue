@@ -18,36 +18,46 @@ module.exports = {
             .findOne({ _id: id })
             .exec()
     },
-    // 获取文章列表
-    getPageList (type='', content='', status='normal') {
-        if (type === 'creator') {
-            return Page
-                .find({ create_user: content, status: status })
-                .exec()
-
-        } else if (type === 'tag') {
-            return Page
-                .find({})
-                .exec()
-
-        } else {
-            return Page
-                .find({ status: status, secret: false })
-                .sort({ 'create_date': -1 })
-                .exec()
+    /**
+     * @获取文章列表
+     * @params {string} type='' - 根据类型获取 ['', 'creator', 'tag']
+     * @params {string} content='' - 对应 type 的值
+     * @params {sting} content='normal'
+     */
+    getPageList (type='', content='', status='normal', pageSize=10, Count=0, secret) {
+        let query_obj ={
+            status
         }
+        if (type === 'create_user') {
+            query_obj.create_user = content
+        }
+        if (typeof(secret)==='boolean') {
+            query_obj.secret = secret
+        }
+        return Page
+            .find(query_obj)
+            .skip(Count)
+			.limit(pageSize)
+            .sort({ 'create_date': -1 })
+            .exec()
     },
-    getPageNum (status='normal', create_user='') {
-        if (create_user) {
-            return Page
-                .find({ status: status, create_user: create_user })
-                .count()
-                .exec()               
-        } else {
-            return Page
-                .find({ status: status})
-                .count()
-                .exec() 
+    /**
+     * @查询文章数量
+     * @params {string} status='normal' - 文章状态 ['normal', 'draft'] 
+     * @params {string} create_user - 发起人
+     * @params {boolean} secret - 是否为私密
+    */
+    getPageNum (type='', content='', status='normal', secret) {
+        let query_obj = { status: status }
+        if (type === 'create_user') {
+            query_obj.create_user = content
         }
+        if (typeof(secret) === 'boolean') {
+            query_obj.secret = secret
+        }
+        return Page
+            .find(query_obj)
+            .count()
+            .exec()
     }
 }

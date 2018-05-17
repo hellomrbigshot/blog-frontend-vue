@@ -79,7 +79,7 @@ router.post('/', checkNotLogin, async (req, res, next) => {
         // 用户信息写入数据库
         let result = JSON.parse(JSON.stringify(await UserModel.create(user)))
         delete result.password
-        req.session.user = result
+        // req.session.user = result
         result.avatar_url = await FileModel.getFilePath(user.avatar)
         res.status(200).json({code: 'OK', data: result})
     } catch (e) {

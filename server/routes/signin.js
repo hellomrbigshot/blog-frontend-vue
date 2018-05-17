@@ -29,8 +29,8 @@ router.post('/', checkNotLogin, async (req, res, next) => {
 		// console.log(user.avatar)
 		req.session.user = JSON.parse(JSON.stringify(user))
 		const [page_num, draft_num, avatar_url] = await Promise.all([
-			PageModel.getPageNum('normal', username),
-			PageModel.getPageNum('draft', username),
+			PageModel.getPageNum('create_user', username, 'normal'),
+			PageModel.getPageNum('create_user', username, 'draft'),
 			FileModel.getFilePath(user.avatar)
 		])
 		// console.log(avatar_url)
