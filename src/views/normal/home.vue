@@ -15,10 +15,12 @@
           </Header>
           <Content :style="{background: '#fff', minHeight: '260px'}">
               <router-view :style="{margin: '80px auto 0', width: '85%', maxWidth: '900px'}"></router-view>
-              <div :style="{padding: '40px 0', margin: '0 auto', width: '85%', maxWidth: '900px'}">
-                <p :style="{textAlign: 'center'}">备案号：xxx</p>
-              </div>
           </Content>
+          <Footer>
+            <div :style="{padding: '40px 0', margin: '0 auto', width: '85%', maxWidth: '900px'}">
+              <p :style="{textAlign: 'center'}">备案号：xxx</p>
+            </div>
+          </Footer>
       </Layout>
       <Sider ref="pageSider" hide-trigger collapsible :collapsed-width="0" v-model="isCollapsed" :width="320" >
           <div :class="menuitemClasses">
