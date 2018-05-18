@@ -1,8 +1,8 @@
 <template>
 <div>
   <one-page v-for="(page, i) in page_list" :key="i" :page="page"></one-page>
-  <div>
-    <Page v-if="show_page" :total="total"></Page>
+  <div :style="{marginBottom: '50px'}">
+    <new-page v-if="show_page" :total="total"></new-page>
   </div>
 </div>
 </template>
