@@ -66,12 +66,14 @@ export default {
         this.$refs.pageSider.toggleCollapse()
     },
     bodyScrollTop () {  // 滚动到顶端
-      let time = setInterval(() => {
-        document.body.scrollTop = document.body.scrollTop - 50;
-        if (document.body.scrollTop === 0) {
-            clearInterval(time)
+      let timer = setInterval(() => {
+        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+        let speed = Math.floor(-scrollTop/4)
+        document.documentElement.scrollTop = scrollTop + speed
+        if (scrollTop === 0) {
+            clearInterval(timer)
         }
-      }, 1)
+      }, 30)
     },
     handleRouter (name) { // 路由跳转
       this.$router.push({ name: name })

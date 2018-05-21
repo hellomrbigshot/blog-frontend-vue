@@ -83,7 +83,7 @@ router.post('/detail', async (req, res, next) => { // 获取文章详情
 */
 router.post('/pagelist', async (req, res, next) => { // 获取文章列表
     let pageSize =  req.body.pageSize || 10
-    let page = req.body.page || 0
+    let page = req.body.page || 1
     const type = req.body.type
     const content = req.body.content
     const status = req.body.status
