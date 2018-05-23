@@ -137,7 +137,7 @@ export const normalRouter = {
         path: 'categories',
         meta: {
           login: false,
-          title: '分类',
+          title: '标签',
           inHeaderList: true
         },
       },

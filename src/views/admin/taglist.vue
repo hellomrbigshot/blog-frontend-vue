@@ -1,13 +1,15 @@
 <template>
     <div class="main-content">
-        标签列表
+      
     </div>
 </template>
 <script>
 export default {
   name: 'tagList',
   data () {
-    return {}
+    return {
+     
+    }
   },
   methods: {
       
