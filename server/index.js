@@ -38,11 +38,6 @@ app.use(session({
 	cookie: { maxAge: 3600 * 1000 }, // 过期时间
 	rolling: true
 }))
-// app.all('*', (req, res, next) => {
-// 	res.header('X-Poewered-By', '3.2.1')
-// 	res.header('Cache-Control', 'no-store')
-// 	next()
-// })
 
 routes(app)
 

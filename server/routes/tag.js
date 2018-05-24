@@ -3,7 +3,9 @@ const router = express.Router()
 
 const TagModel = require('../models/tag')
 const PageModel = require('../models/page')
+const PageTagMapModel = require('../models/pageTagMap')
 
+const checkLogin = require('../middlewares/check').checkLogin
 router.post('/taglist', async (req, res, next) => {
     let pageSize =  req.body.pageSize || 10
     let page = req.body.page || 1
@@ -14,16 +16,27 @@ router.post('/taglist', async (req, res, next) => {
             TagModel.getTagNum(),
             TagModel.getTagList(pageSize, (page-1)*pageSize)
         ])
-        res.status(200).json({ code: 'OK', data: {total, result} })
+        result = await Promise.all(result.map(async (single) => {
+            // single.page_num = await PageTagMapModel.getPageTagMapNum({ tag: single._id, status: 'normal' })
+            // console.log(single)
+            // return single
+            let tag = JSON.parse(JSON.stringify(single))
+            tag.page_num = await PageTagMapModel.getPageTagMapNum({ tag: single._id, status: 'normal' })
+            return tag
+        }))
+        res.status(200).json({ code: 'OK', data: { total, result } })
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
     }
 })
-router.post('/create', async (req, res, next) => {
-    let name = req.body.name
-    let description = req.body.description
+router.post('/create', checkLogin, async (req, res, next) => {
+    const name = req.body.name
+    const description = req.body.description
+    const create_user = req.session.user.username
+    const create_date = new Date()
+    const update_date = new Date()
     try {
-        let result = await TagModel.create({ name, description })
+        let result = await TagModel.create({ name, description, create_user, create_date, update_date })
         res.status(200).json({ code: 'OK', data: result })
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
