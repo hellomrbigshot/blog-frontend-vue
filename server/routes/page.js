@@ -14,6 +14,7 @@ router.post('/new', checkLogin, async (req, res, next) => { // 新建文章
         const create_user = req.session.user.username
         const status = req.body.status
         const secret = req.body.secret
+        const tags = req.body.tags
         let page = {
             title,
             tags,
@@ -22,7 +23,8 @@ router.post('/new', checkLogin, async (req, res, next) => { // 新建文章
             create_date,
             update_date,
             status,
-            secret
+            secret,
+            tags
         }
         let result = await PageModel.create(page)
         const [page_num, draft_num] = await Promise.all([

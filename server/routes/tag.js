@@ -16,14 +16,13 @@ router.post('/taglist', async (req, res, next) => {
             TagModel.getTagNum(),
             TagModel.getTagList(pageSize, (page-1)*pageSize)
         ])
-        result = await Promise.all(result.map(async (single) => {
-            // single.page_num = await PageTagMapModel.getPageTagMapNum({ tag: single._id, status: 'normal' })
-            // console.log(single)
-            // return single
-            let tag = JSON.parse(JSON.stringify(single))
-            tag.page_num = await PageTagMapModel.getPageTagMapNum({ tag: single._id, status: 'normal' })
-            return tag
-        }))
+
+        // result = await Promise.all(result.map(async (single) => {
+        //     single = single.toObject()
+        //     single.page_num = await PageTagMapModel.getPageTagMapNum({ tag: single._id, status: 'normal' })
+        //     console.log(single)
+        //     return single
+        // }))
         res.status(200).json({ code: 'OK', data: { total, result } })
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
