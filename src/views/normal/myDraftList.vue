@@ -17,6 +17,9 @@
             </Row>
         </li>
     </ul>
+    <div :style="{marginBottom: '20px'}" v-if="pageSize<total">
+        <new-page :total="total"></new-page>
+    </div>
 </div>
 </template>
 
@@ -24,13 +27,17 @@
 export default {
   data () {
     return {
-      draft_list: []
+      draft_list: [],
+      total: 0,
+      pageSize: 10,
+      page: 1
     }
   },
   mounted () {
-    this.Common.axios('/api/page/limitpagelist', { type: 'creator', content: this.Cookies.get('user'), status: 'draft' }).then(res => {
+    this.Common.axios('/api/page/limitpagelist', { type: 'creator', content: this.Cookies.get('user'), status: 'draft', page: this.page, pageSize: this.pageSize }).then(res => {
       if (res.data.code === 'OK') {
-        this.draft_list = res.data.data
+        this.draft_list = res.data.data.result
+        this.total = res.data.data.total
       }
     })
     

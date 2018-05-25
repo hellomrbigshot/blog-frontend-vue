@@ -23,6 +23,9 @@ module.exports = {
      * @params {string} type='' - 根据类型获取 ['', 'creator', 'tag']
      * @params {string} content='' - 对应 type 的值
      * @params {sting} content='normal'
+     * @params {number} pageSize
+     * @params {number} Count
+     * @params {boolean} secret
      */
     getPageList (type='', content='', status='normal', pageSize=10, Count=0, secret) {
         let query_obj ={
@@ -43,10 +46,13 @@ module.exports = {
     },
     /**
      * @查询文章数量
-     * @params {string} status='normal' - 文章状态 ['normal', 'draft'] 
-     * @params {string} create_user - 发起人
-     * @params {boolean} secret - 是否为私密
-    */
+     * @params {string} type='' - 根据类型获取 ['', 'creator', 'tag']
+     * @params {string} content='' - 对应 type 的值
+     * @params {sting} content='normal'
+     * @params {number} pageSize
+     * @params {number} Count
+     * @params {boolean} secret
+     */
     getPageNum (type='', content='', status='normal', secret) {
         let query_obj = { status: status }
         if (type === 'create_user') {
@@ -54,6 +60,9 @@ module.exports = {
         }
         if (typeof(secret) === 'boolean') {
             query_obj.secret = secret
+        }
+        if (type === 'tag') {
+            query_obj['tags.name'] = content
         }
         return Page
             .find(query_obj)

@@ -9,12 +9,14 @@ router.post('/new', checkLogin, async (req, res, next) => { // 新建文章
         const create_date = new Date()
         const update_date = new Date()
         const title = req.body.title
-        const tags = req.body.tags
         const content = req.body.content
         const create_user = req.session.user.username
         const status = req.body.status
         const secret = req.body.secret
-        const tags = req.body.tags
+        const tags = req.body.tags.reduce(tag => {
+            tag = { name: tag }
+            return tag
+        })
         let page = {
             title,
             tags,
@@ -105,7 +107,7 @@ router.post('/pagelist', async (req, res, next) => { // 获取文章列表
 })
 router.post('/limitpagelist', checkLogin, async (req, res, next) => { // 根据条件获取文章列表
     let pageSize =  req.body.pageSize || 10
-    let page = req.body.page || 0
+    let page = req.body.page || 1
     const type = req.body.type
     const content = req.body.content
     const status = req.body.status

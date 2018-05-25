@@ -3,7 +3,6 @@ const router = express.Router()
 
 const TagModel = require('../models/tag')
 const PageModel = require('../models/page')
-const PageTagMapModel = require('../models/pageTagMap')
 
 const checkLogin = require('../middlewares/check').checkLogin
 router.post('/taglist', async (req, res, next) => {
@@ -17,12 +16,11 @@ router.post('/taglist', async (req, res, next) => {
             TagModel.getTagList(pageSize, (page-1)*pageSize)
         ])
 
-        // result = await Promise.all(result.map(async (single) => {
-        //     single = single.toObject()
-        //     single.page_num = await PageTagMapModel.getPageTagMapNum({ tag: single._id, status: 'normal' })
-        //     console.log(single)
-        //     return single
-        // }))
+        result = await Promise.all(result.map(async (single) => {
+            single = single.toObject()
+            single.page_num = await PageModel.getPageNum('tag', single.name, 'normal')
+            return single
+        }))
         res.status(200).json({ code: 'OK', data: { total, result } })
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
