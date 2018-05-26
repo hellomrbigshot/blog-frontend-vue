@@ -3,8 +3,10 @@
         <FormItem prop="title">
             <Input placeholder="标题" v-model="pageObject.title"></Input>
         </FormItem>
-        <FormItem>
-            <Select placehoder="标签，用 , 分隔" v-model="pageObject.tags"></Select>
+        <FormItem prop="tags">
+            <Select placehoder="标签，用 , 分隔" v-model="pageObject.tags" multiple>
+                <Option v-for="(name, index) in tagList" :value="name" :key="index"></Option>
+            </Select>
         </FormItem>
         <FormItem prop="content">
             <markdown-editor v-model="pageObject.content"></markdown-editor>
@@ -32,6 +34,7 @@ export default {
     data () {
         return {
             id: this.$route.params.id,
+            tagList: [],
             pageObject: {
                 title: '',
                 tags: [],
@@ -40,11 +43,20 @@ export default {
                 secret: false
             },
             rule: {
-                title: [{
-                    required: true,
-                    type: 'string',
-                    message: '请输入文章标题'
-                }],
+                title: [
+                    {
+                        required: true,
+                        type: 'string',
+                        message: '请输入文章标题'
+                    }
+                ],
+                tags: [
+                    {
+                        required: true,
+                        type: 'array',
+                        message: '请选择标签'
+                    }
+                ],
                 content: [
                     {
                         required: true,
@@ -55,10 +67,20 @@ export default {
             }
         }
     },
-    mounted () {
+    async mounted () {
+        await this.getAllTags()
         this.getPageDetail()
     },
     methods: {
+        getAllTags () {
+            this.Common.axios('/api/tag/alltags').then(res => {
+                if (res.data.code === 'OK') {
+                    this.tagList = res.data.data
+                } else {
+                    this.$Message.error(res.data.data)
+                }
+            })
+        },
         getPageDetail () {
             if (this.id) {
                 this.Common.axios('/api/page/detail', { id: this.id }).then(res => {

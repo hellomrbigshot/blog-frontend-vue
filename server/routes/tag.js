@@ -26,6 +26,18 @@ router.post('/taglist', async (req, res, next) => {
         res.status(200).json({ code: 'ERROR', data: e.message })
     }
 })
+
+router.post('/alltags', async (req, res, next) => {
+    try {
+        let result = await TagModel.getAllTags()
+        result = result.map(single => {
+            return single.name
+        })
+        res.status(200).json({ code: 'OK', data: result })
+    } catch (e) {
+        res.status(200).json({ code: 'ERROR', data: e.message })
+    }
+})
 router.post('/create', checkLogin, async (req, res, next) => {
     const name = req.body.name
     const description = req.body.description

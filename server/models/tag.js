@@ -12,12 +12,17 @@ module.exports = {
             .update(condition, { $set: updates })
             .exec()
     },
-    // 获取 tag 列表
+    // 获取 tag 列表（含分页）
     getTagList (pageSize=10, Count=0) {
         return Tag
             .find()
             .skip(Count)
 			.limit(pageSize)
+            .exec()
+    },
+    getAllTags () {
+        return Tag
+            .find()
             .exec()
     },
     // 获取 tag 数量
