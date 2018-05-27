@@ -17,7 +17,7 @@
               <router-view :style="{margin: '80px auto 0', width: '85%', maxWidth: '900px'}"></router-view>
           </Content>
           <Footer :style="{padding: '40px 0', margin: '0 auto', width: '85%', maxWidth: '900px'}">
-            <p :style="{textAlign: 'center'}">备案号：xxx</p>
+            <blog-footer></blog-footer>
           </Footer>
       </Layout>
       <Sider ref="pageSider" hide-trigger collapsible :collapsed-width="0" v-model="isCollapsed" :width="320" >
@@ -30,10 +30,12 @@
 </template>
 <script>
 import blogHeader from './components/blogHeader'
+import blogFooter from './components/blogFooter'
 import userInfo from './components/userInfo'
 export default {
   components: {
     blogHeader,
+    blogFooter,
     userInfo
   },
   data () {

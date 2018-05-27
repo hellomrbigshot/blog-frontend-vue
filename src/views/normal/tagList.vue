@@ -1,6 +1,13 @@
 <template>
 <div>
   <Button  size="small" @click="create_modal=true">添加标签</Button>
+  <div>
+    <ul>
+      <li v-for="(tag, index) in tagList">
+        {{ tag.name }}({{tag.page_num}})
+      </li>
+    </ul>
+  </div>
   <Modal v-model="create_modal" title="创建标签">
     <Form ref="tagForm" :model="tag_obj" :rules="rule" >
       <FormItem prop="name">
@@ -60,6 +67,8 @@ export default {
           this.Common.axios('/api/tag/create', this.tag_obj).then(res => {
             if (res.data.code === 'OK') {
               this.create_modal = false
+              this.getTagList()
+              this.$refs['tagForm'].resetFields()
             } else {
               this.$Message.error(res.data.data)
             }
@@ -67,19 +76,15 @@ export default {
         }
       })
     },
-    async getTagList () {
-      try {
-        let result = await this.Common.axios('/api/tag/taglist', { page: this.page, pageSize: this.pageSize })
-        if (result.data.code === 'OK') {
+    getTagList () {
+      this.Common.axios('/api/tag/taglist', { page: this.page, pageSize: this.pageSize }).then(res => {
+        if (res.data.code === 'OK') {
           this.tagList = res.data.data.result
           this.total = res.data.data.total
         } else {
           this.$Message.error(res.data.data)
         }
-      } catch (e) {
-
-      }
-      
+      })
     }
   }
 }
