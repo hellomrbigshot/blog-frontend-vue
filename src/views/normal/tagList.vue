@@ -2,9 +2,13 @@
 <div>
   <Button  size="small" @click="create_modal=true">添加标签</Button>
   <div>
+    <h2 :style="{fontSize: '14px', fontWeight: 'normal', textAlign: 'center'}">目前总共{{ total }}个标签</h2>
     <ul>
       <li v-for="(tag, index) in tagList">
-        {{ tag.name }}({{tag.page_num}})
+        <router-link to="/">
+          {{ tag.name }}
+        </router-link>
+        ({{tag.page_num}})
       </li>
     </ul>
   </div>
