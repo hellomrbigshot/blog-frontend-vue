@@ -162,6 +162,16 @@ export const normalRouter = {
         }
       },
       {
+        name: 'normalTagDetail',
+        component: () => import('@/views/normal/tagDetail'),
+        path: 'tagdetail/:name',
+        meta: {
+          login: false,
+          title: '标签详情',
+          inHeaderList: false
+        }
+      },
+      {
         name: 'normalGuestBook',
         component: () => import('@/views/normal/guestBook'),
         path: 'guestbook',

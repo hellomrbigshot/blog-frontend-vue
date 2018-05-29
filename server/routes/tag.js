@@ -26,6 +26,15 @@ router.post('/taglist', async (req, res, next) => {
         res.status(200).json({ code: 'ERROR', data: e.message })
     }
 })
+router.post('/tagdetail', async (req, res, next) => {
+    let name = req.body.name
+    try {
+        let result = await TagModel.findTagByName(name)
+        res.status(200).json({ code: 'OK', data: result })
+    } catch (e) {
+        res.status(200).json({ code: 'ERROR', data: e.message })
+    }
+})
 
 router.post('/alltags', async (req, res, next) => {
     try {
@@ -45,6 +54,10 @@ router.post('/create', checkLogin, async (req, res, next) => {
     const create_date = new Date()
     const update_date = new Date()
     try {
+        let exist = await TagModel.findTagByName(name)
+        if (exist) {
+            throw new Error('已存在该标签')
+        }
         let result = await TagModel.create({ name, description, create_user, create_date, update_date })
         res.status(200).json({ code: 'OK', data: result })
     } catch (e) {

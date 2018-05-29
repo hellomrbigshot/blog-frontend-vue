@@ -5,7 +5,7 @@
     <h2 :style="{fontSize: '14px', fontWeight: 'normal', textAlign: 'center'}">目前总共{{ total }}个标签</h2>
     <ul>
       <li v-for="(tag, index) in tagList">
-        <router-link to="/">
+        <router-link :to="{ name: 'normalTagDetail', params: { name: tag.name } }">
           {{ tag.name }}
         </router-link>
         ({{tag.page_num}})
