@@ -6,7 +6,7 @@
     <ul>
       <li v-for="(tag, index) in tagList">
         <router-link :to="{ name: 'normalTagDetail', params: { name: tag.name } }">
-          {{ tag.name }}
+          <h2>{{ tag.name }}</h2>
         </router-link>
         ({{tag.page_num}})
       </li>

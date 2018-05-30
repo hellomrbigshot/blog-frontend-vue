@@ -44,18 +44,21 @@ router.post('/edit', checkLogin, async (req, res, next) => { // 编辑文章
         const id = req.body.id
         const update_date = new Date()
         const title = req.body.title
-        const tags = req.body.tags
         const content = req.body.content
         const create_user = req.session.user.username
         const status = req.body.status
         const secret = req.body.secret
+        const tags = req.body.tags.reduce(tag => {
+            tag = { name: tag }
+            return tag
+        })
         let page = {
             title,
-            tags,
             content,
             update_date,
             status,
-            secret
+            secret,
+            tags
         }
         let result = await PageModel.update(id, page)
         const [page_num, draft_num] = await Promise.all([
