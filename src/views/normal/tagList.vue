@@ -93,3 +93,11 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+ul {
+  li {
+    list-style: none
+  }
+  
+}
+</style>
