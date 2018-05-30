@@ -37,6 +37,9 @@ module.exports = {
         if (typeof(secret)==='boolean') {
             query_obj.secret = secret
         }
+        if (type === 'tag') {
+            query_obj['tags.name'] = content
+        }
         return Page
             .find(query_obj)
             .skip(Count)

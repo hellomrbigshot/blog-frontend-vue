@@ -5,9 +5,14 @@ module.exports = {
     create (tag) {
         return Tag.create(tag)
     },
+    findTagByName (name) {
+        return Tag
+            .findOne({ name })
+            .exec()
+    },
     // 编辑 tag
-    edit (id, updates) {
-        let condition = {_id: id}
+    edit (name, updates) {
+        let condition = { name: name }
         return Tag
             .update(condition, { $set: updates })
             .exec()
