@@ -10,7 +10,6 @@ axios.interceptors.response.use(
     },
     error => {
         if (error.response) {
-            console.log(error.response.status)
             switch (error.response.status) {
                 case 401:
                     Cookies.remove('user')

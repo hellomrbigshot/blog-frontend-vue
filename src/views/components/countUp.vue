@@ -47,7 +47,6 @@ export default {
     watch: {
         endVal (newVal, oldVal) {
             this.$nextTick(() => {
-                console.log('hehe')
                 setTimeout(() => {
                     let numAnim = new CountUp(this.idName, this.startVal, newVal);
                     if (!numAnim.error) {

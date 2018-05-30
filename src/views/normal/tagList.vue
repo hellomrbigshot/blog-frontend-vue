@@ -1,16 +1,19 @@
 <template>
 <div>
   <Button  size="small" @click="create_modal=true">添加标签</Button>
-  <div>
+  <div :style="{ marginTop: '30px' }">
     <h2 :style="{fontSize: '14px', fontWeight: 'normal', textAlign: 'center'}">目前总共{{ total }}个标签</h2>
     <ul>
       <li v-for="(tag, index) in tagList">
         <router-link :to="{ name: 'normalTagDetail', params: { name: tag.name } }">
-          <h2>{{ tag.name }}</h2>
+          <span class="tag-name">{{ tag.name }}</span>
         </router-link>
-        ({{tag.page_num}})
+        <span class="tag-page-count">({{tag.page_num}})</span>
       </li>
     </ul>
+    <div>
+      <new-page :total="total" @on-change="pageChange"></new-page>
+    </div>
   </div>
   <Modal v-model="create_modal" title="创建标签">
     <Form ref="tagForm" :model="tag_obj" :rules="rule" >
@@ -89,6 +92,10 @@ export default {
           this.$Message.error(res.data.data)
         }
       })
+    },
+    pageChange (page) {
+      this.page = page
+      this.getTagList()
     }
   }
 }
@@ -96,7 +103,22 @@ export default {
 <style lang="scss" scoped>
 ul {
   li {
-    list-style: none
+    list-style: none;
+    font-size: 14px;
+    margin: 20px 0 20px 10px;
+    box-sizing: content-box;
+    .tag-name {
+      color: #555;
+      border-bottom: 1px solid #bbb;
+      margin: 5px 0 10px 5px;
+      &:hover {
+        border-bottom-color: #222;
+        color: #222;
+      }
+    }
+    .tag-page-count {
+      color: #bbb;
+    }
   }
   
 }
