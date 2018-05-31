@@ -1,7 +1,7 @@
 <template>
 <div>
   <one-page v-for="(page, i) in page_list" :key="i" :page="page"></one-page>
-  <div :style="{marginBottom: '50px'}">
+  <div class="pagination">
     <new-page v-if="total>pageSize" :total="total" @on-change="pageChange"></new-page>
   </div>
 </div>

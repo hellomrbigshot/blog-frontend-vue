@@ -38,7 +38,7 @@ module.exports = {
             query_obj.secret = secret
         }
         if (type === 'tag') {
-            query_obj['tags.name'] = content
+            query_obj.tags = content
         }
         return Page
             .find(query_obj)
@@ -65,7 +65,7 @@ module.exports = {
             query_obj.secret = secret
         }
         if (type === 'tag') {
-            query_obj['tags.name'] = content
+            query_obj.tags = content
         }
         return Page
             .find(query_obj)

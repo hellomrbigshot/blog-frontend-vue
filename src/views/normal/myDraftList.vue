@@ -17,8 +17,8 @@
             </Row>
         </li>
     </ul>
-    <div :style="{marginBottom: '20px'}" v-if="pageSize<total">
-        <new-page :total="total"></new-page>
+    <div class="pagination" >
+        <new-page :total="total" v-if="pageSize<total"></new-page>
     </div>
 </div>
 </template>

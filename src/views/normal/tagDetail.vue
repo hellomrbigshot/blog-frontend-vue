@@ -20,7 +20,7 @@
                 </div>
             </header>
         </article>
-        <div :style="{marginBottom: '50px'}" >
+        <div class="pagination">
             <new-page v-if="total>pageSize" :total="total" @on-change="pageChange"></new-page>
         </div>
     </section>

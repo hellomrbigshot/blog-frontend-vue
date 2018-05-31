@@ -13,10 +13,7 @@ router.post('/new', checkLogin, async (req, res, next) => { // 新建文章
         const create_user = req.session.user.username
         const status = req.body.status
         const secret = req.body.secret
-        const tags = req.body.tags.reduce(tag => {
-            tag = { name: tag }
-            return tag
-        })
+        const tags = req.body.tags
         let page = {
             title,
             tags,
@@ -48,10 +45,7 @@ router.post('/edit', checkLogin, async (req, res, next) => { // 编辑文章
         const create_user = req.session.user.username
         const status = req.body.status
         const secret = req.body.secret
-        const tags = req.body.tags.reduce(tag => {
-            tag = { name: tag }
-            return tag
-        })
+        const tags = req.body.tags
         let page = {
             title,
             content,

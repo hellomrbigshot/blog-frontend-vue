@@ -11,8 +11,8 @@
         <span class="tag-page-count">({{tag.page_num}})</span>
       </li>
     </ul>
-    <div>
-      <new-page :total="total" @on-change="pageChange"></new-page>
+    <div class="pagination">
+      <new-page v-if="total>pageSize" :total="total" @on-change="pageChange"></new-page>
     </div>
   </div>
   <Modal v-model="create_modal" title="创建标签">
@@ -102,6 +102,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 ul {
+  overflow: hidden;
+  margin-top: 40px;
   li {
     list-style: none;
     font-size: 14px;
