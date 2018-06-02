@@ -43,7 +43,6 @@
           <div class="site-operate">
               <router-link :to="{name: 'normalNew'}">写文章</router-link>
               <a @click="signout">注销</a>
-              <Button @click="page_num++"></Button>
           </div>
       </section>
   </div>
