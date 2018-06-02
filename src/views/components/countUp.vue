@@ -30,7 +30,11 @@ export default {
 
         }
     },
+    created () {
+        console.log('create')
+    },
     mounted () {
+        console.log('hehe')
         this.$nextTick(() => {
             setTimeout(() => {
                 let numAnim = new CountUp(this.idName, this.startVal, this.endVal);
