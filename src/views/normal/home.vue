@@ -121,6 +121,9 @@ export default {
 .rotate-icon {
   transform: rotate(-90deg);
 }
+.pagination {
+  margin: 120px 0;
+}
 </style>
 
 
