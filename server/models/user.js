@@ -11,6 +11,12 @@ module.exports = {
 			.findOne({ username: username })
 			.exec()
 	},
+	// 通过第三方登录信息获取用户信息
+	getUserByOauthInfo (object) {
+		return User
+			.fondOne({ oauthinfo: object })
+			.exec()
+	},
 	// 获取所有用户列表
 	getUserList (pageSize, Count) {
 		return User
