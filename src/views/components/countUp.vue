@@ -33,11 +33,11 @@ export default {
     mounted () {
         this.$nextTick(() => {
             setTimeout(() => {
-                let numAnim = new CountUp(this.idName, this.startVal, this.endVal);
+                let numAnim = new CountUp(this.idName, this.startVal, this.endVal)
                 if (!numAnim.error) {
-                    numAnim.start();
+                    numAnim.start()
                 } else {
-                    console.error(numAnim.error);
+                    console.error(numAnim.error)
                 }
             }, this.delay)
             
@@ -50,9 +50,9 @@ export default {
                 setTimeout(() => {
                     let numAnim = new CountUp(this.idName, this.startVal, newVal);
                     if (!numAnim.error) {
-                        numAnim.start();
+                        numAnim.start()
                     } else {
-                        console.error(numAnim.error);
+                        console.error(numAnim.error)
                     }
                 }, this.delay)
                 
