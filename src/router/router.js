@@ -26,6 +26,15 @@ export const registerRouter = {
   },
   component: () => import('@/views/register')
 }
+export const oauthRegisterRouter = {
+  path: 'oauthregister',
+  name: 'oauthregister',
+  meta: {
+    title: '注册',
+    login: false
+  },
+  component: () => import('@/views/register')
+}
 export const adminRouter = {
   path: '/admin',
   name: 'admin',
