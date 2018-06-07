@@ -62,9 +62,6 @@ export default {
                   this.Common.axios('/api/signin', this.formData).then(res => {
                       if (res.data.code === 'OK') {
                           this.Cookies.set('user', this.formData.username)
-                          this.$store.commit('updateUserName', this.formData.username)
-                          this.$store.commit('updatePageNum', { page_num: res.data.data.page_num, draft_num: res.data.data.draft_num })
-                          localStorage.setItem('user', JSON.stringify(res.data.data))
                           if (this.$route.query.redirect) {
                               this.$router.push(decodeURIComponent(this.$route.query.redirect))
                           } else {

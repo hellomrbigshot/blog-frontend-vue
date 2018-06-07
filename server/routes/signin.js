@@ -8,6 +8,7 @@ const UserModel = require('../models/user')
 const PageModel = require('../models/page')
 const FileModel = require('../models/files')
 const checkNotLogin = require('../middlewares/check').checkNotLogin
+const checkLogin = require('../middlewares/check').checkLogin
 
 // POST /signin 用户登录
 router.post('/', checkNotLogin, async (req, res, next) => {
@@ -25,6 +26,32 @@ router.post('/', checkNotLogin, async (req, res, next) => {
 			res.status(200).json({code: 'ERROR', data: '用户名或密码错误'})
 			return false
 		}
+		delete user.password
+		// console.log(user.avatar)
+		req.session.user = JSON.parse(JSON.stringify(user))
+		const [page_num, draft_num, avatar_url] = await Promise.all([
+			PageModel.getPageNum('create_user', username, 'normal'),
+			PageModel.getPageNum('create_user', username, 'draft'),
+			FileModel.getFilePath(user.avatar)
+		])
+		// console.log(avatar_url)
+		user.page_num = page_num
+		user.draft_num = draft_num
+		user.avatar_url = avatar_url 
+
+		// 返回登录成功
+		res.status(200).json({code: 'OK', data: user})
+	} catch (e) {
+		res.status(200).json({ code: 'ERROR', data: e.message })
+        return false
+	}
+	
+})
+// 根据用户名获取用户信息
+router.post('/getUserInfo', checkLogin, async (req, res, next) => {
+	const username = req.body.username
+	try {
+		let user = (await UserModel.getUserByName(username)).toObject()
 		delete user.password
 		// console.log(user.avatar)
 		req.session.user = JSON.parse(JSON.stringify(user))
@@ -76,9 +103,6 @@ router.get('/avatar', async (req, res, next) => {
 			res.end()
 		})
 	}
-})
-router.get('/test', async (req, res, next) => {
-	res.status(200).json({ code: 'OK', data: '成功' })
 })
 
 module.exports = router

@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const config = require('../config/config')
 const fetch = require('node-fetch')
+const UserModel = require('../models/user')
 
 router.get('/login', async (req, res) => {
     const dataStr = (new Date()).valueOf()
@@ -12,7 +13,7 @@ router.get('/login', async (req, res) => {
     // 转发到授权服务器
     res.redirect(path)
 })
-router.get('/oauth/callback', async (req, res1, next) => {
+router.get('/oauth/callback', async (req, res, next) => {
     const code = req.query.code;
     let path = 'https://github.com/login/oauth/access_token';
     const params = {
@@ -27,20 +28,27 @@ router.get('/oauth/callback', async (req, res1, next) => {
         },
         body: JSON.stringify(params)
     })
-    .then(res => {
-        return res.text()
+    .then(result => {
+        return result.text()
     }).then(body => {
         let access_token = body.split('&')[0].split('=')[1]
         return access_token
     }).then(async (token) => {
         const url = ' https://api.github.com/user?access_token=' + token;
         await fetch(url)
-            .then(res => {
-                return res.json();
+            .then(result1 => {
+                return result1.json();
             })
-            .then(res => {
-                console.log(res)
-                res1.redirect(`${config.host}?name=${res.name}`)
+            .then(async (result2) => {
+                let exist = await UserModel.getUserByOauthInfo({ type: 'github', name: result2.login })
+                if (exist) {
+                    // 果然已经注册了，获取登录信息后直接跳转到列表页
+                    req.session.user = JSON.parse(JSON.stringify(exist))
+                    res.redirect(`${config.main_url}?username=${exist.username}`)
+                } else {
+                    // 如果没有注册，就先注册
+                }
+                res.redirect(`${config.register_url}?name=${result2.name}`)
                 // res1.status(200).json({ code: 'OK', data: res })
             })
 

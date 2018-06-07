@@ -22,7 +22,7 @@
       </Layout>
       <Sider ref="pageSider" hide-trigger collapsible :collapsed-width="0" v-model="isCollapsed" :width="320" >
           <div :class="menuitemClasses">
-            <user-info></user-info>
+            <user-info v-if="!isCollapsed"></user-info>
           </div>
       </Sider>
   </Layout>
@@ -43,7 +43,8 @@ export default {
         isCollapsed: true,
     }
   },
-  created () {
+  async created () {
+    await this.getUserInfo()
     this.isCollapsed = this.user?false:true
   },
   computed: {
@@ -60,10 +61,19 @@ export default {
         ]
     },
     user () {
-        return this.Cookies.get('user') || ''
+        return this.Cookies.get('user') || this.$route.query.username || ''
     }
   },
   methods: {
+    getUserInfo () {
+      if (this.user) {
+        return this.Common.axios('/api/signin/getUserInfo', { username: this.user }).then(res => {
+          this.$store.commit('updateUserName', this.user)
+          this.$store.commit('updatePageNum', { page_num: res.data.data.page_num, draft_num: res.data.data.draft_num })
+          localStorage.setItem('user', JSON.stringify(res.data.data))
+        })
+      }
+    },
     collapsedSider () { // 侧边栏显示切换
         this.$refs.pageSider.toggleCollapse()
     },
