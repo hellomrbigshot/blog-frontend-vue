@@ -79,7 +79,7 @@ router.post('/', checkNotLogin, async (req, res, next) => {
         // 用户信息写入数据库
         let result = JSON.parse(JSON.stringify(await UserModel.create(user)))
         delete result.password
-        // req.session.user = result
+        req.session.user = result
         result.avatar_url = await FileModel.getFilePath(user.avatar)
         res.status(200).json({code: 'OK', data: result})
     } catch (e) {
@@ -90,13 +90,14 @@ router.post('/', checkNotLogin, async (req, res, next) => {
 })
 
 // 第三方登录 注册
-router.post('/oauthregister', checkNotLogin, async (req, res, next) => {
+router.post('/oauth', checkNotLogin, async (req, res, next) => {
     const username = req.body.username
     let password = req.body.password
     const repassword = req.body.repassword
-    const avatar = req.body.avatar_url
+    // const avatar = req.body.avatar_url
     const gender = 'x'
     const bio = req.body.bio
+    const oauthinfo = req.body.oauth
     // 校验参数
     try {
         if (!(username.length > 1 && username.length < 10)) {
@@ -128,15 +129,16 @@ router.post('/oauthregister', checkNotLogin, async (req, res, next) => {
         let user = {
             username,
             password,
-            avatar,
+            // avatar,
             gender,
-            bio
+            bio,
+            oauthinfo
         }
 
         // 用户信息写入数据库
         let result = JSON.parse(JSON.stringify(await UserModel.create(user)))
         delete result.password
-        // req.session.user = result
+        req.session.user = result
         result.avatar_url = await FileModel.getFilePath(user.avatar)
         res.status(200).json({code: 'OK', data: result})
     } catch (e) {

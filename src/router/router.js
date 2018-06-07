@@ -27,13 +27,13 @@ export const registerRouter = {
   component: () => import('@/views/register')
 }
 export const oauthRegisterRouter = {
-  path: 'oauthregister',
+  path: '/oauthregister',
   name: 'oauthregister',
   meta: {
     title: '注册',
     login: false
   },
-  component: () => import('@/views/register')
+  component: () => import('@/views/oauthRegister')
 }
 export const adminRouter = {
   path: '/admin',
@@ -236,6 +236,7 @@ export const routers = [ // 上面定义的路由均写在 routers
   longinRouter,
   page404,
   registerRouter,
+  oauthRegisterRouter,
   normalRouter,
   adminRouter
 ]

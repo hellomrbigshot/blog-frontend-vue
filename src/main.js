@@ -17,7 +17,7 @@ import marked from 'marked'
 import 'highlight.js/styles/solarized-light.css'
 
 
-hljs.highlightCode =   function () { // 自定义 highlightCode 方法，循环执行方法
+hljs.highlightCode = function () { // 自定义 highlightCode 方法，循环执行方法
     let blocks = document.querySelectorAll('pre code')
     let dom = Array.prototype.slice.call(blocks)
     dom.forEach(ele => {

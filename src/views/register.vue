@@ -39,7 +39,7 @@
                 
                 <FormItem>
                     <Button type="primary" size="large" long @click="register('registerForm')" >注册</Button>
-                    <Button type="ghost" size="large" :style="{marginTop: '10px'}" long @click="toLogin('registerForm')" >登录</Button>
+                    <Button type="ghost" size="large" :style="{marginTop: '10px'}" long @click="toLogin()" >登录</Button>
                 </FormItem>
             </Form>
         </div>
@@ -48,90 +48,90 @@
 <script>
 export default {
   name: 'Register',
-  data () {
+  data() {
     const validatorName = (rule, value, callback) => {
-        if (!value) {
-            callback(new Error('请输入账号'))
-            return false
-        }
-        callback()
+      if (!value) {
+        callback(new Error('请输入账号'))
+        return false
+      }
+      callback()
     }
     const validatorPass = (rule, value, callback) => {
-        if (!value) {
-            callback(new Error('请输入密码'))
-            return false
-        }
-        callback()
+      if (!value) {
+        callback(new Error('请输入密码'))
+        return false
+      }
+      callback()
     }
     const validatorRepass = (rule, value, callback) => {
-        if (value !== this.formData.password) {
-            callback(new Error('两次密码输入不一致'))
-            return false
-        }
-        callback()
+      if (value !== this.formData.password) {
+        callback(new Error('两次密码输入不一致'))
+        return false
+      }
+      callback()
     }
     const gender = (rule, value, callback) => {
-        if (!value) {
-            callback(new Error('请选择性别'))
-            return false
-        }
-        callback()
+      if (!value) {
+        callback(new Error('请选择性别'))
+        return false
+      }
+      callback()
     }
     return {
       formData: {
-          username: '',
-          password: '',
-          gender: '',
-          avatar: '',
-          bio: '',
+        username: '',
+        password: '',
+        gender: '',
+        avatar: '',
+        bio: ''
       },
       rule: {
-          username: [{ validator: validatorName, trigger: 'blur' }],
-          password: [{ validator: validatorPass, trigger: 'blur' }],
-          repassword: [{ validator: validatorRepass, trigger: 'blur' }],
-          gender: [{ validator: gender, trigger: 'blur'}]
+        username: [{ validator: validatorName, trigger: 'blur' }],
+        password: [{ validator: validatorPass, trigger: 'blur' }],
+        repassword: [{ validator: validatorRepass, trigger: 'blur' }],
+        gender: [{ validator: gender, trigger: 'blur' }]
       }
     }
   },
   methods: {
-      uploadSuccess (response, file, fileList) { // 头像上传成功
-        this.formData.avatar = response.data
-      },
-      uploadError (response, file, fileList) { // 头像上传失败
-        this.$Message.error('头像上传失败')
-      },
-      register (name) {
-          this.$refs[name].validate(valid => {
-              if (valid) {
-                  this.Common.axios('/api/signup', this.formData).then(res => {
-                      if (res.data.code === 'OK') {
-                        //   this.Cookies.set('user', this.formData.username)
-                        //   localStorage.setItem('user', JSON.stringify(res.data.data))
-                        //   if (this.Cookies.user === 'admin') {
-                        //       this.$router.push({name: 'admin'})
-                        //   } else {
-                        //       this.$router.push({name: 'normal'})
-                        //   }
-                        this.$Message.success('注册成功，请登录')
-                        setTimeout(() => {
-                            this.$router.push({ name: 'login' })
-                        }, 2000);
-                        
-                      } else {
-                          this.$Message.error(res.data.data)
-                      }
-                  })
-              } else {
-                  return false
-              }
+    uploadSuccess(response, file, fileList) {
+      // 头像上传成功
+      this.formData.avatar = response.data
+    },
+    uploadError(response, file, fileList) {
+      // 头像上传失败
+      this.$Message.error('头像上传失败')
+    },
+    register(name) {
+      this.$refs[name].validate(valid => {
+        if (valid) {
+          this.Common.axios('/api/signup', this.formData).then(res => {
+            if (res.data.code === 'OK') {
+              // 注册成功直接登录
+              this.Cookies.set('user', this.formData.username)
+              this.$Message.success('注册成功，正在跳转...')
+              setTimeout(() => {
+                if (this.Cookies.user === 'admin') {
+                  this.$router.push({ name: 'admin' })
+                } else {
+                  this.$router.push({ name: 'normalPageList' })
+                }
+              }, 2000)
+            } else {
+              this.$Message.error(res.data.data)
+            }
           })
-      },
-      toLogin () {
-          this.$router.push({ name: 'login' })
-      }
+        } else {
+          return false
+        }
+      })
+    },
+    toLogin() {
+      this.$router.push({ name: 'login' })
+    }
   }
 }
 </script>
 <style scoped lang="scss">
-@import './login.scss'
+@import './login.scss';
 </style>

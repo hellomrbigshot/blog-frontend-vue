@@ -40,6 +40,7 @@ router.get('/oauth/callback', async (req, res, next) => {
                 return result1.json();
             })
             .then(async (result2) => {
+                console.log(result2)
                 let exist = await UserModel.getUserByOauthInfo({ type: 'github', name: result2.login })
                 if (exist) {
                     // 果然已经注册了，获取登录信息后直接跳转到列表页
@@ -48,7 +49,7 @@ router.get('/oauth/callback', async (req, res, next) => {
                 } else {
                     // 如果没有注册，就先注册
                 }
-                res.redirect(`${config.register_url}?name=${result2.name}`)
+                res.redirect(`${config.register_url}?name=${result2.login}&type=github&avatar_url=${result2.avatar_url}&bio=${result2.bio}`)
                 // res1.status(200).json({ code: 'OK', data: res })
             })
 
