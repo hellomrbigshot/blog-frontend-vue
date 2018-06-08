@@ -2,8 +2,9 @@ const router = require('express').Router()
 const config = require('../config/config')
 const fetch = require('node-fetch')
 const UserModel = require('../models/user')
+const checkNotLogin = require('../middlewares/check').checkNotLogin
 
-router.get('/login', async (req, res) => {
+router.get('/login', checkNotLogin, async (req, res, next) => {
     const dataStr = (new Date()).valueOf()
     //  重定向到认证接口,并配置参数
     let path = "https://github.com/login/oauth/authorize"
@@ -13,8 +14,8 @@ router.get('/login', async (req, res) => {
     // 转发到授权服务器
     res.redirect(path)
 })
-router.get('/oauth/callback', async (req, res, next) => {
-    const code = req.query.code;
+router.get('/oauth/callback', checkNotLogin,  async (req1, res, next) => {
+    const code = req1.query.code;
     let path = 'https://github.com/login/oauth/access_token';
     const params = {
         client_id: config.client_id,
@@ -40,17 +41,17 @@ router.get('/oauth/callback', async (req, res, next) => {
                 return result1.json();
             })
             .then(async (result2) => {
-                console.log(result2)
-                let exist = await UserModel.getUserByOauthInfo({ type: 'github', name: result2.login })
-                if (exist) {
-                    // 果然已经注册了，获取登录信息后直接跳转到列表页
-                    req.session.user = JSON.parse(JSON.stringify(exist))
-                    res.redirect(`${config.main_url}?username=${exist.username}`)
+                let user = await UserModel.getUserByOauthInfo({ type: 'github', name: result2.login })
+                if (user) {
+                    // 已注册，获取登录信息后直接跳转到列表页
+                    user = user.toObject()
+                    delete user.password
+                    req1.session.user = JSON.parse(JSON.stringify(user))
+                    res.redirect(`${config.main_url}?username=${user.username}`)
                 } else {
-                    // 如果没有注册，就先注册
+                    // 如果没有注册，就跳转到注册界面
+                    res.redirect(`${config.register_url}?name=${result2.login}&type=github&avatar_url=${result2.avatar_url}&bio=${result2.bio}`)
                 }
-                res.redirect(`${config.register_url}?name=${result2.login}&type=github&avatar_url=${result2.avatar_url}&bio=${result2.bio}`)
-                // res1.status(200).json({ code: 'OK', data: res })
             })
 
     })

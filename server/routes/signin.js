@@ -27,20 +27,9 @@ router.post('/', checkNotLogin, async (req, res, next) => {
 			return false
 		}
 		delete user.password
-		// console.log(user.avatar)
 		req.session.user = JSON.parse(JSON.stringify(user))
-		const [page_num, draft_num, avatar_url] = await Promise.all([
-			PageModel.getPageNum('create_user', username, 'normal'),
-			PageModel.getPageNum('create_user', username, 'draft'),
-			FileModel.getFilePath(user.avatar)
-		])
-		// console.log(avatar_url)
-		user.page_num = page_num
-		user.draft_num = draft_num
-		user.avatar_url = avatar_url 
-
 		// 返回登录成功
-		res.status(200).json({code: 'OK', data: user})
+		res.status(200).json({code: 'OK', data: '登录成功'})
 	} catch (e) {
 		res.status(200).json({ code: 'ERROR', data: e.message })
         return false
@@ -53,17 +42,12 @@ router.post('/getUserInfo', checkLogin, async (req, res, next) => {
 	try {
 		let user = (await UserModel.getUserByName(username)).toObject()
 		delete user.password
-		// console.log(user.avatar)
-		req.session.user = JSON.parse(JSON.stringify(user))
-		const [page_num, draft_num, avatar_url] = await Promise.all([
+		const [page_num, draft_num] = await Promise.all([
 			PageModel.getPageNum('create_user', username, 'normal'),
 			PageModel.getPageNum('create_user', username, 'draft'),
-			FileModel.getFilePath(user.avatar)
 		])
-		// console.log(avatar_url)
 		user.page_num = page_num
 		user.draft_num = draft_num
-		user.avatar_url = avatar_url 
 
 		// 返回登录成功
 		res.status(200).json({code: 'OK', data: user})
@@ -75,34 +59,41 @@ router.post('/getUserInfo', checkLogin, async (req, res, next) => {
 })
 
 // get /avatar/file_id
-router.get('/avatar', async (req, res, next) => {
+router.get('/avatar', (req, res, next) => {
 	const id = req.query.file_id
-	const url = await FileModel.getFilePath(id)
-	res.set('content-type', 'image/jpg')
-	// res.sendFile(url)
-	// fs.readFile(url, 'binary', (err, file) => {
-	// 	if (err) {
-	// 	  console.log(err)
-	// 	  return;
-	// 	} else {
-	// 		res.writeHead(200, { 'Content-Type': 'image/jpeg' })
-	// 		res.write(file, 'binary')
-	// 		res.end()
-	// 		return
-	// 	}
-	// })
-	let stream = fs.createReadStream(url)
-	let responseData = []; // 存储文件流
-	if (stream) { // 判断状态
-		stream.on('data', chunk => {
-			responseData.push(chunk)
+	if (id === 'undefined') {
+		res.status(500).json({ code: 'ERROR' })
+	} else {
+		res.set('content-type', 'image/jpg')
+		FileModel.getFilePath(id).then(url => {
+			// res.sendFile(url)
+			// fs.readFile(url, 'binary', (err, file) => {
+			// 	if (err) {
+			// 	  console.log(err)
+			// 	  return;
+			// 	} else {
+			// 		res.writeHead(200, { 'Content-Type': 'image/jpeg' })
+			// 		res.write(file, 'binary')
+			// 		res.end()
+			// 		return
+			// 	}
+			// })
+			let stream = fs.createReadStream(url)
+			let responseData = []; // 存储文件流
+			if (stream) { // 判断状态
+				stream.on('data', chunk => {
+					responseData.push(chunk)
+				})
+				stream.on('end', () => {
+					let finalData = Buffer.concat(responseData)
+					res.write(finalData)
+					res.end()
+				})
+			}
 		})
-		stream.on('end', () => {
-			let finalData = Buffer.concat(responseData)
-			res.write(finalData)
-			res.end()
-		})
+		
 	}
+	
 })
 
 module.exports = router

@@ -29,15 +29,10 @@ handleFile.deleteFileById = async function  (id) {
 }
 // 获取文件路径
 handleFile.getFilePath = async function  (id) {
-	// if (!id) {
-	// 	return ''
-	// }
-	// try {
-		let fileObject = await handleFile.getFileById(id)
-		return path.join(__dirname, `../uploads/${fileObject.filename}`)
-	// } catch (e) {
-
-	// }
-	
+	if (!id) {
+		return false
+	}
+	let fileObject = await handleFile.getFileById(id)
+	return path.join(__dirname, `../uploads/${fileObject.filename}`)
 }
 module.exports = handleFile

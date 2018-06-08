@@ -80,7 +80,6 @@ router.post('/', checkNotLogin, async (req, res, next) => {
         let result = JSON.parse(JSON.stringify(await UserModel.create(user)))
         delete result.password
         req.session.user = result
-        result.avatar_url = await FileModel.getFilePath(user.avatar)
         res.status(200).json({code: 'OK', data: result})
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
@@ -97,7 +96,7 @@ router.post('/oauth', checkNotLogin, async (req, res, next) => {
     // const avatar = req.body.avatar_url
     const gender = 'x'
     const bio = req.body.bio
-    const oauthinfo = req.body.oauth
+    const oauthinfo = req.body.oauthinfo
     // 校验参数
     try {
         if (!(username.length > 1 && username.length < 10)) {
@@ -139,7 +138,6 @@ router.post('/oauth', checkNotLogin, async (req, res, next) => {
         let result = JSON.parse(JSON.stringify(await UserModel.create(user)))
         delete result.password
         req.session.user = result
-        result.avatar_url = await FileModel.getFilePath(user.avatar)
         res.status(200).json({code: 'OK', data: result})
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })

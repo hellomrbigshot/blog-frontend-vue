@@ -2,7 +2,7 @@
   <div class="sider-inner">
       <section>
           <div class="site-author">
-              <img :src="'/api/signin/avatar?file_id='+user.avatar" alt="头像" class="site-author-img">
+              <img :src="imgUrl" alt="头像" ref="img" class="site-author-img">
               <p class="site-author-name">{{ user.username }}</p>
           </div>
           <p class="site-description">{{ user.bio }}</p>
@@ -59,8 +59,15 @@ export default {
     data () {
         return {
             user: JSON.parse(localStorage.getItem('user')),
+            imgUrl: ''
             // page_num: this.$store.state.user.page_num || JSON.parse(localStorage.getItem('user')).page_num,
             // draft_num: this.$store.state.user.draft_num || JSON.parse(localStorage.getItem('user')).draft_num
+        }
+    },
+    mounted () {
+        this.imgUrl = '/api/signin/avatar?file_id='+this.user.avatar
+        this.$refs.img.onerror = () => {
+            this.imgUrl = this.user.oauthinfo.avatar_url
         }
     },
     computed: {

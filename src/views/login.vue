@@ -71,8 +71,6 @@ export default {
                                 this.$router.push({name: 'normalPageList'})
                               }
                           }
-                          
-                        
                       } else {
                         this.$Message.error(res.data.data)
                       }
