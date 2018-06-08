@@ -14,15 +14,15 @@ router.get('/login', checkNotLogin, async (req, res, next) => {
     // 转发到授权服务器
     res.redirect(path)
 })
-router.get('/oauth/callback', checkNotLogin,  async (req1, res, next) => {
-    const code = req1.query.code;
+router.get('/oauth/callback', checkNotLogin, (req, res, next) => {
+    const code = req.query.code;
     let path = 'https://github.com/login/oauth/access_token';
     const params = {
         client_id: config.client_id,
         client_secret: config.client_secret,
         code: code
     }
-    await fetch(path, {
+    fetch(path, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -34,24 +34,26 @@ router.get('/oauth/callback', checkNotLogin,  async (req1, res, next) => {
     }).then(body => {
         let access_token = body.split('&')[0].split('=')[1]
         return access_token
-    }).then(async (token) => {
+    }).then(token => {
         const url = ' https://api.github.com/user?access_token=' + token;
-        await fetch(url)
-            .then(result1 => {
-                return result1.json();
+        fetch(url)
+            .then(info => {
+                return info.json();
             })
-            .then(async (result2) => {
-                let user = await UserModel.getUserByOauthInfo({ type: 'github', name: result2.login })
-                if (user) {
-                    // 已注册，获取登录信息后直接跳转到列表页
-                    user = user.toObject()
-                    delete user.password
-                    req1.session.user = JSON.parse(JSON.stringify(user))
-                    res.redirect(`${config.main_url}?username=${user.username}`)
-                } else {
-                    // 如果没有注册，就跳转到注册界面
-                    res.redirect(`${config.register_url}?name=${result2.login}&type=github&avatar_url=${result2.avatar_url}&bio=${result2.bio}`)
-                }
+            .then(github_info => {
+                UserModel.getUserByOauthInfo({ type: 'github', name: github_info.login }).then(user => {
+                    if (user) {
+                        // 已注册，获取登录信息后直接跳转到列表页
+                        user = user.toObject()
+                        delete user.password
+                        req.session.user = JSON.parse(JSON.stringify(user))
+                        res.redirect(`${config.main_url}?username=${user.username}`)
+                    } else {
+                        // 如果没有注册，就跳转到注册界面
+                        res.redirect(`${config.register_url}?name=${github_info.login}&type=github&avatar_url=${github_info.avatar_url}&bio=${github_info.bio}`)
+                    }
+                })
+                
             })
 
     })
