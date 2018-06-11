@@ -1,5 +1,5 @@
 <template>
-    <p :style="{textAlign: 'center'}">备案号：{{ ICP }}</p>
+    <p :style="{textAlign: 'center'}">备案号：{{ ICP }}<a href="https://github.com/hellomrbigshot/VueExpressBlog"><Icon type="social-github" :size="15"></Icon></a></p>
 </template>
 
 <script>
