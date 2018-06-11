@@ -72,11 +72,10 @@ export default {
     mounted () {
         this.imgUrl = '/api/signin/avatar?file_id='+this.user.avatar
         this.$refs.img.onerror = () => {
-            // this.imgUrl = this.user.oauthinfo.avatar_url
-            this.imgUrl = this.default_img
-            // this.$refs.img.onerror = () => {
-                
-            // }
+            this.imgUrl = this.user.oauthinfo.avatar_url
+            this.$refs.img.onerror = () => {
+                this.imgUrl = this.default_img
+            }
         }
         this.$refs.img.onload = () => {
             this.imgShow = true

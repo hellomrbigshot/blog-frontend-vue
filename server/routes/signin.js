@@ -61,7 +61,7 @@ router.post('/getUserInfo', checkLogin, async (req, res, next) => {
 // get /avatar/file_id
 router.get('/avatar', (req, res, next) => {
 	const id = req.query.file_id
-	if (id === 'undefined') {
+	if (id === 'undefined' || !id) {
 		res.status(500).json({ code: 'ERROR' })
 	} else {
 		res.set('content-type', 'image/jpg')
