@@ -18,10 +18,14 @@ export default {
           show_page: false,
           pageSize: 10,
           page: 1,
-          total: 0
+          total: 0,
+          username: this.$route.query.username
       }
   },
   mounted () {
+    if (this.username) {
+      this.Cookies.set('user', this.username)
+    }
     this.getPageList()
     
   },

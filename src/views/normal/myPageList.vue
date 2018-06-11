@@ -41,7 +41,7 @@ export default {
       pageSize: 10,
       page: 1,
       total: 0,
-      user: JSON.parse(localStorage.getItem('user'))
+      username: this.Cookies.get('user')
     }
   },
   mounted() {
@@ -52,7 +52,7 @@ export default {
       const post_data = {
         type: 'create_user',
         status: 'normal',
-        content: this.user.username,
+        content: this.username,
         pageSize: this.pageSize,
         page: this.page
       }

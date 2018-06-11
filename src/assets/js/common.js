@@ -16,7 +16,7 @@ axios.interceptors.response.use(
                     localStorage.removeItem('user')
                     router.replace({
                         name: 'login',
-                        query: {redirect: router.currentRoute.fullPath}
+                        query: { redirect: router.currentRoute.fullPath }
                     })
             }
         }

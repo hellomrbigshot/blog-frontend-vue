@@ -1,10 +1,12 @@
 <template>
   <div class="sider-inner">
       <section>
-          <div class="site-author">
-              <img :src="imgUrl" alt="头像" ref="img" class="site-author-img">
-              <p class="site-author-name">{{ user.username }}</p>
-          </div>
+          <transition name="fade">
+            <div class="site-author" v-show="imgShow">
+                <img :src="imgUrl" alt="头像" ref="img" class="site-author-img">
+                <p class="site-author-name">{{ user.username }}</p>
+            </div>
+          </transition>
           <p class="site-description">{{ user.bio }}</p>
           <nav class="user-state">
               <div class="site-item">
@@ -48,7 +50,8 @@
   </div>
 </template>
 <script>
-import countUp from '../../components/countUp'
+import countUp from '@/views/components/countUp'
+import default_img from '@/assets/logo.png'
 export default {
     props: {
 
@@ -59,7 +62,9 @@ export default {
     data () {
         return {
             user: JSON.parse(localStorage.getItem('user')),
-            imgUrl: ''
+            imgUrl: '',
+            imgShow: false,
+            default_img: default_img
             // page_num: this.$store.state.user.page_num || JSON.parse(localStorage.getItem('user')).page_num,
             // draft_num: this.$store.state.user.draft_num || JSON.parse(localStorage.getItem('user')).draft_num
         }
@@ -67,7 +72,14 @@ export default {
     mounted () {
         this.imgUrl = '/api/signin/avatar?file_id='+this.user.avatar
         this.$refs.img.onerror = () => {
-            this.imgUrl = this.user.oauthinfo.avatar_url
+            // this.imgUrl = this.user.oauthinfo.avatar_url
+            this.imgUrl = this.default_img
+            // this.$refs.img.onerror = () => {
+                
+            // }
+        }
+        this.$refs.img.onload = () => {
+            this.imgShow = true
         }
     },
     computed: {
@@ -100,6 +112,12 @@ export default {
     color: #999;
     a {
         color: #999;
+    }
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to {
+        opacity: 0;
     }
     .site-author {
         display: block;
