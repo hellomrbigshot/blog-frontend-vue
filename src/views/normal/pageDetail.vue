@@ -1,62 +1,73 @@
 <template>
-    <div>
-        <article>
-            <header>
-                <h1 class="page-title">{{ page.title }}</h1>
-                <div class="page-info">
-                    <!-- <span class="create-time">创建于
+  <div>
+    <article>
+      <header>
+        <h1 class="page-title">{{ page.title }}</h1>
+        <div class="page-info">
+          <!-- <span class="create-time">创建于
                         <time>{{ page.create_date.substring(0,10) }}</time>
                         &nbsp;|&nbsp;
                     </span> -->
-                    <span v-if="page.create_date!==page.update_date" class="update-time">更新于
-                        <time>{{ page.create_date.substring(0,10) }}</time>
-                        &nbsp;|&nbsp;
-                    </span>
-                    <span class="create-user">作者
-                        <router-link :to="{ name: 'userDetail', params: { username:  page.create_user } }">
-                            <span class="user-span">{{ page.create_user }}</span>
-                        </router-link>
-                        &nbsp;|&nbsp;
-                    </span>
-                    <span class="create-user">标签 
-                        <template v-for="(tag, i) in page.tags">
-                            <router-link :to="{ name: 'normalTagDetail', params: { name:  tag} }">
-                                <span class="tag-span">{{ tag }}</span>
-                            </router-link>
-                            <span v-if="i<page.tags.length-1">,</span>
-                        </template>
-                        &nbsp;|&nbsp;
-                    </span>
-                    <span class="edit-span" v-if="Cookies.get('user')===page.create_user">
-                        <router-link :to="{name: 'editPage', params: {id: id}}">编辑</router-link>
-                    </span>
-                    <!-- <span>&nbsp;|&nbsp;</span> -->
-                </div>
-            </header>
-            <div class="page-body" v-html="marked(page.content)"></div>
-        </article>
+          <span v-if="page.create_date!==page.update_date" class="update-time">更新于
+            <time>{{ page.create_date.substring(0,10) }}</time>
+            &nbsp;|&nbsp;
+          </span>
+          <span class="create-user">作者
+            <router-link :to="{ name: 'userDetail', params: { username:  page.create_user } }">
+              <span class="user-span">{{ page.create_user }}</span>
+            </router-link>
+            &nbsp;|&nbsp;
+          </span>
+          <span class="create-user">标签
+            <template v-for="(tag, i) in page.tags">
+              <router-link :to="{ name: 'normalTagDetail', params: { name:  tag} }">
+                <span class="tag-span">{{ tag }}</span>
+              </router-link>
+              <span v-if="i<page.tags.length-1">,</span>
+            </template>
+            &nbsp;|&nbsp;
+          </span>
+          <span class="edit-span" v-if="Cookies.get('user')===page.create_user">
+            <router-link :to="{name: 'editPage', params: {id: id}}">编辑</router-link>
+          </span>
+          <!-- <span>&nbsp;|&nbsp;</span> -->
+        </div>
+      </header>
+      <div class="page-body" v-html="marked(page.content)"></div>
+    </article>
+    <comments :comments="page.comments"></comments>
+    <div>
+      <p :style="{ fontSize: '20px' }">留言：</p>
+      <Input type="textarea" :style="{ marginTop: '15px' }" v-model="comment"></Input>
+      <Button type="primary" :style="{ marginTop: '15px'}" @click="submitComment">发表</Button>
     </div>
+  </div>
 
 </template>
 <script>
+import comments from './components/comments'
 export default {
+  components: { comments },
   data() {
     return {
       id: this.$route.params.id,
+      user: this.Cookies.get('user'),
       page: {
         title: '',
         create_user: '',
         create_date: '',
         update_date: '',
         content: ''
-      }
+      },
+      comment: ''
     }
   },
   mounted() {
     this.getPageDetail()
+    console.log(this.$route.fullPath)
   },
   methods: {
-    async getPageDetail() {
+    getPageDetail() {
       this.Common.axios('/api/page/detail', { id: this.id }).then(res => {
         if (res.data.code === 'OK') {
           this.page = res.data.data
@@ -64,6 +75,18 @@ export default {
             this.hljs.highlightCode()
           })
         }
+      })
+    },
+    submitComment() {
+      if (!this.user) {
+        // 如果没有登录就跳转到登录页
+        this.$router.push({
+          name: 'login',
+          query: { redirect: this.$route.fullPath }
+        })
+      }
+      this.Common.axios('/api/page/addcomment', { id: this.id, comment: this.comment, create_user: this.user }).then(res => {
+        
       })
     }
   }

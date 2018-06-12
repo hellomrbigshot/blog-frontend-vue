@@ -27,14 +27,14 @@ router.post('/new', checkLogin, async (req, res, next) => { // 新建文章
         }
         let result = await PageModel.create(page)
         const [page_num, draft_num] = await Promise.all([
-			PageModel.getPageNum('normal', create_user),
-			PageModel.getPageNum('draft', create_user)
-		])
+            PageModel.getPageNum('normal', create_user),
+            PageModel.getPageNum('draft', create_user)
+        ])
         res.status(200).json({ code: 'OK', data: { page_num: page_num, draft_num: draft_num } })
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
     }
-    
+
 })
 router.post('/edit', checkLogin, async (req, res, next) => { // 编辑文章
     try {
@@ -56,14 +56,14 @@ router.post('/edit', checkLogin, async (req, res, next) => { // 编辑文章
         }
         let result = await PageModel.update(id, page)
         const [page_num, draft_num] = await Promise.all([
-			PageModel.getPageNum('normal', create_user),
-			PageModel.getPageNum('draft', create_user)
-		])
+            PageModel.getPageNum('normal', create_user),
+            PageModel.getPageNum('draft', create_user)
+        ])
         res.status(200).json({ code: 'OK', data: { page_num: page_num, draft_num: draft_num } })
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
     }
-    
+
 })
 router.post('/detail', async (req, res, next) => { // 获取文章详情
     try {
@@ -83,18 +83,18 @@ router.post('/detail', async (req, res, next) => { // 获取文章详情
  * @params {number} req.body.secret
 */
 router.post('/pagelist', async (req, res, next) => { // 获取文章列表
-    let pageSize =  req.body.pageSize || 10
+    let pageSize = req.body.pageSize || 10
     let page = req.body.page || 1
     const type = req.body.type
     const content = req.body.content
     const status = req.body.status
     const secret = req.body.secret
-    pageSize = typeof(pageSize) === 'number'?pageSize:parseInt(pageSize)
-    page = typeof(page) === 'number'?page:parseInt(page)
+    pageSize = typeof (pageSize) === 'number' ? pageSize : parseInt(pageSize)
+    page = typeof (page) === 'number' ? page : parseInt(page)
     try {
         let [total, result] = await Promise.all([
             PageModel.getPageNum(type, content, status, secret),
-            PageModel.getPageList(type, content, status, pageSize, pageSize*(page-1), secret)
+            PageModel.getPageList(type, content, status, pageSize, pageSize * (page - 1), secret)
         ])
         res.status(200).json({ code: 'OK', data: { result, total } })
     } catch (e) {
@@ -102,21 +102,34 @@ router.post('/pagelist', async (req, res, next) => { // 获取文章列表
     }
 })
 router.post('/limitpagelist', checkLogin, async (req, res, next) => { // 根据条件获取文章列表，必须登录
-    let pageSize =  req.body.pageSize || 10
+    let pageSize = req.body.pageSize || 10
     let page = req.body.page || 1
     const type = req.body.type
     const content = req.body.content
     const status = req.body.status
     const secret = req.body.secret
-    pageSize = typeof(pageSize) === 'number'?pageSize:parseInt(pageSize)
-    page = typeof(page) === 'number'?page:parseInt(page)
+    pageSize = typeof (pageSize) === 'number' ? pageSize : parseInt(pageSize)
+    page = typeof (page) === 'number' ? page : parseInt(page)
     try {
 
         let [total, result] = await Promise.all([
             PageModel.getPageNum(type, content, status, secret),
-            PageModel.getPageList(type, content, status, pageSize, pageSize*(page-1), secret)
+            PageModel.getPageList(type, content, status, pageSize, pageSize * (page - 1), secret)
         ])
         res.status(200).json({ code: 'OK', data: { result, total } })
+    } catch (e) {
+        res.status(200).json({ code: 'ERROR', data: e.message })
+    }
+})
+
+router.post('/addcomment', checkLogin, async (req, res, next) => { // 保存评论
+    const comment = req.body.comment
+    const create_user = req.body.create_user
+    const id = req.body.id
+    const create_time = new Date()
+    try {
+        let total = await PageModel.addPageComment(id, { comment, create_user, create_time })
+        res.status(200).json({ code: 'OK', data: { result: total } })
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
     }

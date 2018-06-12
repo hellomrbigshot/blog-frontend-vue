@@ -2,20 +2,26 @@ const Page = require('../lib/page').Page
 
 module.exports = {
     // 创建文章
-    create (page) {
+    create(page) {
         return Page.create(page)
     },
     // 编辑文章
-    update (id, updates) {
-        let condition = {_id: id}
+    update(id, updates) {
+        let condition = { _id: id }
         return Page
             .update(condition, { $set: updates })
             .exec()
     },
     // 通过 id 获取文章
-    getPageById (id) {
+    getPageById(id) {
         return Page
             .findOne({ _id: id })
+            .exec()
+    },
+    // 添加一条评论
+    addPageComment(id, comment) {
+        return Page
+            .update({ _id: id }, { $push: { comments: comment } })
             .exec()
     },
     /**
@@ -27,14 +33,14 @@ module.exports = {
      * @params {number} Count
      * @params {boolean} secret
      */
-    getPageList (type='', content='', status='normal', pageSize=10, Count=0, secret) {
-        let query_obj ={
+    getPageList(type = '', content = '', status = 'normal', pageSize = 10, Count = 0, secret) {
+        let query_obj = {
             status
         }
         if (type === 'create_user') {
             query_obj.create_user = content
         }
-        if (typeof(secret)==='boolean') {
+        if (typeof (secret) === 'boolean') {
             query_obj.secret = secret
         }
         if (type === 'tag') {
@@ -43,7 +49,7 @@ module.exports = {
         return Page
             .find(query_obj)
             .skip(Count)
-			.limit(pageSize)
+            .limit(pageSize)
             .sort({ 'create_date': -1 })
             .exec()
     },
@@ -56,12 +62,12 @@ module.exports = {
      * @params {number} Count
      * @params {boolean} secret
      */
-    getPageNum (type='', content='', status='normal', secret) {
+    getPageNum(type = '', content = '', status = 'normal', secret) {
         let query_obj = { status: status }
         if (type === 'create_user') {
             query_obj.create_user = content
         }
-        if (typeof(secret) === 'boolean') {
+        if (typeof (secret) === 'boolean') {
             query_obj.secret = secret
         }
         if (type === 'tag') {
