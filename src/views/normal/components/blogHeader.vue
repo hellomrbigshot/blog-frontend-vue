@@ -3,7 +3,7 @@
         <div class="site-meta">
             <router-link :to="{name: 'normalPageList'}" class="brand">
                 <span class="logo-line-before"></span>
-                <span class="site-title">My Blog</span>
+                <span class="site-title">且听风吟</span>
                 <span class="logo-line-after"></span>
             </router-link>
         </div>
