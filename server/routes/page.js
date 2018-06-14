@@ -30,7 +30,7 @@ router.post('/new', checkLogin, async (req, res, next) => { // 新建文章
             PageModel.getPageNum('normal', create_user),
             PageModel.getPageNum('draft', create_user)
         ])
-        res.status(200).json({ code: 'OK', data: { page_num: page_num, draft_num: draft_num } })
+        res.status(200).json({ code: 'OK', data: { page_num: page_num, draft_num: draft_num }})
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
     }
@@ -59,7 +59,7 @@ router.post('/edit', checkLogin, async (req, res, next) => { // 编辑文章
             PageModel.getPageNum('normal', create_user),
             PageModel.getPageNum('draft', create_user)
         ])
-        res.status(200).json({ code: 'OK', data: { page_num: page_num, draft_num: draft_num } })
+        res.status(200).json({ code: 'OK', data: { page_num: page_num, draft_num: draft_num }})
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
     }
@@ -96,7 +96,7 @@ router.post('/pagelist', async (req, res, next) => { // 获取文章列表
             PageModel.getPageNum(type, content, status, secret),
             PageModel.getPageList(type, content, status, pageSize, pageSize * (page - 1), secret)
         ])
-        res.status(200).json({ code: 'OK', data: { result, total } })
+        res.status(200).json({ code: 'OK', data: { result, total }})
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
     }
@@ -116,7 +116,7 @@ router.post('/limitpagelist', checkLogin, async (req, res, next) => { // 根据�
             PageModel.getPageNum(type, content, status, secret),
             PageModel.getPageList(type, content, status, pageSize, pageSize * (page - 1), secret)
         ])
-        res.status(200).json({ code: 'OK', data: { result, total } })
+        res.status(200).json({ code: 'OK', data: { result, total }})
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
     }
@@ -129,7 +129,16 @@ router.post('/addcomment', checkLogin, async (req, res, next) => { // 保存评�
     const create_time = new Date()
     try {
         let total = await PageModel.addPageComment(id, { comment, create_user, create_time })
-        res.status(200).json({ code: 'OK', data: { result: total } })
+        res.status(200).json({ code: 'OK', data: '留言提交成功!' })
+    } catch (e) {
+        res.status(200).json({ code: 'ERROR', data: e.message })
+    }
+})
+router.post('/getcomments', async (req, res, next) => {
+    const id = req.body.id
+    try {
+        let comments = (await PageModel.getPageById(id)).comments
+        res.status(200).json({ code: 'OK', data: { result: comments }})
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
     }

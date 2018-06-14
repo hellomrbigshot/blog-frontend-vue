@@ -13,7 +13,7 @@
             &nbsp;|&nbsp;
           </span>
           <span class="create-user">作者
-            <router-link :to="{ name: 'userDetail', params: { username:  page.create_user } }">
+            <router-link :to="{ name: 'userDetail', params: { username:  page.create_user }}">
               <span class="user-span">{{ page.create_user }}</span>
             </router-link>
             &nbsp;|&nbsp;
@@ -38,7 +38,7 @@
     <comments :comments="page.comments"></comments>
     <div>
       <p :style="{ fontSize: '20px' }">留言：</p>
-      <Input type="textarea" :style="{ marginTop: '15px' }" v-model="comment"></Input>
+      <Input type="textarea" :style="{ marginTop: '15px' }" v-model="comment" rows="6"></Input>
       <Button type="primary" :style="{ marginTop: '15px'}" @click="submitComment">发表</Button>
     </div>
   </div>
@@ -57,7 +57,8 @@ export default {
         create_user: '',
         create_date: '',
         update_date: '',
-        content: ''
+        content: '',
+        comments: []
       },
       comment: ''
     }
@@ -71,9 +72,27 @@ export default {
       this.Common.axios('/api/page/detail', { id: this.id }).then(res => {
         if (res.data.code === 'OK') {
           this.page = res.data.data
+          if (this.page.comments.length) {
+            this.page.comments = this.page.comments.map(comment => { 
+              comment.create_time = this.Common.dateFmt('yyyy-MM-dd hh:mm:ss', new Date(comment.create_time))
+              return comment
+            })
+          }
           this.$nextTick(() => {
             this.hljs.highlightCode()
           })
+        }
+      })
+    },
+    getComments () {
+      this.Common.axios('/api/page/getcomments', { id: this.id }).then(res => {
+        if (res.data.code === 'OK') {
+          this.page.comments = res.data.data.result.map(comment => { 
+            comment.create_time = this.Common.dateFmt('yyyy-MM-dd hh:mm:ss', new Date(comment.create_time))
+            return comment
+          })
+        } else {
+          this.$Message.error(res.data.data)
         }
       })
     },
@@ -86,6 +105,13 @@ export default {
         })
       }
       this.Common.axios('/api/page/addcomment', { id: this.id, comment: this.comment, create_user: this.user }).then(res => {
+        if (res.data.code === 'OK') {
+          this.comment = ''
+          this.$Message.success('留言成功')
+          this.getComments()
+        } else {
+          this.$Message.error(res.data.data)
+        }
         
       })
     }
