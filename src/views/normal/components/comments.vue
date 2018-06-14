@@ -30,7 +30,6 @@ export default {
     padding: 8px 2%;
     .comment-content {
         word-break: break-all;
-        // white-space: nowrap;
     }
     .comment-info {
         text-align: right;
