@@ -6,6 +6,7 @@ const CommentSchema = new Schema({
     createuser: { type: String }, // 创建人
     pageid: { type: String }, // 关联文章
     creattime: { type: Date, default: Date.now }, // 创建时间
+    isread: { type: Boolean }, // 是否已读 
 
 })
 

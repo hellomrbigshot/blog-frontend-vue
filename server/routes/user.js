@@ -53,11 +53,11 @@ router.post('/receivedcomments', checkLogin, (req, res, next) => {
     page = typeof (page) === 'number' ? page : parseInt(page)
     try {
 
-        let [total, result] = await Promise.all([
-            PageModel.getPageNum(type, content, status, secret),
-            PageModel.getPageList(type, content, status, pageSize, pageSize * (page - 1), secret)
-        ])
-        res.status(200).json({ code: 'OK', data: { result, total }})
+        // let [total, result] = await Promise.all([
+        //     PageModel.getPageNum(type, content, status, secret),
+        //     PageModel.getPageList(type, content, status, pageSize, pageSize * (page - 1), secret)
+        // ])
+        // res.status(200).json({ code: 'OK', data: { result, total }})
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
     }
