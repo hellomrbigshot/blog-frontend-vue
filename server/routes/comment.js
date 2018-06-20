@@ -10,9 +10,8 @@ router.post('/create', checkLogin, async (req, res, next) => {
     const createuser = req.body.create_user
     const pageid = req.body.page_id
     const pagetitle = req.body.page_title
-    const createtime = req.body.create_time
     try {
-        let result = await CommentModel.create({ content, createuser, pageid, pagetitle, createtime })
+        let result = await CommentModel.create({ content, createuser, pageid, pagetitle })
         res.status(200).json({ code: 'OK', data: result })
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
@@ -42,3 +41,5 @@ router.post('/getusercommentlist', async (req, res, next) => {
         res.status(200).json({ code: 'ERROR', data: e.message })
     }
 })
+
+module.exports = router

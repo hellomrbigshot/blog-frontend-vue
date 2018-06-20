@@ -38,7 +38,7 @@
     <comments :comments="page.comments"></comments>
     <div>
       <p :style="{ fontSize: '20px' }">留言：</p>
-      <Input type="textarea" :style="{ marginTop: '15px' }" v-model="comment" rows="6"></Input>
+      <Input type="textarea" :style="{ marginTop: '15px' }" v-model.trim="comment.content" :rows="6"></Input>
       <Button type="primary" :style="{ marginTop: '15px'}" @click="submitComment">发表</Button>
     </div>
   </div>
@@ -57,27 +57,25 @@ export default {
         create_user: '',
         create_date: '',
         update_date: '',
-        content: '',
-        comments: []
+        content: ''
       },
-      comment: ''
+      comments: [],
+      comment: {
+        content: '',
+        create_user: this.user,
+        page_id: this.id
+      }
     }
   },
   mounted() {
     this.getPageDetail()
-    console.log(this.$route.fullPath)
+    this.getComments()
   },
   methods: {
     getPageDetail() {
       this.Common.axios('/api/page/detail', { id: this.id }).then(res => {
         if (res.data.code === 'OK') {
           this.page = res.data.data
-          if (this.page.comments.length) {
-            this.page.comments = this.page.comments.map(comment => { 
-              comment.create_time = this.Common.dateFmt('yyyy-MM-dd hh:mm:ss', new Date(comment.create_time))
-              return comment
-            })
-          }
           this.$nextTick(() => {
             this.hljs.highlightCode()
           })
@@ -85,9 +83,9 @@ export default {
       })
     },
     getComments () {
-      this.Common.axios('/api/page/getcomments', { id: this.id }).then(res => {
+      this.Common.axios('/api/comment/getpagecommentlist', { page_id: this.id }).then(res => {
         if (res.data.code === 'OK') {
-          this.page.comments = res.data.data.result.map(comment => { 
+          this.comments = res.data.data.result.map(comment => { 
             comment.create_time = this.Common.dateFmt('yyyy-MM-dd hh:mm:ss', new Date(comment.create_time))
             return comment
           })
@@ -104,9 +102,14 @@ export default {
           query: { redirect: this.$route.fullPath }
         })
       }
-      this.Common.axios('/api/page/addcomment', { id: this.id, comment: this.comment, create_user: this.user }).then(res => {
+      if (!this.comment.content) {
+        this.$Message.warning('留言不能为空！')
+        return false
+      }
+      this.comment.page_title = this.page.title
+      this.Common.axios('/api/comment/create', this.comment).then(res => {
         if (res.data.code === 'OK') {
-          this.comment = ''
+          this.comment.content = ''
           this.$Message.success('留言成功')
           this.getComments()
         } else {
