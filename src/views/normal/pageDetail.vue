@@ -45,7 +45,7 @@
 
 </template>
 <script>
-import comments from './components/comments'
+import comments from './components/commentsForPage'
 export default {
   components: { comments },
   data() {

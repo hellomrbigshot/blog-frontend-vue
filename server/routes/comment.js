@@ -35,8 +35,8 @@ router.post('/getusercommentlist', async (req, res, next) => {
     const create_user = req.body.create_user
     const to_user = req.body.to_user
     try {
-        let result = await CommentModel.getCommentList(type, type === 'create_user' ? create_user : to_user)
-        res.status(200).json({ code: 'OK', data: result })
+        let [result, total] = await Promise.all([CommentModel.getCommentList(type, type === 'create_user' ? create_user : to_user), CommentModel.getCommentNum(type, type === 'create_user' ? create_user : to_user)]) 
+        res.status(200).json({ code: 'OK', data: { result, total } })
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
     }
