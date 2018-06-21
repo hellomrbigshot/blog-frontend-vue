@@ -35,7 +35,7 @@
       </header>
       <div class="page-body" v-html="marked(page.content)"></div>
     </article>
-    <comments :comments="page.comments"></comments>
+    <comments :comments="comments"></comments>
     <div>
       <p :style="{ fontSize: '20px' }">留言：</p>
       <Input type="textarea" :style="{ marginTop: '15px' }" v-model.trim="comment.content" :rows="6"></Input>
@@ -61,9 +61,7 @@ export default {
       },
       comments: [],
       comment: {
-        content: '',
-        create_user: this.user,
-        page_id: this.id
+        content: ''
       }
     }
   },
@@ -85,7 +83,7 @@ export default {
     getComments () {
       this.Common.axios('/api/comment/getpagecommentlist', { page_id: this.id }).then(res => {
         if (res.data.code === 'OK') {
-          this.comments = res.data.data.result.map(comment => { 
+          this.comments = res.data.data.map(comment => { 
             comment.create_time = this.Common.dateFmt('yyyy-MM-dd hh:mm:ss', new Date(comment.create_time))
             return comment
           })
@@ -107,6 +105,8 @@ export default {
         return false
       }
       this.comment.page_title = this.page.title
+      this.comment.page_id = this.id
+      this.comment.create_user = this.user
       this.Common.axios('/api/comment/create', this.comment).then(res => {
         if (res.data.code === 'OK') {
           this.comment.content = ''

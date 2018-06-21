@@ -17,9 +17,9 @@ module.exports = {
         if (type === 'page') {
             query_obj.pageid = content
         } else if (type === 'create_user') {
-            query_obj.createuser = content
+            query_obj.create_user = content
         } else if (type === 'to_user') {
-            query_obj.touser = content
+            query_obj.to_user = content
         }
         return Comment
             .find(query_obj)
@@ -31,9 +31,9 @@ module.exports = {
         if (type === 'page') {
             query_obj.pageid = content
         } else if (type === 'create_user') {
-            query_obj.createuser = content
+            query_obj.create_user = content
         } else if (type === 'to_user') {
-            query_obj.touser = content
+            query_obj.to_user = content
         }
         return Comment
             .find(query_obj)

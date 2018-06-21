@@ -7,11 +7,11 @@ const checkLogin = require('../middlewares/check').checkLogin
 // 创建评论
 router.post('/create', checkLogin, async (req, res, next) => {
     const content = req.body.content
-    const createuser = req.body.create_user
+    const create_user = req.body.create_user
     const pageid = req.body.page_id
-    const pagetitle = req.body.page_title
+    const page_title = req.body.page_title
     try {
-        let result = await CommentModel.create({ content, createuser, pageid, pagetitle })
+        let result = await CommentModel.create({ content, create_user, pageid, page_title })
         res.status(200).json({ code: 'OK', data: result })
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
@@ -32,10 +32,10 @@ router.post('/getpagecommentlist', async (req, res, next) => {
 // 获取用户评论列表
 router.post('/getusercommentlist', async (req, res, next) => {
     const type = req.body.type
-    const createuser = req.body.create_user
-    const touser = req.body.to_user
+    const create_user = req.body.create_user
+    const to_user = req.body.to_user
     try {
-        let result = await CommentModel.getCommentList(type, type === 'create_user' ? createuser : touser)
+        let result = await CommentModel.getCommentList(type, type === 'create_user' ? create_user : to_user)
         res.status(200).json({ code: 'OK', data: result })
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })

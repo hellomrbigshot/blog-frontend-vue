@@ -2,7 +2,7 @@
     <div v-if="comments.length" :style="{ marginBottom: '50px' }">
         <p :style="{ fontSize: '20px' }">留言板：</p>
         <article v-for="comment in comments" class="article-comment">
-            <div class="comment-content">{{ comment.comment }}</div>
+            <div class="comment-content">{{ comment.content }}</div>
             <div class="comment-info">
                 <router-link :to="{ name: 'userDetail', params: { username:  comment.create_user }}"><span class="comment-info-user">{{ comment.create_user }}</span></router-link>
                 <span>{{ comment.create_time }}</span>
