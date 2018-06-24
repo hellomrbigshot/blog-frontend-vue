@@ -8,10 +8,10 @@ const checkLogin = require('../middlewares/check').checkLogin
 router.post('/create', checkLogin, async (req, res, next) => {
     const content = req.body.content
     const create_user = req.body.create_user
-    const pageid = req.body.page_id
+    const page_id = req.body.page_id
     const page_title = req.body.page_title
     try {
-        let result = await CommentModel.create({ content, create_user, pageid, page_title })
+        let result = await CommentModel.create({ content, create_user, page_id, page_title })
         res.status(200).json({ code: 'OK', data: result })
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
@@ -20,9 +20,9 @@ router.post('/create', checkLogin, async (req, res, next) => {
 
 // 获取文章评论列表
 router.post('/getpagecommentlist', async (req, res, next) => {
-    const pageid = req.body.page_id
+    const page_id = req.body.page_id
     try {
-        let result = await CommentModel.getCommentList('page', pageid)
+        let result = await CommentModel.getCommentList('page', page_id)
         res.status(200).json({ code: 'OK', data: result })
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
@@ -30,12 +30,16 @@ router.post('/getpagecommentlist', async (req, res, next) => {
 })
 
 // 获取用户评论列表
-router.post('/getusercommentlist', async (req, res, next) => {
+router.post('/getusercommentlist', checkLogin, async (req, res, next) => {
     const type = req.body.type
     const create_user = req.body.create_user
     const to_user = req.body.to_user
+    let pageSize = req.body.pageSize || 10
+    let page = req.body.page || 1
+    pageSize = typeof pageSize === 'number' ? pageSize : parseInt(pageSize)
+    page = typeof page === 'number' ? page : parseInt(page)
     try {
-        let [result, total] = await Promise.all([CommentModel.getCommentList(type, type === 'create_user' ? create_user : to_user), CommentModel.getCommentNum(type, type === 'create_user' ? create_user : to_user)]) 
+        let [result, total] = await Promise.all([CommentModel.getCommentList(type, type === 'create_user' ? create_user : to_user, pageSize, pageSize * (page - 1)), CommentModel.getCommentNum(type, type === 'create_user' ? create_user : to_user)]) 
         res.status(200).json({ code: 'OK', data: { result, total } })
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })

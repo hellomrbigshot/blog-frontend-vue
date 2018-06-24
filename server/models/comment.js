@@ -12,24 +12,33 @@ module.exports = {
             .exec()
     },
     // 查询评论列表
-    getCommentList (type, content) {
+    getCommentList (type, content, pageSize, Count) {
         let query_obj = {}
         if (type === 'page') {
-            query_obj.pageid = content
+            query_obj.page_id = content
         } else if (type === 'create_user') {
             query_obj.create_user = content
         } else if (type === 'to_user') {
             query_obj.to_user = content
         }
-        return Comment
-            .find(query_obj)
-            .exec()
+        if (pageSize && Count) {
+            return Comment
+                .find(query_obj)
+                .skip(Count)
+                .limit(pageSize)
+                .exec()
+        } else {
+            return Comment
+                .find(query_obj)
+                .exec()
+        }
+        
     },
     // 查询评论数量
     getCommentNum (type, content) {
         let query_obj = {}
         if (type === 'page') {
-            query_obj.pageid = content
+            query_obj.page_id = content
         } else if (type === 'create_user') {
             query_obj.create_user = content
         } else if (type === 'to_user') {
