@@ -1,9 +1,13 @@
 <template>
 <div>
-  <one-page v-for="(page, i) in page_list" :key="i" :page="page"></one-page>
-  <div class="pagination">
-    <new-page v-if="total>pageSize" :total="total" @on-change="pageChange"></new-page>
-  </div>
+  <transition name="fade">
+    <div v-if="page_list.length">
+      <one-page v-if="page_list.length" v-for="(page, i) in page_list" :key="i" :page="page"></one-page>
+      <div class="pagination">
+        <new-page v-if="total>pageSize" :total="total" @on-change="pageChange"></new-page>
+      </div>
+    </div>
+  </transition>
 </div>
 </template>
 <script>

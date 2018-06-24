@@ -1,46 +1,52 @@
 <template>
   <div>
-    <article>
-      <header>
-        <h1 class="page-title">{{ page.title }}</h1>
-        <div class="page-info">
-          <!-- <span class="create-time">创建于
-                        <time>{{ page.create_date.substring(0,10) }}</time>
-                        &nbsp;|&nbsp;
-                    </span> -->
-          <span v-if="page.create_date!==page.update_date" class="update-time">更新于
-            <time>{{ page.create_date.substring(0,10) }}</time>
-            &nbsp;|&nbsp;
-          </span>
-          <span class="create-user">作者
-            <router-link :to="{ name: 'userDetail', params: { username:  page.create_user }}">
-              <span class="user-span">{{ page.create_user }}</span>
-            </router-link>
-            &nbsp;|&nbsp;
-          </span>
-          <span class="create-user">标签
-            <template v-for="(tag, i) in page.tags">
-              <router-link :to="{ name: 'normalTagDetail', params: { name:  tag} }">
-                <span class="tag-span">{{ tag }}</span>
+    <transition name="fade">
+      <article v-if="page.title">
+        <header>
+          <h1 class="page-title">{{ page.title }}</h1>
+          <div class="page-info">
+            <!-- <span class="create-time">创建于
+                          <time>{{ page.create_date.substring(0,10) }}</time>
+                          &nbsp;|&nbsp;
+                      </span> -->
+            <span v-if="page.create_date!==page.update_date" class="update-time">更新于
+              <time>{{ page.create_date.substring(0,10) }}</time>
+              &nbsp;|&nbsp;
+            </span>
+            <span class="create-user">作者
+              <router-link :to="{ name: 'userDetail', params: { username:  page.create_user }}">
+                <span class="user-span">{{ page.create_user }}</span>
               </router-link>
-              <span v-if="i<page.tags.length-1">,</span>
-            </template>
-            &nbsp;|&nbsp;
-          </span>
-          <span class="edit-span" v-if="Cookies.get('user')===page.create_user">
-            <router-link :to="{name: 'editPage', params: {id: id}}">编辑</router-link>
-          </span>
-          <!-- <span>&nbsp;|&nbsp;</span> -->
+              &nbsp;|&nbsp;
+            </span>
+            <span class="create-user">标签
+              <template v-for="(tag, i) in page.tags">
+                <router-link :to="{ name: 'normalTagDetail', params: { name:  tag} }">
+                  <span class="tag-span">{{ tag }}</span>
+                </router-link>
+                <span v-if="i<page.tags.length-1">,</span>
+              </template>
+              &nbsp;|&nbsp;
+            </span>
+            <span class="edit-span" v-if="Cookies.get('user')===page.create_user">
+              <router-link :to="{name: 'editPage', params: {id: id}}">编辑</router-link>
+            </span>
+            <!-- <span>&nbsp;|&nbsp;</span> -->
+          </div>
+        </header>
+        <div class="page-body" v-html="marked(page.content)"></div>
+      </article>
+    </transition>
+    <transition name="fade">
+      <div v-if="comments.length">
+        <comments :comments="comments"></comments>
+        <div>
+          <p :style="{ fontSize: '20px' }">留言：</p>
+          <Input type="textarea" :style="{ marginTop: '15px' }" v-model.trim="comment.content" :rows="6"></Input>
+          <Button type="primary" :style="{ marginTop: '15px'}" @click="submitComment">发表</Button>
         </div>
-      </header>
-      <div class="page-body" v-html="marked(page.content)"></div>
-    </article>
-    <comments :comments="comments"></comments>
-    <div>
-      <p :style="{ fontSize: '20px' }">留言：</p>
-      <Input type="textarea" :style="{ marginTop: '15px' }" v-model.trim="comment.content" :rows="6"></Input>
-      <Button type="primary" :style="{ marginTop: '15px'}" @click="submitComment">发表</Button>
-    </div>
+      </div>
+    </transition>
   </div>
 
 </template>
@@ -131,7 +137,6 @@ article {
   @media screen and (max-width: 767px) {
     width: auto;
   }
-
   header {
     font-family: Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
     .page-title {

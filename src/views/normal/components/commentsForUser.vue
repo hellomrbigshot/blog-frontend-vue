@@ -2,7 +2,7 @@
     <div v-if="comments.length" :style="{ marginBottom: '50px' }">
         <article v-for="comment in comments" class="article-comment">
             <div class="comment-info">
-                <span class="comment-user" v-if="type === 'create_user' || comment.create_user === to_user">我说：</span>
+                <span class="comment-user" v-if="type === 'create_user' || comment.create_user === comment.to_user">我说：</span>
                 <span class="comment-user" v-else>
                     <router-link :to="{ name: 'userDetail', params: { username: comment.to_user }}">{{ comment.to_user }}</router-link> 对我说：
                 </span>
