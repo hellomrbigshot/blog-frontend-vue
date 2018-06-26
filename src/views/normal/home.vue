@@ -22,7 +22,7 @@
       </Layout>
       <Sider ref="pageSider" hide-trigger collapsible :collapsed-width="0" v-model="isCollapsed" :width="320" >
           <div :class="menuitemClasses">
-            <user-info v-if="!isCollapsed"></user-info>
+            <sider-user-info v-if="!isCollapsed"></sider-user-info>
           </div>
       </Sider>
   </Layout>
@@ -31,12 +31,12 @@
 <script>
 import blogHeader from './components/blogHeader'
 import blogFooter from './components/blogFooter'
-import userInfo from './components/userInfo'
+import siderUserInfo from './components/siderUserInfo'
 export default {
   components: {
     blogHeader,
     blogFooter,
-    userInfo
+    siderUserInfo
   },
   data () {
     return {
