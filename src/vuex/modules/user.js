@@ -9,20 +9,23 @@ const user = {
 
     },
     mutations: {
-        updatePageNum (state, obj) {
+        updateUserInfo (state, obj) {
             // Vue.set(state, 'page_num', obj.page_num)
             // Vue.set(state, 'draft_num', obj.draft_num)
             state.page_num = obj.page_num
             state.draft_num = obj.draft_num
+            state.comment_num = obj.comment_num
             if (localStorage.getItem('user')) {
                 let user = JSON.parse(localStorage.getItem('user'))
                 user.page_num = obj.page_num
                 user.draft_num = obj.draft_num
+                user.comment_num = obj.comment_num
                 localStorage.setItem('user', JSON.stringify(user))
             } else {
                 let user = {
                     page_num: obj.page_num,
-                    draft_num: obj.draft_num
+                    draft_num: obj.draft_num,
+                    comment_num: obj.comment_num
                 }
                 localStorage.setItem('user', JSON.stringify(user))
             }

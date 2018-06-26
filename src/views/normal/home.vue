@@ -69,7 +69,7 @@ export default {
       if (this.user) {
         return this.Common.axios('/api/signin/getUserInfo', { username: this.user }).then(res => {
           this.$store.commit('updateUserName', this.user)
-          this.$store.commit('updatePageNum', { page_num: res.data.data.page_num, draft_num: res.data.data.draft_num })
+          this.$store.commit('updateUserInfo', { page_num: res.data.data.page_num, draft_num: res.data.data.draft_num, comment_num: res.data.data.comment_num })
           localStorage.setItem('user', JSON.stringify(res.data.data))
         })
       }

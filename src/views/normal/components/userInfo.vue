@@ -3,8 +3,10 @@
       <section>
           <transition name="fade">
             <div class="site-author" v-show="imgShow">
-                <img :src="imgUrl" alt="头像" ref="img" class="site-author-img">
-                <p class="site-author-name">{{ user.username }}</p>
+                <router-link :to="{ name: 'userDetail', params: { username: user.username }}">
+                    <img :src="imgUrl" alt="头像" ref="img" class="site-author-img">
+                    <p class="site-author-name">{{ user.username }}</p>
+                </router-link>
             </div>
           </transition>
           <p class="site-description">{{ user.bio }}</p>
@@ -36,9 +38,16 @@
                   </router-link>
               </div>
               <div class="site-item">
-                  <router-link :to="{ name: 'normalMyPageList' }">
-                      <span class="site-item-count">{{ 0 }}</span>
-                      <span class="site-item-name">标签</span>
+                  <router-link :to="{ name: 'normalGuestBook' }">
+                      <span class="site-item-count">
+                          <count-up
+                            idName="comment_num"
+                            countSize="18px"
+                            :countWeight="500"
+                            color="#999"
+                            :endVal="comment_num"></count-up>
+                      </span>
+                      <span class="site-item-name">留言</span>
                   </router-link>
               </div>
           </nav>
@@ -87,6 +96,9 @@ export default {
         },
         draft_num () {
             return this.$store.state.user.draft_num || JSON.parse(localStorage.getItem('user')).draft_num
+        },
+        comment_num () {
+            return this.$store.state.user.comment_num || JSON.parse(localStorage.getItem('user')).comment_num
         }
     },
     methods: {

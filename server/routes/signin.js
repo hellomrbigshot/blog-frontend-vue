@@ -6,6 +6,7 @@ const router = express.Router()
 
 const UserModel = require('../models/user')
 const PageModel = require('../models/page')
+const CommentModel = require('../models/comment')
 const FileModel = require('../models/files')
 const checkNotLogin = require('../middlewares/check').checkNotLogin
 const checkLogin = require('../middlewares/check').checkLogin
@@ -42,15 +43,18 @@ router.post('/getUserInfo', checkLogin, async (req, res, next) => {
 	try {
 		let user = (await UserModel.getUserByName(username)).toObject()
 		delete user.password
-		const [page_num, draft_num] = await Promise.all([
+		const [page_num, draft_num, comment_num] = await Promise.all([
 			PageModel.getPageNum('create_user', username, 'normal'),
 			PageModel.getPageNum('create_user', username, 'draft'),
+			CommentModel.getCommentNum('create_user', username)
+
 		])
 		user.page_num = page_num
 		user.draft_num = draft_num
+		user.comment_num = comment_num
 
 		// 返回登录成功
-		res.status(200).json({code: 'OK', data: user})
+		res.status(200).json({ code: 'OK', data: user })
 	} catch (e) {
 		res.status(200).json({ code: 'ERROR', data: e.message })
         return false

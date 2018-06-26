@@ -3,6 +3,7 @@
         <div class="user-info">
             <div class="user-avatar">
                 <img :src="'/api/signin/avatar?file_id='+user.avatar" alt="头像" class="user-avatar-img">
+                <div class="user-avatar-btn" v-if="cur_username === username">上传头像</div>
             </div>
             <div class="user-info-desc">
                 <div class="user-info-name">
@@ -96,11 +97,32 @@ export default {
   overflow: hidden;
   .user-avatar {
     float: left;
+    position: relative;
     .user-avatar-img {
       width: 140px;
       height: 140px;
       padding: 2px;
       border: 2px solid #ccc;
+    }
+    .user-avatar-btn {
+      position: absolute;
+      display: none;
+      height: 30px;
+      line-height: 30px;
+      bottom: 5px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      background: rgba(245, 245, 245, 0.8);
+      &:hover {
+        cursor: pointer;
+        background: rgba(204, 196, 196, 0.8);
+      }
+    }
+    &:hover {
+      .user-avatar-btn {
+        display: block;
+      }
     }
   }
   .user-info-desc {
