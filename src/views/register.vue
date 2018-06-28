@@ -17,14 +17,14 @@
                     <Input type="password" style="display:none"></Input>            
                     <Input type="password" v-model="formData.repassword" placeholder="再次输入密码"></Input>
                 </FormItem>
-                <FormItem prop="gender" label="性别">
+                <!-- <FormItem prop="gender" label="性别">
                     <RadioGroup v-model="formData.gender">
                         <Radio label="m">♂</Radio>
                         <Radio label="f">♀</Radio>
                         <Radio label="x">x</Radio>
                     </RadioGroup>
-                </FormItem>
-                <FormItem>
+                </FormItem> -->
+                <!-- <FormItem>
                     <Upload 
                         action="/api/signup/uploadAvatar" 
                         :on-success="uploadSuccess" 
@@ -35,7 +35,7 @@
                 </FormItem>
                 <FormItem prop="">
                     <Input type="textarea" placeholder="个人介绍" v-model="formData.bio"></Input>
-                </FormItem>
+                </FormItem> -->
                 
                 <FormItem>
                     <Button type="primary" size="large" long @click="register('registerForm')" >注册</Button>
@@ -70,26 +70,18 @@ export default {
       }
       callback()
     }
-    const gender = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error('请选择性别'))
-        return false
-      }
-      callback()
-    }
     return {
       formData: {
         username: '',
         password: '',
-        gender: '',
+        gender: 'x',
         avatar: '',
         bio: ''
       },
       rule: {
         username: [{ validator: validatorName, trigger: 'blur' }],
         password: [{ validator: validatorPass, trigger: 'blur' }],
-        repassword: [{ validator: validatorRepass, trigger: 'blur' }],
-        gender: [{ validator: gender, trigger: 'blur' }]
+        repassword: [{ validator: validatorRepass, trigger: 'blur' }]
       }
     }
   },

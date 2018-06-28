@@ -31,5 +31,11 @@ module.exports = {
 			.find()
 			.count()
 			.exec() 
+	},
+	// 编辑头像
+	updateAvatar (object) {
+		return User
+			.update({ username: object.username }, { avatar: object.avatar })
+			.exec()
 	}
 }

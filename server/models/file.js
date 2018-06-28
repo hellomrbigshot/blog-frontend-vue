@@ -12,27 +12,25 @@ let handleFile = {
 		return File.create(file)
 	},
 	// 通过 id 获取文件信息
-	getFileById (id) {
+	getFileByName (filename) {
 		return File
-			.findOne({ _id: id })
+			.findOne({ filename })
 			// .addCreatedAt()
 			.exec()
 	},
 }
 // 通过 id 删除文件
-handleFile.deleteFileById = async function  (id) {
-	let fileObject = await handleFile.getFileById(id)
-	fs.unlink(path.resolve(__dirname, `../uploads/${fileObject.filename}`))
+handleFile.deleteFileByName = async function  (filename) {
+	fs.unlink(path.resolve(__dirname, `../uploads/${filename}`))
 	return File
-		.remove({ _id: id })
+		.remove({ filename })
 		.exec()
 }
 // 获取文件路径
-handleFile.getFilePath = async function  (id) {
-	if (!id) {
+handleFile.getFilePath = async function  (filename) {
+	if (!filename) {
 		return false
 	}
-	let fileObject = await handleFile.getFileById(id)
-	return path.join(__dirname, `../uploads/${fileObject.filename}`)
+	return path.join(__dirname, `../uploads/${filename}`)
 }
 module.exports = handleFile

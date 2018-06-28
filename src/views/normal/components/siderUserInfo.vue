@@ -71,7 +71,7 @@ export default {
     data () {
         return {
             user: JSON.parse(localStorage.getItem('user')),
-            imgUrl: '',
+            imgUrl: default_img,
             imgShow: false,
             default_img: default_img
             // page_num: this.$store.state.user.page_num || JSON.parse(localStorage.getItem('user')).page_num,
@@ -79,16 +79,7 @@ export default {
         }
     },
     mounted () {
-        this.imgUrl = '/api/signin/avatar?file_id='+this.user.avatar
-        this.$refs.img.onerror = () => {
-            this.imgUrl = this.user.oauthinfo.avatar_url
-            this.$refs.img.onerror = () => {
-                this.imgUrl = this.default_img
-            }
-        }
-        this.$refs.img.onload = () => {
-            this.imgShow = true
-        }
+        this.showAvatar()
     },
     computed: {
         page_num () {
@@ -110,6 +101,18 @@ export default {
                     this.$router.push({ name: 'normalPageList' })
                 }
             })
+        },
+        showAvatar () {
+            this.imgUrl = '/api/file/avatar?filename='+this.user.avatar
+            this.$refs.img.onerror = () => {
+                this.imgUrl = this.user.oauthinfo ? this.user.oauthinfo.avatar_url: ''
+                this.$refs.img.onerror = () => {
+                    this.imgUrl = this.default_img
+                }
+            }
+            this.$refs.img.onload = () => {
+                this.imgShow = true
+            }
         }
     }
 }

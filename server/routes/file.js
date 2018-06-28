@@ -1,20 +1,68 @@
 const router = require('express').Router()
-const FileModel = require('../models/files')
+const fs = require('fs')
+
+const FileModel = require('../models/file')
+const UserModel = require('../models/user')
 const checkLogin = require('../middlewares/check').checkLogin
 
 // post /signup/uploadAvatar 上传头像
 router.post('/uploadAvatar', checkLogin, (req, res, next) => {
     const imgData = req.body.imgData
-    const user = req.body.username
+    const username = req.body.username
     // 过滤data:URL
     const base64Data = imgData.replace(/^data:image\/\w+;base64,/, "")
     const dataBuffer = new Buffer(base64Data, 'base64')
-    const timeStamp = new Date().getTime()
-    fs.writeFile(`../uploads/${timeStamp}.png`, dataBuffer, err => {
+    const filename = `${new Date().getTime()}.png`
+    fs.writeFile(`../uploads/${filename}`, dataBuffer, async (err) => {
         if (err) {
-            
+            res.status(200).json({ code: 'ERROR', data: err })
         } else {
-            res.send("保存成功！");
+            try {
+                // 保存成功后保存数据库
+                let file = await FileModel.create({ filename, username })
+                let user = await UserModel.updateAvatar({ username, avatar: filename })
+                res.status(200).json({ code: 'OK', data: filename })
+            } catch (e) {
+                res.status(200).json({ code: 'ERROR', data: e })
+            }
         }
-    });
+    })
 })
+// get /avatar/file_id
+router.get('/avatar', (req, res, next) => {
+	const filename = req.query.filename
+	if (filename === 'undefined' || !filename) {
+		res.status(500).json({ code: 'ERROR' })
+	} else {
+		res.set('content-type', 'image/jpg')
+		FileModel.getFileByName(filename).then(url => {
+			// res.sendFile(url)
+			// fs.readFile(url, 'binary', (err, file) => {
+			// 	if (err) {
+			// 	  console.log(err)
+			// 	  return;
+			// 	} else {
+			// 		res.writeHead(200, { 'Content-Type': 'image/jpeg' })
+			// 		res.write(file, 'binary')
+			// 		res.end()
+			// 		return
+			// 	}
+			// })
+			let stream = fs.createReadStream(url)
+			let responseData = []; // 存储文件流
+			if (stream) { // 判断状态
+				stream.on('data', chunk => {
+					responseData.push(chunk)
+				})
+				stream.on('end', () => {
+					let finalData = Buffer.concat(responseData)
+					res.write(finalData)
+					res.end()
+				})
+			}
+		})
+		
+	}
+	
+})
+module.exports = router

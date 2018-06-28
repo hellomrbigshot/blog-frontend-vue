@@ -1,7 +1,7 @@
 <template>
     <div class="user-info">
         <div class="user-avatar">
-            <img :src="'/api/signin/avatar?file_id='+user.avatar" alt="头像" class="user-avatar-img">
+            <img :src="imgUrl" alt="头像" class="user-avatar-img" ref="img">
             <div class="user-avatar-btn" @click="chooseFile" v-if="cur_username === username">上传头像</div>
             <input type="file" style="display: none" ref="fileInput" accept="image/png, image/jpeg, image/gif, image/jpg" @change="uploadImg($event)"></input>
         </div>
@@ -61,6 +61,7 @@
 
 <script>
 import vueCropper from 'vue-cropper'
+import default_img from '@/assets/logo.png'
 export default {
     components: {
 		vueCropper
@@ -70,13 +71,15 @@ export default {
             cur_username: this.Cookies.get('user'),
             username: this.$route.params.username,
             showImgUpload: false,
+            imgUrl: default_img,
+            default_img: default_img,
             user: {
                 avatar: '',
                 gender: 'm'
             },
             option: {
                 img: '',
-                outputType: 'jpeg',
+                outputType: 'png',
                 autoCrop: true,
                 // 只有自动截图开启 宽度高度才生效
 				autoCropWidth: 150,
@@ -108,8 +111,9 @@ export default {
             }
         }
     },
-    mounted () {
-        this.getUserDetail()
+    async mounted () {
+        await this.getUserDetail()
+        this.showAvatar()
     },
     methods: {
         getUserDetail() {
@@ -169,15 +173,27 @@ export default {
             this.$refs.cropper.getCropData(data => {
                 // do something
                 console.log(data) 
-                this.Common.axios('/file/uploadAvatar', { imgData: data, username: this.cur_username })
+                this.Common.axios('/api/file/uploadAvatar', { imgData: data, username: this.cur_username })
                     .then(res => {
                         if (res.data.code === 'Ok') {
-                            
+
                         } else {
                             this.$Message.error(res.data.data)
                         }
                     }) 
             })
+        },
+        showAvatar () {
+            this.imgUrl = '/api/file/avatar?filename='+this.user.avatar
+            this.$refs.img.onerror = () => {
+                this.imgUrl = this.user.oauthinfo ? this.user.oauthinfo.avatar_url: ''
+                this.$refs.img.onerror = () => {
+                    this.imgUrl = this.default_img
+                }
+            }
+            this.$refs.img.onload = () => {
+                this.imgShow = true
+            }
         }
     },
     

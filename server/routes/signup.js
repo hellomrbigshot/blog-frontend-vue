@@ -3,34 +3,9 @@ const sha1 = require('sha1')
 const router = express.Router()
 
 const UserModel = require('../models/user')
-const FileModel = require('../models/files')
+const FileModel = require('../models/file')
 const checkNotLogin = require('../middlewares/check').checkNotLogin
 const multer = require('../models/multerUtil')
-
-// post /signup/uploadAvatar 上传头像
-router.post('/uploadAvatar', checkNotLogin,  (req, res, next) => {
-    const upload = multer.single('file')
-    upload(req, res, err => {
-        if (err) {
-            res.status(200).json({code: 'ERROR', data: err})
-            return false
-        } 
-        const filename = req.file.filename
-        const originalname = req.file.originalname
-        let file = {
-            filename,
-            originalname
-        }
-        FileModel.create(file)
-            .then(result => {
-                file = result
-                res.status(200).json({code: 'OK', data: file.id})
-            }).catch(e => {
-                // 保存失败
-                res.status(200).json({code: 'ERROR', data: e})
-            })
-    })
-})
 
 // POST /signup 用户注册
 router.post('/', checkNotLogin, async (req, res, next) => {
