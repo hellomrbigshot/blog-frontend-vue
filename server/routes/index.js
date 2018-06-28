@@ -8,4 +8,5 @@ module.exports = function (app) {
 	app.use('/api/tag', require('./tag'))
 	app.use('/api/github', require('./github'))
 	app.use('/api/comment', require('./comment'))
+	app.use('/api/file', require('./file'))
 }

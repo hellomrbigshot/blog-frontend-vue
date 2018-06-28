@@ -167,8 +167,16 @@ export default {
         uploadFile () {
             // 获取截图的base64 数据
             this.$refs.cropper.getCropData(data => {
-            // do something
-            console.log(data)  
+                // do something
+                console.log(data) 
+                this.Common.axios('/file/uploadAvatar', { imgData: data, username: this.cur_username })
+                    .then(res => {
+                        if (res.data.code === 'Ok') {
+                            
+                        } else {
+                            this.$Message.error(res.data.data)
+                        }
+                    }) 
             })
         }
     },
