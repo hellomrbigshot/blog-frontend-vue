@@ -27,7 +27,7 @@ handleFile.deleteFileByName = async function  (filename) {
 		.exec()
 }
 // 获取文件路径
-handleFile.getFilePath = async function  (filename) {
+handleFile.getFilePath = async function (filename) {
 	if (!filename) {
 		return false
 	}

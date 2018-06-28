@@ -32,10 +32,11 @@ router.post('/uploadAvatar', checkLogin, (req, res, next) => {
 router.get('/avatar', (req, res, next) => {
 	const filename = req.query.filename
 	if (filename === 'undefined' || !filename) {
-		res.status(500).json({ code: 'ERROR' })
+        res.status(200).json({ code: 'ERROR' })
+        return false
 	} else {
 		res.set('content-type', 'image/jpg')
-		FileModel.getFileByName(filename).then(url => {
+		FileModel.getFilePath(filename).then(url => {
 			// res.sendFile(url)
 			// fs.readFile(url, 'binary', (err, file) => {
 			// 	if (err) {
@@ -47,19 +48,24 @@ router.get('/avatar', (req, res, next) => {
 			// 		res.end()
 			// 		return
 			// 	}
-			// })
-			let stream = fs.createReadStream(url)
-			let responseData = []; // 存储文件流
-			if (stream) { // 判断状态
-				stream.on('data', chunk => {
-					responseData.push(chunk)
-				})
-				stream.on('end', () => {
-					let finalData = Buffer.concat(responseData)
-					res.write(finalData)
-					res.end()
-				})
-			}
+            // })
+            try {
+                let stream = fs.createReadStream(url)
+                let responseData = []; // 存储文件流
+                if (stream) { // 判断状态
+                    stream.on('data', chunk => {
+                        responseData.push(chunk)
+                    })
+                    stream.on('end', () => {
+                        let finalData = Buffer.concat(responseData)
+                        res.write(finalData)
+                        res.end()
+                    })
+                }
+            } catch (e) {
+                res.end()
+            }
+			
 		})
 		
 	}
