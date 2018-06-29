@@ -31,6 +31,12 @@ handleFile.getFilePath = async function (filename) {
 	if (!filename) {
 		return false
 	}
-	return path.join(__dirname, `../uploads/${filename}`)
+	let result = await handleFile.getFileByName(filename)
+
+	if (result) {
+		return path.join(__dirname, `../uploads/${filename}`)
+	} else {
+		return false
+	}
 }
 module.exports = handleFile

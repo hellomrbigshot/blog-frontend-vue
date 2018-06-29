@@ -175,8 +175,8 @@ export default {
                 console.log(data) 
                 this.Common.axios('/api/file/uploadAvatar', { imgData: data, username: this.cur_username })
                     .then(res => {
-                        if (res.data.code === 'Ok') {
-
+                        if (res.data.code === 'OK') {
+                            
                         } else {
                             this.$Message.error(res.data.data)
                         }
