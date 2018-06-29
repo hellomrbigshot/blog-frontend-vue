@@ -117,7 +117,7 @@ export default {
     },
     methods: {
         getUserDetail() {
-            this.Common.axios('/api/user/detail', { username: this.username }).then(
+            return this.Common.axios('/api/user/detail', { username: this.username }).then(
                 res => {
                     if (res.data.code === 'OK') {
                         this.user = res.data.data
@@ -176,7 +176,8 @@ export default {
                 this.Common.axios('/api/file/uploadAvatar', { imgData: data, username: this.cur_username })
                     .then(res => {
                         if (res.data.code === 'OK') {
-                            
+                            this.user.avatar = res.data.data
+                            this.showAvatar()
                         } else {
                             this.$Message.error(res.data.data)
                         }
