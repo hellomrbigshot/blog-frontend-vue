@@ -29,7 +29,6 @@ export default {
   },
   watch: {
     type (newVal, oldVal) {
-      console.log('haha')
       this.page = 1
       this.comments = []
       this.getCommentList()

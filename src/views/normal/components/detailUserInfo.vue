@@ -131,7 +131,6 @@ export default {
         },
         uploadImg (e) {
             let file = e.target.files[0]
-            console.log(file)
             if (!/\.(gif|jpg|jpeg|png|bmp|GIF|JPG|PNG)$/.test(e.target.value)) {
                     this.$Message.error('图片类型必须是.gif,jpeg,jpg,png,bmp中的一种')
                     return false
@@ -139,7 +138,6 @@ export default {
             let reader = new FileReader()
             reader.onload = (e) => {
                 let data
-                console.log(e.target)
                 if (typeof e.target.result === 'object') {
                     // 把Array Buffer转化为blob 如果是base64不需要
                     data = window.URL.createObjectURL(new Blob([e.target.result]))
@@ -171,13 +169,14 @@ export default {
         uploadFile () {
             // 获取截图的base64 数据
             this.$refs.cropper.getCropData(data => {
-                // do something
-                console.log(data) 
+                // 上传
                 this.Common.axios('/api/file/uploadAvatar', { imgData: data, username: this.cur_username })
                     .then(res => {
                         if (res.data.code === 'OK') {
                             this.user.avatar = res.data.data
                             this.showAvatar()
+                            this.showImgUpload = false
+                            this.$store.commit('updateUserInfo', { avatar: res.data.data })
                         } else {
                             this.$Message.error(res.data.data)
                         }

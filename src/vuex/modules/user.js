@@ -3,33 +3,42 @@ const user = {
     state: {
         username: '',
         page_num: 0,
-        draft_num: 0
+        draft_num: 0,
+        avatar: ''
     },
     getters: {
 
     },
     mutations: {
         updateUserInfo (state, obj) {
-            // Vue.set(state, 'page_num', obj.page_num)
-            // Vue.set(state, 'draft_num', obj.draft_num)
-            state.page_num = obj.page_num
-            state.draft_num = obj.draft_num
-            state.comment_num = obj.comment_num
-            if (localStorage.getItem('user')) {
-                let user = JSON.parse(localStorage.getItem('user'))
-                user.page_num = obj.page_num
-                user.draft_num = obj.draft_num
-                user.comment_num = obj.comment_num
-                localStorage.setItem('user', JSON.stringify(user))
-            } else {
-                let user = {
-                    page_num: obj.page_num,
-                    draft_num: obj.draft_num,
-                    comment_num: obj.comment_num
-                }
-                localStorage.setItem('user', JSON.stringify(user))
-            }
+            const KEY_ARRAY = [
+                {
+                    name: 'page_num',
+                    type: 'number'
+                },
+                {
+                    name: 'draft_num',
+                    type: 'number'
+                },
+                {
+                    name: 'comment_num',
+                    type: 'number'
+                },
+                {
+                    name: 'avatar',
+                    type: 'string'
+                },
+            ]
+            let user = JSON.parse(localStorage.getItem('user')) || {}
             
+            KEY_ARRAY.forEach(key => {
+                if (typeof obj[key.name] !== 'undefined') {
+                    user[key.name] = state[key.name] = obj[key.name]
+                } else {
+                    user[key.name] = state[key.name] = typeof user[key.name] === 'undefined' ? (key.type === 'number' ? 0 : '') : user[key.name]
+                }
+            })
+            localStorage.setItem('user', JSON.stringify(user))
         },
         updateUserName (state, username) {
             state.username = username

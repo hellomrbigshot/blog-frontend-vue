@@ -83,13 +83,21 @@ export default {
     },
     computed: {
         page_num () {
-            return this.$store.state.user.page_num || JSON.parse(localStorage.getItem('user')).page_num
+            return this.$store.state.user.page_num || user.page_num
         },
         draft_num () {
-            return this.$store.state.user.draft_num || JSON.parse(localStorage.getItem('user')).draft_num
+            return this.$store.state.user.draft_num || user.draft_num
         },
         comment_num () {
-            return this.$store.state.user.comment_num || JSON.parse(localStorage.getItem('user')).comment_num
+            return this.$store.state.user.comment_num || user.comment_num
+        },
+        avatar () {
+            return this.$store.state.user.avatar || user.avatar
+        }
+    },
+    watch: {
+        avatar (newVal) {
+            this.showAvatar()
         }
     },
     methods: {
@@ -103,7 +111,7 @@ export default {
             })
         },
         showAvatar () {
-            this.imgUrl = '/api/file/avatar?filename='+this.user.avatar
+            this.imgUrl = '/api/file/avatar?filename='+this.avatar
             this.$refs.img.onerror = () => {
                 this.imgUrl = this.user.oauthinfo ? this.user.oauthinfo.avatar_url: ''
                 this.$refs.img.onerror = () => {
@@ -113,7 +121,7 @@ export default {
             this.$refs.img.onload = () => {
                 this.imgShow = true
             }
-        }
+        },
     }
 }
 </script>
