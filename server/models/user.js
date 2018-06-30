@@ -37,5 +37,11 @@ module.exports = {
 		return User
 			.update({ username: object.username }, { avatar: object.avatar })
 			.exec()
+	},
+	// 编辑个人简介
+	updateBio (object) {
+		return User
+			.update({ username: object.username }, { bio: object.bio })
+			.exec()
 	}
 }

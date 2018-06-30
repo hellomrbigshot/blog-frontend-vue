@@ -83,16 +83,16 @@ export default {
     },
     computed: {
         page_num () {
-            return this.$store.state.user.page_num || user.page_num
+            return this.$store.state.user.page_num || this.user.page_num
         },
         draft_num () {
-            return this.$store.state.user.draft_num || user.draft_num
+            return this.$store.state.user.draft_num || this.user.draft_num
         },
         comment_num () {
-            return this.$store.state.user.comment_num || user.comment_num
+            return this.$store.state.user.comment_num || this.user.comment_num
         },
         avatar () {
-            return this.$store.state.user.avatar || user.avatar
+            return this.$store.state.user.avatar || this.user.avatar
         }
     },
     watch: {

@@ -8,11 +8,18 @@
         <div class="user-info-desc">
             <div class="user-info-name">
                 <h2>{{ user.username }}</h2>
-                <Icon class="gender-icon" size="20" :type="gender_mapping[user.gender].type" :color="gender_mapping[user.gender].color"></Icon>
-                <Icon class="edit-icon" size="18" type="edit" color="#ccc" v-if="cur_username === username"></Icon>
             </div>
             <div class="user-info-bio">
-                {{ user.bio }}
+                <a @click="changeBio" class="bio-icon" v-if="cur_username === username" :title="bio_edit?'保存':'编辑'">
+                    <Icon size="10" :type="bio_edit?'checkmark':'edit'"></Icon>
+                </a>
+                <div v-if="!bio_edit">
+                    {{ user.bio || '您还没有填写个人简介' }}
+                </div>
+                <div v-else> 
+                    <Input type="textarea" v-model="user.bio" :rows="3"></Input>
+                </div>
+                
             </div>
         </div>
         <Modal v-model="showImgUpload" title="更换头像">
@@ -71,11 +78,13 @@ export default {
             cur_username: this.Cookies.get('user'),
             username: this.$route.params.username,
             showImgUpload: false,
+            bio_edit: false,
             imgUrl: default_img,
             default_img: default_img,
             user: {
                 avatar: '',
-                gender: 'm'
+                gender: 'm',
+                bio: ''
             },
             option: {
                 img: '',
@@ -183,7 +192,7 @@ export default {
                     }) 
             })
         },
-        showAvatar () {
+        showAvatar () { // 显示头像
             this.imgUrl = '/api/file/avatar?filename='+this.user.avatar
             this.$refs.img.onerror = () => {
                 this.imgUrl = this.user.oauthinfo ? this.user.oauthinfo.avatar_url: ''
@@ -193,6 +202,20 @@ export default {
             }
             this.$refs.img.onload = () => {
                 this.imgShow = true
+            }
+        },
+        changeBio () { // 修改个人简介
+            if (!this.bio_edit) {
+                this.bio_edit = true
+            } else {
+                this.Common.axios('/api/user/updatebio', { username: this.user.username, bio: this.user.bio  }).then(res => {
+                    if (res.data.code === 'OK') {
+                        this.bio_edit = false
+                    } else {
+                        this.$Message.error(res.data.data)
+                    }
+                })
+                
             }
         }
     },
@@ -239,7 +262,7 @@ export default {
     .user-info-name {
       color: #555;
       h2 {
-        font-size: 26px;
+        font-size: 24px;
         display: inline;
       }
       .gender-icon {
@@ -255,9 +278,26 @@ export default {
     }
 
     .user-info-bio {
+      padding: 10px 20px 10px 10px;
       font-size: 14px;
-      margin-top: 15px;
-      color: #ccc;
+      margin-top: 5px;
+      color: #666;
+      height: 100px;
+      width: 400px;
+      background: #eee;
+      border-radius: 5px;
+      position: relative;
+      overflow: hidden;
+      .bio-icon {
+          font-size: 10px;
+          position: absolute;
+          right: 6px;
+          top: 6px;
+          &:hover {
+              color: #222;
+              cursor: pointer;
+          }
+      }
     }
   }
 }
