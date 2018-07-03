@@ -6,6 +6,7 @@ import {router} from './router'
 import store from './vuex'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
+import { Button, Select, Input, Switch } from 'element-ui'
 import {Common} from '@/assets/js/common.js'
 
 import Cookies from 'js-cookie'
@@ -25,6 +26,10 @@ hljs.highlightCode = function () { // 自定义 highlightCode 方法，循环执
     })
 }
 Vue.use(iView)
+Vue.use('el-select', Select)
+Vue.use('el-button', Button)
+Vue.use('el-input', Input)
+Vue.use('el-switch', Switch)
 Vue.prototype.Common = Common
 Vue.prototype.Cookies = Cookies
 Vue.prototype.marked = marked
