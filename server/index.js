@@ -36,7 +36,7 @@ app.use(session({
 	resave: true, // 强制更新 session
 	saveUninitialized: true,  // 
 	cookie: { 
-		maxAge: 3 * 3600 * 1000,  // 过期时
+		maxAge: 8 * 3600 * 1000,  // 过期时 8 小时
 		secure: false // http 访问时 secure 为 false
   }, 
 	rolling: true
