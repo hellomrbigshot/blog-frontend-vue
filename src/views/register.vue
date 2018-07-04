@@ -103,10 +103,10 @@ export default {
               this.Cookies.set('user', this.formData.username)
               this.$Message.success('注册成功，正在跳转...')
               setTimeout(() => {
-                if (this.Cookies.user === 'admin') {
+                if (this.formData.username === 'admin') {
                   this.$router.push({ name: 'admin' })
                 } else {
-                  this.$router.push({ name: 'normalPageList' })
+                  this.$router.push({ path: `/user/${this.formData.username}` })
                 }
               }, 2000)
             } else {
