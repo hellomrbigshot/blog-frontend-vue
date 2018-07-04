@@ -1,27 +1,42 @@
 <template>
-    <Form ref="pageForm" :rules="rule" :model="pageObject">
-        <FormItem prop="title">
-            <Input placeholder="标题" v-model="pageObject.title"></Input>
-        </FormItem>
-        <FormItem prop="tags">
-            <Select placehoder="标签，用 , 分隔" v-model="pageObject.tags" multiple>
-                <Option v-for="(name, index) in tagList" :value="name" :key="index"></Option>
-            </Select>
-        </FormItem>
-        <FormItem prop="content">
+<div>
+    <el-form ref="pageForm" :rules="rule" :model="pageObject">
+        <el-form-item prop="title">
+            <el-input placeholder="标题" v-model="pageObject.title"></el-input>
+        </el-form-item>
+        <el-form-item prop="tags">
+            <el-select placehoder="标签" ref="tagSelect" v-model="pageObject.tags" :multiple="true" :filterable="true" allow-create style="width: 100%" @change="selectChange">
+                <el-option v-for="(name, index) in tagList" :value="name" :key="index"></el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item prop="content">
             <markdown-editor v-model="pageObject.content"></markdown-editor>
+        </el-form-item>
+        <el-form-item label="是否私密">
+            <el-switch v-model="pageObject.secret">
+            </el-switch>
+        </el-form-item>
+        <el-form-item>
+            <el-button @click="save('draft')">保存草稿</el-button>
+            <el-button type="primary" @click="save('normal')">发布</el-button>
+        </el-form-item>
+    </el-form>
+    <Modal v-model="tagModal" title="创建标签">
+        <Form ref="tagForm" :model="tag_obj" :rules="tagRule" >
+        <FormItem prop="name">
+            <Input v-model="tag_obj.name"></Input>
         </FormItem>
-        <FormItem>
-            <i-switch v-model="pageObject.secret" size="large">
-                <span slot="open">私密</span>
-                <span slot="close">公开</span>
-            </i-switch>
+        <FormItem prop="description">
+            <Input v-model="tag_obj.description" type="textarea" placeholder="输入对标签的描述"></Input>
         </FormItem>
-        <FormItem>
-            <Button @click="save('draft')">保存草稿</Button>
-            <Button type="primary" @click="save('normal')">发布</Button>
-        </FormItem>
-    </Form>
+        </Form>
+        <div slot="footer">
+        <Button @click="tagModal = false">取消</Button>
+        <Button type="primary" @click="createTagSubmit">确定</Button>
+        </div>
+    </Modal>
+</div>
+    
 </template>
 
 <script>
@@ -35,6 +50,25 @@ export default {
         return {
             id: this.$route.params.id,
             tagList: [],
+            tagModal: false,
+            tag_obj: {
+                name: '',
+                description: ''
+            },
+            tagRule: {
+                name: [
+                {
+                    required: true,
+                    trigger: 'change'
+                }
+                ],
+                description: [
+                {
+                    required: true,
+                    trigger: 'change'
+                }
+                ]
+            },
             pageObject: {
                 title: '',
                 tags: [],
@@ -73,13 +107,26 @@ export default {
     },
     methods: {
         getAllTags () {
-            this.Common.axios('/api/tag/alltags').then(res => {
+            return this.Common.axios('/api/tag/alltags').then(res => {
                 if (res.data.code === 'OK') {
                     this.tagList = res.data.data
                 } else {
                     this.$Message.error(res.data.data)
                 }
             })
+        },
+        selectChange (arr) {
+            // 判断是否新增 tag
+            let last_tag = arr.pop()
+            if (this.tagList.includes(last_tag)) {
+                arr.push(last_tag)
+            } else {
+                setTimeout(() => {
+                    this.$refs['tagSelect'].blur()
+                    this.tag_obj.name = last_tag
+                    this.tagModal = true
+                }, 30)
+            }
         },
         getPageDetail () {
             if (this.id) {
@@ -95,11 +142,23 @@ export default {
                 return false
             }
         },
-        radioChange () {
-            if (this.pageObject.status) {
-                this.pageObject.status = ''
-            }
+        createTagSubmit () {
+            this.$refs['tagForm'].validate(valid => {
+                if (valid) {
+                this.Common.axios('/api/tag/create', this.tag_obj).then(async (res) => {
+                    if (res.data.code === 'OK') {
+                        this.tagModal = false
+                        await this.getAllTags()
+                        this.pageObject.tags.push(this.tag_obj.name)
+                        this.$refs['tagForm'].resetFields()
+                    } else {
+                        this.$Message.error(res.data.data)
+                    }
+                })
+                }
+            })
         },
+        
         save (type) {
             this.$refs['pageForm'].validate(valid => {
                 if (valid) {
