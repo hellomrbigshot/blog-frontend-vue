@@ -188,10 +188,12 @@ export default {
                     this.Common.axios(url, this.pageObject).then(res => {
                         if (res.data.code === 'OK') {
                             this.$Message.success('提交成功')
+                            this.$store.commit('updateUserInfo', res.data.data)
                             this.$refs['pageForm'].resetFields()
-                            this.$store.commit('updatePageNum', res.data.data)
-                            if (type === 'normal') {
+                            if (type === 'normal' && this.id) { 
                                 this.$router.push({ name: 'pageDetail', params: { id: this.id } })
+                            } else if (type === 'normal' && !this.id) {
+                                this.$router.push({ name: 'normalPageList' })
                             } else {
                                 this.$router.push({ name: 'normalMyDraftList' })
                             }
