@@ -105,6 +105,21 @@ export default {
         await this.getAllTags()
         this.getPageDetail()
     },
+    beforeRouteLeave (to, from, next) {
+        if (this.pageObject.title || this.pageObject.tags.length) {
+            this.$Modal.confirm({
+                title: '提示',
+                content: '<p>你有未保存的文章，确定要离开吗？</p>',
+                okText: '离开',
+                cancelText	: '取消',
+                onOk: () => {
+                    next()
+                }
+            });
+        } else {
+            next()
+        }
+    },
     methods: {
         getAllTags () {
             return this.Common.axios('/api/tag/alltags').then(res => {
@@ -173,6 +188,7 @@ export default {
                     this.Common.axios(url, this.pageObject).then(res => {
                         if (res.data.code === 'OK') {
                             this.$Message.success('提交成功')
+                            this.$refs['pageForm'].resetFields()
                             this.$store.commit('updatePageNum', res.data.data)
                             if (type === 'normal') {
                                 this.$router.push({ name: 'pageDetail', params: { id: this.id } })
