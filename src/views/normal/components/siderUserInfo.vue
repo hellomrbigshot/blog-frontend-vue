@@ -52,7 +52,7 @@
               </div>
           </nav>
           <div class="site-operate">
-              <router-link :to="{name: 'normalNew'}">写文章</router-link>
+              <!-- <router-link :to="{name: 'normalNew'}">写文章</router-link> -->
               <a @click="signout">注销</a>
           </div>
       </section>

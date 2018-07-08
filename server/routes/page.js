@@ -43,6 +43,7 @@ router.post('/edit', checkLogin, async (req, res, next) => { // 编辑文章
         const title = req.body.title
         const content = req.body.content
         const create_user = req.session.user.username
+        const username = req.session.user.username
         const status = req.body.status
         const secret = req.body.secret
         const tags = req.body.tags
@@ -56,10 +57,10 @@ router.post('/edit', checkLogin, async (req, res, next) => { // 编辑文章
         }
         let result = await PageModel.update(id, page)
         const [page_num, draft_num] = await Promise.all([
-            PageModel.getPageNum('normal', create_user),
-            PageModel.getPageNum('draft', create_user)
+            PageModel.getPageNum('create_user', username, 'normal'),
+			PageModel.getPageNum('create_user', username, 'draft'),
         ])
-        res.status(200).json({ code: 'OK', data: { page_num: page_num, draft_num: draft_num }})
+        res.status(200).json({ code: 'OK', data: { page_num, draft_num }})
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
     }

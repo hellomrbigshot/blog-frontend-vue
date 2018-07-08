@@ -196,8 +196,8 @@ export const normalRouter = {
         path: 'new',
         meta: {
           login: true,
-          title: '新建',
-          inHeaderList: false
+          title: '写文章',
+          inHeaderList: true
         }
       },
       {
