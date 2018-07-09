@@ -12,7 +12,11 @@ module.exports = {
             .exec()
     },
     // 查询评论列表
-    getCommentList (type, content, pageSize, Count) {
+    getCommentList (query) {
+        const type = query.type
+        const content = query.content
+        const pageSize = query.pageSize
+        const Count = query.Count
         let query_obj = {}
         if (type === 'page') {
             query_obj.page_id = content

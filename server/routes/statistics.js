@@ -5,7 +5,7 @@ const PageModel = require('../models/page')
 const checkLogin = require('../middlewares/check').checkLogin
 router.post('/', checkLogin, async (req, res, next) => {
     try {
-        const [userNum, pageNum]= await Promise.all([UserModel.getUserNum(), PageModel.getPageNum('normal')])
+        const [userNum, pageNum] = await Promise.all([UserModel.getUserNum(), PageModel.getPageNum({ status: 'normal' })])
         let data = { userNum, pageNum }
         res.status(200).json({code: 'OK', data: data})
     } catch (e) {

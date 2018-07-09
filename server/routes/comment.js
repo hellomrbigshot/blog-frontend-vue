@@ -22,7 +22,7 @@ router.post('/create', checkLogin, async (req, res, next) => {
 router.post('/getpagecommentlist', async (req, res, next) => {
     const page_id = req.body.page_id
     try {
-        let result = await CommentModel.getCommentList('page', page_id)
+        let result = await CommentModel.getCommentList({ type: 'page', content: page_id })
         res.status(200).json({ code: 'OK', data: result })
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
@@ -38,8 +38,13 @@ router.post('/getusercommentlist', checkLogin, async (req, res, next) => {
     let page = req.body.page || 1
     pageSize = typeof pageSize === 'number' ? pageSize : parseInt(pageSize)
     page = typeof page === 'number' ? page : parseInt(page)
+    const Count = pageSize * (page - 1)
+    const content = type === 'create_user' ? create_user : to_user
     try {
-        let [result, total] = await Promise.all([CommentModel.getCommentList(type, type === 'create_user' ? create_user : to_user, pageSize, pageSize * (page - 1)), CommentModel.getCommentNum(type, type === 'create_user' ? create_user : to_user)]) 
+        let [result, total] = await Promise.all([
+            CommentModel.getCommentList({ type, content, pageSize, Count }), 
+            CommentModel.getCommentNum(type, type === 'create_user' ? create_user : to_user)
+        ]) 
         res.status(200).json({ code: 'OK', data: { result, total } })
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })

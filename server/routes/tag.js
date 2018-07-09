@@ -18,7 +18,7 @@ router.post('/taglist', async (req, res, next) => {
 
         result = await Promise.all(result.map(async (single) => {
             single = single.toObject()
-            single.page_num = await PageModel.getPageNum('tag', single.name, 'normal')
+            single.page_num = await PageModel.getPageNum({ type: 'tag', content: single.name, status: 'normal' })
             return single
         }))
         res.status(200).json({ code: 'OK', data: { total, result } })
