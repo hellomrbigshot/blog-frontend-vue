@@ -25,25 +25,26 @@ export default {
                 key: 'password'
             },
             {
-                title: '性别',
-                render: (h, params) => {
-                    return h('span', this.gender_obj[params.row.gender])
-                }
+                title: '介绍',
+                key: 'bio'
             },
             {
                 title: '操作',
-
+                render: (h, params) => {
+                    return h('a', {
+                        on: {
+                            click: () => {
+                                
+                            }
+                        }
+                    } , '注销用户')
+                }
             }
         ],
         user_list: [],
         total: 0,
         page_size: 10,
         page: 1,
-        gender_obj: {
-            'f': '女',
-            'm': '男',
-            'x': '未知'
-        }
     }
   },
   mounted () {

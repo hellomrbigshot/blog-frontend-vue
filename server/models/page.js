@@ -33,9 +33,10 @@ module.exports = {
      * @params {number} Count
      * @params {boolean} secret
      */
-    getPageList(type = '', content = '', status = 'normal', pageSize = 10, Count = 0, secret) {
-        let query_obj = {
-            status
+    getPageList(type = '', content = '', status = '', pageSize = 10, Count = 0, secret) {
+        let query_obj = {}
+        if (status) {
+            query_obj.status = status
         }
         if (type === 'create_user') {
             query_obj.create_user = content
@@ -62,8 +63,11 @@ module.exports = {
      * @params {number} Count
      * @params {boolean} secret
      */
-    getPageNum(type = '', content = '', status = 'normal', secret) {
-        let query_obj = { status: status }
+    getPageNum(type = '', content = '', status = '', secret) {
+        let query_obj = {}
+        if (status) {
+            query_obj.status = status
+        }
         if (type === 'create_user') {
             query_obj.create_user = content
         }

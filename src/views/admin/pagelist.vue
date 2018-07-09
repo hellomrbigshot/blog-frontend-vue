@@ -1,6 +1,6 @@
 <template>
     <div class="main-content">
-        文章列表
+        <Table :colums="columns" :data="list"></Table>
     </div>
 </template>
 <script>
@@ -9,6 +9,12 @@ export default {
   name: 'pageList',
   data () {
     return {
+      columns: [
+        {
+
+        }
+      ],
+      list: []
     }
   },
   methods: {
