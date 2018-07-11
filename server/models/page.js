@@ -33,7 +33,13 @@ module.exports = {
      * @params {number} Count
      * @params {boolean} secret
      */
-    getPageList(type = '', content = '', status = '', pageSize = 10, Count = 0, secret) {
+    getPageList(query) {
+        const type = query.type
+        const content = query.content
+        const status = query.status
+        const pageSize = query.pageSize || 10
+        const Count = query.Count || 0
+        const secret = query.secret
         let query_obj = {}
         if (status) {
             query_obj.status = status
@@ -41,7 +47,7 @@ module.exports = {
         if (type === 'create_user') {
             query_obj.create_user = content
         }
-        if (typeof (secret) === 'boolean') {
+        if (typeof secret === 'boolean') {
             query_obj.secret = secret
         }
         if (type === 'tag') {
@@ -63,20 +69,24 @@ module.exports = {
      * @params {number} Count
      * @params {boolean} secret
      */
-    getPageNum(type = '', content = '', status = '', secret) {
+    getPageNum(query) {
+        const type = query.type || ''
+        const content = query.content || ''
+        const status = query.status || ''
+        const secret = query.secret 
         let query_obj = {}
         if (status) {
             query_obj.status = status
         }
         if (type === 'create_user') {
             query_obj.create_user = content
-        }
-        if (typeof (secret) === 'boolean') {
-            query_obj.secret = secret
-        }
-        if (type === 'tag') {
+        } else if (type === 'tag') {
             query_obj.tags = content
         }
+        if (typeof secret === 'boolean') {
+            query_obj.secret = secret
+        }
+        
         return Page
             .find(query_obj)
             .count()

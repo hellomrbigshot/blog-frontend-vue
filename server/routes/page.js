@@ -27,8 +27,8 @@ router.post('/new', checkLogin, async (req, res, next) => { // 新建文章
         }
         let result = await PageModel.create(page)
         const [page_num, draft_num] = await Promise.all([
-            PageModel.getPageNum('normal', create_user),
-            PageModel.getPageNum('draft', create_user)
+            PageModel.getPageNum({ type: 'normal', content: create_user }),
+            PageModel.getPageNum({ type: 'draft',  content: create_user })
         ])
         res.status(200).json({ code: 'OK', data: { page_num: page_num, draft_num: draft_num }})
     } catch (e) {
@@ -56,8 +56,8 @@ router.post('/edit', checkLogin, async (req, res, next) => { // 编辑文章
         }
         let result = await PageModel.update(id, page)
         const [page_num, draft_num] = await Promise.all([
-            PageModel.getPageNum('create_user', create_user, 'normal'),
-			PageModel.getPageNum('create_user', create_user, 'draft'),
+            PageModel.getPageNum({ type: 'create_user', content: create_user, status: 'normal' }),
+			PageModel.getPageNum({ type: 'create_user', content: create_user, status: 'draft' }),
         ])
         res.status(200).json({ code: 'OK', data: { page_num, draft_num }})
     } catch (e) {
@@ -91,10 +91,11 @@ router.post('/pagelist', async (req, res, next) => { // 获取文章列表
     const secret = req.body.secret
     pageSize = typeof (pageSize) === 'number' ? pageSize : parseInt(pageSize)
     page = typeof (page) === 'number' ? page : parseInt(page)
+    const Count =  pageSize * (page - 1)
     try {
         let [total, result] = await Promise.all([
-            PageModel.getPageNum(type, content, status, secret),
-            PageModel.getPageList(type, content, status, pageSize, pageSize * (page - 1), secret)
+            PageModel.getPageNum({ type, content, status, secret }),
+            PageModel.getPageList({ type, content, status, pageSize, Count, secret })
         ])
         res.status(200).json({ code: 'OK', data: { result, total }})
     } catch (e) {
@@ -110,11 +111,11 @@ router.post('/limitpagelist', checkLogin, async (req, res, next) => { // 根据�
     const secret = req.body.secret
     pageSize = typeof (pageSize) === 'number' ? pageSize : parseInt(pageSize)
     page = typeof (page) === 'number' ? page : parseInt(page)
+    const Count =  pageSize * (page - 1)
     try {
-
         let [total, result] = await Promise.all([
-            PageModel.getPageNum(type, content, status, secret),
-            PageModel.getPageList(type, content, status, pageSize, pageSize * (page - 1), secret)
+            PageModel.getPageNum({ type, content, status, secret }),
+            PageModel.getPageList({ type, content, status, pageSize, Count, secret })
         ])
         res.status(200).json({ code: 'OK', data: { result, total }})
     } catch (e) {
