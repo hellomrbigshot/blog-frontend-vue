@@ -97,9 +97,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-* {
-  line-height: 2;
-}
 .icon-wrapper {
   width: 25px;
   position: fixed;

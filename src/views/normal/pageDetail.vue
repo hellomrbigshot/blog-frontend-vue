@@ -5,10 +5,6 @@
         <header>
           <h1 class="page-title">{{ page.title }}</h1>
           <div class="page-info">
-            <!-- <span class="create-time">创建于
-                          <time>{{ page.create_date.substring(0,10) }}</time>
-                          &nbsp;|&nbsp;
-                      </span> -->
             <span v-if="page.create_date!==page.update_date" class="update-time">更新于
               <time>{{ page.create_date.substring(0,10) }}</time>
               &nbsp;|&nbsp;
@@ -160,6 +156,10 @@ article {
         }
       }
     }
+  }
+  .page-body {
+    line-height: 2!important;
+    font-size: 14px;
   }
   margin-bottom: 120px;
 }
