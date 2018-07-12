@@ -3,23 +3,27 @@
         <div class="edit-toolbar">
             <ul class="edit-mode">
                 <li>
-                    <a class="edit-menu__edit" title="编辑"></a>
+                    <a :class="['edit-menu__edit', mode === 'edit' && 'muted']" title="编辑" @click="mode='edit'"></a>
                 </li>
                 <li>
-                    <a class="edit-menu__live" title="实况"></a>
+                    <a :class="['edit-menu__live',  mode === 'live' && 'muted']" title="实况" @click="mode='live'"></a>
                 </li>
                 <li>
-                    <a class="edit-menu__preview" title="预览"></a>
+                    <a :class="['edit-menu__preview',  mode === 'preview' && 'muted']" title="预览" @click="mode='preview'"></a>
                 </li>
             </ul>
         </div>
-        <div class="edit-content">
-            <div class="editor-input">
-                <textarea v-model="input" spellcheck="false"></textarea>
-            </div>
-            <div class="editor-preview">
-                <div v-html="compiledMarkdown"></div>
-            </div>
+        <div :class="['edit-content']">
+            <transition v-if="mode!=='preview'" >
+                <div :class="['editor-input', mode === 'edit' && 'edit-full']">
+                    <textarea v-model="input" spellcheck="false"></textarea>
+                </div>
+            </transition>
+            <transition v-if="mode!=='edit'">
+                <div :class="['editor-preview', mode === 'preview' && 'edit-full']">
+                    <div v-html="compiledMarkdown"></div>
+                </div>
+            </transition>
         </div>  
   </div>
 </template>
@@ -27,7 +31,8 @@
 export default {
   data() {
     return {
-      input: this.value
+      input: this.value,
+      mode: 'live'
     }
   },
   props: {
@@ -76,10 +81,11 @@ export default {
 
 <style lang="scss" scoped>
 .editor {
-  height: 500px;
+  height: 531px;
   color: #333;
   box-sizing: border-box;
   border: 1px solid #dddee1;
+  overflow: hidden;
   .edit-toolbar {
       border-bottom: 1px solid #dddee1;
       .edit-mode {
@@ -98,6 +104,9 @@ export default {
               background-size: 380px 60px;
               overflow: hidden;
               text-indent: 110%;
+              &:hover {
+                  background-position-y: -40px;
+              }
             }
             .edit-menu__preview {
                 background-position: -360px 0px;
@@ -107,6 +116,13 @@ export default {
             }
             .edit-menu__edit {
                 background-position: -320px 0px;
+            }
+            .muted {
+                background-position-y: -20px;
+                cursor: default;
+                &:hover {
+                    background-position-y: -20px;
+                }
             }
 
       }
@@ -125,7 +141,7 @@ export default {
       width: 100%;
       height: 498px;
       border: none;
-      border-right: 1px solid #dddee1;
+      
       outline: none;
       resize: none;
     }
@@ -137,6 +153,13 @@ export default {
       overflow-y: auto;
       background: #f6f6f6;
     }
+  }
+  .editor-input {
+    border-right: 1px solid #dddee1;
+  }
+  .edit-full {
+      width: 100%;
+      border-right: 0;
   }
 }
 </style>
