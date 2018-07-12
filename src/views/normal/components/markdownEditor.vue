@@ -6,7 +6,7 @@
                     <a :class="['edit-menu__edit', mode === 'edit' && 'muted']" title="编辑" @click="mode='edit'"></a>
                 </li>
                 <li>
-                    <a :class="['edit-menu__live',  mode === 'live' && 'muted']" title="实况" @click="mode='live'"></a>
+                    <a :class="['edit-menu__live',  mode === 'live' && 'muted']" title="实时" @click="mode='live'"></a>
                 </li>
                 <li>
                     <a :class="['edit-menu__preview',  mode === 'preview' && 'muted']" title="预览" @click="mode='preview'"></a>
