@@ -57,7 +57,11 @@
                 .search-icon {
                     position: absolute;
                     left: 0;
-                    top: 1px;
+                    top: 3px;
+                    color: #999;
+                }
+                .active-search-icon {
+                    color: #222;
                 }
                 .search-input {
                     border: none;
@@ -66,6 +70,12 @@
                     padding-left: 18px;
                     // height: 24px;
                     outline: none;
+                    &:focus {
+                        border-bottom-color: #222;
+                        .search-icon {
+                            color: #222;
+                        }
+                    }
                 }
             }
             

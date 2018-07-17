@@ -14,10 +14,10 @@
                 </li>
             </ul>
             <div class="site-search">
-                <form class="site-search-form">
-                    <Icon type="search" class="search-icon" size="22" color="#222"></Icon>
-                    <input class="search-input"></input>
-                </form>
+                <div class="site-search-form">
+                    <Icon type="search" :class="['search-icon', {'active-search-icon': isFocus}]" size="16" ref="searchIcon" @click="searchPage"></Icon>
+                    <input class="search-input" @focus="isFocus=true" @blur="isFocus=false"></input>
+                </div>
             </div>
         </div>
         
@@ -27,12 +27,18 @@
     export default {
         data () {
             return {
-
+                isFocus: false
             } 
         },
         computed: {
             routes () {
                 return this.$store.state.normal.routers
+            }
+        },
+        methods: {
+            searchPage () {
+                this.$router.push({ name: 'normalPageList' })
+                
             }
         }
     }
