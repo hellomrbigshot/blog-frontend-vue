@@ -91,5 +91,21 @@ module.exports = {
             .find(query_obj)
             .count()
             .exec()
+    },
+    searchPage(query) {
+        const keywords = query.keywords
+        const reg = new RegExp(keywords, 'i')
+        let query_obj = {}
+        if (keywords) {
+            query_obj = {
+                $or: [ // 支持标题和正文查找
+                    { title: { $regex: reg }},
+                    { content: { $regex: reg }}
+                ]
+            }
+        }
+        return Page
+            .find(query_obj)
+            .exec()
     }
 }

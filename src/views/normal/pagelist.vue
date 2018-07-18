@@ -12,6 +12,7 @@
 </template>
 <script>
 import onePage from './components/onePage'
+import { bus } from '../../bus/index'
 export default {
   components: {
     onePage
@@ -31,6 +32,9 @@ export default {
       this.Cookies.set('user', this.username)
     }
     this.getPageList()
+    bus.$on('searchPage', (keywords) => {
+      this.searchPage(keywords)
+    })
     
   },
   methods: {
@@ -38,17 +42,29 @@ export default {
       this.Common.axios('/api/page/pagelist', { type: '', status: 'normal', content: '', pageSize: this.pageSize, page: this.page }).then(res => {
         if (res.data.code === 'OK') {
           this.page_list = res.data.data.result
-          this.pageAmount = res.data.data.total
+          this.total = res.data.data.total
           this.$nextTick(() => {
             this.hljs.highlightCode()
           })
           this.show_page = true
+        } else {
+          this.$Message.error(res.data.data)
         }
       })
     },
     pageChange (page) {
       this.page = page
       this.getPageList()
+    },
+    searchPage (keywords) {
+      this.Common.axios('/api/page/searchpage', { keywords }).then(res => {
+        if (res.data.code === 'OK') {
+          this.page_list = res.data.data.result
+          this.total = 0
+        } else {
+          this.$Message.error(res.data.data)
+        }
+      })
     }
   }
 }

@@ -15,8 +15,8 @@
             </ul>
             <div class="site-search">
                 <div class="site-search-form">
-                    <Icon type="search" :class="['search-icon', {'active-search-icon': isFocus}]" size="16" ref="searchIcon" @click="searchPage"></Icon>
-                    <input class="search-input" @focus="isFocus=true" @blur="isFocus=false"></input>
+                    <a :class="['search-icon', {'active-search-icon': isFocus}]"><Icon type="search" size="16" ref="searchIcon" @click="searchPage"></Icon></a>
+                    <input class="search-input" v-model="keywords" @focus="isFocus=true" @blur="isFocus=false"></input>
                 </div>
             </div>
         </div>
@@ -24,10 +24,12 @@
     </div>
 </template>
 <<script>
+import { bus } from '../../../bus/index'
     export default {
         data () {
             return {
-                isFocus: false
+                isFocus: false,
+                keywords: ''
             } 
         },
         computed: {
@@ -37,8 +39,8 @@
         },
         methods: {
             searchPage () {
-                this.$router.push({ name: 'normalPageList' })
-                
+                // this.$router.push({ name: 'normalPageList' })
+                bus.$emit('searchPage', this.keywords)
             }
         }
     }
