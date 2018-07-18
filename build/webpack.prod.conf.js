@@ -7,11 +7,10 @@ const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const vueLoaderPlugin = require('vue-loader/lib/plugin')
-// const { VueLoaderPlugin } = require('vue-loader')
+// const vueLoaderPlugin = require('vue-loader/lib/plugin')
+const { VueLoaderPlugin } = require('vue-loader')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 
@@ -69,10 +68,10 @@ const webpackConfig = merge(baseWebpackConfig, {
       // chunkFilename: "[id].css"
       allChunks: true,
     }),
-    new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].[contenthash].css'),
-      allChunks: true,
-    }),
+    // new ExtractTextPlugin({
+    //   filename: utils.assetsPath('css/[name].[contenthash].css'),
+    //   allChunks: true,
+    // }),
     new OptimizeCSSPlugin({
       cssProcessorOptions: config.build.productionSourceMap
         ? { safe: true, map: { inline: false } }
