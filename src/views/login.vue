@@ -58,26 +58,23 @@ export default {
   methods: {
       logIn (name) {
           this.$refs[name].validate(valid => {
-              if (valid) {
-                  this.Common.axios('/api/signin', this.formData).then(res => {
-                      if (res.data.code === 'OK') {
-                          this.Cookies.set('user', this.formData.username)
-                          if (this.$route.query.redirect) {
-                              this.$router.push(decodeURIComponent(this.$route.query.redirect))
-                          } else {
-                              if (this.formData.username === 'admin') {
-                                this.$router.push({name: 'admin'})
-                              } else {
-                                this.$router.push({name: 'normalPageList'})
-                              }
-                          }
-                      } else {
+              if (!valid) return;
+              this.Common.axios('/api/signin', this.formData).then(res => {
+                    if (res.data.code === 'OK') {
+                        this.Cookies.set('user', this.formData.username)
+                        if (this.formData.username === 'admin') {
+                          this.$router.push({ name: 'admin' })
+                          return false
+                        }
+                        if (this.$route.query.redirect) {
+                            this.$router.push(decodeURIComponent(this.$route.query.redirect))
+                            return false
+                        }
+                        this.$router.push({ name: 'normalPageList' })
+                    } else {
                         this.$Message.error(res.data.data)
-                      }
-                  })
-              } else {
-                  
-              }
+                    }
+                })
           })
       },
       toRegisterPage () {
