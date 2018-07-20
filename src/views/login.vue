@@ -29,60 +29,61 @@
 <script>
 export default {
   name: 'Login',
-  data () {
+  data() {
     const validatorName = (rule, value, callback) => {
-        if (!value) {
-            callback(new Error('请输入账号'))
-            return false
-        }
-        callback()
-    };
+      if (!value) {
+        callback(new Error('请输入账号'))
+        return false
+      }
+      callback()
+    }
     const validatorPass = (rule, value, callback) => {
-        if (!value) {
-            callback(new Error('请输入密码'))
-            return false
-        }
-        callback()
+      if (!value) {
+        callback(new Error('请输入密码'))
+        return false
+      }
+      callback()
     }
     return {
       formData: {
-          username: '',
-          password: ''
+        username: '',
+        password: ''
       },
       rule: {
-          username: [{ validator: validatorName, trigger: 'blur' }],
-          password: [{ validator: validatorPass, trigger: 'blur' }],
+        username: [{ validator: validatorName, trigger: 'blur' }],
+        password: [{ validator: validatorPass, trigger: 'blur' }]
       }
     }
   },
   methods: {
-      logIn (name) {
-          this.$refs[name].validate(valid => {
-              if (!valid) return;
-              this.Common.axios('/api/signin', this.formData).then(res => {
-                    if (res.data.code === 'OK') {
-                        this.Cookies.set('user', this.formData.username)
-                        if (this.formData.username === 'admin') {
-                          this.$router.push({ name: 'admin' })
-                          return false
-                        }
-                        if (this.$route.query.redirect) {
-                            this.$router.push(decodeURIComponent(this.$route.query.redirect))
-                            return false
-                        }
-                        this.$router.push({ name: 'normalPageList' })
-                    } else {
-                        this.$Message.error(res.data.data)
-                    }
-                })
-          })
-      },
-      toRegisterPage () {
-          this.$router.push({name: 'register'})
-      }
+    logIn(name) {
+      this.$refs[name].validate(valid => {
+        if (!valid) return
+        this.Common.axios('/api/signin', this.formData).then(res => {
+          if (res.data.code === 'OK') {
+            this.Cookies.set('user', this.formData.username)
+            if (this.formData.username === 'admin') {
+              this.$router.push({ name: 'admin' })
+              return false
+            }
+            if (this.$route.query.redirect) {
+              const url = decodeURIComponent(this.$route.query.redirect)
+              this.$router.push(url.indexOf('/admin')>=0 ? { name: 'normalPageList' } : url)
+              return false
+            }
+            this.$router.push({ name: 'normalPageList' })
+          } else {
+            this.$Message.error(res.data.data)
+          }
+        })
+      })
+    },
+    toRegisterPage() {
+      this.$router.push({ name: 'register' })
+    }
   }
 }
 </script>
 <style scoped lang="scss">
-@import './login.scss'
+@import './login.scss';
 </style>

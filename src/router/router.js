@@ -1,6 +1,5 @@
 import admin from '@/views/admin/home'
 import Cookies from 'js-cookie'
-console.log(Cookies.get('user'))
 export const longinRouter = {
   path: '/login',
   name: 'login',
