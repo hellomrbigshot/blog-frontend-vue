@@ -21,6 +21,4 @@ npm run build --report
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 
-### 需求文档
-[x] 写文章界面支持新增标签
-[x] 头像截图上传
+地址： http://hellomrbigbigshot.xyz
