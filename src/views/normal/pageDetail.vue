@@ -5,7 +5,11 @@
         <header>
           <h1 class="page-title">{{ page.title }}</h1>
           <div class="page-info">
-            <span v-if="page.create_date!==page.update_date" class="update-time">更新于
+            <!-- <span v-if="page.create_date!==page.update_date" class="update-time">更新于
+              <time>{{ page.update_date.substring(0,10) }}</time>
+              &nbsp;|&nbsp;
+            </span> -->
+            <span class="update-time">创建于
               <time>{{ page.create_date.substring(0,10) }}</time>
               &nbsp;|&nbsp;
             </span>

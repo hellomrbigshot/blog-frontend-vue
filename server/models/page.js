@@ -47,7 +47,7 @@ module.exports = {
         if (type === 'create_user') {
             query_obj.create_user = content
         }
-        if (typeof secret === 'boolean') {
+        if (secret) {
             query_obj.secret = secret
         }
         if (type === 'tag') {

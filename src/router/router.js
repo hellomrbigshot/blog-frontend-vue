@@ -129,6 +129,7 @@ export const adminRouter = {
 }
 export const normalRouter = {
     path: '/normal',
+    redirect: '/normal/pagelist',
     meta: {
       login: false
     },

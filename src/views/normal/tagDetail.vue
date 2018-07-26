@@ -43,7 +43,8 @@ export default {
                 content: this.name,
                 page: this.page,
                 pageSize: this.pageSize,
-                status: 'normal'
+                status: 'normal',
+                secret: false
             }).then(res => {
                 if (res.data.code === 'OK') {
                     this.pageList = res.data.data.result

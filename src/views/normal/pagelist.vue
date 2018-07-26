@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     getPageList () {
-      this.Common.axios('/api/page/pagelist', { type: '', status: 'normal', content: '', pageSize: this.pageSize, page: this.page }).then(res => {
+      this.Common.axios('/api/page/pagelist', { type: '', status: 'normal', content: '', pageSize: this.pageSize, page: this.page, secret: false }).then(res => {
         if (res.data.code === 'OK') {
           this.page_list = res.data.data.result
           this.total = res.data.data.total

@@ -69,6 +69,8 @@ export default {
         gfm: true,
         tables: true,
         breaks: true,
+        headerIds: true,
+        headerPrefix: 'vue-express',
         sanitize: false,
         smartLists: true,
         smartypants: false,
