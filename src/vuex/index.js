@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import admin from './modules/admin'
 import normal from './modules/normal'
 import user from './modules/user'
-Vue.use(Vuex)
+// Vue.use(Vuex)
 
 const store = new Vuex.Store({
     store: {
