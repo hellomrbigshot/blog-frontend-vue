@@ -16,7 +16,9 @@
               <span class="draft-title">{{ page.title }}</span>
               <template v-if="page.secret">
                 <span :style="{fontSize: '16px'}">|</span>
-                <span class="secret">私密</span>
+                <Badge text="私密" :offset="[-5, -20]">
+                    <a href="#" class="demo-badge"></a>
+                </Badge>
               </template>
             </div>
           </router-link>
@@ -108,14 +110,6 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     font-size: 16px;
-  }
-  .secret {
-    display: inline-block;
-    padding: 1px 2px;
-    background: #de0d75;
-    color: #fff;
-    font-size: 12px;
-    border-radius: 5px;
   }
 }
 </style>

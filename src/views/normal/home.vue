@@ -2,10 +2,10 @@
 <div class="layout">
   <div class="icon-wrapper">
     <div class="single-icon-wrapper" v-if="user">
-      <Icon @click.native="collapsedSider" :class="rotateIcon" color="#fff" type="navicon-round" size="22"></Icon>
+      <Icon @click.native="collapsedSider" :class="rotateIcon" color="#fff" type="md-menu" size="22"></Icon>
     </div>
     <div class="single-icon-wrapper">
-      <Icon @click.native="bodyScrollTop" color="#fff" type="arrow-up-b" size="22"></Icon>
+      <Icon @click.native="bodyScrollTop" color="#fff" type="ios-arrow-up" size="22"></Icon>
     </div>
   </div>
   <Layout>

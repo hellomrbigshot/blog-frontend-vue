@@ -15,11 +15,11 @@
                 </FormItem>
                 <FormItem>
                     <Button type="primary" size="large" long @click="logIn('signinForm')" >登录</Button>
-                    <Button type="ghost" size="large" long :style="{marginTop: '10px'}" @click="toRegisterPage">注册</Button>
+                    <Button type="default" size="large" long :style="{marginTop: '10px'}" @click="toRegisterPage">注册</Button>
                 </FormItem>
                 <FormItem label="第三方登录：">
                     <a href="/api/github/login" :style="{ color: '#2c3e50' }">
-                        <Icon type="social-github" :size="30"></Icon>
+                        <Icon type="logo-github" :size="30"></Icon>
                     </a>
                 </FormItem>
             </Form>
