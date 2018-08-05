@@ -17,9 +17,9 @@
             </Row>
         </li>
     </ul>
-    <div class="pagination" >
+    <!-- <div class="pagination" >
         <new-page :total="total" v-if="pageSize<total"></new-page>
-    </div>
+    </div> -->
 </div>
 </template>
 
@@ -29,7 +29,7 @@ export default {
     return {
       draft_list: [],
       total: 0,
-      pageSize: 10,
+      pageSize: 999,
       page: 1
     }
   },

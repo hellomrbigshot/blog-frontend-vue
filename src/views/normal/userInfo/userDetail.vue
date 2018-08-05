@@ -38,7 +38,8 @@ export default {
         status: 'normal',
         content: this.username,
         pageSize: this.pageSize,
-        page: this.page
+        page: this.page,
+        secret: false
       }
       this.Common.axios('/api/page/pagelist', post_data).then(res => {
         if (res.data.code === 'OK') {

@@ -39,7 +39,7 @@
                 
                 <FormItem>
                     <Button type="primary" size="large" long @click="register('registerForm')" >注册</Button>
-                    <Button type="ghost" size="large" :style="{marginTop: '10px'}" long @click="toLogin()" >登录</Button>
+                    <Button type="default" size="large" :style="{marginTop: '10px'}" long @click="toLogin()" >登录</Button>
                 </FormItem>
             </Form>
         </div>

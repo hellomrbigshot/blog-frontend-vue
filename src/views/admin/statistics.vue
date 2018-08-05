@@ -2,7 +2,7 @@
   <div>
     <Row :gutter="10">
         <Col :xs="24" :sm="12" :md="8">
-            <router-link :to="{name: 'userList'}"> 
+            <router-link :to="{name: 'adminUserList'}"> 
                 <info-card 
                     info-text="用户数"
                     id-name="user_num"
@@ -13,7 +13,7 @@
             
         </Col>
         <Col :xs="24" :sm="12" :md="8">
-            <router-link :to="{name: 'pageList'}"> 
+            <router-link :to="{name: 'adminPageList'}"> 
                 <info-card 
                     info-text="文章数"
                     id-name="page_num"

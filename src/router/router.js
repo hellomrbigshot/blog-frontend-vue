@@ -1,4 +1,5 @@
 import admin from '@/views/admin/home'
+import Cookies from 'js-cookie'
 export const longinRouter = {
   path: '/login',
   name: 'login',
@@ -34,6 +35,10 @@ export const oauthRegisterRouter = {
     login: false
   },
   component: () => import('@/views/oauthRegister')
+}
+export const redirect = { // 若是 admin 跳转到管理界面，其他用户跳转到文章列表页
+  path: '/',
+  redirect: Cookies.get('user') === 'admin' ? '/admin' : '/normal'
 }
 export const adminRouter = {
   path: '/admin',
@@ -123,12 +128,12 @@ export const adminRouter = {
   ]
 }
 export const normalRouter = {
-    path: '/',
+    path: '/normal',
+    redirect: '/normal/pagelist',
     meta: {
       login: false
     },
     component: () => import('@/views/normal/home'),
-    redirect: '/pagelist',
     children: [
       {
         name: 'normalPageList',
@@ -237,6 +242,7 @@ export const routers = [ // 上面定义的路由均写在 routers
   page404,
   registerRouter,
   oauthRegisterRouter,
+  redirect,
   normalRouter,
   adminRouter
 ]

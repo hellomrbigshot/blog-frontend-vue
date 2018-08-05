@@ -102,6 +102,15 @@ router.post('/pagelist', async (req, res, next) => { // 获取文章列表
         res.status(200).json({ code: 'ERROR', data: e.message })
     }
 })
+router.post('/searchpage', async (req, res, next) => { // 模糊搜索
+    const keywords = req.body.keywords || ''
+    try {
+        let result = await PageModel.searchPage({ keywords })
+        res.status(200).json({ code: 'OK', data: { result } })
+    } catch (e) {
+        res.status(200).json({ code: 'ERROR', data: e.message })
+    }
+})
 router.post('/limitpagelist', checkLogin, async (req, res, next) => { // 根据条件获取文章列表，必须登录
     let pageSize = req.body.pageSize || 10
     let page = req.body.page || 1

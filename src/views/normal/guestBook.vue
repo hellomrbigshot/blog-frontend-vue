@@ -2,11 +2,11 @@
   <Tabs v-model="type" size="small">
       <TabPane label="我发出的" name="create_user">
         <comments :comments="comments" :type="type"></comments>
-        <new-page v-if="total > pageSize" :total="total" @on-change="getCommentList"></new-page>
+        <new-page v-if="total > pageSize" :total="total" @on-change="getCommentList" style="margin-top: 20px;"></new-page>
       </TabPane>
       <TabPane label="我收到的" name="to_user">
         <comments :comments="comments" :type="type"></comments>
-        <new-page v-if="total > pageSize" :total="total" @on-change="getCommentList"></new-page>
+        <new-page v-if="total > pageSize" :total="total" @on-change="getCommentList"  style="margin-top: 20px;"></new-page>
       </TabPane>
   </Tabs>
   
@@ -38,7 +38,8 @@ export default {
     this.getCommentList()
   },
   methods: {
-    getCommentList () {
+    getCommentList (page) {
+      if (page) this.page = page;
       let query_obj = {
         type: this.type,
         create_user: this.user,

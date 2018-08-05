@@ -14,25 +14,33 @@
                 </li>
             </ul>
             <div class="site-search">
-                <form class="site-search-form">
-                    <Icon type="search" class="search-icon" size="22" color="#222"></Icon>
-                    <input class="search-input"></input>
-                </form>
+                <div class="site-search-form">
+                    <a :class="['search-icon', {'active-search-icon': isFocus}]"><Icon type="md-search" size="16" ref="searchIcon" @click="searchPage"></Icon></a>
+                    <input class="search-input" v-model="keywords" @focus="isFocus=true" @blur="isFocus=false"></input>
+                </div>
             </div>
         </div>
         
     </div>
 </template>
 <<script>
+import { bus } from '../../../bus/index'
     export default {
         data () {
             return {
-
+                isFocus: false,
+                keywords: ''
             } 
         },
         computed: {
             routes () {
                 return this.$store.state.normal.routers
+            }
+        },
+        methods: {
+            searchPage () {
+                // this.$router.push({ name: 'normalPageList' })
+                bus.$emit('searchPage', this.keywords)
             }
         }
     }

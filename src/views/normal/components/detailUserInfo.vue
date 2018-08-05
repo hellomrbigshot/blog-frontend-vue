@@ -11,7 +11,7 @@
             </div>
             <div class="user-info-bio">
                 <a @click="changeBio" class="bio-icon" v-if="cur_username === username" :title="bio_edit?'保存':'编辑'">
-                    <Icon size="10" :type="bio_edit?'checkmark':'edit'"></Icon>
+                    <Icon size="10" :type="bio_edit?'md-checkmark':'md-create'"></Icon>
                 </a>
                 <div v-if="!bio_edit">
                     {{ user.bio || '您还没有填写个人简介' }}

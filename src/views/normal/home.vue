@@ -2,10 +2,10 @@
 <div class="layout">
   <div class="icon-wrapper">
     <div class="single-icon-wrapper" v-if="user">
-      <Icon @click.native="collapsedSider" :class="rotateIcon" color="#fff" type="navicon-round" size="22"></Icon>
+      <Icon @click.native="collapsedSider" :class="rotateIcon" color="#fff" type="md-menu" size="22"></Icon>
     </div>
     <div class="single-icon-wrapper">
-      <Icon @click.native="bodyScrollTop" color="#fff" type="arrow-up-b" size="22"></Icon>
+      <Icon @click.native="bodyScrollTop" color="#fff" type="ios-arrow-up" size="22"></Icon>
     </div>
   </div>
   <Layout>
@@ -14,9 +14,9 @@
             <blog-header @on-change="handleRouter"></blog-header>
           </Header>
           <Content :style="{background: '#fff', minHeight: '260px'}">
-              <router-view :style="{margin: '80px auto 0', width: '85%', maxWidth: '1100px'}"></router-view>
+              <router-view :style="{margin: '80px auto 0', width: '85%', maxWidth: '700px'}"></router-view>
           </Content>
-          <Footer :style="{padding: '40px 0', margin: '0 auto', width: '85%', maxWidth: '1100px'}">
+          <Footer :style="{padding: '40px 0', margin: '0 auto', width: '85%', maxWidth: '700px'}">
             <blog-footer></blog-footer>
           </Footer>
       </Layout>
@@ -97,9 +97,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-* {
-  line-height: 2;
-}
 .icon-wrapper {
   width: 25px;
   position: fixed;

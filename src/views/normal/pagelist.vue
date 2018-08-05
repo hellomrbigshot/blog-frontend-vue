@@ -3,18 +3,18 @@
   <transition name="fade">
     <div v-if="page_list.length">
       <one-page v-if="page_list.length" v-for="(page, i) in page_list" :key="i" :page="page"></one-page>
-      <div class="pagination">
+      <div class="pagination" style="margin-bottom: 20px;">
         <new-page v-if="total>pageSize" :total="total" @on-change="pageChange"></new-page>
       </div>
     </div>
   </transition>
 </div>
 </template>
-<script>
-import onePage from './components/onePage'
+<script> 
+import { bus } from '../../bus/index'
 export default {
   components: {
-    onePage
+    onePage: () => import('./components/onePage')
   },
   data () {
       return {
@@ -31,24 +31,39 @@ export default {
       this.Cookies.set('user', this.username)
     }
     this.getPageList()
+    bus.$on('searchPage', (keywords) => {
+      this.searchPage(keywords)
+    })
     
   },
   methods: {
     getPageList () {
-      this.Common.axios('/api/page/pagelist', { type: '', status: 'normal', content: '', pageSize: this.pageSize, page: this.page }).then(res => {
+      this.Common.axios('/api/page/pagelist', { type: '', status: 'normal', content: '', pageSize: this.pageSize, page: this.page, secret: false }).then(res => {
         if (res.data.code === 'OK') {
           this.page_list = res.data.data.result
-          this.pageAmount = res.data.data.total
+          this.total = res.data.data.total
           this.$nextTick(() => {
             this.hljs.highlightCode()
           })
           this.show_page = true
+        } else {
+          this.$Message.error(res.data.data)
         }
       })
     },
     pageChange (page) {
       this.page = page
       this.getPageList()
+    },
+    searchPage (keywords) {
+      this.Common.axios('/api/page/searchpage', { keywords }).then(res => {
+        if (res.data.code === 'OK') {
+          this.page_list = res.data.data.result
+          this.total = 0
+        } else {
+          this.$Message.error(res.data.data)
+        }
+      })
     }
   }
 }
