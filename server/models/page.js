@@ -86,7 +86,7 @@ module.exports = {
         if (secret !== undefined) {
             query_obj.secret = JSON.parse(secret)
         }
-        console.log(query_obj)
+        // console.log(query_obj)
         return Page
             .find(query_obj)
             .count()
