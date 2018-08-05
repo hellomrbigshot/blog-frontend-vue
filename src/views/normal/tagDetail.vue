@@ -8,7 +8,7 @@
             <div class="tag-desc">{{ detail.description }}</div>
         </div>
         <page-list :page-list="pageList"></page-list>
-        <div class="pagination">
+        <div class="pagination" style="margin-top: 20px;">
             <new-page v-if="total>pageSize" :total="total" @on-change="pageChange"></new-page>
         </div>
     </section>

@@ -26,8 +26,8 @@
       </template>
 
     </Timeline>
-    <div class="pagination">
-      <new-page :total="total" v-if="pageSize<total"></new-page>
+    <div class="pagination" style="margin-bottom: 20px;">
+      <new-page :total="total" v-if="pageSize<total" @on-change="pageChange"></new-page>
     </div>
   </div>
 </template>
@@ -82,7 +82,11 @@ export default {
         )
         return single
       })
-    }
+    },
+    pageChange (page) {
+      this.page = page
+      this.getPageList()
+    },
   }
 }
 </script>

@@ -47,8 +47,8 @@ module.exports = {
         if (type === 'create_user') {
             query_obj.create_user = content
         }
-        if (secret) {
-            query_obj.secret = secret
+        if (secret !== undefined) {
+            query_obj.secret = JSON.parse(secret)
         }
         if (type === 'tag') {
             query_obj.tags = content
@@ -83,10 +83,10 @@ module.exports = {
         } else if (type === 'tag') {
             query_obj.tags = content
         }
-        if (typeof secret === 'boolean') {
-            query_obj.secret = secret
+        if (secret !== undefined) {
+            query_obj.secret = JSON.parse(secret)
         }
-        
+        console.log(query_obj)
         return Page
             .find(query_obj)
             .count()
@@ -101,11 +101,13 @@ module.exports = {
                 $or: [ // 支持标题和正文查找
                     { title: { $regex: reg }},
                     { content: { $regex: reg }}
-                ]
+                ],
+                secret: false
             }
         }
         return Page
             .find(query_obj)
+            .sort({ 'create_date': -1 })
             .exec()
     }
 }

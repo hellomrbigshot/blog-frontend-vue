@@ -3,19 +3,18 @@
   <transition name="fade">
     <div v-if="page_list.length">
       <one-page v-if="page_list.length" v-for="(page, i) in page_list" :key="i" :page="page"></one-page>
-      <div class="pagination">
+      <div class="pagination" style="margin-bottom: 20px;">
         <new-page v-if="total>pageSize" :total="total" @on-change="pageChange"></new-page>
       </div>
     </div>
   </transition>
 </div>
 </template>
-<script>
-import onePage from './components/onePage'
+<script> 
 import { bus } from '../../bus/index'
 export default {
   components: {
-    onePage
+    onePage: () => import('./components/onePage')
   },
   data () {
       return {
