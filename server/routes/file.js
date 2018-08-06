@@ -41,7 +41,8 @@ router.get('/avatar', (req, res, next) => {
         // res.sendFile(url)
         // fs.readFile(url, 'binary', (err, file) => {
         // 	if (err) {
-        // 	  console.log(err)
+        //       console.log(err)
+        //       res.end()
         // 	  return;
         // 	} else {
         // 		res.writeHead(200, { 'Content-Type': 'image/jpeg' })
@@ -50,22 +51,33 @@ router.get('/avatar', (req, res, next) => {
         // 		return
         // 	}
         // })
-        if (url) {
-            let stream = fs.createReadStream(url)
-            let responseData = []; // 存储文件流
-            if (stream) { // 判断状态
-                stream.on('data', chunk => {
-                    responseData.push(chunk)
-                })
-                stream.on('end', () => {
-                    let finalData = Buffer.concat(responseData)
-                    res.write(finalData)
+        try {
+            if (url) {
+                let stream = fs.createReadStream(url)
+                let responseData = []; // 存储文件流
+                stream.on('error', err => {
                     res.end()
                 })
+                if (stream) { // 判断状态
+                    stream.on('data', chunk => {
+                        responseData.push(chunk)
+                    })
+                    stream.on('end', () => {
+                        let finalData = Buffer.concat(responseData)
+                        res.write(finalData)
+                        res.end()
+                    })
+                }
+            } else {
+                res.end()
             }
-        } else {
+        } catch (e) {
             res.end()
         }
+        
+    }).catch(e => {
+        res.write()
+        res.end()
     })
 	
 })

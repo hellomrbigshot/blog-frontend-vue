@@ -42,9 +42,6 @@ export default {
         if (res.data.code === 'OK') {
           this.page_list = res.data.data.result
           this.total = res.data.data.total
-          this.$nextTick(() => {
-            this.hljs.highlightCode()
-          })
           this.show_page = true
         } else {
           this.$Message.error(res.data.data)

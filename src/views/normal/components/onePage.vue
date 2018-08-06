@@ -35,6 +35,11 @@ export default {
     markdownBody() {
       return this.marked(this.page.content)
     }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      this.hljs.highlightCode()
+    })
   }
 }
 </script>

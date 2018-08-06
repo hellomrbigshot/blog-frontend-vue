@@ -51,9 +51,10 @@
 
 </template>
 <script>
-import comments from './components/commentsForPage'
 export default {
-  components: { comments },
+  components: { 
+    comments: () => import('./components/commentsForPage')
+   },
   data() {
     return {
       id: this.$route.params.id,
