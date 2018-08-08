@@ -35,10 +35,8 @@ export default {
   },
   mounted () {
     this.Common.axios('/api/page/limitpagelist', { type: 'creator', content: this.Cookies.get('user'), status: 'draft', page: this.page, pageSize: this.pageSize }).then(res => {
-      if (res.data.code === 'OK') {
         this.draft_list = res.data.data.result
         this.total = res.data.data.total
-      }
     })
     
   }

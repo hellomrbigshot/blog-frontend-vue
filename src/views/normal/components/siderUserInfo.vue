@@ -103,11 +103,9 @@ export default {
     methods: {
         signout () {
             this.Common.axios('/api/signout').then(res => {
-                if (res.data.code === 'OK') {
-                    this.Cookies.remove('user')
-                    localStorage.removeItem('user')
-                    this.$router.push({ name: 'normalPageList' })
-                }
+                this.Cookies.remove('user')
+                localStorage.removeItem('user')
+                this.$router.push({ name: 'normalPageList' })
             })
         },
         showAvatar () {

@@ -48,9 +48,7 @@ export default {
   methods: {
       initPage () {
           this.Common.axios('/api/statistics').then(res => {
-              if (res.data.code === 'OK') {
-                  this.count = res.data.data
-              }
+                this.count = res.data.data
           })
       }
   }

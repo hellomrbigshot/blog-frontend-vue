@@ -47,9 +47,7 @@ export default {
   methods: {
       getTaglist () {
         this.Common.axios('/api/tag/taglist').then(res => {
-          if (res.data.code === "OK") {
-            this.list = res.data.data.result
-          }
+          this.list = res.data.data.result
         })
       }
   }

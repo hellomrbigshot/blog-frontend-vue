@@ -2,11 +2,17 @@ import axios from 'axios'
 import qs from 'qs'
 import {router} from '@/router/index'
 import Cookies from 'js-cookie'
+import { Message } from 'iview'
 
 // axios 拦截器 未登录则跳转到登录页
 axios.interceptors.response.use(
-    response => {
-        return response
+    res => {
+        if (res.data.code === 'OK') {
+            return res
+        } else {
+            Message.error(res.data.data)
+            return Promise.reject(res.data)
+        }    
     },
     error => {
         if (error.response) {

@@ -48,13 +48,11 @@ export default {
         pageSize: this.pageSize
       }
       this.Common.axios('/api/comment/getusercommentlist', query_obj).then(res => {
-        if (res.data.code === 'OK') {
-          this.comments = res.data.data.result.map(comment => { 
-            comment.create_time = this.Common.dateFmt('yyyy-MM-dd hh:mm:ss', new Date(comment.create_time))
-            return comment
-          })
-          this.total = res.data.data.total
-        }
+        this.comments = res.data.data.result.map(comment => { 
+          comment.create_time = this.Common.dateFmt('yyyy-MM-dd hh:mm:ss', new Date(comment.create_time))
+          return comment
+        })
+        this.total = res.data.data.total
       })
     },
   }

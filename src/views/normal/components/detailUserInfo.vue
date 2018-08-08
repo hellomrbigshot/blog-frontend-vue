@@ -128,9 +128,7 @@ export default {
         getUserDetail() {
             return this.Common.axios('/api/user/detail', { username: this.username }).then(
                 res => {
-                    if (res.data.code === 'OK') {
-                        this.user = res.data.data
-                    }
+                    this.user = res.data.data
                 }
             )
         },
@@ -181,14 +179,10 @@ export default {
                 // 上传
                 this.Common.axios('/api/file/uploadAvatar', { imgData: data, username: this.cur_username })
                     .then(res => {
-                        if (res.data.code === 'OK') {
-                            this.user.avatar = res.data.data
-                            this.showAvatar()
-                            this.showImgUpload = false
-                            this.$store.commit('updateUserInfo', { avatar: res.data.data })
-                        } else {
-                            this.$Message.error(res.data.data)
-                        }
+                        this.user.avatar = res.data.data
+                        this.showAvatar()
+                        this.showImgUpload = false
+                        this.$store.commit('updateUserInfo', { avatar: res.data.data })
                     }) 
             })
         },
@@ -209,11 +203,7 @@ export default {
                 this.bio_edit = true
             } else {
                 this.Common.axios('/api/user/updatebio', { username: this.user.username, bio: this.user.bio  }).then(res => {
-                    if (res.data.code === 'OK') {
-                        this.bio_edit = false
-                    } else {
-                        this.$Message.error(res.data.data)
-                    }
+                    this.bio_edit = false
                 })
                 
             }

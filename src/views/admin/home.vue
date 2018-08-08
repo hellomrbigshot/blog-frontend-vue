@@ -65,10 +65,8 @@ export default {
         handleClickUserDropDown (name) {
             if (name === 'loginout') {
                 this.Common.axios('/api/signout').then(res => {
-                    if (res.data.code === 'OK') {
-                        this.Cookies.remove('user')
-                        this.$router.push({name: 'login'})
-                    }
+                    this.Cookies.remove('user')
+                    this.$router.push({name: 'login'})
                 })
             }
             
