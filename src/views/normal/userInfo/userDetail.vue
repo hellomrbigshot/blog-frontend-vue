@@ -42,10 +42,8 @@ export default {
         secret: false
       }
       this.Common.axios('/api/page/pagelist', post_data).then(res => {
-        if (res.data.code === 'OK') {
-          this.pageList = res.data.data.result
-          this.total = res.data.data.total
-        }
+        this.pageList = res.data.data.result
+        this.total = res.data.data.total
       })
     }
   }

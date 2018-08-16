@@ -39,13 +39,9 @@ export default {
   methods: {
     getPageList () {
       this.Common.axios('/api/page/pagelist', { type: '', status: 'normal', content: '', pageSize: this.pageSize, page: this.page, secret: false }).then(res => {
-        if (res.data.code === 'OK') {
-          this.page_list = res.data.data.result
-          this.total = res.data.data.total
-          this.show_page = true
-        } else {
-          this.$Message.error(res.data.data)
-        }
+        this.page_list = res.data.data.result
+        this.total = res.data.data.total
+        this.show_page = true
       })
     },
     pageChange (page) {
@@ -54,12 +50,8 @@ export default {
     },
     searchPage (keywords) {
       this.Common.axios('/api/page/searchpage', { keywords }).then(res => {
-        if (res.data.code === 'OK') {
-          this.page_list = res.data.data.result
-          this.total = 0
-        } else {
-          this.$Message.error(res.data.data)
-        }
+        this.page_list = res.data.data.result
+        this.total = 0
       })
     }
   }

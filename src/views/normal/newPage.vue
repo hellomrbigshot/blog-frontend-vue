@@ -121,12 +121,8 @@ export default {
     },
     methods: {
         getAllTags () {
-            return this.Common.axios('/api/tag/alltags').then(res => {
-                if (res.data.code === 'OK') {
-                    this.tagList = res.data.data
-                } else {
-                    this.$Message.error(res.data.data)
-                }
+            return this.Common.axios('/api/tag/alltags').then(res => {    
+                this.tagList = res.data.data    
             })
         },
         selectChange (arr) {
@@ -145,11 +141,9 @@ export default {
         getPageDetail () {
             if (this.id) {
                 this.Common.axios('/api/page/detail', { id: this.id }).then(res => {
-                    if (res.data.code === 'OK') {
-                        this.$set(this, 'pageObject', res.data.data)
-                        if (typeof(this.pageObject.secret)==='undefined') {
-                            this.$set(this.pageObject, 'secret', false)
-                        }
+                    this.$set(this, 'pageObject', res.data.data)
+                    if (typeof(this.pageObject.secret)==='undefined') {
+                        this.$set(this.pageObject, 'secret', false)
                     }
                 })
             } else {
@@ -160,14 +154,10 @@ export default {
             this.$refs['tagForm'].validate(valid => {
                 if (valid) {
                 this.Common.axios('/api/tag/create', this.tag_obj).then(async (res) => {
-                    if (res.data.code === 'OK') {
-                        this.tagModal = false
-                        await this.getAllTags()
-                        this.pageObject.tags.push(this.tag_obj.name)
-                        this.$refs['tagForm'].resetFields()
-                    } else {
-                        this.$Message.error(res.data.data)
-                    }
+                    this.tagModal = false
+                    await this.getAllTags()
+                    this.pageObject.tags.push(this.tag_obj.name)
+                    this.$refs['tagForm'].resetFields()
                 })
                 }
             })
@@ -185,19 +175,15 @@ export default {
                         url = '/api/page/new'
                     }
                     this.Common.axios(url, this.pageObject).then(res => {
-                        if (res.data.code === 'OK') {
-                            this.$Message.success('提交成功')
-                            this.$store.commit('updateUserInfo', res.data.data)
-                            this.$refs['pageForm'].resetFields()
-                            if (type === 'normal' && this.id) { 
-                                this.$router.push({ name: 'pageDetail', params: { id: this.id } })
-                            } else if (type === 'normal' && !this.id) {
-                                this.$router.push({ name: 'normalPageList' })
-                            } else {
-                                this.$router.push({ name: 'normalMyDraftList' })
-                            }
+                        this.$Message.success('提交成功')
+                        this.$store.commit('updateUserInfo', res.data.data)
+                        this.$refs['pageForm'].resetFields()
+                        if (type === 'normal' && this.id) { 
+                            this.$router.push({ name: 'pageDetail', params: { id: this.id } })
+                        } else if (type === 'normal' && !this.id) {
+                            this.$router.push({ name: 'normalPageList' })
                         } else {
-                            this.$Message.error(res.data.data)
+                            this.$router.push({ name: 'normalMyDraftList' })
                         }
                     })
                 }

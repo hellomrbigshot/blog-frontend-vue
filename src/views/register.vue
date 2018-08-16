@@ -98,20 +98,16 @@ export default {
       this.$refs[name].validate(valid => {
         if (valid) {
           this.Common.axios('/api/signup', this.formData).then(res => {
-            if (res.data.code === 'OK') {
-              // 注册成功直接登录
-              this.Cookies.set('user', this.formData.username)
-              this.$Message.success('注册成功，正在跳转...')
-              setTimeout(() => {
-                if (this.formData.username === 'admin') {
-                  this.$router.push({ name: 'admin' })
-                } else {
-                  this.$router.push({ path: `/user/${this.formData.username}` })
-                }
-              }, 2000)
-            } else {
-              this.$Message.error(res.data.data)
-            }
+            // 注册成功直接登录
+            this.Cookies.set('user', this.formData.username)
+            this.$Message.success('注册成功，正在跳转...')
+            setTimeout(() => {
+              if (this.formData.username === 'admin') {
+                this.$router.push({ name: 'admin' })
+              } else {
+                this.$router.push({ path: `/user/${this.formData.username}` })
+              }
+            }, 2000)
           })
         } else {
           return false

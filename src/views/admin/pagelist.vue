@@ -72,10 +72,8 @@ export default {
   methods: {
     getPageList () {
       this.Common.axios('/api/page/pagelist', this.search_obj).then(res => {
-        if (res.data.code === 'OK') {
-          this.list = res.data.data.result
-          this.total = res.data.data.total
-        }
+        this.list = res.data.data.result
+        this.total = res.data.data.total
       })
     },
     pageChange (page) {
@@ -87,12 +85,8 @@ export default {
       send_obj.id = send_obj._id
       send_obj.status = 'cancel'
       this.Common.axios('/api/page/edit', send_obj).then(res => {
-        if (res.data.code === 'OK') {
-          this.$Message.success('操作成功')
-          this.getPageList()
-        } else {
-          this.$Message.error('操作失败')
-        }
+        this.$Message.success('操作成功')
+        this.getPageList()
       })
     }
   }

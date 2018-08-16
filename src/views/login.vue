@@ -60,21 +60,17 @@ export default {
       this.$refs[name].validate(valid => {
         if (!valid) return
         this.Common.axios('/api/signin', this.formData).then(res => {
-          if (res.data.code === 'OK') {
-            this.Cookies.set('user', this.formData.username)
-            if (this.formData.username === 'admin') {
-              this.$router.push({ name: 'admin' })
-              return false
-            }
-            if (this.$route.query.redirect) {
-              const url = decodeURIComponent(this.$route.query.redirect)
-              this.$router.push(url.indexOf('/admin')>=0 ? { name: 'normalPageList' } : url)
-              return false
-            }
-            this.$router.push({ name: 'normalPageList' })
-          } else {
-            this.$Message.error(res.data.data)
+          this.Cookies.set('user', this.formData.username)
+          if (this.formData.username === 'admin') {
+            this.$router.push({ name: 'admin' })
+            return false
           }
+          if (this.$route.query.redirect) {
+            const url = decodeURIComponent(this.$route.query.redirect)
+            this.$router.push(url.indexOf('/admin')>=0 ? { name: 'normalPageList' } : url)
+            return false
+          }
+          this.$router.push({ name: 'normalPageList' })
         })
       })
     },

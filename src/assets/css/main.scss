@@ -1,0 +1,55 @@
+body {
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif !important;
+}
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 1s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active 在低于版本 2.1.8 中 */ {
+    opacity: 0;
+}
+@media (max-width: 767px) {
+    .header-inner {
+        width: auto !important;
+        padding: 10px !important;
+        line-height: 36px !important;
+        .site-meta { 
+            margin-left: 10px !important;
+            .brand {
+                .logo-line-before, .logo-line-after {
+                    display: none !important;
+                }
+            }
+            
+        }
+    }
+    .site-nav {
+        display: none;
+    }
+    .main-content, .main-footer {
+        margin: 20px 20px;
+        width: auto;
+    }
+    header {
+        text-align: center;
+        .page-title {
+            font-size: 20px !important;
+        }
+    }
+    h1 {
+        font-size: 20px;
+    }
+    h2 {
+        font-size: 18px;
+    }
+    h3 {
+        font-size: 16px;
+    }
+    h4 {
+        font-size: 14px;
+    }
+}
+@media (max-width: 991px) {
+    .home-sider, .icon-wrapper {
+      display: none;
+    }
+}

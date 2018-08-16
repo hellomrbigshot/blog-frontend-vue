@@ -8,7 +8,7 @@ import {Common} from '@/assets/js/common.js'
 
 import Cookies from 'js-cookie'
 import newPage from './views/normal/components/newPage'
-
+import '@/assets/css/main.scss'
 
 import marked from 'marked'
 

@@ -46,22 +46,14 @@ export default {
                 status: 'normal',
                 secret: false
             }).then(res => {
-                if (res.data.code === 'OK') {
-                    this.pageList = res.data.data.result
-                    this.total = res.data.data.total
-                } else {
-                    this.$Message.error(res.data.data)
-                }
+                this.pageList = res.data.data.result
+                this.total = res.data.data.total
             })
         },
         getTagDetail () {
             this.Common.axios('/api/tag/tagdetail', { name: this.name })
                 .then(res => {
-                    if (res.data.code === 'OK') {
-                        this.detail = res.data.data
-                    } else {
-                        this.$Message.error(res.data.data)
-                    }
+                    this.detail = res.data.data
                 })
         },
         pageChange (page) {

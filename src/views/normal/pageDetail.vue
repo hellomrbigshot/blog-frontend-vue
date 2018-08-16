@@ -79,24 +79,18 @@ export default {
   methods: {
     getPageDetail() {
       this.Common.axios('/api/page/detail', { id: this.id }).then(res => {
-        if (res.data.code === 'OK') {
-          this.page = res.data.data
-          this.$nextTick(() => {
-            this.hljs.highlightCode()
-          })
-        }
+        this.page = res.data.data
+        this.$nextTick(() => {
+          this.hljs.highlightCode()
+        })
       })
     },
     getComments () {
       this.Common.axios('/api/comment/getpagecommentlist', { page_id: this.id }).then(res => {
-        if (res.data.code === 'OK') {
-          this.comments = res.data.data.map(comment => { 
-            comment.create_time = this.Common.dateFmt('yyyy-MM-dd hh:mm:ss', new Date(comment.create_time))
-            return comment
-          })
-        } else {
-          this.$Message.error(res.data.data)
-        }
+        this.comments = res.data.data.map(comment => { 
+          comment.create_time = this.Common.dateFmt('yyyy-MM-dd hh:mm:ss', new Date(comment.create_time))
+          return comment
+        })
       })
     },
     submitComment() {
@@ -115,14 +109,9 @@ export default {
       this.comment.page_id = this.id
       this.comment.create_user = this.user
       this.Common.axios('/api/comment/create', this.comment).then(res => {
-        if (res.data.code === 'OK') {
-          this.comment.content = ''
-          this.$Message.success('留言成功')
-          this.getComments()
-        } else {
-          this.$Message.error(res.data.data)
-        }
-        
+        this.comment.content = ''
+        this.$Message.success('留言成功')
+        this.getComments()
       })
     }
   }

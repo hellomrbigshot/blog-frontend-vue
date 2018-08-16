@@ -36,12 +36,8 @@ export default {
   methods: {
     getTagList () {
       this.Common.axios('/api/tag/taglist', { page: this.page, pageSize: this.pageSize }).then(res => {
-        if (res.data.code === 'OK') {
-          this.tagList = res.data.data.result
-          this.total = res.data.data.total
-        } else {
-          this.$Message.error(res.data.data)
-        }
+        this.tagList = res.data.data.result
+        this.total = res.data.data.total
       })
     },
     pageChange (page) {

@@ -14,13 +14,13 @@
             <blog-header @on-change="handleRouter"></blog-header>
           </Header>
           <Content :style="{background: '#fff', minHeight: '260px'}">
-              <router-view :style="{margin: '80px auto 0', width: '85%', maxWidth: '700px'}"></router-view>
+              <router-view class="main-content"></router-view>
           </Content>
-          <Footer :style="{padding: '40px 0', margin: '0 auto', width: '85%', maxWidth: '700px'}">
+          <Footer class="main-footer">
             <blog-footer></blog-footer>
           </Footer>
       </Layout>
-      <Sider ref="pageSider" hide-trigger collapsible :collapsed-width="0" v-model="isCollapsed" :width="320" >
+      <Sider ref="pageSider" hide-trigger collapsible :collapsed-width="0" v-model="isCollapsed" :width="320" class="home-sider">
           <div :class="menuitemClasses">
             <sider-user-info v-if="!isCollapsed"></sider-user-info>
           </div>
@@ -68,12 +68,10 @@ export default {
     getUserInfo () {
       if (this.user) {
         return this.Common.axios('/api/signin/getUserInfo', { username: this.user }).then(res => {
-          if (res.data.code === 'OK') {
-            let result = res.data.data
-            localStorage.setItem('user', JSON.stringify(result))
-            this.$store.commit('updateUserName', this.user)
-            this.$store.commit('updateUserInfo', { page_num: result.page_num, draft_num: result.draft_num, comment_num: result.comment_num, avatar: result.avatar })
-          }
+          let result = res.data.data
+          localStorage.setItem('user', JSON.stringify(result))
+          this.$store.commit('updateUserName', this.user)
+          this.$store.commit('updateUserInfo', { page_num: result.page_num, draft_num: result.draft_num, comment_num: result.comment_num, avatar: result.avatar })
         })
       }
     },
@@ -137,6 +135,27 @@ export default {
 .pagination {
   margin: 120px 0;
 }
+.main-content, .main-footer {
+  width: 85%;
+  max-width: 700px;
+}
+.main-content {
+  margin: 80px auto 0;
+}
+.main-footer {
+  margin: 0 auto;
+}
+@media (max-width: 991px) {
+  .home-sider, .icon-wrapper {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .main-content, .main-footer {
+    margin: 20px 20px;
+    width: auto;
+  }
+ }
 </style>
 
 

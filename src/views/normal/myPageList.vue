@@ -59,10 +59,8 @@ export default {
         page: this.page
       }
       this.Common.axios('/api/page/limitpagelist', post_data).then(res => {
-        if (res.data.code === 'OK') {
-          this.pageList = this.seperateByYear(res.data.data.result)
-          this.total = res.data.data.total
-        }
+        this.pageList = this.seperateByYear(res.data.data.result)
+        this.total = res.data.data.total
       })
     },
     seperateByYear(pagelist) {
