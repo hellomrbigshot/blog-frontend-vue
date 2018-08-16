@@ -28,6 +28,20 @@ Vue.component('el-input', Input)
 Vue.component('el-switch', Switch)
 Vue.component('el-form', Form)
 Vue.component('el-form-item', FormItem)
+// marked 设置
+marked.setOptions({ 
+    renderer: new marked.Renderer(),
+    pedantic: false,
+    gfm: true,
+    tables: true,
+    breaks: true,
+    headerIds: true,
+    headerPrefix: 'vue-express',
+    sanitize: false,
+    smartLists: true,
+    smartypants: false,
+    xhtml: false
+})
 Vue.prototype.Common = Common
 Vue.prototype.Cookies = Cookies
 Vue.prototype.marked = marked

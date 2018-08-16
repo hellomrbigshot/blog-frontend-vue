@@ -56,27 +56,6 @@ export default {
     value(val) {
       this.input = val
     }
-  },
-  mounted() {
-    this.markdown()
-  },
-  methods: {
-    markdown() {
-      // markdown 设置
-      this.marked.setOptions({
-        renderer: new this.marked.Renderer(),
-        pedantic: false,
-        gfm: true,
-        tables: true,
-        breaks: true,
-        headerIds: true,
-        headerPrefix: 'vue-express',
-        sanitize: false,
-        smartLists: true,
-        smartypants: false,
-        xhtml: false
-      })
-    }
   }
 }
 </script>
