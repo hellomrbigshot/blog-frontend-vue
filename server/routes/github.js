@@ -7,16 +7,16 @@ const checkNotLogin = require('../middlewares/check').checkNotLogin
 router.get('/login', checkNotLogin, async (req, res, next) => {
     const dataStr = (new Date()).valueOf()
     //  重定向到认证接口,并配置参数
-    let path = "https://github.com/login/oauth/authorize"
-    path += '?client_id=' + config.client_id
-    path += '&scope=' + config.scope
-    path += '&state=' + dataStr
+    let path = `https://github.com/login/oauth/authorize`
+    path += `?client_id=${config.client_id}`
+    path += `&scope=${config.scope}`
+    path += `&state=${dataStr}`
     // 转发到授权服务器
     res.redirect(path)
 })
 router.get('/oauth/callback', checkNotLogin, (req, res, next) => {
-    const code = req.query.code;
-    let path = 'https://github.com/login/oauth/access_token';
+    const code = req.query.code
+    const path = 'https://github.com/login/oauth/access_token'
     const params = {
         client_id: config.client_id,
         client_secret: config.client_secret,
@@ -35,10 +35,10 @@ router.get('/oauth/callback', checkNotLogin, (req, res, next) => {
         let access_token = body.split('&')[0].split('=')[1]
         return access_token
     }).then(token => {
-        const url = ' https://api.github.com/user?access_token=' + token;
+        const url = `https://api.github.com/user?access_token=${token}`
         fetch(url)
             .then(info => {
-                return info.json();
+                return info.json()
             })
             .then(github_info => {
                 UserModel.getUserByOauthInfo({ type: 'github', name: github_info.login }).then(user => {
