@@ -40,13 +40,13 @@
     <transition name="fade">
       <div v-if="comments.length">
         <comments :comments="comments"></comments>
-        <div>
-          <p :style="{ fontSize: '20px' }">留言：</p>
-          <Input type="textarea" :style="{ marginTop: '15px' }" v-model.trim="comment.content" :rows="6"></Input>
-          <Button type="primary" :style="{ marginTop: '15px'}" @click="submitComment">发表</Button>
-        </div>
       </div>
     </transition>
+    <div>
+      <p :style="{ fontSize: '20px' }">留言：</p>
+      <Input type="textarea" :style="{ marginTop: '15px' }" v-model.trim="comment.content" :rows="6"></Input>
+      <Button type="primary" :style="{ marginTop: '15px'}" @click="submitComment">发表</Button>
+    </div>
   </div>
 
 </template>

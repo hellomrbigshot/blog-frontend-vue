@@ -105,7 +105,7 @@ export default {
               if (this.formData.username === 'admin') {
                 this.$router.push({ name: 'admin' })
               } else {
-                this.$router.push({ path: `/user/${this.formData.username}` })
+                this.$router.push({ path: `/normal/user/${this.formData.username}` })
               }
             }, 2000)
           })
