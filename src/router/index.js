@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import Cookies from 'js-cookie'
 import { routers } from './router'
 
-Vue.use(VueRouter)
+// Vue.use(VueRouter)
 
 const RouterConfig = {
   mode: 'history',

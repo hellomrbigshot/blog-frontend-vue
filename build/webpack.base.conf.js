@@ -95,8 +95,9 @@ module.exports = {
   },
   externals: {
     'vue': 'Vue',
-    // 'vue-router': 'VueRouter',
+    'vue-router': 'VueRouter',
     'vuex': 'Vuex',
-    'iview': 'iview'
+    'iview': 'iview',
+    'element-ui': 'ELEMENT'
   }
 }
