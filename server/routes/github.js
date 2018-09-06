@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const config = require('../config/config')
+const config = require('../config/github')
 const fetch = require('node-fetch')
 const UserModel = require('../models/user')
 const checkNotLogin = require('../middlewares/check').checkNotLogin
