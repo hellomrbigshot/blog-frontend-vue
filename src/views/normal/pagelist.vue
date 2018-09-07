@@ -12,6 +12,7 @@
 </template>
 <script> 
 import { bus } from '../../bus/index'
+import axios from 'axios'
 export default {
   components: {
     onePage: () => import('./components/onePage')
@@ -27,6 +28,7 @@ export default {
       }
   },
   mounted () {
+    this.test();
     if (this.username) {
       this.Cookies.set('user', this.username)
     }
@@ -37,6 +39,11 @@ export default {
     
   },
   methods: {
+    test () {
+      axios.get('../../static/a.json').then(res => {
+        console.lgo(res);
+      })
+    },
     getPageList () {
       this.Common.axios('/api/page/pagelist', { type: '', status: 'normal', content: '', pageSize: this.pageSize, page: this.page, secret: false }).then(res => {
         this.page_list = res.data.data.result
