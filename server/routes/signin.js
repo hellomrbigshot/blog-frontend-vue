@@ -44,7 +44,6 @@ router.post('/getUserInfo', checkLogin, async (req, res, next) => {
 			PageModel.getPageNum({ type: 'create_user', content: username, status: 'normal' }),
 			PageModel.getPageNum({ type: 'create_user', content: username, status: 'draft' }),
 			CommentModel.getCommentNum('create_user', username)
-
 		])
 		user.page_num = page_num
 		user.draft_num = draft_num

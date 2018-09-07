@@ -51,7 +51,7 @@ router.get('/oauth/callback', (req, res, next) => {
                             user = user.toObject()
                             delete user.password
                             req.session.user = JSON.parse(JSON.stringify(user))
-                            res.redirect(`${config.main_url}?username=${user.username}`)
+                            res.redirect(`${config.main_url}?oauthtype=github&username=${user.username}`)
                         } else {
                             // 如果没有注册，就跳转到注册界面
                             res.redirect(`${config.register_url}?name=${github_info.login}&type=github&avatar_url=${github_info.avatar_url}&bio=${github_info.bio}`)

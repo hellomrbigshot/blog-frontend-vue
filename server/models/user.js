@@ -14,7 +14,7 @@ module.exports = {
 	// 通过第三方登录信息获取用户信息
 	getUserByOauthInfo (object) {
 		return User
-			.findOne({ 'oauthinfo.type': object.type, 'oauthinfo.name': object.name })
+			.findOne({ 'oauthinfo': { $elemMatch: { type: object.type, name: object.name }}})
 			.exec()
 	},
 	// 获取所有用户列表

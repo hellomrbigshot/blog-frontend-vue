@@ -71,7 +71,7 @@ router.post('/oauth', checkNotLogin, async (req, res, next) => {
     // const avatar = req.body.avatar_url
     const gender = 'x'
     const bio = req.body.bio
-    const oauthinfo = req.body.oauthinfo
+    const oauthinfo = [req.body.oauthinfo]
     // 校验参数
     try {
         if (!(username.length > 1 && username.length < 10)) {

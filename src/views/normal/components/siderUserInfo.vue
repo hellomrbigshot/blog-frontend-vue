@@ -73,7 +73,8 @@ export default {
             user: JSON.parse(localStorage.getItem('user')),
             imgUrl: default_img,
             imgShow: false,
-            default_img: default_img
+            default_img: default_img,
+            i: 0,
             // page_num: this.$store.state.user.page_num || JSON.parse(localStorage.getItem('user')).page_num,
             // draft_num: this.$store.state.user.draft_num || JSON.parse(localStorage.getItem('user')).draft_num
         }
@@ -109,17 +110,28 @@ export default {
             })
         },
         showAvatar () {
+            let i = 0;
             this.imgUrl = '/api/file/avatar?filename='+this.avatar
             this.$refs.img.onerror = () => {
-                this.imgUrl = this.user.oauthinfo ? this.user.oauthinfo.avatar_url: ''
-                this.$refs.img.onerror = () => {
-                    this.imgUrl = this.default_img
-                }
+                this.showOauthImg()
             }
             this.$refs.img.onload = () => {
                 this.imgShow = true
             }
         },
+        showOauthImg () {
+            if (this.i < this.user.oauthinfo.length - 1) {
+                this.imgUrl = this.user.oauthinfo[this.i] ? this.user.oauthinfo[this.i].avatar_url : ''
+                this.$refs.img.onerror = () => {
+                    this.i = this.i + 1;
+                    this.showOauthImg()
+                }
+            } else if (this.i === this.user.oauthinfo.length - 1) {
+                console.log('re')
+                this.imgUrl = this.user.oauthinfo[this.i].avatar_url || this.default_img 
+            }
+            
+        }
     }
 }
 </script>

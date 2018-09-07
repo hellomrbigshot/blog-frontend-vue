@@ -8,7 +8,7 @@ const UserSchema = new Schema({
 	avatar: { type: String },   // 头像
 	gender: { type: String, enum: ['m', 'f', 'x'] },  // 性别
 	bio: { type: String }, // 个人简介
-	oauthinfo: { type: Object }, // 第三方登录信息
+	oauthinfo: { type: Array }, // 第三方登录信息
 	logindate: { type: Date }    // 最近登陆时间
 })
 // UserSchema.plugin(createAt, { index: true })

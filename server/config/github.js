@@ -1,4 +1,4 @@
-const DEBUG_MODE = false
+const DEBUG_MODE = true
 const REGISTER_URL = DEBUG_MODE?'http://localhost:7000/oauthregister': 'http://hellomrbigbigshot.xyz/oauthregister'
 const MAIN_URL = DEBUG_MODE?'http://localhost:7000': 'http://hellomrbigbigshot.xyz'
 const client_id = DEBUG_MODE?'88b51271b2e833021ed9':'fd595c760780dca1977d'
