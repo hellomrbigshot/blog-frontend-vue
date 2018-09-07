@@ -46,6 +46,9 @@ export default {
   async created () {
     await this.getUserInfo()
     this.isCollapsed = this.user?false:true
+    if (this.user) {
+      this.Cookies.set('user', this.user)
+    }
   },
   computed: {
     rotateIcon () {

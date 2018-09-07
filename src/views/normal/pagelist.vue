@@ -28,10 +28,6 @@ export default {
       }
   },
   mounted () {
-    this.test();
-    if (this.username) {
-      this.Cookies.set('user', this.username)
-    }
     this.getPageList()
     bus.$on('searchPage', (keywords) => {
       this.searchPage(keywords)

@@ -60,14 +60,14 @@ export default {
       this.$refs[name].validate(valid => {
         if (!valid) return
         this.Common.axios('/api/signin', this.formData).then(res => {
-          this.Cookies.set('user', this.formData.username)
+          this.Cookies.set('user', this.formData.username, { expires: 7 }) // 设置 cookie 过期时间为7天，防止关闭浏览器就删除 cookie
           if (this.formData.username === 'admin') {
             this.$router.push({ name: 'admin' })
             return false
           }
           if (this.$route.query.redirect) {
             const url = decodeURIComponent(this.$route.query.redirect)
-            this.$router.push(url.indexOf('/admin')>=0 ? { name: 'normalPageList' } : url)
+            this.$router.push(url.indexOf('/admin') >= 0 ? { name: 'normalPageList' } : url)
             return false
           }
           this.$router.push({ name: 'normalPageList' })

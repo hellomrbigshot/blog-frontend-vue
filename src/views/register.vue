@@ -99,7 +99,7 @@ export default {
         if (valid) {
           this.Common.axios('/api/signup', this.formData).then(res => {
             // 注册成功直接登录
-            this.Cookies.set('user', this.formData.username)
+            this.Cookies.set('user', this.formData.username, { expires: 7 })
             this.$Message.success('注册成功，正在跳转...')
             setTimeout(() => {
               if (this.formData.username === 'admin') {
