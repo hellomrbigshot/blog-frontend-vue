@@ -4,7 +4,7 @@ const fetch = require('node-fetch')
 const UserModel = require('../models/user')
 const checkNotLogin = require('../middlewares/check').checkNotLogin
 
-router.get('/login', checkNotLogin, async (req, res, next) => {
+router.get('/login', async (req, res, next) => {
     const dataStr = (new Date()).valueOf()
     //  重定向到认证接口,并配置参数
     let path = `https://github.com/login/oauth/authorize`
@@ -43,6 +43,12 @@ router.get('/oauth/callback', (req, res, next) => {
             .then(github_info => {
                 if (req.session.user) {
                     // 已登录，绑定 github
+                    UserModel.insertUserOauth({ username: req.session.user.username, type: 'github', name: github_info.login, avatar_url: github_info.avatar_url })
+                        .then(user => {
+                            if (user) {
+                                res.redirect(`${config.main_url}/normal/user/${req.session.user.username}`) // 跳转到用户详情页
+                            }
+                        })
                 } else {
                     // 没登录，登录或者注册
                     UserModel.getUserByOauthInfo({ type: 'github', name: github_info.login }).then(user => {
@@ -51,7 +57,7 @@ router.get('/oauth/callback', (req, res, next) => {
                             user = user.toObject()
                             delete user.password
                             req.session.user = JSON.parse(JSON.stringify(user))
-                            res.redirect(`${config.main_url}?oauthtype=github&username=${user.username}`)
+                            res.redirect(`${config.main_url}?oauthtype=github&username=${user.username}`) // 跳转到首页
                         } else {
                             // 如果没有注册，就跳转到注册界面
                             res.redirect(`${config.register_url}?name=${github_info.login}&type=github&avatar_url=${github_info.avatar_url}&bio=${github_info.bio}`)
