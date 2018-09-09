@@ -187,12 +187,13 @@ export default {
             })
         },
         showAvatar () { // 显示头像
-            this.imgUrl = '/api/file/avatar?filename='+this.user.avatar
+            if (this.avatar) {
+                this.imgUrl = '/api/file/avatar?filename='+this.avatar
+            } else {
+                this.imgUrl = this.user.oauthinfo.find(item => item.avatar_url) && this.user.oauthinfo.find(item => item.avatar_url).avatar_url || this.default_img
+            }
             this.$refs.img.onerror = () => {
-                this.imgUrl = this.user.oauthinfo ? this.user.oauthinfo.avatar_url: ''
-                this.$refs.img.onerror = () => {
-                    this.imgUrl = this.default_img
-                }
+                this.imgUrl = this.default_img
             }
             this.$refs.img.onload = () => {
                 this.imgShow = true

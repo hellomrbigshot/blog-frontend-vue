@@ -110,27 +110,17 @@ export default {
             })
         },
         showAvatar () {
-            let i = 0;
-            this.imgUrl = '/api/file/avatar?filename='+this.avatar
+            if (this.avatar) {
+                this.imgUrl = '/api/file/avatar?filename='+this.avatar
+            } else {
+                this.imgUrl = this.user.oauthinfo.find(item => item.avatar_url) && this.user.oauthinfo.find(item => item.avatar_url).avatar_url || this.default_img
+            }
             this.$refs.img.onerror = () => {
-                this.showOauthImg()
+                this.imgUrl = this.default_img
             }
             this.$refs.img.onload = () => {
                 this.imgShow = true
             }
-        },
-        showOauthImg () {
-            if (this.i < this.user.oauthinfo.length - 1) {
-                this.imgUrl = this.user.oauthinfo[this.i] ? this.user.oauthinfo[this.i].avatar_url : ''
-                this.$refs.img.onerror = () => {
-                    this.i = this.i + 1;
-                    this.showOauthImg()
-                }
-            } else if (this.i === this.user.oauthinfo.length - 1) {
-                console.log('re')
-                this.imgUrl = this.user.oauthinfo[this.i].avatar_url || this.default_img 
-            }
-            
         }
     }
 }
