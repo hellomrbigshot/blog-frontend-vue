@@ -1,6 +1,14 @@
 body {
     font-family: "PingFang SC", "Microsoft YaHei", sans-serif !important;
 }
+blockquote {
+    border-left: 2px solid #009A61;
+    background: #F6F6F6;
+    color: #555;
+    font-size: 1em;
+    padding: 10px 20px;
+    margin: 1.5em 0;
+}  
 .fade-enter-active, .fade-leave-active {
     transition: opacity 1s;
 }
