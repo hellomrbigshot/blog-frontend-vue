@@ -1,9 +1,14 @@
 <template>
     <div class="user-info">
-        <div class="user-avatar">
-            <img :src="imgUrl" alt="头像" class="user-avatar-img" ref="img">
-            <div class="user-avatar-btn" @click="chooseFile" v-if="cur_username === username">上传头像</div>
-            <input type="file" style="display: none" ref="fileInput" accept="image/png, image/jpeg, image/gif, image/jpg" @change="uploadImg($event)"></input>
+        <div class="user-info-left">
+            <div class="user-avatar">
+                <img :src="imgUrl" alt="头像" class="user-avatar-img" ref="img">
+                <div class="user-avatar-btn" @click="chooseFile" v-if="cur_username === username">上传头像</div>
+                <input type="file" style="display: none" ref="fileInput" accept="image/png, image/jpeg, image/gif, image/jpg" @change="uploadImg($event)"></input>
+            </div>
+            <div class="user-oauths">
+                <div><a :style="{color: oauth_accounts.github.oauth ? '#2c3e50': '#ddd'}" :href="oauth_accounts.github.oauth&&`https://github.com/${oauth_accounts.github.oauth_user}`||'/api/github/login'"><Icon size="20" type="logo-github"></Icon></a></div>
+            </div>
         </div>
         <div class="user-info-desc">
             <div class="user-info-name">
@@ -104,19 +109,15 @@ export default {
                 canMoveBox: true, 
             },
             previews: {},
-            gender_mapping: {
-                m: {
-                type: 'male',
-                color: '#00BFFF'
+            oauth_accounts: {
+                github: {
+                    oauth: false,
+                    oauth_user: ''
                 },
-                f: {
-                type: 'female',
-                color: '#FF69B4'
+                weibo: {
+                    oauth: false,
+                    oauth_user: ''
                 },
-                x: {
-                type: 'person',
-                color: '#cccccc'
-                }
             }
         }
     },
@@ -129,6 +130,16 @@ export default {
             return this.Common.axios('/api/user/detail', { username: this.username }).then(
                 res => {
                     this.user = res.data.data
+                    Object.keys(this.oauth_accounts).forEach(type => {
+                        let filter_oauth_obj = this.user.oauthinfo.find(item => item.type === type)
+                        if(filter_oauth_obj) {
+                            this.oauth_accounts[type].oauth = true
+                            this.oauth_accounts[type].oauth_user = filter_oauth_obj.name
+                        } else {
+                            this.oauth_accounts[type].oauth = false
+                            this.oauth_accounts[type].oauth_user
+                        }
+                    })
                 }
             )
         },
@@ -187,12 +198,13 @@ export default {
             })
         },
         showAvatar () { // 显示头像
-            this.imgUrl = '/api/file/avatar?filename='+this.user.avatar
+            if (this.avatar) {
+                this.imgUrl = '/api/file/avatar?filename='+this.avatar
+            } else {
+                this.imgUrl = this.user.oauthinfo.find(item => item.avatar_url) && this.user.oauthinfo.find(item => item.avatar_url).avatar_url || this.default_img
+            }
             this.$refs.img.onerror = () => {
-                this.imgUrl = this.user.oauthinfo ? this.user.oauthinfo.avatar_url: ''
-                this.$refs.img.onerror = () => {
-                    this.imgUrl = this.default_img
-                }
+                this.imgUrl = this.default_img
             }
             this.$refs.img.onload = () => {
                 this.imgShow = true
@@ -216,36 +228,39 @@ export default {
 <style lang="scss" scoped>
 .user-info {
   overflow: hidden;
-  .user-avatar {
-    float: left;
-    position: relative;
-    .user-avatar-img {
-      width: 140px;
-      height: 140px;
-      padding: 2px;
-      border: 2px solid #ccc;
-    }
-    .user-avatar-btn {
-      position: absolute;
-      display: none;
-      height: 30px;
-      line-height: 30px;
-      bottom: 5px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      background: rgba(245, 245, 245, 0.8);
-      &:hover {
-        cursor: pointer;
-        background: rgba(204, 196, 196, 0.8);
-      }
-    }
-    &:hover {
-      .user-avatar-btn {
-        display: block;
-      }
+  .user-info-left {
+      float: left;
+      .user-avatar {
+        position: relative;
+        .user-avatar-img {
+        width: 140px;
+        height: 140px;
+        padding: 2px;
+        border: 2px solid #ccc;
+        }
+        .user-avatar-btn {
+        position: absolute;
+        display: none;
+        height: 30px;
+        line-height: 30px;
+        bottom: 5px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        background: rgba(245, 245, 245, 0.8);
+        &:hover {
+            cursor: pointer;
+            background: rgba(204, 196, 196, 0.8);
+        }
+        }
+        &:hover {
+        .user-avatar-btn {
+            display: block;
+        }
+        }
     }
   }
+  
   .user-info-desc {
     float: left;
     margin-left: 20px;

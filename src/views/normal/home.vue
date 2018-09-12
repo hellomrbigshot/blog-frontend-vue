@@ -45,9 +45,9 @@ export default {
   },
   async created () {
     await this.getUserInfo()
-    this.isCollapsed = this.user?false:true
+    this.isCollapsed = this.user ? false : true
     if (this.user) {
-      this.Cookies.set('user', this.user)
+      this.Cookies.set('user', this.user, { expires: 7 })
     }
   },
   computed: {

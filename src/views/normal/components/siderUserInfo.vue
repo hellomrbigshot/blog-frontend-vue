@@ -73,7 +73,8 @@ export default {
             user: JSON.parse(localStorage.getItem('user')),
             imgUrl: default_img,
             imgShow: false,
-            default_img: default_img
+            default_img: default_img,
+            i: 0,
             // page_num: this.$store.state.user.page_num || JSON.parse(localStorage.getItem('user')).page_num,
             // draft_num: this.$store.state.user.draft_num || JSON.parse(localStorage.getItem('user')).draft_num
         }
@@ -109,17 +110,18 @@ export default {
             })
         },
         showAvatar () {
-            this.imgUrl = '/api/file/avatar?filename='+this.avatar
+            if (this.avatar) {
+                this.imgUrl = '/api/file/avatar?filename='+this.avatar
+            } else {
+                this.imgUrl = this.user.oauthinfo.find(item => item.avatar_url) && this.user.oauthinfo.find(item => item.avatar_url).avatar_url || this.default_img
+            }
             this.$refs.img.onerror = () => {
-                this.imgUrl = this.user.oauthinfo ? this.user.oauthinfo.avatar_url: ''
-                this.$refs.img.onerror = () => {
-                    this.imgUrl = this.default_img
-                }
+                this.imgUrl = this.default_img
             }
             this.$refs.img.onload = () => {
                 this.imgShow = true
             }
-        },
+        }
     }
 }
 </script>

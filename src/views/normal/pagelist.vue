@@ -12,6 +12,7 @@
 </template>
 <script> 
 import { bus } from '../../bus/index'
+import axios from 'axios'
 export default {
   components: {
     onePage: () => import('./components/onePage')
