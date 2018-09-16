@@ -29,6 +29,7 @@
     "qs": "^6.5.1",
     "serve-favicon": "^2.5.0",
     "sha1": "^1.1.1",
+    "url-search-params-polyfill": "^5.0.0",
     "vue-cropper": "^0.2.9"
   },
   "devDependencies": {

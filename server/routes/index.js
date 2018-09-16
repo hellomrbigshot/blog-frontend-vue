@@ -6,7 +6,7 @@ module.exports = function (app) {
 	app.use('/api/statistics', require('./statistics'))
 	app.use('/api/page', require('./page'))
 	app.use('/api/tag', require('./tag'))
-	app.use('/api/github', require('./github'))
+	app.use('/api/oauth', require('./oauth'))
 	app.use('/api/comment', require('./comment'))
 	app.use('/api/file', require('./file'))
 }

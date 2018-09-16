@@ -18,9 +18,18 @@
                     <Button type="default" size="large" long :style="{marginTop: '10px'}" @click="toRegisterPage">注册</Button>
                 </FormItem>
                 <FormItem label="第三方登录：">
-                    <a href="/api/github/login" :style="{ color: '#2c3e50' }">
-                        <Icon type="logo-github" :size="30"></Icon>
-                    </a>
+                  <ul class="icon-list">
+                    <li>
+                      <a href="/api/oauth/github" :style="{ color: '#2c3e50' }">
+                          <Icon type="logo-github" :size="30"></Icon>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/api/oauth/weibo" :style="{ color: '#2c3e50' }">
+                        <Icon custom="iconfont  icon-weibo-circle-fill" :size="30" />
+                      </a>
+                    </li>
+                  </ul>
                 </FormItem>
             </Form>
         </div>
@@ -83,3 +92,15 @@ export default {
 <style scoped lang="scss">
 @import './login.scss';
 </style>
+<style lang="scss" scoped>
+.icon-list {
+    list-style: none;
+    li {
+      float: left;
+    }
+    li:not(:first-child) {
+      margin-left: 10px;
+    }
+}
+</style>
+
