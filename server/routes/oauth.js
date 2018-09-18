@@ -8,7 +8,7 @@ const UserModel = require('../models/user')
 const checkNotLogin = require('../middlewares/check').checkNotLogin
 
 const HOST = config.HOST
-const REGISTER_URL = `${HOST}/register`
+const REGISTER_URL = `${HOST}/oauthregister`
 
 // GitHub 授权
 router.get('/github', async (req, res, next) => {
@@ -44,29 +44,7 @@ router.get('/github/callback', (req, res, next) => {
                 return info.json()
             })
             .then(github_info => {
-                if (req.session.user) {
-                    // 已登录，绑定 github
-                    UserModel.insertUserOauth({ username: req.session.user.username, type: 'github', name: github_info.login, avatar_url: github_info.avatar_url })
-                        .then(user => {
-                            if (user) {
-                                res.redirect(`${HOST}/normal/user/${req.session.user.username}`) // 跳转到用户详情页
-                            }
-                        })
-                } else {
-                    // 没登录，登录或者注册
-                    UserModel.getUserByOauthInfo({ type: 'github', name: github_info.login }).then(user => {
-                        if (user) {
-                            // 已注册，获取登录信息后直接跳转到列表页
-                            user = user.toObject()
-                            delete user.password
-                            req.session.user = JSON.parse(JSON.stringify(user))
-                            res.redirect(`${HOST}?oauthtype=github&username=${user.username}`) // 跳转到首页
-                        } else {
-                            // 如果没有注册，就跳转到注册界面
-                            res.redirect(`${REGISTER_URL}?name=${github_info.login}&type=github&avatar_url=${github_info.avatar_url}&bio=${github_info.bio}`)
-                        }
-                    })
-                }
+                oauthAction('github', github_info.login, github_info.avatar_url, github_info.login, req, res)
             })
 
     })
@@ -82,18 +60,65 @@ router.get('/weibo', async (req, res, next) => {
 router.get('/weibo/callback', (req, res, next) => {
     const code = req.query.code
     const path = 'https://api.weibo.com/oauth2/access_token'
-    const params = new URLSearchParams();
-    params.append('client_id', weibo.client_id);
-    params.append('client_secret', weibo.client_secret);
-    params.append('grant_type', 'authorization_code');
-    params.append('code', code);
-    params.append('redirect_uri', `${HOST}/api/oauth/weibo/callback`);
-    console.log(params)
+    const params = new URLSearchParams()
+    params.append('client_id', weibo.client_id)
+    params.append('client_secret', weibo.client_secret)
+    params.append('grant_type', 'authorization_code')
+    params.append('code', code)
+    params.append('redirect_uri', `${HOST}/api/oauth/weibo/callback`)
     fetch(path, {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
         body: params
-    }).then(weibo_res => {
-        console.log(weibo_res)
+    })
+    .then(result => result.json())
+    .then(weibo_res => {
+        const WEIBO_USER_API = `https://api.weibo.com/2/users/show.json`
+        fetch(`${WEIBO_USER_API}?access_token=${weibo_res.access_token}&uid=${weibo_res.uid}`)
+        .then(info => info.json())
+        .then(weibo_info => {
+            console.log(weibo_info)
+            oauthAction('weibo', weibo_info.name, weibo_info.avatar_large, weibo_info.domain, req, res)
+        })
     })
 })
+/**
+ * 统一处理获取到第三方用户信息后的操作
+ * 
+ * @param {string} type 第三方类型
+ * @param {string} name 第三方用户名
+ * @param {string} avatar_url 第三方用户头像
+ * @param {string} domain 第三方个人主页
+ * @param {string} bio 第三方用户描述
+ * @param {Object} req  
+ * @param {Object} res  
+ */
+function oauthAction (type, name, avatar_url, domain, req, res) {
+    const session_user = req.session.user
+    if (session_user) {
+        // 已登录，绑定 github
+        UserModel.insertUserOauth({ username: session_user.username, type, name, avatar_url, domain })
+            .then(user => {
+                if (user) {
+                    res.redirect(`${HOST}/normal/user/${session_user.username}`) // 跳转到用户详情页
+                }
+            })
+    } else {
+        // 没登录，登录或者注册
+        UserModel.getUserByOauthInfo({ type, name }).then(user => {
+            if (user) {
+                // 已注册，获取登录信息后直接跳转到列表页
+                user = user.toObject()
+                delete user.password
+                req.session.user = JSON.parse(JSON.stringify(user))
+                res.redirect(`${HOST}?oauthtype=${type}&username=${user.username}`) // 跳转到首页
+            } else {
+                // 如果没有注册，就跳转到注册界面
+                res.redirect(`${REGISTER_URL}?name=${name}&type=${type}&domain=${domain}&avatar_url=${avatar_url}`)
+            }
+        })
+    }
+}
 module.exports = router
