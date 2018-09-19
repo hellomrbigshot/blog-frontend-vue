@@ -45,6 +45,8 @@ router.get('/github/callback', (req, res, next) => {
                 oauthAction('github', github_info.login, github_info.avatar_url, github_info.login, req, res)
             })
     })
+})
+
 // Weibo 授权
 router.get('/weibo', (req, res, next) => {
     const dataStr = (new Date()).valueOf()
