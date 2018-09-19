@@ -55,11 +55,12 @@ export default {
         username: '',
         password: '',
         repassword: '',
-        bio: decodeURIComponent(this.$route.query.bio),
         oauthinfo: {
           name: this.$route.query.name,
           type: this.$route.query.type,
-          avatar_url: this.$route.query.avatar_url
+          avatar_url: this.$route.query.avatar_url,
+          bio: this.$route.query.bio,
+          domain: this.$route.query.domain
         }
       },
       rule: {
