@@ -50,9 +50,9 @@
             <div class="footer-btn">
                 <div class="scope-btn">
                     <Button type="info" size="small" @click="chooseFile">修改附件</Button>
-                    <Button type="primary" size="small" shape="circle" icon="plus" @click="changeScale(1)"></Button>
-                    <Button type="primary" size="small" shape="circle" icon="minus" @click="changeScale(-1)"></Button>
-                    <Button type="primary" size="small" shape="circle" icon="ios-refresh-empty" @click="rotateRight"></Button>
+                    <Button type="primary" size="small" shape="circle" icon="ios-add" @click="changeScale(1)"></Button>
+                    <Button type="primary" size="small" shape="circle" icon="ios-remove" @click="changeScale(-1)"></Button>
+                    <Button type="primary" size="small" shape="circle" icon="ios-refresh" @click="rotateRight"></Button>
                 </div>
                 <div class="upload-btn">
                     <Button type="success" size="small" @click="uploadFile">上传</Button>
@@ -198,8 +198,8 @@ export default {
     },
     showAvatar() {
       // 显示头像
-      if (this.avatar) {
-        this.imgUrl = '/api/file/avatar?filename=' + this.avatar
+      if (this.user.avatar) {
+        this.imgUrl = '/api/file/avatar?filename=' + this.user.avatar
       } else {
         this.imgUrl =
           (this.user.oauthinfo.find(item => item.avatar_url) &&
