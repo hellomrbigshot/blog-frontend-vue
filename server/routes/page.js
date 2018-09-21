@@ -27,8 +27,8 @@ router.post('/new', checkLogin, async (req, res, next) => { // 新建文章
         }
         let result = await PageModel.create(page)
         const [page_num, draft_num] = await Promise.all([
-            PageModel.getPageNum({ type: 'create_user', content: username, status: 'normal' }),
-			PageModel.getPageNum({ type: 'create_user', content: username, status: 'draft' }),
+            PageModel.getPageNum({ type: 'create_user', content: create_user, status: 'normal' }),
+			PageModel.getPageNum({ type: 'create_user', content: create_user, status: 'draft' }),
         ])
         res.status(200).json({ code: 'OK', data: { page_num: page_num, draft_num: draft_num }})
     } catch (e) {
