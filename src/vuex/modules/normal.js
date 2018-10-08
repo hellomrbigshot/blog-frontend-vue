@@ -1,4 +1,4 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 import { normalRouter } from '@/router/router'
 const normal = {
     state: {

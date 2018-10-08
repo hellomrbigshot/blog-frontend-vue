@@ -1,4 +1,4 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 import Vuex from 'vuex'
 import admin from './modules/admin'
 import normal from './modules/normal'

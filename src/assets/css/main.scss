@@ -15,6 +15,12 @@ blockquote {
 .fade-enter, .fade-leave-to /* .fade-leave-active 在低于版本 2.1.8 中 */ {
     opacity: 0;
 }
+code {
+    display: inline !important;
+}
+pre code.hljs {
+    display: block !important;
+}
 @media (max-width: 767px) {
     .header-inner {
         width: auto !important;

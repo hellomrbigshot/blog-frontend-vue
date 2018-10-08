@@ -15,7 +15,7 @@ import marked from 'marked'
 
 
 hljs.highlightCode =  () => { // 自定义 highlightCode 方法，循环执行方法
-    let blocks = document.querySelectorAll('pre code')
+    let blocks = document.querySelectorAll('code')
     let dom = Array.prototype.slice.call(blocks)
     dom.forEach(ele => {
         hljs.highlightBlock(ele)
