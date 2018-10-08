@@ -81,7 +81,10 @@ export default {
       this.Common.axios('/api/page/detail', { id: this.id }).then(res => {
         this.page = res.data.data
         this.$nextTick(() => {
-          this.hljs.highlightCode()
+          setTimeout(() => {
+            this.hljs.highlightCode()
+          }, 300)
+          
         })
       })
     },
