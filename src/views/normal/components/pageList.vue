@@ -8,7 +8,7 @@
                     </h1>
                 </router-link>
                 <div class="page-meta">
-                    <time>{{ page.update_date.substring(5, 10) }}</time>
+                    <time>{{ page.create_date.substring(5, 10) }}</time>
                 </div>
             </header>
         </article>

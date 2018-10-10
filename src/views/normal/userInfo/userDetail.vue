@@ -6,7 +6,7 @@
             <page-list :page-list="pageList"></page-list>
         </div>
         <div class="pagination">
-            <new-page :total="total" v-if="pageSize<total"></new-page>
+            <new-page :total="total" v-if="pageSize<total" @on-change="pageChange"></new-page>
         </div>
     </section>
 </template>
@@ -45,6 +45,10 @@ export default {
         this.pageList = res.data.data.result
         this.total = res.data.data.total
       })
+    },
+    pageChange (page) {
+      this.page = page
+      this.getPageList()
     }
   }
 }
