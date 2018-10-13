@@ -102,7 +102,8 @@ module.exports = {
                     { title: { $regex: reg }},
                     { content: { $regex: reg }}
                 ],
-                secret: false
+                secret: false,
+                status: 'normal'
             }
         }
         return Page
