@@ -42,7 +42,7 @@
         <comments :comments="comments"></comments>
       </div>
     </transition>
-    <div>
+    <div style="margin-bottom: 20px;">
       <p :style="{ fontSize: '20px' }">留言：</p>
       <Input type="textarea" :style="{ marginTop: '15px' }" v-model.trim="comment.content" :rows="6"></Input>
       <Button type="primary" :style="{ marginTop: '15px'}" @click="submitComment">发表</Button>
@@ -111,6 +111,7 @@ export default {
       this.comment.page_title = this.page.title
       this.comment.page_id = this.id
       this.comment.create_user = this.user
+      this.comment.to_user = this.page.create_user
       this.Common.axios('/api/comment/create', this.comment).then(res => {
         this.comment.content = ''
         this.$Message.success('留言成功')

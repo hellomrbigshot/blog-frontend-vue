@@ -10,8 +10,9 @@ router.post('/create', checkLogin, async (req, res, next) => {
     const create_user = req.body.create_user
     const page_id = req.body.page_id
     const page_title = req.body.page_title
+    const to_user = req.body.to_user
     try {
-        let result = await CommentModel.create({ content, create_user, page_id, page_title })
+        let result = await CommentModel.create({ content, create_user, page_id, page_title, to_user })
         res.status(200).json({ code: 'OK', data: result })
     } catch (e) {
         res.status(200).json({ code: 'ERROR', data: e.message })
