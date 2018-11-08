@@ -11,24 +11,30 @@
             color: #222;
             display: block;
             font-family: Lato, "PingFang SC", "Microsoft YaHei", sans-serif;
-            .logo-line-before, .site-title, .logo-line-after {
-                display: block;
+            line-height: 1;
+            // .logo-line-before, .logo-line-after {
+                // display: block;
                 // line-height: 1.8;
-            }
+            // }
             .site-title {
-                font-size: 21px;
-                font-weight: bold;
+                display: inline-block;
+                height: 36px;
+                .site-logo {
+                    height: 36px;
+                }
             }
-            .logo-line-before, .logo-line-after  {
-                overflow: hidden;
-                margin: 0 auto;
-                width: 75%;
-                height: 2px;
-                background: #222;
-            }
+            // .logo-line-before, .logo-line-after  {
+            //     overflow: hidden;
+            //     margin: 0 auto;
+            //     width: 75%;
+            //     height: 2px;
+            //     background: #222;
+            // }
         }
     }
     .site-nav {
+        overflow: hidden;
+        min-height: 36px;
         ul.menu {
             float: left;
             margin: 0 0 0 20px;
@@ -54,7 +60,7 @@
             .site-search-form {
                 position: relative;
                 line-height: 24px;
-                margin-top: 14px;
+                margin-top: 5px;
                 .search-icon {
                     position: absolute;
                     left: 0;
@@ -92,3 +98,15 @@
     }   
     
 }
+
+.slide-fade-enter-active {
+    transition: all 0.5s cubic-bezier(0.6, 0.1, 0.2, .7);
+  }
+  .slide-fade-leave-active {
+    transition: all 1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active for below version 2.1.8 */ {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
