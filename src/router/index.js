@@ -8,7 +8,14 @@ import { routers } from './router'
 
 const RouterConfig = {
   mode: 'history',
-  routes: routers
+  routes: routers,
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+  }
 }
 
 export const router = new VueRouter(RouterConfig)

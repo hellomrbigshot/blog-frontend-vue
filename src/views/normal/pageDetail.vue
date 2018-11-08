@@ -10,7 +10,7 @@
               &nbsp;|&nbsp;
             </span> -->
             <span class="update-time">创建于
-              <time>{{ page.create_date.substring(0,10) }}</time>
+              <time>{{ Common.formatTime(page.create_date, '3') }}</time>
               &nbsp;|&nbsp;
             </span>
             <span class="create-user">作者

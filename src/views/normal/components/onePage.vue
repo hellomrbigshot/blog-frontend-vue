@@ -6,7 +6,7 @@
             </router-link>
             <div class="page-info">
                 <span class="create-time">创建于
-                    <time>{{ page.create_date.substring(0,10) }}</time>
+                    <time>{{ Common.formatTime(page.create_date, '3') }}</time>
                 </span>
                 <span class="create-user">&nbsp;|&nbsp;作者
                     <router-link :to="{ name: 'userDetail', params: { username:  page.create_user } }">
@@ -37,9 +37,17 @@ export default {
     }
   },
   mounted () {
-    this.$nextTick(() => {
+    setTimeout(() => {
       this.hljs.highlightCode()
-    })
+    }, 100)
+    
+  },
+  watch: {
+    markdownBody () {
+      setTimeout(() => {
+        this.hljs.highlightCode()
+      }, 100)
+    }
   }
 }
 </script>

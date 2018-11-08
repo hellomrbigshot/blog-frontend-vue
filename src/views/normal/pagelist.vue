@@ -2,7 +2,7 @@
 <div>
   <transition name="fade">
     <div v-if="page_list.length">
-      <one-page v-if="page_list.length" v-for="(page, i) in page_list" :key="i" :page="page"></one-page>
+      <one-page v-if="page_list.length" v-for="(page, i) in page_list" :key="page._id" :page="page"></one-page>
       <div class="pagination" style="margin-bottom: 20px;">
         <new-page v-if="total>pageSize" :total="total" @on-change="pageChange"></new-page>
       </div>
@@ -45,6 +45,7 @@ export default {
     pageChange (page) {
       this.page = page
       this.getPageList()
+      this.Common.bodyScrollTop()
     },
     searchPage (keywords) {
       this.Common.axios('/api/page/searchpage', { keywords }).then(res => {

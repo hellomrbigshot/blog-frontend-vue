@@ -5,7 +5,7 @@
       <Icon @click.native="collapsedSider" :class="rotateIcon" color="#fff" type="md-menu" size="22"></Icon>
     </div>
     <div class="single-icon-wrapper">
-      <Icon @click.native="bodyScrollTop" color="#fff" type="ios-arrow-up" size="22"></Icon>
+      <Icon @click.native="Common.bodyScrollTop()" color="#fff" type="ios-arrow-up" size="22"></Icon>
     </div>
   </div>
   <Layout>
@@ -80,16 +80,6 @@ export default {
     },
     collapsedSider () { // 侧边栏显示切换
         this.$refs.pageSider.toggleCollapse()
-    },
-    bodyScrollTop () {  // 滚动到顶端
-      let timer = setInterval(() => {
-        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-        let speed = Math.floor(-scrollTop/4)
-        document.documentElement.scrollTop = scrollTop + speed
-        if (scrollTop === 0) {
-            clearInterval(timer)
-        }
-      }, 30)
     },
     handleRouter (name) { // 路由跳转
       this.$router.push({ name: name })
