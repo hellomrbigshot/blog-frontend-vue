@@ -5,7 +5,7 @@
             <div class="comment-content">{{ comment.content }}</div>
             <div class="comment-info">
                 <router-link :to="{ name: 'userDetail', params: { username:  comment.create_user }}"><span class="comment-info-user">{{ comment.create_user }}</span></router-link>
-                <span>{{ comment.create_time }}</span>
+                <span>{{ Common.formatTime(comment.create_time, '3') }}</span>
             </div>
         </article>
     </div>

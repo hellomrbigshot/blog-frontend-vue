@@ -6,7 +6,7 @@
                 <span class="comment-user" v-else>
                     <router-link :to="{ name: 'userDetail', params: { username: comment.to_user }}">{{ comment.to_user }}</router-link> 对我说：
                 </span>
-                <span class="comment-time">{{ comment.create_time }}</span>
+                <span class="comment-time">{{ Common.formatTime(comment.create_time, '3') }}</span>
             </div>
             <div class="comment-content">{{ comment.content }}</div>
             <div class="comment-page">
