@@ -38,7 +38,7 @@ export const oauthRegisterRouter = {
 }
 export const redirect = { // 若是 admin 跳转到管理界面，其他用户跳转到文章列表页
   path: '/',
-  redirect: Cookies.get('user') === 'admin' ? '/admin' : '/normal'
+  redirect: Cookies.get('user') === 'admin' ? '/admin' : '/pages/list'
 }
 export const adminRouter = {
   path: '/admin',
@@ -128,67 +128,103 @@ export const adminRouter = {
   ]
 }
 export const normalRouter = {
-    path: '/normal',
-    redirect: '/normal/pagelist',
+    path: '/',
+    redirect: '/pages',
+    name: 'normal',
     meta: {
       login: false
     },
     component: () => import('@/views/normal/home'),
     children: [
       {
-        name: 'normalPageList',
-        component: () => import('@/views/normal/pageList'),
-        path: 'pagelist',
+        path: '/pages',
+        name: 'normalPage',
+        redirect: '/pages/list',
+        component: { template: '<router-view></router-view>' },
         meta: {
           login: false,
           title: '首页',
           inHeaderList: true
         },
+        children: [
+          {
+            name: 'normalPageList',
+            path: 'list',
+            component: () => import('@/views/normal/pageList'),
+            meta: {
+              login: false,
+              title: '文章列表'
+            },
+          },
+          {
+            name: 'pageDetail',
+            component: () => import('@/views/normal/pageDetail'),
+            path: 'detail/:id',
+            meta: {
+              login: false,
+              title: '文章详情',
+              inHeaderList: false
+            }
+          },
+          {
+            name: 'normalMyDraftList',
+            component: () => import('@/views/normal/myDraftList'),
+            path: 'draft',
+            meta: {
+              login: true,
+              title: '草稿',
+              inHeaderList: false
+            }
+          },
+          {
+            name: 'normalMyPageList',
+            component: () => import('@/views/normal/myPageList'),
+            path: 'mylist',
+            meta: {
+              login: true,
+              title: '归档',
+              inHeaderList: true
+            }
+          },
+        ]
       },
       {
-        name: 'normalTagList',
-        component: () => import('@/views/normal/tagList'),
-        path: 'categories',
+        path: '/tags',
+        name: 'normalTag',
+        redirect: '/tags/list',
+        component: { template: '<router-view></router-view>' },
         meta: {
           login: false,
           title: '标签',
           inHeaderList: true
         },
-      },
-      {
-        name: 'normalMyPageList',
-        component: () => import('@/views/normal/myPageList'),
-        path: 'mypagelist',
-        meta: {
-          login: true,
-          title: '归档',
-          inHeaderList: true
-        }
-      },
-      {
-        name: 'normalMyDraftList',
-        component: () => import('@/views/normal/myDraftList'),
-        path: 'mydraftlist',
-        meta: {
-          login: true,
-          title: '草稿',
-          inHeaderList: false
-        }
-      },
-      {
-        name: 'normalTagDetail',
-        component: () => import('@/views/normal/tagDetail'),
-        path: 'tagdetail/:name',
-        meta: {
-          login: false,
-          title: '标签详情',
-          inHeaderList: false
-        }
+        children: [
+          {
+            path: 'list',
+            name: 'normalTagList',
+            component: () => import('@/views/normal/tagList'),
+            meta: {
+              login: false,
+              title: '标签',
+              inHeaderList: true
+            }
+          },
+          {
+            path: 'detail/:name',
+            name: 'normalTagDetail',
+            component: () => import('@/views/normal/tagDetail'),
+            meta: {
+              login: false,
+              title: '标签详情',
+              inHeaderList: false
+            }
+          },
+        ]
       },
       {
         name: 'normalGuestBook',
         component: () => import('@/views/normal/guestBook'),
-        path: 'guestbook',
+        path: 'comments',
         meta: {
           login: true,
           title: '留言',
@@ -205,16 +241,7 @@ export const normalRouter = {
           inHeaderList: true
         }
       },
-      {
-        name: 'pageDetail',
-        component: () => import('@/views/normal/pageDetail'),
-        path: 'pagedetail/:id',
-        meta: {
-          login: false,
-          title: '详情',
-          inHeaderList: false
-        }
-      },
+      
       {
         name: 'editPage',
         component: () => import('@/views/normal/newPage'),
