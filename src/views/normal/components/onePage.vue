@@ -63,8 +63,26 @@ article {
       display: inline-block;
       color: #555;
       border-bottom: 2px solid #fff;
+      position: relative;
+      &::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        bottom: 0px;
+        left: 0px;
+        background-color: rgb(0, 0, 0);
+        visibility: hidden;
+        transform: scaleX(0);
+        transition-duration: 0.2s;
+        transition-timing-function: ease-in-out;
+        transition-delay: 0s;
+      }
       &:hover {
-        border-bottom: 2px solid #000;
+        &::before {
+          visibility: visible;
+          transform: scaleX(1);
+        }
       }
     }
     .page-info {
