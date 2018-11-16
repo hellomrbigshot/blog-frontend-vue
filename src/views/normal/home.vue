@@ -137,6 +137,7 @@ export default {
 }
 .main-footer {
   margin: 0 auto;
+  padding-left: 0px !important;
 }
 @media (max-width: 991px) {
   .home-sider, .icon-wrapper {
