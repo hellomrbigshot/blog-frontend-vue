@@ -20,7 +20,7 @@ module.exports = {
 
     proxyTable: {
       '/api': {
-          target: 'http://localhost:4500',
+          target: 'https://www.hellomrbigbigshot.xyz',
           changeOrigin: true
       }
     },
