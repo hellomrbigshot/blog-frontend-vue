@@ -1,4 +1,4 @@
-# vue-express-blog
+# Vue 版本构建的PC版本博客PWA
 
 > A Vue.js project
 
@@ -18,7 +18,8 @@ npm run build
 npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-
-地址： http://hellomrbigbigshot.xyz
+[点击查看博客](http://hellomrbigbigshot.xyz)
+[点击跳转到移动版项目](https://github.com/hellomrbigshot/blog-pwa)
+### 后端为 nodejs 构建
+[点击跳转到后端项目](https://github.com/hellomrbigshot/blog-pwa/tree/master/server)

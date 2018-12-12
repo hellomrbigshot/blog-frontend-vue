@@ -19,7 +19,7 @@
                 <div class="site-search" >
                     <div class="site-search-form">
                         <a :class="['search-icon', {'active-search-icon': isFocus}]"><Icon type="md-search" size="16" ref="searchIcon" @click="searchPage"></Icon></a>
-                        <input class="search-input" v-model="keywords" @focus="isFocus=true" @blur="isFocus=false"></input>
+                        <input class="search-input" v-model="keywords" @focus="isFocus=true" @blur="isFocus=false" @keyup.enter="searchPage"></input>
                     </div>
                 </div>
             </div>
