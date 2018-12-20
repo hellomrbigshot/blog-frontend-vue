@@ -1,15 +1,20 @@
 <template>
 <div>
   <div :style="{ marginTop: '30px' }">
-    <h2 :style="{fontSize: '14px', fontWeight: 'normal', textAlign: 'center'}">当前总共{{ total }}个标签</h2>
-    <ul>
-      <li v-for="(tag, index) in tagList">
+    <h2 :style="{fontSize: '14px', fontWeight: 'normal'}">当前总共{{ total }}个标签</h2>
+    <div class="tag-list">
+      <div v-for="(tag, index) in tagList" class="tag-item">
         <router-link :to="{ name: 'normalTagDetail', params: { name: tag.name } }">
-          <span class="tag-name">{{ tag.name }}</span>
+          <h3 class="tag-item-name">{{ tag.name }}</h3>
         </router-link>
-        <span class="tag-page-count">({{tag.page_num}})</span>
-      </li>
-    </ul>
+        <div class="tag-item-desc">
+          <span >{{ tag.description }}</span>
+        </div>
+        <div class="tag-item-bottom">
+          <span>共有{{ tag.page_num }}篇文章</span>
+        </div>
+      </div>
+    </div>
     <div class="pagination">
       <new-page v-if="total>pageSize" :total="total" @on-change="pageChange"></new-page>
     </div>
@@ -17,11 +22,7 @@
 </div>
 </template>
 <script>
-// import page from './components/page'
 export default {
-  components: {
-    // page
-  },
   data () {
       return {
           tagList: [],
@@ -48,25 +49,33 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-ul {
+.tag-list {
   overflow: hidden;
-  margin-top: 40px;
-  li {
+  margin-top: 26px;
+  .tag-item {
     list-style: none;
     font-size: 14px;
-    margin: 20px 0 20px 10px;
+    margin-bottom: 26px;
     box-sizing: content-box;
-    .tag-name {
+    &-name {
       color: #555;
-      border-bottom: 1px solid #bbb;
-      margin: 5px 0 10px 5px;
+      font-weight: 400;
+      margin-bottom: 5px;
+      font-size: 18px;
       &:hover {
-        border-bottom-color: #222;
-        color: #222;
+        text-decoration: underline;
       }
     }
-    .tag-page-count {
-      color: #bbb;
+    &-desc {
+      font-size: 13px;
+      color: #545454;
+      line-height: 1.4;
+      word-wrap: break-word;
+      margin-bottom: 3px;
+    }
+    &-bottom {
+      font-size: 12px;
+      color: #848484;
     }
   }
   
