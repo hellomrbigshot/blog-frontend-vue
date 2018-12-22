@@ -1,25 +1,24 @@
 <template>
   <Tabs v-model="type" size="small">
-      <TabPane label="我发出的" name="create_user">
-        <comments :comments="comments" :type="type"></comments>
-        <new-page v-if="total > pageSize" :total="total" @on-change="getCommentList" style="margin-bottom: 20px;"></new-page>
-      </TabPane>
-      <TabPane label="我收到的" name="to_user">
-        <comments :comments="comments" :type="type"></comments>
-        <new-page v-if="total > pageSize" :total="total" @on-change="getCommentList"  style="margin-bottom: 20px;"></new-page>
-      </TabPane>
+    <TabPane label="我收到的" name="to_user">
+      <comments :comments="comments" :type="type"></comments>
+      <new-page v-if="total > pageSize" :total="total" @on-change="getCommentList"  style="margin-bottom: 20px;"></new-page>
+    </TabPane>
+    <TabPane label="我发出的" name="create_user">
+      <comments :comments="comments" :type="type"></comments>
+      <new-page v-if="total > pageSize" :total="total" @on-change="getCommentList" style="margin-bottom: 20px;"></new-page>
+    </TabPane>
   </Tabs>
   
 </template>
 <script>
-import comments from './components/commentsForUser'
 export default {
   components: {
-    comments
+    comments: () => import('./components/commentsForUser')
   },
   data () {
       return {
-          type: 'create_user',
+          type: 'to_user',
           user: this.Cookies.get('user'),
           comments: [],
           pageSize: 10,

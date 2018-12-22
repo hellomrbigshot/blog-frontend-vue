@@ -128,10 +128,7 @@ export default {
 .pagination {
   margin: 120px 0;
 }
-.main-content, .main-footer {
-  width: 85%;
-  max-width: 700px;
-}
+
 .main-content {
   margin: 80px auto 0;
 }
@@ -148,6 +145,18 @@ export default {
   .main-content, .main-footer {
     margin: 20px 20px;
     width: auto;
+  }
+ }
+ @media (max-width: 1600px) {
+   .main-content, .main-footer {
+    width: 85%;
+    max-width: 700px;
+  }
+ }
+ @media (min-width: 1600px) {
+  .main-content, .main-footer {
+    // margin: 20px 20px;
+    width: 900px;
   }
  }
 </style>

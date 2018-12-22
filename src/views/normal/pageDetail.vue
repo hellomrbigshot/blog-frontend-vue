@@ -157,7 +157,7 @@ article {
   }
   .page-body {
     line-height: 2!important;
-    font-size: 14px;
+    font-size: 15px;
   }
   margin-bottom: 120px;
 }

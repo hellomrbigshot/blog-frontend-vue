@@ -108,7 +108,7 @@ article {
   }
   .page-body {
     line-height: 2;
-    font-size: 14px;
+    font-size: 15px;
   }
   margin-bottom: 120px;
   // max-height: 300px;
