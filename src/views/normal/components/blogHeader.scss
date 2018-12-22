@@ -110,3 +110,49 @@
     transform: translateY(-30px);
     opacity: 0;
   }
+  @media (max-width: 767px) {
+    .header-inner {
+        width: auto !important;
+        padding: 10px !important;
+        line-height: 36px !important;
+        .site-meta { 
+            margin-left: 10px !important;
+            .brand {
+                .logo-line-before, .logo-line-after {
+                    display: none !important;
+                }
+            }
+            
+        }
+    }
+    .site-nav {
+        display: none;
+    }
+    .main-content, .main-footer {
+        margin: 20px 20px;
+        width: auto;
+    }
+    header {
+        text-align: center;
+        .page-title {
+            font-size: 20px !important;
+        }
+    }
+    h1 {
+        font-size: 20px;
+    }
+    h2 {
+        font-size: 18px;
+    }
+    h3 {
+        font-size: 16px;
+    }
+    h4 {
+        font-size: 14px;
+    }
+}
+@media (min-width: 1600px) {
+    .header-inner {
+        width: 900px;
+    }
+}
