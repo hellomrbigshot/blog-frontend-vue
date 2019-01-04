@@ -5,12 +5,12 @@
         <header>
           <h1 class="page-title">{{ page.title }}</h1>
           <div class="page-info">
-            <span v-if="Common.formatTime(page.update_date, '3')!==Common.formatTime(page.create_date, '3')" class="update-time">更新于
-              <time>{{ Common.formatTime(page.update_date, '3') }}</time>
+            <span v-if="Common.formatTime(page.update_time, '3')!==Common.formatTime(page.create_time, '3')" class="update-time">更新于
+              <time>{{ Common.formatTime(page.update_time, '3') }}</time>
               &nbsp;|&nbsp;
             </span>
             <span class="update-time">创建于
-              <time>{{ Common.formatTime(page.create_date, '3') }}</time>
+              <time>{{ Common.formatTime(page.create_time, '3') }}</time>
               &nbsp;|&nbsp;
             </span>
             <span class="create-user">作者
@@ -62,8 +62,8 @@ export default {
       page: {
         title: '',
         create_user: '',
-        create_date: '',
-        update_date: '',
+        create_time: '',
+        update_time: '',
         content: ''
       },
       comments: [],

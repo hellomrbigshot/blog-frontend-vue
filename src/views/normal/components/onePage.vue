@@ -7,11 +7,11 @@
             <div class="page-info">
                 <span 
                   class="create-time" 
-                  v-if="Common.formatTime(page.update_date, '3')===Common.formatTime(page.create_date, '3')">创建于
-                    <time>{{ Common.formatTime(page.update_date, '3') }}</time>
+                  v-if="Common.formatTime(page.update_time, '3')===Common.formatTime(page.create_time, '3')">创建于
+                    <time>{{ Common.formatTime(page.update_time, '3') }}</time>
                 </span>
                 <span class="create-time" v-else>更新于
-                    <time>{{ Common.formatTime(page.update_date, '3') }}</time>
+                    <time>{{ Common.formatTime(page.update_time, '3') }}</time>
                 </span>
                 <span class="create-user">&nbsp;|&nbsp;作者
                     <router-link :to="{ name: 'userDetail', params: { username:  page.create_user } }">

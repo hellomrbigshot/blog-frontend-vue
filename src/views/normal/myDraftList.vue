@@ -12,7 +12,7 @@
                     </router-link>
                 </Col>
                 <Col :xs="24" :sm="24" :md="6">
-                    <div class="create-time">更新于 <time>{{ draft.update_date.substring(0,10) }}</time></div>
+                    <div class="create-time">更新于 <time>{{ draft.update_time.substring(0,10) }}</time></div>
                 </Col>
             </Row>
         </li>
