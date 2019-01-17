@@ -12,7 +12,7 @@
         <TimelineItem color="#aaa" v-for="(page,j) in year.pagelist" :key="j">
           <router-link :to="{name: 'pageDetail', params: {id: page._id}}">
             <div class="content">
-              <span class="time">{{ page.create_date.substring(5,10) }}</span>
+              <span class="time">{{ page.create_time.substring(5,10) }}</span>
               <span class="draft-title">{{ page.title }}</span>
               <template v-if="page.secret">
                 <span :style="{fontSize: '16px'}">|</span>
@@ -67,7 +67,7 @@ export default {
       // 将文章按照创建年份分类
       let year_arr = []
       pagelist.forEach(page => {
-        let year = page.create_date.substring(0, 4)
+        let year = page.create_time.substring(0, 4)
         if (!year_arr.includes(year)) {
           year_arr.push(year)
         }
@@ -76,7 +76,7 @@ export default {
         let single = {}
         single.year = year
         single.pagelist = pagelist.filter(
-          page => page.create_date.substring(0, 4) === year
+          page => page.create_time.substring(0, 4) === year
         )
         return single
       })

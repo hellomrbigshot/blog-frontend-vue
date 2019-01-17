@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     getPageList () {
-      this.Common.axios('/api/page/pagelist', { type: '', status: 'normal', content: '', pageSize: this.pageSize, page: this.page, secret: false, sort: 'update_date' }).then(res => {
+      this.Common.axios('/api/page/pagelist', { type: '', status: 'normal', content: '', pageSize: this.pageSize, page: this.page, secret: false, sort: 'update_time' }).then(res => {
         this.page_list = res.data.data.result
         this.total = res.data.data.total
         this.show_page = true
