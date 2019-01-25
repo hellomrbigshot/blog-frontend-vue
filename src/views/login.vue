@@ -4,7 +4,7 @@
             <h1 class="head">
                 登录
             </h1>
-            <Form  ref="signinForm" :model="formData" :rules="rule" class="login-form">
+            <!-- <Form  ref="signinForm" :model="formData" :rules="rule" class="login-form">
                 <FormItem prop="username">
                     <Input style="display:none"></Input>
                     <Input type="text" v-model="formData.username" placeholder="用户名" transfer></Input>
@@ -31,13 +31,22 @@
                     </li>
                   </ul>
                 </FormItem>
-            </Form>
+            </Form> -->
+            <mForm ref="signinForm" :model="formData" :rules="rule" class="login-form">
+              <mFormItem prop="username">
+                <Input type="text" v-model="formData.username" placeholder="用户名" transfer></Input>
+              </mFormItem>
+            </mForm>
         </div>
     </div>
 </template>
 <script>
 export default {
   name: 'Login',
+  components: {
+    mForm: () => import('@/components/mUi/src/components/form/form'),
+    mFormItem: () => import('@/components/mUi/src/components/form/form-item'),
+  },
   data() {
     const validatorName = (rule, value, callback) => {
       if (!value) {
