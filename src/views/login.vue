@@ -33,8 +33,8 @@
                 </FormItem>
             </Form> -->
             <mForm ref="signinForm" :model="formData" :rules="rule" class="login-form">
-              <mFormItem prop="username">
-                <Input type="text" v-model="formData.username" placeholder="用户名" transfer></Input>
+              <mFormItem prop="username" label="用户名">
+                <mInput type="text" v-model="formData.username" placeholder="用户名" transfer></mInput>
               </mFormItem>
             </mForm>
         </div>
@@ -46,6 +46,7 @@ export default {
   components: {
     mForm: () => import('@/components/mUi/src/components/form/form'),
     mFormItem: () => import('@/components/mUi/src/components/form/form-item'),
+    mInput: () => import('@/components/mUi/src/components/Input/input')
   },
   data() {
     const validatorName = (rule, value, callback) => {
@@ -68,7 +69,7 @@ export default {
         password: ''
       },
       rule: {
-        username: [{ validator: validatorName, trigger: 'blur' }],
+        username: [{ validator: validatorName, trigger: 'blur' }, { required: true, trigger: 'blur' }],
         password: [{ validator: validatorPass, trigger: 'blur' }]
       }
     }
