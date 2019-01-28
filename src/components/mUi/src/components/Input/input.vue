@@ -2,6 +2,7 @@
   <input 
     :type="type"
     :value="currentValue"
+
     @input="handleInput"
     @blur="handleBlur"/>
 </template>
@@ -19,6 +20,12 @@ export default {
     type: {
       type: String,
       default: 'text'
+    },
+    rows: {
+      type: [String, Number]
+    },
+    cols: {
+      type: [String, Number]
     }
   },
   data () {
@@ -38,7 +45,8 @@ export default {
       this.$emit('input', value);
       this.dispatch('mFormItem', 'on-form-change', value);
     },
-    handlerBlur () {
+    handleBlur () {
+      console.log('blur');
       this.dispatch('mFormItem', 'on-form-blur', this.currentValue);
     }
   },

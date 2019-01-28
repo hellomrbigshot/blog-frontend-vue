@@ -52,12 +52,7 @@ export default {
   methods: {
     setRules () {
       let rules = this.getRules();
-      if (rules.length) {
-        rules.every(rule => {
-          // 如果当前校验规则中有必填项，标记出来
-          this.isRequired = rule.required;
-        });
-      }
+      if (rules.some(rule => rule.required)) this.isRequired = true;
       this.$on('on-form-blur', this.onFiledBlur);
       this.$on('on-form-change', this.onFiledChange);
     },
@@ -76,7 +71,7 @@ export default {
     // 只支持 blur 和 change，过滤出符合要求的 rule
     getFilteredRule (trigger) {
       const rules = this.getRules();
-      return rules.filter(rule => !rule.trigger || rule.trigger.indexOf(trigger) !== -1);
+      return rules.filter(rule => rule.trigger && rule.trigger.indexOf(trigger) > -1);
     },
     validate (trigger, callback = function () {}) {
       let rules = this.getFilteredRule(trigger);
@@ -91,15 +86,14 @@ export default {
       let descriptor = {
         [this.prop]: rules
       };
-      
       const validator = new AsyncValidator(descriptor);
-      validator.validate(this.form.model[this.prop], (errors, fields) => {
+      validator.validate({ [this.prop]: this.form.model[this.prop] }, (errors, fields) => {
         this.validateState = !errors ? 'success' : 'error';
         this.validateMessage = errors ? errors[0].message: '';
         callback(this.validateMessage);
       })
     },
-    onFiledBlur () {
+    onFiledBlur (value) {
       this.validate('blur');
     },
     onFiledChange () {
@@ -111,10 +105,10 @@ export default {
 <style>
 .m-form-item-label-required:before {
   content: '*';
-  color: red;
+  color: #f56c6c;
 }
 .m-form-item-message {
-  color: red;
+  color: #f56c6c;
 }
 </style>
 

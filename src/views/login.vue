@@ -49,13 +49,6 @@ export default {
     mInput: () => import('@/components/mUi/src/components/Input/input')
   },
   data() {
-    const validatorName = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error('请输入账号'))
-        return false
-      }
-      callback()
-    }
     const validatorPass = (rule, value, callback) => {
       if (!value) {
         callback(new Error('请输入密码'))
@@ -69,8 +62,8 @@ export default {
         password: ''
       },
       rule: {
-        username: [{ validator: validatorName, trigger: 'blur' }, { required: true, trigger: 'blur' }],
-        password: [{ validator: validatorPass, trigger: 'blur' }]
+        username: [{ required: true, trigger: 'blur', message: '请输入账号' }],
+        password: [{ required: true, trigger: 'blur', message: '请输入密码' }]
       }
     }
   },
