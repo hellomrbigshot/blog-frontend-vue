@@ -9,12 +9,7 @@ blockquote {
     padding: 10px 20px;
     margin: 1.5em 0;
 }  
-.fade-enter-active, .fade-leave-active {
-    transition: opacity 1s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active 在低于版本 2.1.8 中 */ {
-    opacity: 0;
-}
+
 code {
     display: inline !important;
     padding: 0.3em !important;
@@ -30,4 +25,24 @@ img {
     .home-sider, .icon-wrapper {
       display: none;
     }
+}
+
+
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 1s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active 在低于版本 2.1.8 中 */ {
+    opacity: 0;
+}
+.slide-fade-enter-active {
+    transition: all 0.5s cubic-bezier(0.6, 0.1, 0.2, .7);
+}
+.slide-fade-leave-active {
+    transition: all 1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active for below version 2.1.8 */ {
+    transform: translateY(-30px);
+    opacity: 0;
 }

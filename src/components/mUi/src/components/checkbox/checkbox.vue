@@ -11,8 +11,10 @@
   </label>
 </template>
 <script>
+import Emitter from '../../mixins/emitter.js'
 export default {
   name: 'mCheckbox',
+  mixins: [Emitter],
   props: {
     disabled: {
       type: Boolean,
@@ -33,7 +35,16 @@ export default {
   },
   data () {
     return {
-      currentValue: this.value
+      currentValue: false
+    }
+  },
+  watch: {
+    value (val) {
+      if ([this.trueValue, this.falseValue].includes(val)) {
+        this.updateModel();
+      } else {
+        throw new Error('Value should be trueValue or falseValue');
+      }
     }
   },
   methods: {
@@ -44,6 +55,10 @@ export default {
       const value = checked ? this.trueValue : this.falseValue;
       this.$emit('input', value);
       this.$emit('on-change', value);
+      this.$emit('mFormItem', 'on-form-change', value);
+    },
+    updateModel () {
+      this.currentValue = this.value === this.trueValue;
     }
   }
 }
