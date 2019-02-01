@@ -261,6 +261,23 @@ export const normalRouter = {
           title: '用户详情',
           inHeaderList: false
         }
+      },
+      {
+        path: '/welcome',
+        name: 'welcomePage',
+        component: { template: '<router-view></router-view>' },
+        meta: {
+          login: false,
+          title: '文章详情',
+          inHeaderList: false
+        },
+        children: [
+          {
+            name: 'chineseNewYear',
+            path: 'chineseNewYear',
+            component: () => import('@/views/welcome/chineseNewYear')
+          }
+        ]
       }
     ]
 }
