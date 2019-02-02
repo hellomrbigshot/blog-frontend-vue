@@ -4,7 +4,7 @@
             <h1 class="head">
                 登录
             </h1>
-            <!-- <Form  ref="signinForm" :model="formData" :rules="rule" class="login-form">
+            <Form  ref="signinForm" :model="formData" :rules="rule" class="login-form">
                 <FormItem prop="username">
                     <Input style="display:none"></Input>
                     <Input type="text" v-model="formData.username" placeholder="用户名" transfer></Input>
@@ -31,12 +31,12 @@
                     </li>
                   </ul>
                 </FormItem>
-            </Form> -->
-            <mForm ref="signinForm" :model="formData" :rules="rule" class="login-form">
+            </Form>
+            <!-- <mForm ref="signinForm" :model="formData" :rules="rule" class="login-form">
               <mFormItem prop="username" label="用户名">
                 <mInput type="text" v-model="formData.username" placeholder="用户名" transfer></mInput>
               </mFormItem>
-            </mForm>
+            </mForm> -->
         </div>
     </div>
 </template>

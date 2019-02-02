@@ -1,5 +1,5 @@
 <template>
-    <div id="editor" :class="['editor', fullScreen && 'editor_fullscreen']">
+    <div id="editor" :class="['editor', fullScreen && 'editor_fullscreen']" @keydown="tabDelete">
         <div class="edit-toolbar">
             <ul class="edit-mode">
                 <li>
@@ -62,6 +62,17 @@ export default {
     },
     value(val) {
       this.input = val
+    }
+  },
+  methods: {
+    tabDelete (e) {
+      const TABKEY = 9;
+      if (e.keyCode === TABKEY) {
+        this.input += '    '
+        if(e.preventDefault) {
+          e.preventDefault()
+        }
+      }
     }
   }
 }

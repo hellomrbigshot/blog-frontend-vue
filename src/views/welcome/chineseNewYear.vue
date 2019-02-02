@@ -3,7 +3,16 @@
     <canvas>>浏览器不支持canvas</canvas>
     <div class="text">
       <h1>新年快乐</h1>
-      <router-link class="link" :to="{ name: 'normalPageList' }">继续访问</router-link>
+      <router-link 
+        class="link" 
+        :to="{ name: 'normalPageList' }" 
+        @mouseenter.native="showLinkIcon=true" 
+        @mouseover.native="showLinkIcon=true" 
+        @mouseleave.native="showLinkIcon=false"
+        @mouseout.native="showLinkIcon=false" >
+        <span>继续访问</span>
+        <transition name="slide-fade-x"><Icon type="md-arrow-forward" class="link-icon" v-show="showLinkIcon"/></transition>
+      </router-link>
     </div>
   </div>
 </template>
@@ -127,7 +136,9 @@ function Walker (options) {
 }
 export default {
   data () {
-    return {}
+    return {
+      showLinkIcon: false
+    }
   },
   mounted () {
     ctx = document.querySelector('canvas').getContext('2d')
@@ -173,9 +184,23 @@ canvas {
     font-family: kaiti, FangSong, STLiti;
   }
   .link {
-    color: #C0C0C0;
+    color: rgba(192, 192, 192, 0.7);
     font-size: 16px;
     font-weight: 600;
+    display: inline-block;
+    width: 120px;
+    &:hover {
+      color: rgba(192, 192, 192, 1);
+    }
+    span {
+      float: left;
+    }
+    overflow: hidden;
+    // &:hover {
+    //   .link-icon {
+    //     display: inline-block;
+    //   }
+    // }
   }
 }
 </style>

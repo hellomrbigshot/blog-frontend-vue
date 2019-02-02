@@ -10,17 +10,17 @@
   </div>
   <Layout>
       <Layout :style="{minHeight: '100vh'}">
-          <Header :style="{padding: 0, background: '#f5f5f5', height: 'auto'}" class="layout-header-bar">
+          <Header :style="{padding: 0, background: '#f5f5f5', height: 'auto'}" class="layout-header-bar" v-if="!$route.meta.hideHeader">
             <blog-header @on-change="handleRouter"></blog-header>
           </Header>
           <Content :style="{background: '#fff', minHeight: '260px'}">
               <router-view class="main-content"></router-view>
           </Content>
-          <Footer class="main-footer">
+          <Footer class="main-footer" v-if="!$route.meta.hideFooter">
             <blog-footer></blog-footer>
           </Footer>
       </Layout>
-      <Sider ref="pageSider" hide-trigger collapsible :collapsed-width="0" v-model="isCollapsed" :width="320" class="home-sider">
+      <Sider ref="pageSider" hide-trigger collapsible :collapsed-width="0" v-model="isCollapsed" :width="320" class="home-sider" v-show="!$route.meta.hideSider">
           <div :class="menuitemClasses">
             <sider-user-info v-if="!isCollapsed"></sider-user-info>
           </div>
