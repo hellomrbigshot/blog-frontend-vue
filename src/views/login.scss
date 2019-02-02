@@ -17,13 +17,24 @@
         border-radius: 10px;
         background: #fff;
     }
-    input {
-        background-color: #fff !important;
-    }
     .head {
         width: 100%;
         text-align: center;
         font-size: 40px;
         margin-bottom: 40px; 
+    }
+    // /deep/ input {
+    //     background-color: #fff !important;
+    //     &:-webkit-autofill {  
+    //         -webkit-box-shadow: inset 0 0 0 1000px #fff; 
+    //         background-color: 
+    //         transparent; 
+    //     }
+    // }
+    /deep/ input { 
+        background-color: transparent!important;
+        &:-webkit-autofill {  
+            -webkit-transition: background-color 10000s cubic-bezier(1, -100, 1, -100) 0s;
+        }
     }
 }

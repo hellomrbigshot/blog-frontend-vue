@@ -1,7 +1,7 @@
 <template>
   <div>
-    <transition name="fade">
-      <article v-if="page.title">
+    <transition name="slide-fade">
+      <article v-if="show_detail">
         <header>
           <h1 class="page-title">{{ page.title }}</h1>
           <div class="page-info">
@@ -38,11 +38,11 @@
       </article>
     </transition>
     <transition name="fade">
-      <div v-if="comments.length">
+      <div v-if="show_detail">
         <comments :comments="comments"></comments>
       </div>
     </transition>
-    <div style="margin-bottom: 20px;">
+    <div style="margin-bottom: 20px;" v-show="show_detail">
       <p :style="{ fontSize: '20px' }">留言：</p>
       <Input type="textarea" :style="{ marginTop: '15px' }" v-model.trim="comment.content" :rows="6"></Input>
       <Button type="primary" :style="{ marginTop: '15px'}" @click="submitComment">发表</Button>
@@ -59,6 +59,7 @@ export default {
     return {
       id: this.$route.params.id,
       user: this.Cookies.get('user'),
+      show_detail: false,
       page: {
         title: '',
         create_user: '',
@@ -80,12 +81,10 @@ export default {
     getPageDetail() {
       this.Common.axios('/api/page/detail', { id: this.id }).then(res => {
         this.page = res.data.data
-        this.$nextTick(() => {
-          setTimeout(() => {
-            this.hljs.highlightCode()
-          }, 300)
-          
-        })
+        setTimeout(() => {
+          this.hljs.highlightCode()
+        }, 400)
+        this.show_detail = true
       })
     },
     getComments () {
