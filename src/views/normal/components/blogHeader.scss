@@ -98,19 +98,7 @@
     }   
     
 }
-
-.slide-fade-enter-active {
-    transition: all 0.5s cubic-bezier(0.6, 0.1, 0.2, .7);
-  }
-  .slide-fade-leave-active {
-    transition: all 1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-  }
-  .slide-fade-enter, .slide-fade-leave-to
-  /* .slide-fade-leave-active for below version 2.1.8 */ {
-    transform: translateY(-30px);
-    opacity: 0;
-  }
-  @media (max-width: 767px) {
+@media (max-width: 767px) {
     .header-inner {
         width: auto !important;
         padding: 10px !important;

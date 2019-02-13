@@ -1,5 +1,5 @@
 <template>
-    <div id="editor" :class="['editor', fullScreen && 'editor_fullscreen']">
+    <div id="editor" :class="['editor', fullScreen && 'editor_fullscreen']" @keydown="tabDelete">
         <div class="edit-toolbar">
             <ul class="edit-mode">
                 <li>
@@ -20,7 +20,7 @@
             <div class="edit-content-scroll">
                 <transition v-show="mode!=='preview'">
                     <div v-show="mode!=='preview'" :class="['editor-input', mode === 'edit' && 'edit-full']">
-                        <textarea v-model="input" spellcheck="false"></textarea>
+                        <textarea v-model="input" spellcheck="false" ref="mTextarea"></textarea>
                     </div>
                 </transition>
                 <transition v-show="mode!=='edit'">
@@ -62,6 +62,26 @@ export default {
     },
     value(val) {
       this.input = val
+    }
+  },
+  methods: {
+    tabDelete (e) { // 自定义默认 tab 事件
+      const TABKEY = 9;
+      if (e.keyCode === TABKEY) {
+        let pos = this.$refs['mTextarea'].selectionStart
+        if (pos >= 0) {
+          this.input = this.input.splice(pos, '    ')
+          this.$refs['mTextarea'].blur()
+          setTimeout(() => {
+            this.$refs['mTextarea'].selectionStart = pos + 4
+            this.$refs['mTextarea'].selectionEnd = pos + 4
+            this.$refs['mTextarea'].focus()
+          })
+        }
+        if(e.preventDefault) {
+          e.preventDefault()
+        }
+      }
     }
   }
 }
