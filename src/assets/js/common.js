@@ -6,6 +6,9 @@ import Cookies from 'js-cookie'
 
 let timer = null
 let loadingArr = []
+String.prototype.splice = function (index, str) {
+    return `${this.slice(0, index)}${str}${this.slice(index)}`
+}
 // 添加 loading
 axios.interceptors.request.use(config => {
     if (!loadingArr.length) {
