@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     tabDelete (e) { // 自定义默认 tab 事件
-      const TABKEY = 9;
+      const TABKEY = 9
       if (e.keyCode === TABKEY) {
         let pos = this.$refs['mTextarea'].selectionStart
         if (pos >= 0) {
