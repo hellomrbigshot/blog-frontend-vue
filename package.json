@@ -30,7 +30,7 @@
     "qs": "^6.5.1",
     "serve-favicon": "^2.5.0",
     "sha1": "^1.1.1",
-    "simple-m-editor": "^0.1.5",
+    "simple-m-editor": "^0.1.8",
     "url-search-params-polyfill": "^5.0.0",
     "vue-cropper": "^0.2.9"
   },
