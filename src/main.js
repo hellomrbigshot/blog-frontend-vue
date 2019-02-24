@@ -8,19 +8,23 @@ import {Common} from '@/assets/js/common.js'
 
 import Cookies from 'js-cookie'
 import newPage from './views/normal/components/newPage'
+import hljs from "highlight.js"
 import '@/assets/css/iconfont/iconfont.css'
 import '@/assets/css/main.scss'
+import 'simple-m-editor/dist/simple-m-editor.css'
+import "highlight.js/styles/tomorrow.css";
+
 
 import marked from 'marked'
 
 
-hljs.highlightCode =  () => { // 自定义 highlightCode 方法，循环执行方法
-    let blocks = document.querySelectorAll('code')
-    let dom = Array.prototype.slice.call(blocks)
-    dom.forEach(ele => {
-        hljs.highlightBlock(ele)
-    })
-}
+// hljs.highlightCode =  () => { // 自定义 highlightCode 方法，循环执行方法
+//     let blocks = document.querySelectorAll('code')
+//     let dom = Array.prototype.slice.call(blocks)
+//     dom.forEach(ele => {
+//         hljs.highlightBlock(ele)
+//     })
+// }
 // Vue.use(iView)
 // Vue.component('el-select', Select)
 // Vue.component('el-option', Option)
@@ -32,6 +36,9 @@ hljs.highlightCode =  () => { // 自定义 highlightCode 方法，循环执行�
 // marked 设置
 marked.setOptions({ 
     renderer: new marked.Renderer(),
+    highlight: function(code) {
+        return hljs.highlightAuto(code).value;
+    },
     pedantic: false,
     gfm: true,
     tables: true,
@@ -46,7 +53,7 @@ marked.setOptions({
 Vue.prototype.Common = Common
 Vue.prototype.Cookies = Cookies
 Vue.prototype.marked = marked
-Vue.prototype.hljs = hljs
+// Vue.prototype.hljs = hljs
 Vue.component('new-page', newPage)
 
 Vue.config.productionTip = false
