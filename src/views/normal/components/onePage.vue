@@ -20,20 +20,38 @@
                 </span>
                 <span class="page-tag">&nbsp;|&nbsp;标签
                     <template v-for="(tag, i) in page.tags">
-                        <router-link :to="{ name: 'normalTagDetail', params: { name:  tag} }">
+                        <router-link :to="{ name: 'normalTagDetail', params: { name:  tag} }" :key="`${i}router`">
                             <span class="tag-span">{{ tag }}</span>
                         </router-link>
-                        <span v-if="i<page.tags.length-1">,</span>
+                        <span v-if="i<page.tags.length-1" :key="`${i}span`">,</span>
                     </template>
 
                 </span>
             </div>
         </header>
-        <div class="page-body" v-html="markdownBody"></div>
+        <div class="page-body m-editor-preview" v-html="markdownBody"></div>
     </article>
 </template>
 
 <script>
+import marked from  'marked'
+import hljs from 'highlight.js'
+marked.setOptions({ 
+    renderer: new marked.Renderer(),
+    highlight: function(code) {
+        return hljs.highlightAuto(code).value;
+    },
+    pedantic: false,
+    gfm: true,
+    tables: true,
+    breaks: true,
+    headerIds: true,
+    headerPrefix: 'vue-express',
+    sanitize: false,
+    smartLists: true,
+    smartypants: false,
+    xhtml: false
+})
 export default {
   props: ['page'],
   computed: {
@@ -42,17 +60,17 @@ export default {
     }
   },
   mounted () {
-    setTimeout(() => {
-      this.hljs.highlightCode()
-    }, 100)
+    // setTimeout(() => {
+    //   this.hljs.highlightCode()
+    // }, 100)
     
   },
   watch: {
-    markdownBody () {
-      setTimeout(() => {
-        this.hljs.highlightCode()
-      }, 100)
-    }
+    // markdownBody () {
+    //   setTimeout(() => {
+    //     this.hljs.highlightCode()
+    //   }, 100)
+    // }
   }
 }
 </script>

@@ -21,10 +21,10 @@
             </span>
             <span class="create-user">标签
               <template v-for="(tag, i) in page.tags">
-                <router-link :to="{ name: 'normalTagDetail', params: { name:  tag} }">
+                <router-link :to="{ name: 'normalTagDetail', params: { name:  tag} }" :key="`${i}router`">
                   <span class="tag-span">{{ tag }}</span>
                 </router-link>
-                <span v-if="i<page.tags.length-1">,</span>
+                <span v-if="i<page.tags.length-1" :key="`${i}span`">,</span>
               </template>
               &nbsp;|&nbsp;
             </span>
@@ -34,7 +34,7 @@
             <!-- <span>&nbsp;|&nbsp;</span> -->
           </div>
         </header>
-        <div class="page-body" v-html="marked(page.content)"></div>
+        <div class="page-body m-editor-preview" v-html="marked(page.content)"></div>
       </article>
     </transition>
     <transition name="fade">
@@ -51,6 +51,24 @@
 
 </template>
 <script>
+import marked from  'marked'
+import hljs from 'highlight.js'
+marked.setOptions({ 
+    renderer: new marked.Renderer(),
+    highlight: function(code) {
+        return hljs.highlightAuto(code).value;
+    },
+    pedantic: false,
+    gfm: true,
+    tables: true,
+    breaks: true,
+    headerIds: true,
+    headerPrefix: 'vue-express',
+    sanitize: false,
+    smartLists: true,
+    smartypants: false,
+    xhtml: false
+})
 export default {
   components: { 
     comments: () => import('./components/commentsForPage')
@@ -81,9 +99,9 @@ export default {
     getPageDetail() {
       this.Common.axios('/api/page/detail', { id: this.id }).then(res => {
         this.page = res.data.data
-        setTimeout(() => {
-          this.hljs.highlightCode()
-        }, 400)
+        // setTimeout(() => {
+        //   this.hljs.highlightCode()
+        // }, 400)
         this.show_detail = true
       })
     },
@@ -116,6 +134,9 @@ export default {
         this.$Message.success('留言成功')
         this.getComments()
       })
+    },
+    marked (content) {
+      return marked(content)
     }
   }
 }
