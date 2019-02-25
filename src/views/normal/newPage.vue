@@ -40,10 +40,10 @@
 </template>
 
 <script>
-import markdownEditor from './components/markdownEditor'
+import mEditor from 'simple-m-editor'
 export default {
     components: {
-        markdownEditor
+        markdownEditor: mEditor
     },
     data () {
         return {
