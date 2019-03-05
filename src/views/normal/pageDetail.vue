@@ -71,7 +71,8 @@ export default {
       comments: [],
       comment: {
         content: '',
-        reply_user: ''
+        reply_user: '',
+        reply_content: ''
       }
     }
   },
@@ -83,9 +84,6 @@ export default {
     getPageDetail() {
       this.Common.axios('/api/page/detail', { id: this.id }).then(res => {
         this.page = res.data.data
-        // setTimeout(() => {
-        //   this.hljs.highlightCode()
-        // }, 400)
         this.show_detail = true
       })
     },
@@ -113,20 +111,22 @@ export default {
       this.comment.page_id = this.id
       this.comment.create_user = this.user
       this.comment.to_user = this.page.create_user
-      console.log(this.comment)
       this.Common.axios('/api/comment/create', this.comment).then(res => {
         this.comment.content = ''
         this.comment.reply_user = ''
+        this.comment.reply_content = ''
         this.$Message.success('留言成功')
         this.getComments()
       })
     },
-    replyComment (user) {
+    replyComment (user, content) {
       this.comment.reply_user = user
+      this.comment.reply_content = content
       this.$refs['commentInput'].focus()
     },
     removeReplyUser () {
       this.comment.reply_user = ''
+      this.comment.reply_content = ''
     }
   }
 }
