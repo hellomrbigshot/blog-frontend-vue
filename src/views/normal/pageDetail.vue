@@ -39,36 +39,19 @@
     </transition>
     <transition name="fade">
       <div v-if="show_detail">
-        <comments :comments="comments"></comments>
+        <comments :comments="comments" @on-reply="replyComment"></comments>
       </div>
     </transition>
     <div style="margin-bottom: 20px;" v-show="show_detail">
-      <p :style="{ fontSize: '20px' }">留言：</p>
-      <Input type="textarea" :style="{ marginTop: '15px' }" v-model.trim="comment.content" :rows="6"></Input>
+      <p :style="{ fontSize: '20px', marginBottom: '15px' }">留言：</p>
+      <Tag closable v-show="comment.reply_user" @on-close="removeReplyUser" :style="{ marginBottom: '10px' }">回复{{ comment.reply_user }}</Tag>
+      <Input id="commentInput" type="textarea" ref="commentInput" v-model.trim="comment.content" :rows="6" />
       <Button type="primary" :style="{ marginTop: '15px'}" @click="submitComment">发表</Button>
     </div>
   </div>
 
 </template>
 <script>
-import marked from  'marked'
-import hljs from 'highlight.js'
-marked.setOptions({ 
-    renderer: new marked.Renderer(),
-    highlight: function(code) {
-        return hljs.highlightAuto(code).value;
-    },
-    pedantic: false,
-    gfm: true,
-    tables: true,
-    breaks: true,
-    headerIds: true,
-    headerPrefix: 'vue-express',
-    sanitize: false,
-    smartLists: true,
-    smartypants: false,
-    xhtml: false
-})
 export default {
   components: { 
     comments: () => import('./components/commentsForPage')
@@ -87,7 +70,9 @@ export default {
       },
       comments: [],
       comment: {
-        content: ''
+        content: '',
+        reply_user: '',
+        reply_content: ''
       }
     }
   },
@@ -99,9 +84,6 @@ export default {
     getPageDetail() {
       this.Common.axios('/api/page/detail', { id: this.id }).then(res => {
         this.page = res.data.data
-        // setTimeout(() => {
-        //   this.hljs.highlightCode()
-        // }, 400)
         this.show_detail = true
       })
     },
@@ -131,12 +113,20 @@ export default {
       this.comment.to_user = this.page.create_user
       this.Common.axios('/api/comment/create', this.comment).then(res => {
         this.comment.content = ''
+        this.comment.reply_user = ''
+        this.comment.reply_content = ''
         this.$Message.success('留言成功')
         this.getComments()
       })
     },
-    marked (content) {
-      return marked(content)
+    replyComment (user, content) {
+      this.comment.reply_user = user
+      this.comment.reply_content = content
+      this.$refs['commentInput'].focus()
+    },
+    removeReplyUser () {
+      this.comment.reply_user = ''
+      this.comment.reply_content = ''
     }
   }
 }
