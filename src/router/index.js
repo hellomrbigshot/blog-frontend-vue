@@ -1,7 +1,6 @@
 // import Vue from 'vue'
 import iView from 'iview'
 // import VueRouter from 'vue-router'
-import Cookies from 'js-cookie'
 import { routers } from './router'
 
 // Vue.use(VueRouter)

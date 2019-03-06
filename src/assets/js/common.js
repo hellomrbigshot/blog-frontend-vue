@@ -1,8 +1,5 @@
-import axios from 'axios'
 import { Message } from 'iview'
-import qs from 'qs'
 import {router} from '@/router/index'
-import Cookies from 'js-cookie'
 
 let timer = null
 let loadingArr = []
@@ -91,7 +88,7 @@ function type3 (t) {
 export const Common = {
     axios (url, params) {
         params = params || {}
-        return axios.post(url, qs.stringify(params))
+        return axios.post(url, Qs.stringify(params))
     },
     dateFmt (fmt, date) {   
         let o = {   
