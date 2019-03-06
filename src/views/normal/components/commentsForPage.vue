@@ -1,7 +1,7 @@
 <template>
   <div v-if="comments.length" :style="{ marginBottom: '50px' }">
     <p :style="{ fontSize: '20px' }">留言板：</p>
-    <div v-for="(comment, i) in comments" :key="i" class="article-comment">
+    <div v-for="(comment, i) in comments" :key="i" class="article-comment" :id="comment._id">
       <div class="comment-avatar">
         <router-link class="comment-avatar-img" :to="{ name: 'userDetail', params: { username:  comment.create_user }}">
           <img :src="`/api/file/avatar/user/?username=${comment.create_user}`" width="36" height="36" alt="avatar">
@@ -40,17 +40,19 @@ export default {
       type: Array
     }
   },
-  mounted() {},
+  mounted() {
+    this.$emit('on-ready')
+  },
   computed: {
     current_user() {
-      return this.$store.state.user.username;
+      return this.$store.state.user.username
     }
   },
   methods: {
     triggerComment(user, content) {
       setTimeout(() => {
-        this.$emit("on-reply", user, content);
-      });
+        this.$emit("on-reply", user, content)
+      })
     }
   }
 };
