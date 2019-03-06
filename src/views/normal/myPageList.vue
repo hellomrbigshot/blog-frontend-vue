@@ -5,11 +5,11 @@
         <!-- <div slot="dot" :style="{width:'13px',height:'13px',borderRadius:'50%',background:'#555',position:'absolute', border:'1px solid transparent'}"></div> -->
         <span>嗯..! 目前共计 {{total}} 篇日志。 继续努力。</span>
       </TimelineItem>
-      <template v-for="(year,i) in pageList">
-        <TimelineItem color="#aaa">
+      <template v-for="(year, i) in pageList">
+        <TimelineItem color="#aaa" :key="i+'a'">
           <span class="year">{{year.year}}</span>
         </TimelineItem>
-        <TimelineItem color="#aaa" v-for="(page,j) in year.pagelist" :key="j">
+        <TimelineItem color="#aaa" v-for="(page,j) in year.pagelist" :key="j+'b'+i">
           <router-link :to="{name: 'pageDetail', params: {id: page._id}}">
             <div class="content">
               <span class="time">{{ page.create_time.substring(5,10) }}</span>

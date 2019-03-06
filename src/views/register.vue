@@ -17,26 +17,6 @@
                     <Input type="password" style="display:none"></Input>            
                     <Input type="password" v-model="formData.repassword" placeholder="再次输入密码"></Input>
                 </FormItem>
-                <!-- <FormItem prop="gender" label="性别">
-                    <RadioGroup v-model="formData.gender">
-                        <Radio label="m">♂</Radio>
-                        <Radio label="f">♀</Radio>
-                        <Radio label="x">x</Radio>
-                    </RadioGroup>
-                </FormItem> -->
-                <!-- <FormItem>
-                    <Upload 
-                        action="/api/signup/uploadAvatar" 
-                        :on-success="uploadSuccess" 
-                        :on-error="uploadError"
-                        :format="['jpg','jpeg','png']">
-                        <Button type="ghost">上传头像</Button>
-                    </Upload>
-                </FormItem>
-                <FormItem prop="">
-                    <Input type="textarea" placeholder="个人介绍" v-model="formData.bio"></Input>
-                </FormItem> -->
-                
                 <FormItem>
                     <Button type="primary" size="large" long @click="register('registerForm')" >注册</Button>
                     <Button type="default" size="large" :style="{marginTop: '10px'}" long @click="toLogin()" >登录</Button>
