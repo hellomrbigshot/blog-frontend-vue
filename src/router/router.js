@@ -160,7 +160,7 @@ export const normalRouter = {
         {
           name: 'pageDetail',
           component: () => import('@/views/normal/pageDetail'),
-          path: 'detail/:id',
+          path: 'detail/:id/:hash',
           meta: {
             login: false,
             title: '文章详情',
