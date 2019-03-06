@@ -31,15 +31,14 @@
             <span class="edit-span" v-if="Cookies.get('user')===page.create_user">
               <router-link :to="{name: 'editPage', params: {id: id}}">编辑</router-link>
             </span>
-            <!-- <span>&nbsp;|&nbsp;</span> -->
           </div>
         </header>
         <div class="page-body m-editor-preview" v-html="marked(page.content)"></div>
       </article>
     </transition>
     <transition name="fade">
-      <div v-if="show_detail">
-        <comments :comments="comments" @on-reply="replyComment"></comments>
+      <div v-if="comments.length">
+        <comments :comments="comments" @on-reply="replyComment" @on-ready="scrollToComment"></comments>
       </div>
     </transition>
     <div style="margin-bottom: 20px;" v-show="show_detail">
@@ -127,6 +126,12 @@ export default {
     removeReplyUser () {
       this.comment.reply_user = ''
       this.comment.reply_content = ''
+    },
+    scrollToComment () {
+      let hash = this.$route.params.hash
+      if (hash && document.getElementById(hash)) {
+        document.getElementById(hash).scrollIntoView()
+      }
     }
   }
 }
