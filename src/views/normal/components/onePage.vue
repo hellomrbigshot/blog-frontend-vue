@@ -34,8 +34,6 @@
 </template>
 
 <script>
-import marked from  'marked'
-import hljs from 'highlight.js'
 marked.setOptions({ 
     renderer: new marked.Renderer(),
     highlight: function(code) {
