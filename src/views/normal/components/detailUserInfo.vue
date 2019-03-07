@@ -59,19 +59,17 @@
                 </div>
             </div>
             <div slot="footer">
-
             </div>
-
         </Modal>
     </div>
 </template>
 
 <script>
-import vueCropper from 'vue-cropper'
+import { VueCropper } from 'vue-cropper'
 import default_img from '@/assets/logo.png'
 export default {
   components: {
-    vueCropper
+    'vue-cropper': VueCropper
   },
   data() {
     return {
@@ -101,9 +99,14 @@ export default {
         fixedBox: true,
         canMove: true,
         original: false,
-        canMoveBox: true
+        canMoveBox: true,
+        maxImgSize: 3000
       },
-      previews: {},
+      previews: {
+        w: 0,
+        img: '',
+        h: 0
+      },
       oauth_accounts: {
         github: {
           oauth: false,

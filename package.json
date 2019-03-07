@@ -13,15 +13,8 @@
   },
   "dependencies": {
     "async-validator": "^1.10.1",
-    "axios": "^0.18.0",
-    "countup": "^1.8.2",
-    "highlight.js": "^9.12.0",
-    "js-cookie": "^2.2.0",
-    "marked": "^0.6.1",
-    "moment": "^2.21.0",
-    "qs": "^6.5.1",
-    "simple-m-editor": "^0.2.3",
-    "vue-cropper": "^0.2.9"
+    "simple-m-editor": "^0.2.4",
+    "vue-cropper": "^0.4.8"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

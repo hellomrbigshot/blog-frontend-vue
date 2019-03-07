@@ -98,6 +98,7 @@ module.exports = {
     'vue-router': 'VueRouter',
     'vuex': 'Vuex',
     'iview': 'iview',
-    'element-ui': 'ELEMENT'
+    'element-ui': 'ELEMENT',
+    'countup': 'CountUp'
   }
 }

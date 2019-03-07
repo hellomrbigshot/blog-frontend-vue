@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie'
 const isChineseNewYear = new Date('2019-02-20') - new Date() > 0
 console.log(isChineseNewYear)
 export const longinRouter = {
