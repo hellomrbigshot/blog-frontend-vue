@@ -1,5 +1,6 @@
 # Vue 版本构建的PC版本博客
-[![Build Status](https://travis-ci.org/hellomrbigshot/VueExpressBlog.svg?branch=master)](https://travis-ci.org/hellomrbigshot/VueExpressBlog)
+[![Build Status](https://travis-ci.org/hellomrbigshot/blog-frontend.svg?branch=master)](https://travis-ci.org/hellomrbigshot/blog-frontend)
+
 
 > A Vue.js project
 

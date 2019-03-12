@@ -13,8 +13,9 @@
   },
   "dependencies": {
     "async-validator": "^1.10.1",
-    "simple-m-editor": "^0.2.3",
-    "vue-cropper": "^0.2.9"
+    "simple-m-editor": "^0.2.4",
+    "socket.io-client": "^2.2.0",
+    "vue-cropper": "^0.4.8"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

@@ -21,6 +21,9 @@ export const router = new VueRouter(RouterConfig)
 
 router.beforeEach((to, from, next) => {
   iView.LoadingBar.start()
+  if (to.name === 'normalGuestBook') {
+    iView.Notice.destroy()
+  }
   if (!Cookies.get('user') && to.name !== 'login' && to.meta.login) {
     next({
       name: 'login',

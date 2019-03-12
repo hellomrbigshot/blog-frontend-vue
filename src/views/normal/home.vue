@@ -1,91 +1,138 @@
 <template>
-<div class="layout">
-  <div class="icon-wrapper">
-    <div class="single-icon-wrapper" v-if="user">
-      <Icon @click.native="collapsedSider" :class="rotateIcon" color="#fff" type="md-menu" size="22"></Icon>
+  <div class="layout">
+    <div class="icon-wrapper">
+      <div class="single-icon-wrapper" v-if="user">
+        <Icon
+          @click.native="collapsedSider"
+          :class="rotateIcon"
+          color="#fff"
+          type="md-menu"
+          size="22"
+        ></Icon>
+      </div>
+      <div class="single-icon-wrapper">
+        <Icon @click.native="Common.bodyScrollTop()" color="#fff" type="ios-arrow-up" size="22"></Icon>
+      </div>
     </div>
-    <div class="single-icon-wrapper">
-      <Icon @click.native="Common.bodyScrollTop()" color="#fff" type="ios-arrow-up" size="22"></Icon>
-    </div>
-  </div>
-  <Layout>
+    <Layout>
       <Layout :style="{minHeight: '100vh'}">
-          <Header :style="{padding: 0, background: '#f5f5f5', height: 'auto'}" class="layout-header-bar" v-if="!$route.meta.hideHeader">
-            <blog-header @on-change="handleRouter"></blog-header>
-          </Header>
-          <Content :style="{background: '#fff', minHeight: '260px'}">
-              <router-view class="main-content"></router-view>
-          </Content>
-          <Footer class="main-footer" v-if="!$route.meta.hideFooter">
-            <blog-footer></blog-footer>
-          </Footer>
+        <Header
+          :style="{padding: 0, background: '#f5f5f5', height: 'auto'}"
+          class="layout-header-bar"
+          v-if="!$route.meta.hideHeader"
+        >
+          <blog-header @on-change="handleRouter"></blog-header>
+        </Header>
+        <Content :style="{background: '#fff', minHeight: '260px'}">
+          <router-view class="main-content"></router-view>
+        </Content>
+        <Footer class="main-footer" v-if="!$route.meta.hideFooter">
+          <blog-footer></blog-footer>
+        </Footer>
       </Layout>
-      <Sider ref="pageSider" hide-trigger collapsible :collapsed-width="0" v-model="isCollapsed" :width="320" class="home-sider" v-show="!$route.meta.hideSider">
-          <div :class="menuitemClasses">
-            <sider-user-info v-if="!isCollapsed"></sider-user-info>
-          </div>
+      <Sider
+        ref="pageSider"
+        hide-trigger
+        collapsible
+        :collapsed-width="0"
+        v-model="isCollapsed"
+        :width="320"
+        class="home-sider"
+        v-show="!$route.meta.hideSider"
+      >
+        <div :class="menuitemClasses">
+          <sider-user-info v-if="!isCollapsed"></sider-user-info>
+        </div>
       </Sider>
-  </Layout>
-</div>
+    </Layout>
+  </div>
 </template>
 <script>
-import blogHeader from './components/blogHeader'
-import blogFooter from './components/blogFooter'
-import siderUserInfo from './components/siderUserInfo'
+import blogHeader from "./components/blogHeader";
+import blogFooter from "./components/blogFooter";
+import siderUserInfo from "./components/siderUserInfo";
 export default {
   components: {
     blogHeader,
     blogFooter,
     siderUserInfo
   },
-  data () {
+  data() {
     return {
-        isCollapsed: true,
-    }
+      isCollapsed: true,
+      socket: io("localhost:8082"),
+      unreadMsgNum: 0
+    };
   },
-  async created () {
-    await this.getUserInfo()
-    this.isCollapsed = this.user ? false : true
+  async created() {
+    await this.getUserInfo();
+    this.isCollapsed = this.user ? false : true;
     if (this.user) {
-      this.Cookies.set('user', this.user, { expires: 7 })
+      this.Cookies.set("user", this.user, { expires: 7 });
     }
+    this.socket.on("unread-comment", msg => {
+      if (msg > 0 && msg !== this.unreadMsgNum  && this.$route.name !== 'normalGuestBook') {
+        this.unreadMsgNum = msg
+        this.$Notice.destroy()
+        this.$Notice.info({
+          title: '提示',
+          render: h => {
+            return h('div', [
+              h('span', '你有'),
+              h('a',  {
+                on: {
+                  click: () => {
+                    this.$router.push({ name: 'normalGuestBook' })
+                  }
+                }
+              }, `${msg}`),
+              h('span', '条未读信息')
+            ])
+          },
+          duration: 0
+        });
+      }
+    });
   },
   computed: {
-    rotateIcon () {
-        return [
-            'menu-icon',
-            this.isCollapsed ? 'rotate-icon' : ''
-        ];
+    rotateIcon() {
+      return ["menu-icon", this.isCollapsed ? "rotate-icon" : ""];
     },
-    menuitemClasses () {
-        return [
-            'page-sider',
-            this.isCollapsed ? 'collapsed-menu' : ''
-        ]
+    menuitemClasses() {
+      return ["page-sider", this.isCollapsed ? "collapsed-menu" : ""];
     },
-    user () {
-        return this.Cookies.get('user') || this.$route.query.username || ''
+    user() {
+      return this.Cookies.get("user") || this.$route.query.username || "";
     }
   },
   methods: {
-    getUserInfo () {
+    getUserInfo() {
       if (this.user) {
-        return this.Common.axios('/api/signin/getUserInfo', { username: this.user }).then(res => {
-          let result = res.data.data
-          localStorage.setItem('user', JSON.stringify(result))
-          this.$store.commit('updateUserName', this.user)
-          this.$store.commit('updateUserInfo', { page_num: result.page_num, draft_num: result.draft_num, comment_num: result.comment_num, avatar: result.avatar })
-        })
+        return this.Common.axios("/api/signin/getUserInfo", {
+          username: this.user
+        }).then(res => {
+          let result = res.data.data;
+          localStorage.setItem("user", JSON.stringify(result));
+          this.$store.commit("updateUserName", this.user);
+          this.$store.commit("updateUserInfo", {
+            page_num: result.page_num,
+            draft_num: result.draft_num,
+            comment_num: result.comment_num,
+            avatar: result.avatar
+          });
+        });
       }
     },
-    collapsedSider () { // 侧边栏显示切换
-        this.$refs.pageSider.toggleCollapse()
+    collapsedSider() {
+      // 侧边栏显示切换
+      this.$refs.pageSider.toggleCollapse();
     },
-    handleRouter (name) { // 路由跳转
-      this.$router.push({ name: name })
+    handleRouter(name) {
+      // 路由跳转
+      this.$router.push({ name: name });
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 .icon-wrapper {
@@ -114,13 +161,13 @@ export default {
   overflow: auto;
 }
 .collapsed-menu {
-    width: 0 !important;
-    min-width: 0 !important;
-    max-width: 0 !important;
-    transition: width 5s ease 5s;
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  transition: width 5s ease 5s;
 }
 .menu-icon {
-  transition: all .3s;
+  transition: all 0.3s;
 }
 .rotate-icon {
   transform: rotate(-90deg);
@@ -137,28 +184,32 @@ export default {
   padding-left: 0px !important;
 }
 @media (max-width: 991px) {
-  .home-sider, .icon-wrapper {
+  .home-sider,
+  .icon-wrapper {
     display: none;
   }
 }
 @media (max-width: 767px) {
-  .main-content, .main-footer {
+  .main-content,
+  .main-footer {
     margin: 20px 20px;
     width: auto;
   }
- }
- @media (max-width: 1600px) {
-   .main-content, .main-footer {
+}
+@media (max-width: 1600px) {
+  .main-content,
+  .main-footer {
     width: 85%;
     max-width: 700px;
   }
- }
- @media (min-width: 1600px) {
-  .main-content, .main-footer {
+}
+@media (min-width: 1600px) {
+  .main-content,
+  .main-footer {
     // margin: 20px 20px;
     width: 900px;
   }
- }
+}
 </style>
 
 
