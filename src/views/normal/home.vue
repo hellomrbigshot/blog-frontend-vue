@@ -60,11 +60,12 @@ export default {
   data() {
     return {
       isCollapsed: true,
-      socket: io("localhost:8082"),
+      socket: io(`${process.env.NODE_ENV === 'development' ? 'http://localhost' : '118.24.157.36'}:8082`),
       unreadMsgNum: 0
     };
   },
   async created() {
+    console.log(process.env.NODE_ENV)
     await this.getUserInfo();
     this.isCollapsed = this.user ? false : true;
     if (this.user) {
