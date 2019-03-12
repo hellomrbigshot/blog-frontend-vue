@@ -1,4 +1,3 @@
-
 # Vue 版本构建的PC版本博客
 [![Build Status](https://travis-ci.org/hellomrbigshot/blog-frontend.svg?branch=master)](https://travis-ci.org/hellomrbigshot/blog-frontend)
 
