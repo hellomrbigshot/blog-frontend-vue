@@ -1,7 +1,7 @@
 <template>
     <article>
         <header>
-            <router-link :to="{ name: 'pageDetail', params: {id: page._id} }">
+            <router-link :to="{ name: 'pageDetail', params: { id: page._id }}">
                 <h1 class="page-title">{{ page.title }}</h1>
             </router-link>
             <div class="page-info">

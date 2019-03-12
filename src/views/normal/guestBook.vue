@@ -27,14 +27,16 @@ export default {
       }
   },
   watch: {
-    type (newVal, oldVal) {
+    async type (newVal, oldVal) {
       this.page = 1
       this.comments = []
-      this.getCommentList()
+      await this.getCommentList()
+      await this.updateCommentStatus()
     }
   },
-  mounted () {
-    this.getCommentList()
+  async mounted () {
+    await this.getCommentList()
+    await this.updateCommentStatus()
   },
   methods: {
     getCommentList (page) {
@@ -46,14 +48,19 @@ export default {
         page: this.page, 
         pageSize: this.pageSize
       }
-      this.Common.axios('/api/comment/getusercommentlist', query_obj).then(res => {
-        this.comments = res.data.data.result.map(comment => { 
-          comment.create_time = this.Common.dateFmt('yyyy-MM-dd hh:mm:ss', new Date(comment.create_time))
-          return comment
-        })
+      return this.Common.axios('/api/comment/getusercommentlist', query_obj).then(res => {
+        this.comments = res.data.data.result
         this.total = res.data.data.total
       })
     },
+    updateCommentStatus () {
+      if (this.type === 'to_user' && this.comments.length > 0 && this.comments.some(comment => !comment.is_read)) {
+        const ids = this.comments.map(comment => { 
+          if (!comment.is_read) return comment._id 
+        })
+        return this.Common.axios('/api/comment/updatecommentstatus', { ids })
+      }
+    }
   }
 }
 </script>

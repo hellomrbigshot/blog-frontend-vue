@@ -88,10 +88,7 @@ export default {
     },
     getComments () {
       this.Common.axios('/api/comment/getpagecommentlist', { page_id: this.id }).then(res => {
-        this.comments = res.data.data.map(comment => { 
-          comment.create_time = this.Common.dateFmt('yyyy-MM-dd hh:mm:ss', new Date(comment.create_time))
-          return comment
-        })
+        this.comments = res.data.data
       })
     },
     submitComment() {

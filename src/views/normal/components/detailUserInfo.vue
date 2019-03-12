@@ -202,7 +202,7 @@ export default {
     showAvatar() {
       // 显示头像
       if (this.user.avatar) {
-        this.imgUrl = '/api/file/avatar?filename=' + this.user.avatar
+        this.imgUrl = '/api/file/avatar/user/?username=' + this.user
       } else {
         this.imgUrl =
           (this.user.oauthinfo.find(item => item.avatar_url) &&
