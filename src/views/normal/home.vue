@@ -65,13 +65,20 @@ export default {
     };
   },
   async created() {
-    console.log(process.env.NODE_ENV)
     await this.getUserInfo();
     this.isCollapsed = this.user ? false : true;
     if (this.user) {
       this.Cookies.set("user", this.user, { expires: 7 });
     }
+    this.socket.on('connect', () => {
+      console.log('connect')
+    })
+    this.socket.on('connect_error', (e) => {
+      console.log(e)
+    })
     this.socket.on("unread-comment", msg => {
+      console.log('on')
+      console.log(msg)
       if (msg > 0 && msg !== this.unreadMsgNum  && this.$route.name !== 'normalGuestBook') {
         this.unreadMsgNum = msg
         this.$Notice.destroy()
