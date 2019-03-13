@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       isCollapsed: true,
-      socket: io(`${process.env.NODE_ENV === 'development' ? 'http://localhost' : '118.24.157.36'}:8082`),
+      socket: io(`${process.env.NODE_ENV === 'development' ? 'http://localhost:8082' : 'https://hellomrbigbigshot.xyz'}`),
       unreadMsgNum: 0
     };
   },
