@@ -1,5 +1,5 @@
 const isChineseNewYear = new Date('2019-02-20') - new Date() > 0
-console.log(isChineseNewYear)
+// console.log(isChineseNewYear)
 export const longinRouter = {
   path: '/login',
   name: 'login',
