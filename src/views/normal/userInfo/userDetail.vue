@@ -5,7 +5,7 @@
             <h1 :style="{ fontSize: '20px', color: '#555', fontWeight: '500' }">相关文章</h1>
             <page-list :page-list="pageList"></page-list>
         </div>
-        <div class="pagination">
+        <div class="pagination" style="margin-bottom: 20px;">
             <new-page :total="total" v-if="pageSize<total" @on-change="pageChange"></new-page>
         </div>
     </section>

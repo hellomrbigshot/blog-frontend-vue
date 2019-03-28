@@ -111,7 +111,7 @@ export default {
         },
         showAvatar () {
             if (this.avatar) {
-                this.imgUrl = '/api/file/avatar?filename='+this.avatar
+                this.imgUrl = '/api/file/avatar/user/?username=' + this.user.username
             } else {
                 this.imgUrl = this.user.oauthinfo.find(item => item.avatar_url) && this.user.oauthinfo.find(item => item.avatar_url).avatar_url || this.default_img
             }
@@ -143,13 +143,16 @@ export default {
     }
     .site-author {
         display: block;
+        overflow: hidden;
         img.site-author-img {
-            max-width: 96px;
-            max-height: 96px;
+            max-width: 99px;
+            max-height: 99px;
             margin: 0 auto;  
-            border: 2px solid #333;
+            border: 1px solid #333;
             height: auto;
-            padding: 2px; 
+            border-radius: 50%;
+            box-sizing: unset;
+            padding: 2px;
         }
         p.site-author-name {
             margin: 5px 0 0;

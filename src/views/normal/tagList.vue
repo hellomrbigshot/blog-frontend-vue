@@ -3,7 +3,7 @@
   <div :style="{ marginTop: '30px' }">
     <h2 :style="{fontSize: '14px', fontWeight: 'normal'}">当前总共{{ total }}个标签</h2>
     <div class="tag-list">
-      <div v-for="(tag, index) in tagList" class="tag-item">
+      <div v-for="(tag, index) in tagList" :key="index" class="tag-item">
         <router-link :to="{ name: 'normalTagDetail', params: { name: tag.name } }">
           <h3 class="tag-item-name">{{ tag.name }}</h3>
         </router-link>
@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <div class="pagination">
+    <div class="pagination" style="margin-bottom: 20px;">
       <new-page v-if="total>pageSize" :total="total" @on-change="pageChange"></new-page>
     </div>
   </div>

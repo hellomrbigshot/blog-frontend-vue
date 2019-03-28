@@ -33,7 +33,6 @@
                 <div v-else>
                     <Input type="textarea" v-model="user.bio" :rows="3"></Input>
                 </div>
-
             </div>
         </div>
         <Modal v-model="showImgUpload" title="更换头像">
@@ -202,7 +201,7 @@ export default {
     showAvatar() {
       // 显示头像
       if (this.user.avatar) {
-        this.imgUrl = '/api/file/avatar/user/?username=' + this.user
+        this.imgUrl = '/api/file/avatar/user/?username=' + this.user.username
       } else {
         this.imgUrl =
           (this.user.oauthinfo.find(item => item.avatar_url) &&
@@ -240,18 +239,19 @@ export default {
     float: left;
     .user-avatar {
       position: relative;
+      border-radius: 50%;
+      overflow: hidden;
+      height: 150px;
       .user-avatar-img {
-        width: 140px;
-        height: 140px;
-        padding: 2px;
-        border: 2px solid #ccc;
+        width: 150px;
+        height: 150px;
       }
       .user-avatar-btn {
         position: absolute;
         display: none;
         height: 30px;
         line-height: 30px;
-        bottom: 5px;
+        bottom: 0;
         left: 0;
         right: 0;
         text-align: center;
@@ -270,6 +270,7 @@ export default {
     .user-oauths-icons {
         list-style-type: none;
         overflow: hidden;
+        margin-top: 5px;
         li {
             float: left;
             &:not(:first-child) {
