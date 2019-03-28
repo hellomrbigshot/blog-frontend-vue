@@ -65,7 +65,6 @@ export default {
     };
   },
   async created() {
-    console.log(process.env.NODE_ENV)
     await this.getUserInfo();
     this.isCollapsed = this.user ? false : true;
     if (this.user) {
@@ -91,9 +90,9 @@ export default {
             ])
           },
           duration: 0
-        });
+        })
       }
-    });
+    })
   },
   computed: {
     rotateIcon() {
