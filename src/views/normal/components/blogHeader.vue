@@ -15,6 +15,9 @@
                     <li v-for="(route, i) in routes.children" :key="i" class="menu-item" v-if="route.meta.inHeaderList">
                         <router-link :to="{name: route.name}">{{ route.meta.title }}</router-link>
                     </li>
+                    <li class="menu-item">
+                      <a href="https://react.hellomrbigbigshot.xyz">React 版本</a>
+                    </li>
                 </ul>
                 <div class="site-search" >
                     <div class="site-search-form">

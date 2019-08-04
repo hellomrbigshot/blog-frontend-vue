@@ -241,16 +241,16 @@ export const normalRouter = {
         inHeaderList: true
       }
     },
-    {
-      name: 'TODOS',
-      component: () => import('@/views/normal/todos'),
-      path: 'todos',
-      meta: {
-        login: true,
-        title: 'Todos',
-        inHeaderList: true
-      }
-    },
+    // {
+    //   name: 'TODOS',
+    //   component: () => import('@/views/normal/todos'),
+    //   path: 'todos',
+    //   meta: {
+    //     login: true,
+    //     title: 'Todos',
+    //     inHeaderList: true
+    //   }
+    // },
     {
       name: 'editPage',
       component: () => import('@/views/normal/newPage'),
