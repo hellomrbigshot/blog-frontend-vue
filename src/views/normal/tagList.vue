@@ -1,33 +1,14 @@
 <template>
   <div>
     <div :style="{ marginTop: '30px' }">
-      <h2 :style="{fontSize: '14px', fontWeight: 'normal'}">当前总共{{ total }}个标签</h2>
+      <h2 :style="{fontSize: '14px', fontWeight: 'normal'}">当前总共 <span style="font-size: 16px; font-weight: bold;">{{ total }}</span> 个标签</h2>
       <div class="tag-list">
-        <div
-          v-for="(tag, index) in tagList"
-          :key="index"
+        <router-link
           class="tag-item"
-        >
-          <router-link :to="{ name: 'normalTagDetail', params: { name: tag.name } }">
-            <h3 class="tag-item-name">{{ tag.name }}</h3>
-          </router-link>
-          <div class="tag-item-desc">
-            <span>{{ tag.description }}</span>
-          </div>
-          <div class="tag-item-bottom">
-            <span>共有{{ tag.page_num }}篇文章</span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="pagination"
-        style="margin-bottom: 20px;"
-      >
-        <new-page
-          v-if="total > pageSize"
-          :total="total"
-          @on-change="pageChange"
-        ></new-page>
+          v-for="(tag, i) in tagList"
+          :key="i"
+          :to="{ name: 'normalTagDetail', params: { name: tag.name }}"
+        >{{ tag.name }}</router-link>
       </div>
     </div>
   </div>
@@ -39,7 +20,7 @@ export default {
       tagList: [],
       total: 0,
       page: 1,
-      pageSize: 10
+      pageSize: 999
     }
   },
   mounted() {
@@ -63,30 +44,23 @@ export default {
 .tag-list {
   overflow: hidden;
   margin-top: 26px;
+  text-align: center;
+  font-size: 0;
+  width: 80%;
   .tag-item {
-    list-style: none;
+    display: inline-block;
     font-size: 14px;
-    margin-bottom: 26px;
-    box-sizing: content-box;
-    &-name {
-      color: #555;
-      font-weight: 400;
-      margin-bottom: 5px;
-      font-size: 18px;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-    &-desc {
-      font-size: 13px;
-      color: #545454;
-      line-height: 1.4;
-      word-wrap: break-word;
-      margin-bottom: 3px;
-    }
-    &-bottom {
-      font-size: 12px;
-      color: #848484;
+    padding: 5px 10px;
+    border-radius: 3px;
+    line-height: 24px;
+    box-shadow: inset 0 0 2px 2px rgba(176, 176, 191, .6);
+    color: #2c3e50;
+    margin: 10px;
+    transition: all .3s ease-in-out;
+    &:hover {
+      font-size: 16px;
+      font-weight: bold;
+      box-shadow: inset 0 0 2px 2px rgba(176, 176, 191, 1);
     }
   }
 }
