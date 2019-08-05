@@ -1,39 +1,68 @@
 <template>
-  <div v-if="comments.length" :style="{ marginBottom: '50px' }">
+  <div
+    v-if="comments.length"
+    :style="{ marginBottom: '50px' }"
+  >
     <p :style="{ fontSize: '20px' }">留言板：</p>
-    <div v-for="(comment, i) in comments" :key="i" class="article-comment" :id="comment._id">
+    <div
+      v-for="(comment, i) in comments"
+      :key="i"
+      class="article-comment"
+      :id="comment._id"
+    >
       <div class="comment-avatar">
-        <router-link class="comment-avatar-img" :to="{ name: 'userDetail', params: { username:  comment.create_user }}">
-          <img :src="`/api/file/avatar/user/?username=${comment.create_user}`" width="36" height="36" alt="avatar">
+        <router-link
+          class="comment-avatar-img"
+          :to="{ name: 'userDetail', params: { username:  comment.create_user }}"
+        >
+          <img
+            :src="`/api/file/avatar/user/?username=${comment.create_user}`"
+            width="36"
+            height="36"
+            alt="avatar"
+          >
         </router-link>
-        <div class="grey" style="text-align: center;">{{ comments.length - i }}楼</div>
+        <div
+          class="grey"
+          style="text-align: center;"
+        >{{ comments.length - i }}楼</div>
       </div>
       <div class="comment-content">
         <div class="comment-content-time">
-          <router-link class="user" :to="{ name: 'userDetail', params: { username:  comment.create_user }}">
+          <router-link
+            class="user"
+            :to="{ name: 'userDetail', params: { username:  comment.create_user }}"
+          >
             <span class="comment-info-user">{{ comment.create_user }}</span>
           </router-link>
           <div class="time grey">{{ Common.formatTime(comment.create_time, '3') }}</div>
         </div>
-        <div class="comment-blockquote" v-if="comment.reply_user">
+        <div
+          class="comment-blockquote"
+          v-if="comment.reply_user"
+        >
           <div class="comment-blockquote-content">
             <router-link :to="{ name: 'userDetail', params: { username: comment.reply_user }}">{{ comment.reply_user }}</router-link>
             ：{{ comment.reply_content }}
           </div>
         </div>
         <div>{{ comment.content }}</div>
-        <div class="comment-action" style="overflow: auto;">
+        <div
+          class="comment-action"
+          style="overflow: auto;"
+        >
           <div @click="triggerComment(comment.create_user, comment.content)">
-            <a href="#commentInput" class="comment-action-item grey">回复</a>
+            <a
+              href="#commentInput"
+              class="comment-action-item grey"
+            >回复</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-
 <script>
-import default_img from '@/assets/logo.png'
 export default {
   props: {
     comments: {
@@ -51,13 +80,12 @@ export default {
   methods: {
     triggerComment(user, content) {
       setTimeout(() => {
-        this.$emit("on-reply", user, content)
+        this.$emit('on-reply', user, content)
       })
     }
   }
-};
+}
 </script>
-
 <style lang="scss" scoped>
 .grey {
   color: #999;

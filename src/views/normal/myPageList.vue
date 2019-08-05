@@ -6,18 +6,31 @@
         <span>嗯..! 目前共计 {{total}} 篇日志。 继续努力。</span>
       </TimelineItem>
       <template v-for="(year, i) in pageList">
-        <TimelineItem color="#aaa" :key="i+'a'">
+        <TimelineItem
+          color="#aaa"
+          :key="i+'a'"
+        >
           <span class="year">{{year.year}}</span>
         </TimelineItem>
-        <TimelineItem color="#aaa" v-for="(page,j) in year.pagelist" :key="j+'b'+i">
+        <TimelineItem
+          color="#aaa"
+          v-for="(page,j) in year.pagelist"
+          :key="j+'b'+i"
+        >
           <router-link :to="{name: 'pageDetail', params: {id: page._id}}">
             <div class="content">
               <span class="time">{{ page.create_time.substring(5,10) }}</span>
               <span class="draft-title">{{ page.title }}</span>
               <template v-if="page.secret">
                 <span :style="{fontSize: '16px'}">|</span>
-                <Badge text="私密" :offset="[-5, -20]">
-                    <a href="#" class="demo-badge"></a>
+                <Badge
+                  text="私密"
+                  :offset="[-5, -20]"
+                >
+                  <a
+                    href="#"
+                    class="demo-badge"
+                  ></a>
                 </Badge>
               </template>
             </div>
@@ -26,17 +39,20 @@
       </template>
 
     </Timeline>
-    <div class="pagination" style="margin-bottom: 20px;">
-      <new-page :total="total" v-if="pageSize<total" @on-change="pageChange"></new-page>
+    <div
+      class="pagination"
+      style="margin-bottom: 20px;"
+    >
+      <new-page
+        :total="total"
+        v-if="pageSize<total"
+        @on-change="pageChange"
+      />
     </div>
   </div>
 </template>
 <script>
-// import page from './components/page'
 export default {
-  components: {
-    // page
-  },
   data() {
     return {
       pageList: [],
@@ -51,29 +67,29 @@ export default {
   },
   methods: {
     getPageList() {
-      const post_data = {
+      const postData = {
         type: 'create_user',
         status: 'normal',
         content: this.username,
         pageSize: this.pageSize,
         page: this.page
       }
-      this.Common.axios('/api/page/limitpagelist', post_data).then(res => {
+      this.Common.axios('/api/page/limitpagelist', postData).then(res => {
         this.pageList = this.seperateByYear(res.data.data.result)
         this.total = res.data.data.total
       })
     },
     seperateByYear(pagelist) {
       // 将文章按照创建年份分类
-      let year_arr = []
+      const yearArr = []
       pagelist.forEach(page => {
-        let year = page.create_time.substring(0, 4)
-        if (!year_arr.includes(year)) {
-          year_arr.push(year)
+        const year = page.create_time.substring(0, 4)
+        if (!yearArr.includes(year)) {
+          yearArr.push(year)
         }
       })
-      return year_arr.map(year => {
-        let single = {}
+      return yearArr.map(year => {
+        const single = {}
         single.year = year
         single.pagelist = pagelist.filter(
           page => page.create_time.substring(0, 4) === year
@@ -81,10 +97,10 @@ export default {
         return single
       })
     },
-    pageChange (page) {
+    pageChange(page) {
       this.page = page
       this.getPageList()
-    },
+    }
   }
 }
 </script>

@@ -6,20 +6,20 @@ import user from './modules/user'
 // Vue.use(Vuex)
 
 const store = new Vuex.Store({
-    store: {
+  store: {
 
-    },
-    mutations: {
+  },
+  mutations: {
 
-    },
-    actions: {
+  },
+  actions: {
 
-    },
-    modules: {
-        admin,
-        normal,
-        user
-    }
+  },
+  modules: {
+    admin,
+    normal,
+    user
+  }
 })
 
 export default store

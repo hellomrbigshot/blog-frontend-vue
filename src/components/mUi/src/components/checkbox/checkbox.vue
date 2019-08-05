@@ -8,20 +8,21 @@
         :value="label"
         v-model="model"
         @change="change"
-      >
-      <input 
+      />
+      <input
         v-else
         type="checkbox"
         :disabled="disabled"
         :checked="currentValue"
-        @change="change">
+        @change="change"
+      />
     </span>
-    <slot></slot>
+    <slot />
   </label>
 </template>
 <script>
-import Emitter from '../../mixins/emitter.js';
-import { findComponentUpward } from '../../utils/assist.js';
+import Emitter from '../../mixins/emitter.js'
+import { findComponentUpward } from '../../utils/assist.js'
 export default {
   name: 'mCheckbox',
   mixins: [Emitter],
@@ -46,7 +47,7 @@ export default {
       type: [String, Number, Boolean]
     }
   },
-  data () {
+  data() {
     return {
       currentValue: false,
       group: false,
@@ -54,42 +55,41 @@ export default {
       model: []
     }
   },
-  mounted () {
-    this.parent = findComponentUpward(this, 'mCheckboxGroup');
-    if (this.parent) this.group = true;
+  mounted() {
+    this.parent = findComponentUpward(this, 'mCheckboxGroup')
+    if (this.parent) this.group = true
     if (this.group) {
-      this.parent.updateModel(true);
+      this.parent.updateModel(true)
     } else {
-      this.updateModel();
+      this.updateModel()
     }
   },
   watch: {
-    value (val) {
+    value(val) {
       if ([this.trueValue, this.falseValue].includes(val)) {
-        this.updateModel();
+        this.updateModel()
       } else {
-        throw new Error('Value should be trueValue or falseValue');
+        throw new Error('Value should be trueValue or falseValue')
       }
     }
   },
   methods: {
-    change (event) {
-      if (this.disabled) return false;
-      const checked = event.target.checked;
-      this.currentValue = checked;
-      const value = checked ? this.trueValue : this.falseValue;
-      this.$emit('input', value);
+    change(event) {
+      if (this.disabled) return false
+      const checked = event.target.checked
+      this.currentValue = checked
+      const value = checked ? this.trueValue : this.falseValue
+      this.$emit('input', value)
 
       if (this.group) {
-        this.parent.change(this.model);
+        this.parent.change(this.model)
       } else {
-        this.$emit('on-change', value);
-        this.dispatch('mFormItem', 'on-form-change', value);
+        this.$emit('on-change', value)
+        this.dispatch('mFormItem', 'on-form-change', value)
       }
-      
     },
-    updateModel () {
-      this.currentValue = this.value === this.trueValue;
+    updateModel() {
+      this.currentValue = this.value === this.trueValue
     }
   }
 }

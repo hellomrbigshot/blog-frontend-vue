@@ -1,3 +1,4 @@
+/* eslint-disable */
 'use strict'
 const path = require('path')
 const utils = require('./utils')
@@ -34,6 +35,12 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.(vue|js|jsx)$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/,
+        enforce: 'pre'
+      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',

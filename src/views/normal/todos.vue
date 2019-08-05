@@ -1,20 +1,43 @@
 <template>
   <div>
-    <Form inline :model="todo" ref="todoForm" @keydown.native="handleKeyDown">
-      <FormItem prop="content" :rules="[{ required: true, message: '内容不能为空' }]" style="width: 68%" >
-        <Input v-model="todo.content" placeholder="请输入内容" ref="contentInput" />
+    <Form
+      inline
+      :model="todo"
+      ref="todoForm"
+      @keydown.native="handleKeyDown"
+    >
+      <FormItem
+        prop="content"
+        :rules="[{ required: true, message: '内容不能为空' }]"
+        style="width: 68%"
+      >
+        <Input
+          v-model="todo.content"
+          placeholder="请输入内容"
+          ref="contentInput"
+        />
       </FormItem>
-      <FormItem style="width: 120px;" prop="expected_time">
-        <DatePicker v-model="todo.expected_time" type="date" placeholder="期望完成时间"/>
+      <FormItem
+        style="width: 120px;"
+        prop="expectedTime"
+      >
+        <DatePicker
+          v-model="todo.expectedTime"
+          type="date"
+          placeholder="期望完成时间"
+        />
       </FormItem>
       <FormItem style="width: 60px;">
-        <Button type="primary" @click="handleAddTodo">添加</Button>
+        <Button
+          type="primary"
+          @click="handleAddTodo"
+        >添加</Button>
       </FormItem>
     </Form>
     <div class="todo-filter">
-      <div 
-        v-for="(filter, i) in filterMapping" 
-        :key="i" 
+      <div
+        v-for="(filter, i) in filterMapping"
+        :key="i"
         :class="['float-left', filterActive === i ? 'active' : '']"
         @click="filterActive = i"
       >
@@ -22,27 +45,32 @@
       </div>
     </div>
     <div>
-      <div 
-        v-for="(todo, i) in filterTodo" 
+      <div
+        v-for="(todo, i) in filterTodo"
         :key="todo._id"
-        :title="todo.expected_time ? `期望完成时间 ${Common.dateFmt('yyyy-MM-dd', todo.expected_time)}`: ''" 
+        :title="todo.expectedTime ? `期望完成时间 ${Common.dateFmt('yyyy-MM-dd', todo.expectedTime)}`: ''"
         :class="[statusClassMapping[todo.status], 'todo-item']"
       >
-        <Checkbox 
-          class="float-left" 
-          @on-change="handleCompleteTodo(todo._id, $event)" 
-          :value="todo.status !== 'completed' ? false : true" 
-          size="large" 
+        <Checkbox
+          class="float-left"
+          @on-change="handleCompleteTodo(todo._id, $event)"
+          :value="todo.status !== 'completed' ? false : true"
+          size="large"
           :disabled="todo.status === 'deleted'"
           :key="i"
         />
         <div class="float-left todo-item-content">{{ todo.content }}</div>
-        <Tag 
-          class="todo-item-tag" 
-          v-if="todo.expected_time && getTimeTag(todo.expected_time) && todo.status === 'pending'" 
-          color="error">{{ getTimeTag(todo.expected_time) }}</Tag>
+        <Tag
+          class="todo-item-tag"
+          v-if="todo.expectedTime && getTimeTag(todo.expectedTime) && todo.status === 'pending'"
+          color="error"
+        >{{ getTimeTag(todo.expectedTime) }}</Tag>
         <div class="todo-item-operation">
-          <Icon type="md-trash" :size="20" @click="handleDeleteTodo(todo._id)"/>
+          <Icon
+            type="md-trash"
+            :size="20"
+            @click="handleDeleteTodo(todo._id)"
+          />
         </div>
       </div>
     </div>
@@ -54,11 +82,11 @@ export default {
     return {
       filterActive: 'all',
       filterMapping: {
-        'all': '所有',
-        'pending': '待完成',
-        'undone': '未完成',
-        'completed': '已完成',
-        'deleted': '已删除'
+        all: '所有',
+        pending: '待完成',
+        undone: '未完成',
+        completed: '已完成',
+        deleted: '已删除'
       },
       statusClassMapping: {
         completed: 'completed',
@@ -70,7 +98,7 @@ export default {
         status: 'pending',
         create_time: '',
         complete_time: '',
-        expected_time: ''
+        expectedTime: ''
       },
       todos: []
     }
@@ -78,13 +106,13 @@ export default {
   computed: {
     filterTodo() {
       const filterMappingFunciton = {
-        'all': (todo) => { return todo },
-        'pending': todo => {
-          return todo.status === 'pending' && todo.expected_time && new Date(todo.expected_time).getTime() - new Date().getTime() < 3600 * 24 * 5 * 1000 // 返回期望完成时间距离现在五天以内的待完成的 todo
+        all: (todo) => { return todo },
+        pending: todo => {
+          return todo.status === 'pending' && todo.expectedTime && new Date(todo.expectedTime).getTime() - new Date().getTime() < 3600 * 24 * 5 * 1000 // 返回期望完成时间距离现在五天以内的待完成的 todo
         },
-        'undone': todo => todo.status === 'pending',
-        'completed': todo => todo.status === 'completed',
-        'deleted': todo => todo.status === 'deleted'
+        undone: todo => todo.status === 'pending',
+        completed: todo => todo.status === 'completed',
+        deleted: todo => todo.status === 'deleted'
       }
       return this.todos.filter(filterMappingFunciton[this.filterActive])
     }
@@ -94,15 +122,15 @@ export default {
   },
   methods: {
     dateChange(date) {
-      this.todo.expected_time = date
+      this.todo.expectedTime = date
     },
     getTimeTag(date) {
       if (!date) return ''
-      const expected_time = new Date(date).getTime()
-      const now_time = new Date().getTime()
-      if (expected_time - now_time  < 0 - 60 * 60 * 24 * 1000) { // 过期
+      const expectedTime = new Date(date).getTime()
+      const nowTime = new Date().getTime()
+      if (expectedTime - nowTime < 0 - 60 * 60 * 24 * 1000) { // 过期
         return '已过期'
-      } else if (expected_time - now_time < 60 * 60 * 24 * 1000 * 4) { // 五天以内返回 即将过期
+      } else if (expectedTime - nowTime < 60 * 60 * 24 * 1000 * 4) { // 五天以内返回 即将过期
         return '即将过期'
       } else {
         return 0
@@ -112,13 +140,13 @@ export default {
       this.Common.axios('/api/todo/getTodoList')
         .then(res => {
           this.todos = res.data.data
-      })
+        })
     },
     handleAddTodo() { // 新增一条 todo
       this.$refs['todoForm'].validate(valid => {
         if (valid) {
-          let send_data = Object.assign({}, this.todo, { expected_time: this.Common.dateFmt('yyyy-MM-dd hh:mm:ss', this.todo.expected_time) })
-          this.Common.axios('/api/todo/create', send_data).then(res => {
+          const sendData = Object.assign({}, this.todo, { expectedTime: this.Common.dateFmt('yyyy-MM-dd hh:mm:ss', this.todo.expectedTime) })
+          this.Common.axios('/api/todo/create', sendData).then(res => {
             this.todos = [res.data.data].concat(this.todos)
           })
           this.$refs['todoForm'].resetFields()
@@ -128,7 +156,7 @@ export default {
       })
     },
     handleCompleteTodo(id, checked) {
-      this.handleStatusChange(id, checked && 'completed' || 'pending')
+      this.handleStatusChange(id, checked ? 'completed' : 'pending')
     },
     handleDeleteTodo(id) { // 删除一条 todo
       this.handleStatusChange(id, 'deleted')
@@ -138,7 +166,7 @@ export default {
         this.$refs['contentInput'].blur()
         this.handleAddTodo()
       } else {
-        return
+
       }
     },
     handleStatusChange(id, status) {
@@ -151,7 +179,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@/assets/css/index.scss';
+@import "~@/assets/css/index.scss";
 .todo-filter {
   overflow: hidden;
   margin: 10px 10px;
@@ -207,7 +235,7 @@ export default {
       // display: block;
       opacity: 0.6;
       transform: translateX(-40px);
-      transition: all .5s linear;
+      transition: all 0.5s linear;
       &:hover {
         cursor: pointer;
         opacity: 1;
@@ -218,7 +246,8 @@ export default {
 .float-left {
   float: left;
 }
-.completed div, .deleted div {
+.completed div,
+.deleted div {
   text-decoration: line-through;
   text-decoration-color: $blueColor;
 }
