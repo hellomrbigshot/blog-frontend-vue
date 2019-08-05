@@ -70,9 +70,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         output: {
           comments: false
         },
-        compress: {
-          warnings: false
-        }
+        warnings: false
       },
       sourceMap: config.build.productionSourceMap
     }),
