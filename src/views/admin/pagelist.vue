@@ -1,14 +1,20 @@
 <template>
-    <div class="main-content">
-        <Table :columns="columns" :data="list"></Table>
-        <Page :total="total" style="margin-top: 20px" @on-change="pageChange"></Page>
-    </div>
+  <div class="main-content">
+    <Table
+      :columns="columns"
+      :data="list"
+    />
+    <Page
+      :total="total"
+      style="margin-top: 20px"
+      @on-change="pageChange"
+    />
+  </div>
 </template>
 <script>
-import {Common} from '@/assets/js/common'
 export default {
   name: 'pageList',
-  data () {
+  data() {
     return {
       list: [],
       total: 0,
@@ -37,7 +43,7 @@ export default {
         {
           title: '是否私密',
           render: (h, params) => {
-            return h('span', params.row.secret && '是' || '否')
+            return h('span', params.row.secret ? '是' : '否')
           }
         },
         {
@@ -66,25 +72,25 @@ export default {
       ]
     }
   },
-  mounted () {
+  mounted() {
     this.getPageList()
   },
   methods: {
-    getPageList () {
+    getPageList() {
       this.Common.axios('/api/page/pagelist', this.search_obj).then(res => {
         this.list = res.data.data.result
         this.total = res.data.data.total
       })
     },
-    pageChange (page) {
+    pageChange(page) {
       this.search_obj.page = page
       this.getPageList()
     },
-    deletePage (page) {
-      let send_obj = JSON.parse(JSON.stringify(page))
-      send_obj.id = send_obj._id
-      send_obj.status = 'cancel'
-      this.Common.axios('/api/page/edit', send_obj).then(res => {
+    deletePage(page) {
+      const formData = JSON.parse(JSON.stringify(page))
+      formData.id = formData._id
+      formData.status = 'cancel'
+      this.Common.axios('/api/page/edit', formData).then(res => {
         this.$Message.success('操作成功')
         this.getPageList()
       })

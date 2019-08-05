@@ -8,26 +8,29 @@
     </div>
     <div>
       <Button @click="goHome">返回首页</Button>
-      <Button type="primary" @click="backPage">返回上一页</Button>
+      <Button
+        type="primary"
+        @click="backPage"
+      >返回上一页</Button>
     </div>
   </div>
 </template>
 <script>
 export default {
   name: '404',
-  data () {
+  data() {
     return {
     }
   },
   methods: {
-    goHome () { // 返回 home 页
+    goHome() { // 返回 home 页
       if (this.Cookies.user === 'admin') {
-        this.$router.push({name: 'admin'})
+        this.$router.push({ name: 'admin' })
       } else {
-        this.$router.push({name: 'main'})
+        this.$router.push({ name: 'main' })
       }
     },
-    backPage () { // 返回上一页
+    backPage() { // 返回上一页
       this.$router.go(-1)
     }
   }
@@ -50,7 +53,5 @@ export default {
       margin-left: 30px;
     }
   }
-
 }
 </style>
-

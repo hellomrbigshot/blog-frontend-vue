@@ -1,12 +1,15 @@
 <template>
-    <div class="main-content">
-      <Table :columns="columns" :data="list"></Table>
-    </div>
+  <div class="main-content">
+    <Table
+      :columns="columns"
+      :data="list"
+    />
+  </div>
 </template>
 <script>
 export default {
   name: 'tagList',
-  data () {
+  data() {
     return {
       columns: [
         {
@@ -31,7 +34,7 @@ export default {
               },
               on: {
                 click: () => {
-                  
+
                 }
               }
             }, '编辑')
@@ -41,15 +44,15 @@ export default {
       list: []
     }
   },
-  mounted () {
+  mounted() {
     this.getTaglist()
   },
   methods: {
-      getTaglist () {
-        this.Common.axios('/api/tag/taglist').then(res => {
-          this.list = res.data.data.result
-        })
-      }
+    getTaglist() {
+      this.Common.axios('/api/tag/taglist').then(res => {
+        this.list = res.data.data.result
+      })
+    }
   }
 }
 </script>

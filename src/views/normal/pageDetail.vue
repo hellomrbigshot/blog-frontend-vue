@@ -5,7 +5,10 @@
         <header>
           <h1 class="page-title">{{ page.title }}</h1>
           <div class="page-info">
-            <span v-if="Common.formatTime(page.update_time, '3')!==Common.formatTime(page.create_time, '3')" class="update-time">更新于
+            <span
+              v-if="Common.formatTime(page.update_time, '3')!==Common.formatTime(page.create_time, '3')"
+              class="update-time"
+            >更新于
               <time>{{ Common.formatTime(page.update_time, '3') }}</time>
               &nbsp;|&nbsp;
             </span>
@@ -21,40 +24,73 @@
             </span>
             <span class="create-user">标签
               <template v-for="(tag, i) in page.tags">
-                <router-link :to="{ name: 'normalTagDetail', params: { name:  tag} }" :key="`${i}router`">
+                <router-link
+                  :to="{ name: 'normalTagDetail', params: { name:  tag} }"
+                  :key="`${i}router`"
+                >
                   <span class="tag-span">{{ tag }}</span>
                 </router-link>
-                <span v-if="i<page.tags.length-1" :key="`${i}span`">,</span>
+                <span
+                  v-if="i<page.tags.length-1"
+                  :key="`${i}span`"
+                >,</span>
               </template>
               &nbsp;|&nbsp;
             </span>
-            <span class="edit-span" v-if="Cookies.get('user')===page.create_user">
+            <span
+              class="edit-span"
+              v-if="Cookies.get('user')===page.create_user"
+            >
               <router-link :to="{name: 'editPage', params: {id: id}}">编辑</router-link>
             </span>
           </div>
         </header>
-        <div class="page-body m-editor-preview" v-html="marked(page.content)"></div>
+        <div
+          class="page-body m-editor-preview"
+          v-html="marked(page.content)"
+        ></div>
       </article>
     </transition>
     <transition name="fade">
       <div v-if="comments.length">
-        <comments :comments="comments" @on-reply="replyComment" @on-ready="scrollToComment"></comments>
+        <comments
+          :comments="comments"
+          @on-reply="replyComment"
+          @on-ready="scrollToComment"
+        ></comments>
       </div>
     </transition>
-    <div style="margin-bottom: 20px;" v-show="show_detail">
+    <div
+      style="margin-bottom: 20px;"
+      v-show="show_detail"
+    >
       <p :style="{ fontSize: '20px', marginBottom: '15px' }">留言：</p>
-      <Tag closable v-show="comment.reply_user" @on-close="removeReplyUser" :style="{ marginBottom: '10px' }">回复{{ comment.reply_user }}</Tag>
-      <Input id="commentInput" type="textarea" ref="commentInput" v-model.trim="comment.content" :rows="6" />
-      <Button type="primary" :style="{ marginTop: '15px'}" @click="submitComment">发表</Button>
+      <Tag
+        closable
+        v-show="comment.reply_user"
+        @on-close="removeReplyUser"
+        :style="{ marginBottom: '10px' }"
+      >回复{{ comment.reply_user }}</Tag>
+      <Input
+        id="commentInput"
+        type="textarea"
+        ref="commentInput"
+        v-model.trim="comment.content"
+        :rows="6"
+      />
+      <Button
+        type="primary"
+        :style="{ marginTop: '15px'}"
+        @click="submitComment"
+      >发表</Button>
     </div>
   </div>
-
 </template>
 <script>
 export default {
-  components: { 
+  components: {
     comments: () => import('./components/commentsForPage')
-   },
+  },
   data() {
     return {
       id: this.$route.params.id,
@@ -86,7 +122,7 @@ export default {
         this.show_detail = true
       })
     },
-    getComments () {
+    getComments() {
       this.Common.axios('/api/comment/getpagecommentlist', { page_id: this.id }).then(res => {
         this.comments = res.data.data
       })
@@ -115,17 +151,17 @@ export default {
         this.getComments()
       })
     },
-    replyComment (user, content) {
+    replyComment(user, content) {
       this.comment.reply_user = user
       this.comment.reply_content = content
       this.$refs['commentInput'].focus()
     },
-    removeReplyUser () {
+    removeReplyUser() {
       this.comment.reply_user = ''
       this.comment.reply_content = ''
     },
-    scrollToComment () {
-      let hash = this.$route.params.hash
+    scrollToComment() {
+      const hash = this.$route.params.hash
       if (hash && document.getElementById(hash)) {
         document.getElementById(hash).scrollIntoView()
       }
@@ -144,7 +180,7 @@ article {
     width: auto;
   }
   header {
-    font-family: Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    font-family: Lato, "PingFang SC", "Microsoft YaHei", sans-serif;
     .page-title {
       font-weight: 400;
       font-size: 26px;
@@ -168,7 +204,7 @@ article {
     }
   }
   .page-body {
-    line-height: 2!important;
+    line-height: 2 !important;
     font-size: 15px;
   }
   margin-bottom: 120px;

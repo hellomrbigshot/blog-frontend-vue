@@ -1,71 +1,162 @@
 <template>
-    <div class="user-info">
-        <div class="user-info-left">
-            <div class="user-avatar">
-                <img :src="imgUrl" alt="头像" class="user-avatar-img" ref="img">
-                <div class="user-avatar-btn" @click="chooseFile" v-if="cur_username === username">上传头像</div>
-                <input type="file" style="display: none" ref="fileInput" accept="image/png, image/jpeg, image/gif, image/jpg" @change="uploadImg($event)"></input>
-            </div>
-            <ul class="user-oauths-icons">
-                <li>
-                    <a :style="{color: oauth_accounts.github.oauth ? '#2c3e50': '#ddd'}" :href="oauth_accounts.github.oauth&&`https://github.com/${oauth_accounts.github.oauth_user}`||'/api/oauth/github'">
-                        <Icon :size="25" type="logo-github"></Icon>
-                    </a>
-                </li>
-                <li>
-                    <a :style="{color: oauth_accounts.weibo.oauth ? '#2c3e50': '#ddd'}" :href="oauth_accounts.weibo.oauth&&`https://weibo.com/${oauth_accounts.github.oauth_user}`||'/api/oauth/weibo'">
-                        <Icon custom="iconfont  icon-weibo-circle-fill" :size="25" />
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="user-info-desc">
-            <div class="user-info-name">
-                <h2>{{ user.username }}</h2>
-            </div>
-            <div class="user-info-bio">
-                <a @click="changeBio" class="bio-icon" v-if="cur_username === username" :title="bio_edit?'保存':'编辑'">
-                    <Icon size="10" :type="bio_edit?'md-checkmark':'md-create'"></Icon>
-                </a>
-                <div v-if="!bio_edit">
-                    {{ user.bio || '您还没有填写个人简介' }}
-                </div>
-                <div v-else>
-                    <Input type="textarea" v-model="user.bio" :rows="3"></Input>
-                </div>
-            </div>
-        </div>
-        <Modal v-model="showImgUpload" title="更换头像">
-            <div class="cropper-content">
-                <div class="cropper">
-                    <vue-cropper ref="cropper" :img="option.img" :outputType="option.outputType" :autoCrop="option.autoCrop" :full="option.full" :fixedBox="option.fixedBox" :canMode="option.canMove" :original="option.original" :canMoveBox="option.canMoveBox" :autoCropWidth="option.autoCropWidth" :autoCropHeight="option.autoCropHeight" :fixed="option.fixed" @realTime="realTime"></vue-cropper>
-                </div>
-                <div class="show-preview" :style="{'width': previews.w + 'px', 'height': previews.h + 'px',  'overflow': 'hidden', 'margin': '5px'}">
-                    <div :style="previews.div" class="preview">
-                        <img :src="previews.url" :style="previews.img">
-                    </div>
-                </div>
-            </div>
-            <div class="footer-btn">
-                <div class="scope-btn">
-                    <Button type="info" size="small" @click="chooseFile">修改附件</Button>
-                    <Button type="primary" size="small" shape="circle" icon="ios-add" @click="changeScale(1)"></Button>
-                    <Button type="primary" size="small" shape="circle" icon="ios-remove" @click="changeScale(-1)"></Button>
-                    <Button type="primary" size="small" shape="circle" icon="ios-refresh" @click="rotateRight"></Button>
-                </div>
-                <div class="upload-btn">
-                    <Button type="success" size="small" @click="uploadFile">上传</Button>
-                </div>
-            </div>
-            <div slot="footer">
-            </div>
-        </Modal>
+  <div class="user-info">
+    <div class="user-info-left">
+      <div class="user-avatar">
+        <img
+          :src="imgUrl"
+          alt="头像"
+          class="user-avatar-img"
+          ref="img"
+        >
+        <div
+          class="user-avatar-btn"
+          @click="chooseFile"
+          v-if="cur_username === username"
+        >上传头像</div>
+        <input
+          type="file"
+          style="display: none"
+          ref="fileInput"
+          accept="image/png, image/jpeg, image/gif, image/jpg"
+          @change="uploadImg($event)"
+        />
+      </div>
+      <ul class="user-oauths-icons">
+        <li>
+          <a
+            :style="{color: oauth_accounts.github.oauth ? '#2c3e50': '#ddd'}"
+            :href="oauth_accounts.github.oauth&&`https://github.com/${oauth_accounts.github.oauth_user}`||'/api/oauth/github'"
+          >
+            <Icon
+              :size="25"
+              type="logo-github"
+            ></Icon>
+          </a>
+        </li>
+        <li>
+          <a
+            :style="{color: oauth_accounts.weibo.oauth ? '#2c3e50': '#ddd'}"
+            :href="oauth_accounts.weibo.oauth&&`https://weibo.com/${oauth_accounts.github.oauth_user}`||'/api/oauth/weibo'"
+          >
+            <Icon
+              custom="iconfont  icon-weibo-circle-fill"
+              :size="25"
+            />
+          </a>
+        </li>
+      </ul>
     </div>
+    <div class="user-info-desc">
+      <div class="user-info-name">
+        <h2>{{ user.username }}</h2>
+      </div>
+      <div class="user-info-bio">
+        <a
+          @click="changeBio"
+          class="bio-icon"
+          v-if="cur_username === username"
+          :title="bio_edit?'保存':'编辑'"
+        >
+          <Icon
+            size="10"
+            :type="bio_edit?'md-checkmark':'md-create'"
+          ></Icon>
+        </a>
+        <div v-if="!bio_edit">
+          {{ user.bio || '您还没有填写个人简介' }}
+        </div>
+        <div v-else>
+          <Input
+            type="textarea"
+            v-model="user.bio"
+            :rows="3"
+          />
+        </div>
+      </div>
+    </div>
+    <Modal
+      v-model="showImgUpload"
+      title="更换头像"
+    >
+      <div class="cropper-content">
+        <div class="cropper">
+          <vue-cropper
+            ref="cropper"
+            :img="option.img"
+            :outputType="option.outputType"
+            :autoCrop="option.autoCrop"
+            :full="option.full"
+            :fixedBox="option.fixedBox"
+            :canMove="option.canMove"
+            :original="option.original"
+            :canMoveBox="option.canMoveBox"
+            :autoCropWidth="option.autoCropWidth"
+            :autoCropHeight="option.autoCropHeight"
+            :fixed="option.fixed"
+            @realTime="realTime"
+          />
+        </div>
+        <div
+          class="show-preview"
+          :style="{'width': previews.w + 'px', 'height': previews.h + 'px',  'overflow': 'hidden', 'margin': '5px'}"
+        >
+          <div
+            :style="previews.div"
+            class="preview"
+          >
+            <img
+              :src="previews.url"
+              :style="previews.img"
+            >
+          </div>
+        </div>
+      </div>
+      <div class="footer-btn">
+        <div class="scope-btn">
+          <Button
+            type="info"
+            size="small"
+            @click="chooseFile"
+          >修改附件</Button>
+          <Button
+            type="primary"
+            size="small"
+            shape="circle"
+            icon="ios-add"
+            @click="changeScale(1)"
+          ></Button>
+          <Button
+            type="primary"
+            size="small"
+            shape="circle"
+            icon="ios-remove"
+            @click="changeScale(-1)"
+          ></Button>
+          <Button
+            type="primary"
+            size="small"
+            shape="circle"
+            icon="ios-refresh"
+            @click="rotateRight"
+          ></Button>
+        </div>
+        <div class="upload-btn">
+          <Button
+            type="success"
+            size="small"
+            @click="uploadFile"
+          >上传</Button>
+        </div>
+      </div>
+      <div slot="footer">
+      </div>
+    </Modal>
+  </div>
 </template>
 
 <script>
 import { VueCropper } from 'vue-cropper'
-import default_img from '@/assets/logo.png'
+import defaultImg from '@/assets/logo.png'
 export default {
   components: {
     'vue-cropper': VueCropper
@@ -76,8 +167,8 @@ export default {
       username: this.$route.params.username,
       showImgUpload: false,
       bio_edit: false,
-      imgUrl: default_img,
-      default_img: default_img,
+      imgUrl: defaultImg,
+      defaultImg: defaultImg,
       user: {
         avatar: '',
         gender: 'm',
@@ -96,7 +187,6 @@ export default {
         full: false,
         canMove: true,
         fixedBox: true,
-        canMove: true,
         original: false,
         canMoveBox: true,
         maxImgSize: 3000
@@ -129,13 +219,12 @@ export default {
       }).then(res => {
         this.user = res.data.data
         Object.keys(this.oauth_accounts).forEach(type => {
-          let filter_oauth_obj = this.user.oauthinfo.find(
+          const filterOauthObj = this.user.oauthinfo.find(
             item => item.type === type
           )
-          if (filter_oauth_obj) {
+          if (filterOauthObj) {
             this.oauth_accounts[type].oauth = true
-            this.oauth_accounts[type].oauth_user =
-              filter_oauth_obj.domain || filter_oauth_obj.name
+            this.oauth_accounts[type].oauth_user = filterOauthObj.domain || filterOauthObj.name
           } else {
             this.oauth_accounts[type].oauth = false
             this.oauth_accounts[type].oauth_user = ''
@@ -148,12 +237,12 @@ export default {
       this.$refs.fileInput.click()
     },
     uploadImg(e) {
-      let file = e.target.files[0]
+      const file = e.target.files[0]
       if (!/\.(gif|jpg|jpeg|png|bmp|GIF|JPG|PNG)$/.test(e.target.value)) {
         this.$Message.error('图片类型必须是.gif,jpeg,jpg,png,bmp中的一种')
         return false
       }
-      let reader = new FileReader()
+      const reader = new FileReader()
       reader.onload = e => {
         let data
         if (typeof e.target.result === 'object') {
@@ -205,11 +294,10 @@ export default {
       } else {
         this.imgUrl =
           (this.user.oauthinfo.find(item => item.avatar_url) &&
-            this.user.oauthinfo.find(item => item.avatar_url).avatar_url) ||
-          this.default_img
+            this.user.oauthinfo.find(item => item.avatar_url).avatar_url) || this.defaultImg
       }
       this.$refs.img.onerror = () => {
-        this.imgUrl = this.default_img
+        this.imgUrl = this.defaultImg
       }
       this.$refs.img.onload = () => {
         this.imgShow = true
@@ -268,15 +356,15 @@ export default {
       }
     }
     .user-oauths-icons {
-        list-style-type: none;
-        overflow: hidden;
-        margin-top: 5px;
-        li {
-            float: left;
-            &:not(:first-child) {
-                margin-left: 5px;
-            }
+      list-style-type: none;
+      overflow: hidden;
+      margin-top: 5px;
+      li {
+        float: left;
+        &:not(:first-child) {
+          margin-left: 5px;
         }
+      }
     }
   }
   .user-info-desc {

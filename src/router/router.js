@@ -5,7 +5,7 @@ export const longinRouter = {
   name: 'login',
   meta: {
     title: '登录',
-    login: false,
+    login: false
   },
   component: () => import('@/views/login')
 }
@@ -14,7 +14,7 @@ export const page404 = {
   name: 'error-404',
   meta: {
     title: '404-页面不存在',
-    login: false,
+    login: false
   },
   component: () => import('@/views/error-page/404')
 }
@@ -23,7 +23,7 @@ export const registerRouter = {
   name: 'register',
   meta: {
     title: '注册',
-    login: false,
+    login: false
   },
   component: () => import('@/views/register')
 }
@@ -61,13 +61,13 @@ export const adminRouter = {
       name: 'page',
       title: '文章管理',
       redirect: 'page/list',
-      component: {template: '<router-view></router-view>'},
+      component: { template: '<router-view></router-view>' },
       meta: {
         icon: 'ios-paper',
-        sidebar: true,
+        sidebar: true
       },
       children: [
-      {
+        {
           path: 'list',
           component: () => import('@/views/admin/pagelist'),
           name: 'adminPageList',
@@ -76,21 +76,21 @@ export const adminRouter = {
             login: true,
             sidebar: true
           }
-      }
+        }
       ]
-  },
-  {
+    },
+    {
       path: 'user',
       name: 'user',
       title: '用户管理',
       redirect: 'user/list',
-      component: {template: '<router-view></router-view>'},
+      component: { template: '<router-view></router-view>' },
       meta: {
         icon: 'ios-people',
         sidebar: true
       },
       children: [
-      {
+        {
           path: 'list',
           component: () => import('@/views/admin/userlist'),
           name: 'adminUserList',
@@ -99,21 +99,21 @@ export const adminRouter = {
             login: true,
             sidebar: true
           }
-      }
+        }
       ]
-  },
-  {
+    },
+    {
       path: 'tag',
       name: 'tag',
       redirect: 'tag/list',
       title: '标签管理',
-      component: {template: '<router-view></router-view>'},
+      component: { template: '<router-view></router-view>' },
       meta: {
         icon: 'ios-pricetags',
         sidebar: true
-      },        
+      },
       children: [
-      {
+        {
           path: 'list',
           component: () => import('@/views/admin/taglist'),
           name: 'adminTagList',
@@ -122,9 +122,9 @@ export const adminRouter = {
             login: true,
             sidebar: true
           }
-      }
+        }
       ]
-  }
+    }
   ]
 }
 export const normalRouter = {
@@ -154,7 +154,7 @@ export const normalRouter = {
           meta: {
             login: false,
             title: '文章列表'
-          },
+          }
         },
         {
           name: 'pageDetail',
@@ -218,7 +218,7 @@ export const normalRouter = {
             title: '标签详情',
             inHeaderList: false
           }
-        },
+        }
       ]
     },
     {
@@ -229,7 +229,7 @@ export const normalRouter = {
         login: true,
         title: '留言',
         inHeaderList: true
-      },
+      }
     },
     {
       name: 'normalNew',
@@ -241,16 +241,16 @@ export const normalRouter = {
         inHeaderList: true
       }
     },
-    {
-      name: 'TODOS',
-      component: () => import('@/views/normal/todos'),
-      path: 'todos',
-      meta: {
-        login: true,
-        title: 'Todos',
-        inHeaderList: true
-      }
-    },
+    // {
+    //   name: 'TODOS',
+    //   component: () => import('@/views/normal/todos'),
+    //   path: 'todos',
+    //   meta: {
+    //     login: true,
+    //     title: 'Todos',
+    //     inHeaderList: true
+    //   }
+    // },
     {
       name: 'editPage',
       component: () => import('@/views/normal/newPage'),
@@ -302,7 +302,8 @@ export const normalRouter = {
     }
   ]
 }
-export const routers = [ // 上面定义的路由均写在 routers 
+export const routers = [
+  // 上面定义的路由均写在 routers
   longinRouter,
   page404,
   registerRouter,
@@ -311,4 +312,3 @@ export const routers = [ // 上面定义的路由均写在 routers
   normalRouter,
   adminRouter
 ]
-  

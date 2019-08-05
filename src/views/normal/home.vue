@@ -1,17 +1,25 @@
 <template>
   <div class="layout">
     <div class="icon-wrapper">
-      <div class="single-icon-wrapper" v-if="user">
+      <div
+        class="single-icon-wrapper"
+        v-if="user"
+      >
         <Icon
           @click.native="collapsedSider"
           :class="rotateIcon"
           color="#fff"
           type="md-menu"
           size="22"
-        ></Icon>
+        />
       </div>
       <div class="single-icon-wrapper">
-        <Icon @click.native="Common.bodyScrollTop()" color="#fff" type="ios-arrow-up" size="22"></Icon>
+        <Icon
+          @click.native="Common.bodyScrollTop()"
+          color="#fff"
+          type="ios-arrow-up"
+          size="22"
+        />
       </div>
     </div>
     <Layout>
@@ -21,13 +29,16 @@
           class="layout-header-bar"
           v-if="!$route.meta.hideHeader"
         >
-          <blog-header @on-change="handleRouter"></blog-header>
+          <blog-header @on-change="handleRouter"/>
         </Header>
         <Content :style="{background: '#fff', minHeight: '260px'}">
-          <router-view class="main-content"></router-view>
+          <router-view class="main-content"/>
         </Content>
-        <Footer class="main-footer" v-if="!$route.meta.hideFooter">
-          <blog-footer></blog-footer>
+        <Footer
+          class="main-footer"
+          v-if="!$route.meta.hideFooter"
+        >
+          <blog-footer />
         </Footer>
       </Layout>
       <Sider
@@ -41,16 +52,16 @@
         v-show="!$route.meta.hideSider"
       >
         <div :class="menuitemClasses">
-          <sider-user-info v-if="!isCollapsed"></sider-user-info>
+          <sider-user-info v-if="!isCollapsed"/>
         </div>
       </Sider>
     </Layout>
   </div>
 </template>
 <script>
-import blogHeader from "./components/blogHeader";
-import blogFooter from "./components/blogFooter";
-import siderUserInfo from "./components/siderUserInfo";
+import blogHeader from './components/blogHeader'
+import blogFooter from './components/blogFooter'
+import siderUserInfo from './components/siderUserInfo'
 export default {
   components: {
     blogHeader,
@@ -62,16 +73,16 @@ export default {
       isCollapsed: true,
       socket: io(`${process.env.NODE_ENV === 'development' ? 'http://localhost:8082' : 'https://hellomrbigbigshot.xyz'}`),
       unreadMsgNum: 0
-    };
+    }
   },
   async created() {
-    await this.getUserInfo();
-    this.isCollapsed = this.user ? false : true;
+    await this.getUserInfo()
+    this.isCollapsed = !this.user
     if (this.user) {
-      this.Cookies.set("user", this.user, { expires: 7 });
+      this.Cookies.set('user', this.user, { expires: 7 })
     }
-    this.socket.on("unread-comment", msg => {
-      if (msg > 0 && msg !== this.unreadMsgNum  && this.$route.name !== 'normalGuestBook') {
+    this.socket.on('unread-comment', msg => {
+      if (msg > 0 && msg !== this.unreadMsgNum && this.$route.name !== 'normalGuestBook') {
         this.unreadMsgNum = msg
         this.$Notice.destroy()
         this.$Notice.info({
@@ -79,7 +90,7 @@ export default {
           render: h => {
             return h('div', [
               h('span', '你有'),
-              h('a',  {
+              h('a', {
                 on: {
                   click: () => {
                     this.$router.push({ name: 'normalGuestBook' })
@@ -96,43 +107,43 @@ export default {
   },
   computed: {
     rotateIcon() {
-      return ["menu-icon", this.isCollapsed ? "rotate-icon" : ""];
+      return ['menu-icon', this.isCollapsed ? 'rotate-icon' : '']
     },
     menuitemClasses() {
-      return ["page-sider", this.isCollapsed ? "collapsed-menu" : ""];
+      return ['page-sider', this.isCollapsed ? 'collapsed-menu' : '']
     },
     user() {
-      return this.Cookies.get("user") || this.$route.query.username || "";
+      return this.Cookies.get('user') || this.$route.query.username || ''
     }
   },
   methods: {
     getUserInfo() {
       if (this.user) {
-        return this.Common.axios("/api/signin/getUserInfo", {
+        return this.Common.axios('/api/signin/getUserInfo', {
           username: this.user
         }).then(res => {
-          let result = res.data.data;
-          localStorage.setItem("user", JSON.stringify(result));
-          this.$store.commit("updateUserName", this.user);
-          this.$store.commit("updateUserInfo", {
+          const result = res.data.data
+          localStorage.setItem('user', JSON.stringify(result))
+          this.$store.commit('updateUserName', this.user)
+          this.$store.commit('updateUserInfo', {
             page_num: result.page_num,
             draft_num: result.draft_num,
             comment_num: result.comment_num,
             avatar: result.avatar
-          });
-        });
+          })
+        })
       }
     },
     collapsedSider() {
       // 侧边栏显示切换
-      this.$refs.pageSider.toggleCollapse();
+      this.$refs.pageSider.toggleCollapse()
     },
     handleRouter(name) {
       // 路由跳转
-      this.$router.push({ name: name });
+      this.$router.push({ name: name })
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 .icon-wrapper {
@@ -211,5 +222,3 @@ export default {
   }
 }
 </style>
-
-

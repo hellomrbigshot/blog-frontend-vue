@@ -8,7 +8,7 @@ import { routers } from './router'
 const RouterConfig = {
   mode: 'history',
   routes: routers,
-  scrollBehavior (to, from, savedPosition) {
+  scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
     } else {
@@ -42,7 +42,6 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
-  
 })
 
 router.afterEach((to, from, next) => {

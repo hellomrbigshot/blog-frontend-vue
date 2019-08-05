@@ -1,54 +1,66 @@
 <template>
-    <article>
-        <header>
-            <router-link :to="{ name: 'pageDetail', params: { id: page._id }}">
-                <h1 class="page-title">{{ page.title }}</h1>
+  <article>
+    <header>
+      <router-link :to="{ name: 'pageDetail', params: { id: page._id }}">
+        <h1 class="page-title">{{ page.title }}</h1>
+      </router-link>
+      <div class="page-info">
+        <span
+          class="create-time"
+          v-if="Common.formatTime(page.update_time, '3')===Common.formatTime(page.create_time, '3')"
+        >创建于
+          <time>{{ Common.formatTime(page.update_time, '3') }}</time>
+        </span>
+        <span
+          class="create-time"
+          v-else
+        >更新于
+          <time>{{ Common.formatTime(page.update_time, '3') }}</time>
+        </span>
+        <span class="create-user">&nbsp;|&nbsp;作者
+          <router-link :to="{ name: 'userDetail', params: { username:  page.create_user } }">
+            <span class="user-span">{{ page.create_user }}</span>
+          </router-link>
+        </span>
+        <span class="page-tag">&nbsp;|&nbsp;标签
+          <template v-for="(tag, i) in page.tags">
+            <router-link
+              :to="{ name: 'normalTagDetail', params: { name:  tag} }"
+              :key="`${i}router`"
+            >
+              <span class="tag-span">{{ tag }}</span>
             </router-link>
-            <div class="page-info">
-                <span 
-                  class="create-time" 
-                  v-if="Common.formatTime(page.update_time, '3')===Common.formatTime(page.create_time, '3')">创建于
-                    <time>{{ Common.formatTime(page.update_time, '3') }}</time>
-                </span>
-                <span class="create-time" v-else>更新于
-                    <time>{{ Common.formatTime(page.update_time, '3') }}</time>
-                </span>
-                <span class="create-user">&nbsp;|&nbsp;作者
-                    <router-link :to="{ name: 'userDetail', params: { username:  page.create_user } }">
-                        <span class="user-span">{{ page.create_user }}</span>
-                    </router-link>
-                </span>
-                <span class="page-tag">&nbsp;|&nbsp;标签
-                    <template v-for="(tag, i) in page.tags">
-                        <router-link :to="{ name: 'normalTagDetail', params: { name:  tag} }" :key="`${i}router`">
-                            <span class="tag-span">{{ tag }}</span>
-                        </router-link>
-                        <span v-if="i<page.tags.length-1" :key="`${i}span`">,</span>
-                    </template>
+            <span
+              v-if="i<page.tags.length-1"
+              :key="`${i}span`"
+            >,</span>
+          </template>
 
-                </span>
-            </div>
-        </header>
-        <div class="page-body m-editor-preview" v-html="markdownBody"></div>
-    </article>
+        </span>
+      </div>
+    </header>
+    <div
+      class="page-body m-editor-preview"
+      v-html="markdownBody"
+    />
+  </article>
 </template>
-
 <script>
-marked.setOptions({ 
-    renderer: new marked.Renderer(),
-    highlight: function(code) {
-        return hljs.highlightAuto(code).value;
-    },
-    pedantic: false,
-    gfm: true,
-    tables: true,
-    breaks: true,
-    headerIds: true,
-    headerPrefix: 'vue-express',
-    sanitize: false,
-    smartLists: true,
-    smartypants: false,
-    xhtml: false
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  highlight: function (code) {
+    return hljs.highlightAuto(code).value
+  },
+  pedantic: false,
+  gfm: true,
+  tables: true,
+  breaks: true,
+  headerIds: true,
+  headerPrefix: 'vue-express',
+  sanitize: false,
+  smartLists: true,
+  smartypants: false,
+  xhtml: false
 })
 export default {
   props: ['page'],
@@ -56,26 +68,13 @@ export default {
     markdownBody() {
       return this.marked(this.page.content)
     }
-  },
-  mounted () {
-    // setTimeout(() => {
-    //   this.hljs.highlightCode()
-    // }, 100)
-    
-  },
-  watch: {
-    // markdownBody () {
-    //   setTimeout(() => {
-    //     this.hljs.highlightCode()
-    //   }, 100)
-    // }
   }
 }
 </script>
 <style lang="scss" scoped>
 article {
   header {
-    font-family: Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    font-family: Lato, "PingFang SC", "Microsoft YaHei", sans-serif;
     .page-title {
       font-weight: 400;
       font-size: 26px;

@@ -4,55 +4,53 @@
   </div>
 </template>
 <script>
-import { findComponentsDownward } from '../../utils/assist.js';
-import Emitter from '../../mixins/emitter.js';
+import { findComponentsDownward } from '../../utils/assist.js'
+import Emitter from '../../mixins/emitter.js'
 export default {
   name: 'mCheckboxGroup',
   mixins: [Emitter],
   props: {
     value: {
       type: Array,
-      default () {
-        return [];
+      default() {
+        return []
       }
     }
   },
-  data () {
+  data() {
     return {
       currentValue: this.value,
       children: []
     }
   },
   mounted() {
-    this.updateModel(true);
+    this.updateModel(true)
   },
   watch: {
-    value () {
-      this.updateModel(true);
+    value() {
+      this.updateModel(true)
     }
   },
   methods: {
-    updateModel (update) {
-      this.childrens = findComponentsDownward(this, 'mCheckbox');
+    updateModel(update) {
+      this.childrens = findComponentsDownward(this, 'mCheckbox')
       if (this.childrens) {
-        const { value } = this;
+        const { value } = this
         this.childrens.forEach(child => {
-          child.model = value;
+          child.model = value
           if (update) {
-            child.currentValue = value.indexOf(child.label) >= 0;
-            child.group = true;
+            child.currentValue = value.indexOf(child.label) >= 0
+            child.group = true
           }
         })
       }
     },
-    change (data) {
-      this.currentValue = data;
-      this.$emit('input', data);
-      this.$emit('on-change', data);
-      this.dispatch('mFormItem', 'on-form-change', data);
+    change(data) {
+      this.currentValue = data
+      this.$emit('input', data)
+      this.$emit('on-change', data)
+      this.dispatch('mFormItem', 'on-form-change', data)
     }
-  },
+  }
 }
 </script>
-
-

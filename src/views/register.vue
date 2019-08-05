@@ -1,29 +1,64 @@
 <template>
-    <div class="main-content">
-        <div class="login-div">
-            <h1 class="head">
-                注册
-            </h1>
-            <Form  ref="registerForm" :model="formData" :rules="rule" class="login-form">
-                <FormItem prop="username">
-                    <Input style="display:none"></Input>
-                    <Input type="text" v-model="formData.username" placeholder="用户名" transfer></Input>
-                </FormItem>
-                <FormItem prop="password">
-                    <Input type="password" style="display:none"></Input>            
-                    <Input type="password" v-model="formData.password" placeholder="密码"></Input>
-                </FormItem>
-                <FormItem prop="repassword">
-                    <Input type="password" style="display:none"></Input>            
-                    <Input type="password" v-model="formData.repassword" placeholder="再次输入密码"></Input>
-                </FormItem>
-                <FormItem>
-                    <Button type="primary" size="large" long @click="register('registerForm')" >注册</Button>
-                    <Button type="default" size="large" :style="{marginTop: '10px'}" long @click="toLogin()" >登录</Button>
-                </FormItem>
-            </Form>
-        </div>
+  <div class="main-content">
+    <div class="login-div">
+      <h1 class="head">
+        注册
+      </h1>
+      <Form
+        ref="registerForm"
+        :model="formData"
+        :rules="rule"
+        class="login-form"
+      >
+        <FormItem prop="username">
+          <Input style="display:none" />
+          <Input
+            type="text"
+            v-model="formData.username"
+            placeholder="用户名"
+            transfer
+          />
+        </FormItem>
+        <FormItem prop="password">
+          <Input
+            type="password"
+            style="display:none"
+          />
+          <Input
+            type="password"
+            v-model="formData.password"
+            placeholder="密码"
+          />
+        </FormItem>
+        <FormItem prop="repassword">
+          <Input
+            type="password"
+            style="display:none"
+          />
+          <Input
+            type="password"
+            v-model="formData.repassword"
+            placeholder="再次输入密码"
+          />
+        </FormItem>
+        <FormItem>
+          <Button
+            type="primary"
+            size="large"
+            long
+            @click="register('registerForm')"
+          >注册</Button>
+          <Button
+            type="default"
+            size="large"
+            :style="{marginTop: '10px'}"
+            long
+            @click="toLogin()"
+          >登录</Button>
+        </FormItem>
+      </Form>
     </div>
+  </div>
 </template>
 <script>
 export default {
@@ -101,5 +136,5 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-@import './login.scss';
+@import "./login.scss";
 </style>

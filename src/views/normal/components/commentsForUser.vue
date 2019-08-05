@@ -40,7 +40,7 @@ export default {
       type: String
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -94,6 +94,6 @@ export default {
     text-align: right;
     line-height: 22px;
   }
-  
+
 }
 </style>

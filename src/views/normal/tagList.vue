@@ -1,47 +1,58 @@
 <template>
-<div>
-  <div :style="{ marginTop: '30px' }">
-    <h2 :style="{fontSize: '14px', fontWeight: 'normal'}">当前总共{{ total }}个标签</h2>
-    <div class="tag-list">
-      <div v-for="(tag, index) in tagList" :key="index" class="tag-item">
-        <router-link :to="{ name: 'normalTagDetail', params: { name: tag.name } }">
-          <h3 class="tag-item-name">{{ tag.name }}</h3>
-        </router-link>
-        <div class="tag-item-desc">
-          <span >{{ tag.description }}</span>
-        </div>
-        <div class="tag-item-bottom">
-          <span>共有{{ tag.page_num }}篇文章</span>
+  <div>
+    <div :style="{ marginTop: '30px' }">
+      <h2 :style="{fontSize: '14px', fontWeight: 'normal'}">当前总共{{ total }}个标签</h2>
+      <div class="tag-list">
+        <div
+          v-for="(tag, index) in tagList"
+          :key="index"
+          class="tag-item"
+        >
+          <router-link :to="{ name: 'normalTagDetail', params: { name: tag.name } }">
+            <h3 class="tag-item-name">{{ tag.name }}</h3>
+          </router-link>
+          <div class="tag-item-desc">
+            <span>{{ tag.description }}</span>
+          </div>
+          <div class="tag-item-bottom">
+            <span>共有{{ tag.page_num }}篇文章</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="pagination" style="margin-bottom: 20px;">
-      <new-page v-if="total>pageSize" :total="total" @on-change="pageChange"></new-page>
+      <div
+        class="pagination"
+        style="margin-bottom: 20px;"
+      >
+        <new-page
+          v-if="total > pageSize"
+          :total="total"
+          @on-change="pageChange"
+        ></new-page>
+      </div>
     </div>
   </div>
-</div>
 </template>
 <script>
 export default {
-  data () {
-      return {
-          tagList: [],
-          total: 0,
-          page: 1,
-          pageSize: 10
-      }
+  data() {
+    return {
+      tagList: [],
+      total: 0,
+      page: 1,
+      pageSize: 10
+    }
   },
-  mounted () {
+  mounted() {
     this.getTagList()
   },
   methods: {
-    getTagList () {
+    getTagList() {
       this.Common.axios('/api/tag/taglist', { page: this.page, pageSize: this.pageSize }).then(res => {
         this.tagList = res.data.data.result
         this.total = res.data.data.total
       })
     },
-    pageChange (page) {
+    pageChange(page) {
       this.page = page
       this.getTagList()
     }
@@ -78,6 +89,5 @@ export default {
       color: #848484;
     }
   }
-  
 }
 </style>

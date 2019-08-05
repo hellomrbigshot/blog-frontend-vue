@@ -14,52 +14,51 @@ export default {
       type: Object
     }
   },
-  provide () {
+  provide() {
     return {
       form: this
     }
   },
-  data () {
+  data() {
     return {
       fields: []
     }
   },
-  created () {
+  created() {
     this.$on('on-form-item-add', field => {
-      if (field) this.fields.push(field);
-    });
+      if (field) this.fields.push(field)
+    })
     this.$on('on-form-item-remove', field => {
-      if (field.prop) this.fields.splice(this.fields.indexOf(field), 1);
+      if (field.prop) this.fields.splice(this.fields.indexOf(field), 1)
     })
   },
   methods: {
     // 全部重置数据
-    resetFields () {
+    resetFields() {
       this.fields.forEach(field => {
-        field.resetField();
+        field.resetField()
       })
     },
     // 全部校验数据
-    validate (callback) {
+    validate(callback) {
       return new Promise(resolve => {
-        let valid = true;
-        let count = 0;
+        let valid = true
+        let count = 0
         this.fields.forEach(field => {
           field.validate('', errors => {
             if (errors) {
-              valid = false;
+              valid = false
             }
             if (++count === this.fields.length) {
-              resolve(valid);
+              resolve(valid)
               if (typeof callback === 'function') {
-                callback(valid);
+                callback(valid)
               }
             }
           })
         })
       })
     }
-  },
+  }
 }
 </script>
-
