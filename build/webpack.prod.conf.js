@@ -8,13 +8,11 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 // const vueLoaderPlugin = require('vue-loader/lib/plugin')
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-
-
 const env = require('../config/prod.env')
 
 const webpackConfig = merge(baseWebpackConfig, {
@@ -27,7 +25,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     })
   },
   performance: {
-    hints: false 
+    hints: false
   },
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   output: {
@@ -46,9 +44,9 @@ const webpackConfig = merge(baseWebpackConfig, {
         manifest: {
           name: 'manifest',
           minChunks: Infinity
-        },
+        }
       }
-    },
+    }
   },
   plugins: [
     new VueLoaderPlugin(),
@@ -80,7 +78,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       // both options are optional
       filename: utils.assetsPath('css/[name].[contenthash:12].css'),
       // chunkFilename: "[id].css"
-      allChunks: true,
+      allChunks: true
     }),
     // new ExtractTextPlugin({
     //   filename: utils.assetsPath('css/[name].[contenthash].css'),
@@ -99,7 +97,6 @@ const webpackConfig = merge(baseWebpackConfig, {
         removeComments: true,
         collapseWhitespace: true,
         removeAttributeQuotes: true
-        
       },
       chunksSortMode: 'none'
     }),
@@ -111,7 +108,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ]),
+    ])
   ]
 })
 
