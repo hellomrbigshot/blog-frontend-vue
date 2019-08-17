@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "async-validator": "^1.10.1",
-    "simple-m-editor": "^0.3.0",
+    "simple-m-editor": "^0.3.3",
     "vue-cropper": "^0.4.8"
   },
   "devDependencies": {
