@@ -144,7 +144,7 @@ export const normalRouter = {
       meta: {
         login: false,
         title: '首页',
-        inHeaderList: true
+        inHeaderList: false
       },
       children: [
         {
