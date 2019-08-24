@@ -31,25 +31,29 @@
             </li>
           </template>
           <li class="menu-item">
-            <a href="https://react.hellomrbigbigshot.xyz">React 版本</a>
+            <a href="https://react.hellomrbigbigshot.xyz">
+              <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-React"></use>
+              </svg> 版本
+            </a>
           </li>
         </ul>
-        <div class="site-search">
+        <div :class="['site-search', {'active': isFocus}]">
           <div class="site-search-form">
-            <a :class="['search-icon', {'active-search-icon': isFocus}]">
-              <Icon
-                type="md-search"
-                size="16"
-                ref="searchIcon"
-                @click="searchPage"
-              />
-            </a>
             <input
               class="search-input"
+              placeholder="搜索"
               v-model="keywords"
               @focus="isFocus=true"
               @blur="isFocus=false"
               @keyup.enter="searchPage"
+            />
+            <Icon
+              :class="['search-icon']"
+              type="md-search"
+              size="22"
+              ref="searchIcon"
+              @click="searchPage"
             />
           </div>
         </div>

@@ -1,82 +1,95 @@
 .header-inner {
-    width: 700px;
+    width: 750px;
     margin: 0 auto;
-    padding: 40px 0;
+    padding: 15px 0;
     line-height: 36px;
+
     .site-meta {
         float: left;
-        margin-left: -20px;
+        padding: 5px 10px 0;
+        margin-top: -5px;
+        border-radius: 8px;
+        &:hover {
+          background: #efefef;
+          background: #eee;
+        }
+
         .brand {
             padding: 1px 2px;
             color: #222;
             display: block;
             font-family: Lato, "PingFang SC", "Microsoft YaHei", sans-serif;
             line-height: 1;
-            // .logo-line-before, .logo-line-after {
-                // display: block;
-                // line-height: 1.8;
-            // }
             .site-title {
                 display: inline-block;
                 height: 36px;
+
                 .site-logo {
                     height: 36px;
                 }
             }
-            // .logo-line-before, .logo-line-after  {
-            //     overflow: hidden;
-            //     margin: 0 auto;
-            //     width: 75%;
-            //     height: 2px;
-            //     background: #222;
-            // }
         }
     }
+
     .site-nav {
         overflow: hidden;
         min-height: 36px;
+
         ul.menu {
             float: left;
             margin: 0 0 0 20px;
             padding: 0 20px;
+
             li.menu-item {
                 display: inline-block;
-                font-size: 13px;
+                font-size: 14px;
                 a {
                     color: #555;
                     padding: 5px 10px;
+                    width: 50px;
                     &:hover {
-                        background: #e1e1e1;
                         color: #222;
+                        font-weight: 500;
+                        font-size: 15px;
                     }
                 }
-                
-                
+
+
             }
         }
-        
+
         .site-search {
             float: right;
             .site-search-form {
                 position: relative;
-                line-height: 24px;
-                margin-top: 5px;
+                height: 36px;
+
                 .search-icon {
+                    width: 30px;
+                    height: 30px;
                     position: absolute;
-                    left: 0;
-                    top: 0;
-                    color: #999;
+                    right: 3px;
+                    top: 3px;
+                    color: #969696;
+                    line-height: 30px;
+                    text-align: center;
+                    border-radius: 50%;
+                    transition: all .3s ease-in;
+                    &:hover {
+                        cursor: pointer;
+                    }
                 }
-                .active-search-icon {
-                    color: #222;
-                }
+
                 .search-input {
                     border: none;
-                    border-bottom: 1px solid #999;
-                    background: #f5f5f5;
-                    padding-left: 18px;
-                    // height: 24px;
+                    padding: 5px 2px;
+                    box-shadow: 0 5px 5px rgba(255, 255, 255, .5);
+                    border-radius: 17px;
+                    background: #eee;
+                    padding: 0 35px 0 20px;
+                    width: 200px;
                     outline: none;
+                    transition: all .3s ease-in;
                     &:focus {
                         border-bottom-color: #222;
                         .search-icon {
@@ -85,60 +98,82 @@
                     }
                 }
             }
-            
+            &.active {
+              .search-icon {
+                background: #969696;
+                color: #fff;
+              }
+              .search-input {
+                width: 250px;
+              }
+            }
+
         }
     }
+
     &:before,
     &:after {
         content: '';
         display: table;
     }
+
     &:after {
         clear: both;
-    }   
-    
+    }
+
 }
+
 @media (max-width: 767px) {
     .header-inner {
-        width: auto !important;
-        padding: 10px !important;
-        line-height: 36px !important;
-        .site-meta { 
-            margin-left: 10px !important;
+        width: 100% !important;
+        margin-left: -50px;
+
+        .site-meta {
             .brand {
-                .logo-line-before, .logo-line-after {
+                .logo-line-before,
+                .logo-line-after {
                     display: none !important;
                 }
             }
-            
+
         }
     }
+
     .site-nav {
         display: none;
     }
-    .main-content, .main-footer {
+
+    .main-content,
+    .main-footer {
         margin: 20px 20px;
         width: auto;
     }
+
     header {
         text-align: center;
+
         .page-title {
             font-size: 20px !important;
         }
     }
+
     h1 {
         font-size: 20px;
     }
+
     h2 {
         font-size: 18px;
     }
+
     h3 {
         font-size: 16px;
     }
+
     h4 {
         font-size: 14px;
     }
 }
+
 @media (min-width: 1600px) {
     .header-inner {
         width: 900px;

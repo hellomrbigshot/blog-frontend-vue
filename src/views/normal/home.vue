@@ -25,7 +25,7 @@
     <Layout>
       <Layout :style="{minHeight: '100vh'}">
         <Header
-          :style="{padding: 0, background: '#f5f5f5', height: 'auto'}"
+          style="background: #fefefe; border-bottom: 1px solid rgb(240, 240, 240);"
           class="layout-header-bar"
           v-if="!$route.meta.hideHeader"
         >
