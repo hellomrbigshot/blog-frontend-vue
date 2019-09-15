@@ -61,9 +61,11 @@ axios.interceptors.response.use(
     }
     if (error.response) {
       switch (error.response.status) {
-        case 401:
+        case 402:
           Cookies.remove('user')
           localStorage.removeItem('user')
+          Cookies.remove('token')
+          Cookies.remove('refreshToken')
           router.replace({
             name: 'login',
             query: { redirect: router.currentRoute.fullPath }
@@ -71,9 +73,44 @@ axios.interceptors.response.use(
       }
     }
     console.log(error)
-    return Promise.reject(error.response.data)
+    return Promise.reject(error)
   }
 )
+// 刷新 token
+const fetchRefreshToken = () => {
+  const token = Cookies.get('refreshToken')
+  return axios({
+    url: '/api/signin/refreshToken',
+    headers: { Authorization: `Beare ${token}` },
+    method: 'get'
+  })
+}
+
+// token 超时请求一次刷新 token 接口
+const request = (url, formData = {}, headers = {}) => {
+  const token = Cookies.get('token')
+  console.log(token)
+  headers = Object.assign(headers, { Authorization: `Beare ${token}` })
+  return axios({
+    url,
+    data: Qs.stringify(formData),
+    headers,
+    method: 'post'
+  }).then(res => {
+    return res
+  }).catch(e  => {
+    if (e.response.status === 401) {
+      // token 超时，访问刷新 token 接口
+      return fetchRefreshToken().then(res => {
+        const { data } = res.data
+        const { token, refresh_token: refreshToken } = data
+        Cookies.set('token', token)
+        Cookies.set('refreshToken', refreshToken)
+        return request(url, formData, headers) // 重新调用这个接口
+      })
+    }
+  })
+}
 
 // 不足 10 自动补 0
 function format(num = 0) {
@@ -105,10 +142,7 @@ function type3(t) {
 }
 
 export const Common = {
-  axios(url, params) {
-    params = params || {}
-    return axios.post(url, Qs.stringify(params))
-  },
+  axios: request,
 
   dateFmt(fmt, date) {
     if (!date) return ''
