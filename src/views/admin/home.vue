@@ -94,7 +94,9 @@ export default {
       if (name === 'loginout') {
         this.Common.axios('/api/signout').then(res => {
           this.Cookies.remove('user')
-          this.$router.push({ name: 'login' })
+          this.Cookies.remove('token')
+          this.Cookies.remove('refreshToken')
+          location.reload()
         })
       }
     }

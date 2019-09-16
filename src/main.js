@@ -1,6 +1,6 @@
 import App from './App'
-import { router } from './router'
 import store from './vuex'
+import { router } from './router'
 import { Common } from '@/assets/js/common.js'
 
 import newPage from './views/normal/components/newPage'

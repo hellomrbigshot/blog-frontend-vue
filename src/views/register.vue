@@ -112,9 +112,13 @@ export default {
     register(name) {
       this.$refs[name].validate(valid => {
         if (valid) {
+          const { username } = this.formData
           this.Common.axios('/api/signup', this.formData).then(res => {
             // 注册成功直接登录
-            this.Cookies.set('user', this.formData.username, { expires: 7 })
+            const { data: { data: { token, refresh_token: refreshToken } } } = res
+            this.Cookies.set('user', username)
+            this.Cookies.set('token', token)
+            this.Cookies.set('refreshToken', refreshToken)
             this.$Message.success('注册成功，正在跳转...')
             setTimeout(() => {
               if (this.formData.username === 'admin') {

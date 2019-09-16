@@ -111,8 +111,13 @@ export default {
     logIn(name) {
       this.$refs[name].validate(valid => {
         if (!valid) return
+        const { username } = this.formData
         this.Common.axios('/api/signin', this.formData).then(res => {
-          this.Cookies.set('user', this.formData.username, { expires: 7 }) // 设置 cookie 过期时间为7天，防止关闭浏览器就删除 cookie
+          this.Cookies.set('user', username) // 设置 cookie 过期时间为7天，防止关闭浏览器就删除 cookie
+          console.log(res)
+          const { data: { data: { token, refresh_token: refreshToken } } } = res
+          this.Cookies.set('token', token)
+          this.Cookies.set('refreshToken', refreshToken)
           if (this.formData.username === 'admin') {
             this.$router.push({ name: 'admin' })
             return false

@@ -116,8 +116,9 @@ export default {
     signout() {
       this.Common.axios('/api/signout').then(res => {
         this.Cookies.remove('user')
-        localStorage.removeItem('user')
-        this.$router.push({ name: 'normalPageList' })
+        this.Cookies.remove('token')
+        this.Cookies.remove('refreshToken')
+        location.reload()
       })
     },
     showAvatar() {
