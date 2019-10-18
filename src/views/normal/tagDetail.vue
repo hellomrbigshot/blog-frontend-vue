@@ -12,7 +12,7 @@
       class="pagination"
       style="margin-bottom: 20px;"
     >
-      <new-page
+      <Pagination
         v-if="total > pageSize"
         :total="total"
         @on-change="pageChange"

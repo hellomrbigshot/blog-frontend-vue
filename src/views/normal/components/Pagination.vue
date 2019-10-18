@@ -1,6 +1,5 @@
 <template>
   <Page
-    class="new-page"
     :current="current"
     :total="total"
     :page-size="pageSize"
@@ -82,16 +81,12 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-.new-page {
-  .ivu-page-prev,
-  .ivu-page-next,
-  .ivu-page-item-active {
+<style lang="scss" scoped>
+/deep/ .ivu-page-prev, /deep/ .ivu-page-next, /deep/ .ivu-page-item-active {
     border-color: #fff;
     border: none;
   }
-  .ivu-page-item-active {
+/deep/ .ivu-page-item-active {
     background: #ccc;
   }
-}
 </style>

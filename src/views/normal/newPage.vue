@@ -30,7 +30,7 @@
         </el-select>
       </el-form-item>
       <el-form-item prop="content">
-        <markdown-editor v-model="pageObject.content"/>
+        <markdown-editor v-model="pageObject.content" theme="dark"/>
       </el-form-item>
       <el-form-item label="是否私密">
         <el-switch v-model="pageObject.secret"/>
@@ -76,10 +76,10 @@
 </template>
 
 <script>
-import mEditor from 'simple-m-editor'
+import MEditor from 'simple-m-editor'
 export default {
   components: {
-    markdownEditor: mEditor
+    MarkdownEditor: MEditor
   },
   data() {
     return {

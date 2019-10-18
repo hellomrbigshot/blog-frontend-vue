@@ -9,11 +9,11 @@
       class="pagination"
       style="margin-bottom: 20px;"
     >
-      <new-page
+      <Pagination
+        v-if="pageSize < total"
         :total="total"
-        v-if="pageSize<total"
         @on-change="pageChange"
-      ></new-page>
+      />
     </div>
   </section>
 </template>
