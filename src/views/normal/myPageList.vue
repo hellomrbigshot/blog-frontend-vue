@@ -43,9 +43,9 @@
       class="pagination"
       style="margin-bottom: 20px;"
     >
-      <new-page
-        :total="total"
+      <Pagination
         v-if="pageSize<total"
+        :total="total"
         @on-change="pageChange"
       />
     </div>

@@ -11,7 +11,7 @@
         :comments="comments"
         :type="type"
       />
-      <new-page
+      <Pagination
         v-if="total > pageSize"
         :total="total"
         @on-change="getCommentList"
@@ -26,7 +26,7 @@
         :comments="comments"
         :type="type"
       />
-      <new-page
+      <Pagination
         v-if="total > pageSize"
         :total="total"
         @on-change="getCommentList"

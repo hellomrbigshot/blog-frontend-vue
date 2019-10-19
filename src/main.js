@@ -3,7 +3,7 @@ import store from './vuex'
 import { router } from './router'
 import { Common } from '@/assets/js/common.js'
 
-import newPage from './views/normal/components/newPage'
+import Pagination from './views/normal/components/Pagination'
 import '@/assets/css/iconfont/iconfont.css'
 import '@/assets/css/main.scss'
 import 'simple-m-editor/dist/simple-m-editor.css'
@@ -29,7 +29,7 @@ Vue.prototype.Common = Common
 Vue.prototype.Cookies = Cookies
 Vue.prototype.marked = marked
 // Vue.prototype.hljs = hljs
-Vue.component('new-page', newPage)
+Vue.component('Pagination', Pagination)
 
 Vue.config.productionTip = false
 
