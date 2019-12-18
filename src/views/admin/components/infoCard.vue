@@ -47,10 +47,9 @@
   </Card>
 </template>
 <script>
-import countUp from '../../components/countUp'
 export default {
   components: {
-    countUp
+    CountUp: () => import('../../components/countUp')
   },
   props: {
     idName: String,

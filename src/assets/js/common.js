@@ -92,7 +92,6 @@ const fetchRefreshToken = () => {
 // token 超时请求一次刷新 token 接口
 const request = (url, formData = {}, headers = {}) => {
   const token = Cookies.get('token')
-  console.log(token)
   headers = Object.assign(headers, { Authorization: `Beare ${token}` })
   return axios({
     url,

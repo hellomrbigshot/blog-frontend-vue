@@ -35,10 +35,9 @@
   </div>
 </template>
 <script>
-import infoCard from './components/infoCard'
 export default {
   components: {
-    infoCard
+    infoCard: () => import('./components/infoCard')
   },
   data () {
     return {

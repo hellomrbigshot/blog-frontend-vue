@@ -60,14 +60,11 @@
 </template>
 <script>
 import io from 'socket.io-client'
-import blogHeader from './components/blogHeader'
-import blogFooter from './components/blogFooter'
-import siderUserInfo from './components/siderUserInfo'
 export default {
   components: {
-    blogHeader,
-    blogFooter,
-    siderUserInfo
+    BlogHeader: () => import('./components/blogHeader'),
+    blogFooter: () => import('./components/blogFooter'),
+    siderUserInfo: () => import('./components/siderUserInfo')
   },
   data () {
     return {

@@ -19,12 +19,10 @@
 </template>
 
 <script>
-import pageList from '../components/pageList'
-import detailUserInfo from '../components/detailUserInfo'
 export default {
   components: {
-    pageList,
-    detailUserInfo
+    PageList: () => import('../components/pageList'),
+    detailUserInfo: () => import('../components/detailUserInfo')
   },
   data () {
     return {

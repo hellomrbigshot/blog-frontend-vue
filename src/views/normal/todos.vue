@@ -151,7 +151,7 @@ export default {
           })
           this.$refs['todoForm'].resetFields()
         } else {
-          this.$Alert.error('表单验证失败')
+          this.$Message.error('表单验证失败')
         }
       })
     },

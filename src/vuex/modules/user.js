@@ -1,4 +1,3 @@
-// import Vue from 'vue'
 const user = {
   state: {
     username: '',

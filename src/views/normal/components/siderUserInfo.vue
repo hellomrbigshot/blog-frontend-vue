@@ -70,14 +70,10 @@
   </div>
 </template>
 <script>
-import countUp from '@/views/components/countUp'
 import defaultImg from '@/assets/logo.png'
 export default {
-  props: {
-
-  },
   components: {
-    countUp
+    CountUp: () => import('@/views/components/countUp')
   },
   data () {
     return {

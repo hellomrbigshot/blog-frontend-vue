@@ -2,13 +2,46 @@ import Vue from 'vue'
 import App from './App'
 import store from './vuex'
 import { router } from './router'
-import { Common } from '@/assets/js/common.js'
+import { Common } from '@/assets/js/common'
 
 import marked from 'marked'
-import hljs from 'highlight.js'
+import hljs from '@/assets/js/highlight'
 import Cookies from 'js-cookie'
-import { Select, Option } from 'element'
-import iView from 'iview'
+import {
+  Select as ElSelect,
+  Option as ElOption,
+  Form as ElForm,
+  FormItem as ElFormItem,
+  Input as ElInput,
+  Switch as ElSwitch,
+  Button as ElButton
+} from 'element-ui'
+import {
+  Button,
+  Table,
+  Icon,
+  Layout,
+  Sider,
+  Menu,
+  MenuItem,
+  Breadcrumb,
+  Header,
+  Content,
+  Form as IForm,
+  FormItem as IFormItem,
+  Input,
+  Switch,
+  Row,
+  Col,
+  Modal,
+  Tag,
+  Timeline,
+  TimelineItem,
+  Page,
+  Tabs,
+  TabPane,
+  Message
+} from 'iview'
 
 import 'iview/dist/styles/iview.css'
 import Pagination from './views/normal/components/Pagination'
@@ -36,11 +69,38 @@ marked.setOptions({
 Vue.prototype.Common = Common
 Vue.prototype.Cookies = Cookies
 Vue.prototype.marked = marked
+Vue.component('el-select', ElSelect)
+Vue.component('el-option', ElOption)
+Vue.component('el-form', ElForm)
+Vue.component('el-form-item', ElFormItem)
+Vue.component('el-input', ElInput)
+Vue.component('el-switch', ElSwitch)
+Vue.component('el-button', ElButton)
+Vue.component('Button', Button)
+Vue.component('Table', Table)
+Vue.component('Icon', Icon)
+Vue.component('Layout', Layout)
+Vue.component('Menu', Menu)
+Vue.component('MenuItem', MenuItem)
+Vue.component('Content', Content)
+Vue.component('Header', Header)
+Vue.component('Form', IForm)
+Vue.component('FormItem', IFormItem)
+Vue.component('Sider', Sider)
+Vue.component('Breadcrumb', Breadcrumb)
+Vue.component('Input', Input)
+Vue.component('Switch', Switch)
+Vue.component('Row', Row)
+Vue.component('Col', Col)
+Vue.component('Modal', Modal)
+Vue.component('Tag', Tag)
+Vue.component('Timeline', Timeline)
+Vue.component('TimelineItem', TimelineItem)
+Vue.component('Page', Page)
 Vue.component('Pagination', Pagination)
-Vue.component('el-select', Select)
-Vue.component('el-option', Option)
-Vue.use(iView)
-
+Vue.component('Tabs', Tabs)
+Vue.component('TabPane', TabPane)
+Vue.prototype.$Message = Message
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

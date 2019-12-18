@@ -10,7 +10,7 @@
   "dependencies": {
     "axios": "^0.19.0",
     "countup": "^1.8.2",
-    "element": "^0.1.4",
+    "element-ui": "^2.13.0",
     "highlight.js": "^9.17.1",
     "iview": "^3.5.4",
     "js-cookie": "^2.2.1",
@@ -30,6 +30,7 @@
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.3",
     "babel-plugin-component": "^1.1.1",
+    "babel-plugin-import": "^1.13.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.13.0",
