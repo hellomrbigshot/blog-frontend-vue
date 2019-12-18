@@ -12,27 +12,27 @@ export default {
   props: {
     value: {
       type: Array,
-      default() {
+      default () {
         return []
       }
     }
   },
-  data() {
+  data () {
     return {
       currentValue: this.value,
       children: []
     }
   },
-  mounted() {
+  mounted () {
     this.updateModel(true)
   },
   watch: {
-    value() {
+    value () {
       this.updateModel(true)
     }
   },
   methods: {
-    updateModel(update) {
+    updateModel (update) {
       this.childrens = findComponentsDownward(this, 'mCheckbox')
       if (this.childrens) {
         const { value } = this
@@ -45,7 +45,7 @@ export default {
         })
       }
     },
-    change(data) {
+    change (data) {
       this.currentValue = data
       this.$emit('input', data)
       this.$emit('on-change', data)

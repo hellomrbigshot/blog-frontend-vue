@@ -8,7 +8,7 @@ const user = {
   },
   getters: {},
   mutations: {
-    updateUserInfo(state, obj) {
+    updateUserInfo (state, obj) {
       const KEY_ARRAY = [
         {
           name: 'page_num',
@@ -43,7 +43,7 @@ const user = {
       })
       localStorage.setItem('user', JSON.stringify(user))
     },
-    updateUserName(state, username) {
+    updateUserName (state, username) {
       state.username = username
     }
   }

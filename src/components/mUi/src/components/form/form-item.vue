@@ -29,7 +29,7 @@ export default {
       type: String
     }
   },
-  data() {
+  data () {
     return {
       isRequired: false, // 是否必填
       validateState: '', // 校验状态
@@ -38,11 +38,11 @@ export default {
   },
   computed: {
     // 从 Form 的 model 中动态获取当前表单组件的数据
-    fieldValue() {
+    fieldValue () {
       return this.form.model[this.prop]
     }
   },
-  mounted() {
+  mounted () {
     // 如果没有传入 prop，则无需校验也无需缓存
     if (this.prop) {
       this.dispatch('mForm', 'on-form-item-add', this)
@@ -52,34 +52,34 @@ export default {
       this.setRules()
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.dispatch('mForm', 'on-form-item-remove', this)
   },
   methods: {
-    setRules() {
+    setRules () {
       const rules = this.getRules()
       if (rules.some(rule => rule.required)) this.isRequired = true
       this.$on('on-form-blur', this.onFiledBlur)
       this.$on('on-form-change', this.onFiledChange)
     },
     // 从 Form 的 rules 属性中获取当前 FormItem 的检验规则
-    getRules() {
+    getRules () {
       let formRules = this.form.rules
       formRules = formRules ? formRules[this.prop] : []
       return formRules
     },
     // 充值数据
-    resetField() {
+    resetField () {
       this.validateState = ''
       this.validateMessage = ''
       this.form.model[this.prop] = this.initialValue
     },
     // 只支持 blur 和 change，过滤出符合要求的 rule
-    getFilteredRule(trigger) {
+    getFilteredRule (trigger) {
       const rules = this.getRules()
       return rules.filter(rule => rule.trigger && rule.trigger.indexOf(trigger) > -1)
     },
-    validate(trigger, callback = function () { }) {
+    validate (trigger, callback = function () { }) {
       const rules = this.getFilteredRule(trigger)
       if (!rules || rules.length === 0) {
         return true
@@ -99,10 +99,10 @@ export default {
         callback(this.validateMessage)
       })
     },
-    onFiledBlur(value) {
+    onFiledBlur (value) {
       this.validate('blur')
     },
-    onFiledChange() {
+    onFiledChange () {
       this.validate('change')
     }
   }

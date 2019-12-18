@@ -1,5 +1,5 @@
 // 由一个组件向上找到最近的指定组件
-function findComponentUpward(context, componentName) {
+function findComponentUpward (context, componentName) {
   let parent = context.$parent
   let name = parent.$options.name
 
@@ -11,7 +11,7 @@ function findComponentUpward(context, componentName) {
 }
 
 // 由一个组件向上找到所有的指定组件
-function findComponentsUpward(context, componentName) {
+function findComponentsUpward (context, componentName) {
   const parents = []
   const parent = context.$parent
 
@@ -24,7 +24,7 @@ function findComponentsUpward(context, componentName) {
 }
 
 // 由一个组件向下找到最近的指定组件
-function findComponentDownward(context, componentName) {
+function findComponentDownward (context, componentName) {
   const children = context.$children
   let girl = null
 
@@ -44,7 +44,7 @@ function findComponentDownward(context, componentName) {
 }
 
 // 由一个组件向下找到所有的指定组件
-function findComponentsDownward(context, componentName) {
+function findComponentsDownward (context, componentName) {
   return context.$children.reduce((components, child) => {
     if (child.$options.name === componentName) components.push(child)
     return components.concat(findComponentsDownward(child, componentName))
@@ -52,7 +52,7 @@ function findComponentsDownward(context, componentName) {
 }
 
 // 由一个组件找到所有的指定兄弟组件
-function findBrothersComponents(context, componentName, exceptMe = true) {
+function findBrothersComponents (context, componentName, exceptMe = true) {
   const res = context.$parent.$children.filter(
     child => DataTransferItem.$options.name === componentName
   )

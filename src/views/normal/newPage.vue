@@ -81,7 +81,7 @@ export default {
   components: {
     MarkdownEditor: MEditor
   },
-  data() {
+  data () {
     return {
       id: this.$route.params.id,
       tagList: [],
@@ -136,11 +136,11 @@ export default {
       }
     }
   },
-  async mounted() {
+  async mounted () {
     await this.getAllTags()
     this.getPageDetail()
   },
-  beforeRouteLeave(to, from, next) {
+  beforeRouteLeave (to, from, next) {
     if (this.pageObject.title || this.pageObject.tags.length) {
       this.$Modal.confirm({
         title: '提示',
@@ -156,12 +156,12 @@ export default {
     }
   },
   methods: {
-    getAllTags() {
+    getAllTags () {
       return this.Common.axios('/api/tag/alltags').then(res => {
         this.tagList = res.data.data
       })
     },
-    selectChange(arr) {
+    selectChange (arr) {
       // 判断是否新增 tag
       const lastTag = arr.pop()
       if (this.tagList.includes(lastTag)) {
@@ -174,7 +174,7 @@ export default {
         }, 30)
       }
     },
-    getPageDetail() {
+    getPageDetail () {
       if (this.id) {
         this.Common.axios('/api/page/detail', { id: this.id }).then(res => {
           this.$set(this, 'pageObject', res.data.data)
@@ -186,7 +186,7 @@ export default {
         return false
       }
     },
-    createTagSubmit() {
+    createTagSubmit () {
       this.$refs['tagForm'].validate(valid => {
         if (valid) {
           this.Common.axios('/api/tag/create', this.tag_obj).then(async (res) => {
@@ -199,7 +199,7 @@ export default {
       })
     },
 
-    save(type) {
+    save (type) {
       this.$refs['pageForm'].validate(valid => {
         if (valid) {
           this.pageObject.status = type

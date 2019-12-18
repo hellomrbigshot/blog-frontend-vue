@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       ICP: '浙ICP备18011593号-1'
     }

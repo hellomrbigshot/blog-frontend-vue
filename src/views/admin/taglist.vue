@@ -9,7 +9,7 @@
 <script>
 export default {
   name: 'tagList',
-  data() {
+  data () {
     return {
       columns: [
         {
@@ -44,11 +44,11 @@ export default {
       list: []
     }
   },
-  mounted() {
+  mounted () {
     this.getTaglist()
   },
   methods: {
-    getTaglist() {
+    getTaglist () {
       this.Common.axios('/api/tag/taglist').then(res => {
         this.list = res.data.data.result
       })

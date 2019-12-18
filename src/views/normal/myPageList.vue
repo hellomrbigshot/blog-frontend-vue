@@ -53,7 +53,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       pageList: [],
       pageSize: 10,
@@ -62,11 +62,11 @@ export default {
       username: this.Cookies.get('user')
     }
   },
-  mounted() {
+  mounted () {
     this.getPageList()
   },
   methods: {
-    getPageList() {
+    getPageList () {
       const postData = {
         type: 'create_user',
         status: 'normal',
@@ -79,7 +79,7 @@ export default {
         this.total = res.data.data.total
       })
     },
-    seperateByYear(pagelist) {
+    seperateByYear (pagelist) {
       // 将文章按照创建年份分类
       const yearArr = []
       pagelist.forEach(page => {
@@ -97,7 +97,7 @@ export default {
         return single
       })
     },
-    pageChange(page) {
+    pageChange (page) {
       this.page = page
       this.getPageList()
     }

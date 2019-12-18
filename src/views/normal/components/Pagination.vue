@@ -34,7 +34,7 @@ export default {
     },
     pageSizeOpts: {
       type: Array,
-      default() {
+      default () {
         return [10, 20, 30, 40]
       }
     },
@@ -72,10 +72,10 @@ export default {
     }
   },
   methods: {
-    pageChange(page) {
+    pageChange (page) {
       this.$emit('on-change', page)
     },
-    pageSizeChange(pageSize) {
+    pageSizeChange (pageSize) {
       this.$emit('on-page-size-change', pageSize)
     }
   }

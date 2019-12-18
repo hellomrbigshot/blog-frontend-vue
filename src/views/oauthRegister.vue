@@ -63,7 +63,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     const validatorName = (rule, value, callback) => {
       if (!value) {
         callback(new Error('请输入账号'))
@@ -106,7 +106,7 @@ export default {
     }
   },
   methods: {
-    register(name) {
+    register (name) {
       // 注册
       this.$refs[name].validate(valid => {
         if (valid) {
@@ -127,7 +127,7 @@ export default {
         }
       })
     },
-    toLogin() {
+    toLogin () {
       this.$router.push({ name: 'login' })
     }
   }

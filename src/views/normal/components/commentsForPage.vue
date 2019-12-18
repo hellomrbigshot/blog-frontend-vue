@@ -69,16 +69,16 @@ export default {
       type: Array
     }
   },
-  mounted() {
+  mounted () {
     this.$emit('on-ready')
   },
   computed: {
-    current_user() {
+    current_user () {
       return this.$store.state.user.username
     }
   },
   methods: {
-    triggerComment(user, content) {
+    triggerComment (user, content) {
       setTimeout(() => {
         this.$emit('on-reply', user, content)
       })

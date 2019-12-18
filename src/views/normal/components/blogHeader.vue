@@ -5,14 +5,14 @@
         :to="{name: 'normalPageList'}"
         class="brand"
       >
-        <span class="logo-line-before"></span>
+        <span class="logo-line-before"/>
         <span class="site-title">
           <img
             :src="logo"
             class="site-logo"
           />
         </span>
-        <span class="logo-line-after"></span>
+        <span class="logo-line-after"/>
       </router-link>
     </div>
     <transition name="slide-fade">
@@ -31,7 +31,7 @@
             </li>
           </template>
           <li class="menu-item">
-            <a href="https://react.hellomrbigbigshot.xyz">
+            <a href="https://hellomrbigbigshot.xyz">
               <svg class="icon" aria-hidden="true">
                   <use xlink:href="#icon-React"></use>
               </svg> 版本
@@ -65,7 +65,7 @@
 <script>
 import { bus } from '../../../bus/index'
 export default {
-  data() {
+  data () {
     return {
       isFocus: false,
       keywords: '',
@@ -74,17 +74,17 @@ export default {
     }
   },
   computed: {
-    routes() {
+    routes () {
       return this.$store.state.normal.routers
     }
   },
-  mounted() {
+  mounted () {
     setTimeout(() => {
       this.show_ul = true
     }, 500)
   },
   methods: {
-    searchPage() {
+    searchPage () {
       // this.$router.push({ name: 'normalPageList' })
       bus.$emit('searchPage', this.keywords)
     }

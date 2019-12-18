@@ -14,7 +14,7 @@
 <script>
 export default {
   name: 'pageList',
-  data() {
+  data () {
     return {
       list: [],
       total: 0,
@@ -72,21 +72,21 @@ export default {
       ]
     }
   },
-  mounted() {
+  mounted () {
     this.getPageList()
   },
   methods: {
-    getPageList() {
+    getPageList () {
       this.Common.axios('/api/page/pagelist', this.search_obj).then(res => {
         this.list = res.data.data.result
         this.total = res.data.data.total
       })
     },
-    pageChange(page) {
+    pageChange (page) {
       this.search_obj.page = page
       this.getPageList()
     },
-    deletePage(page) {
+    deletePage (page) {
       const formData = JSON.parse(JSON.stringify(page))
       formData.id = formData._id
       formData.status = 'cancel'

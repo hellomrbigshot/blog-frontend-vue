@@ -1,14 +1,15 @@
-// import Vue from 'vue'
+import Vue from 'vue'
 import iView from 'iview'
-// import VueRouter from 'vue-router'
+import Cookies from 'js-cookie'
+import VueRouter from 'vue-router'
 import { routers } from './router'
 
-// Vue.use(VueRouter)
+Vue.use(VueRouter)
 
 const RouterConfig = {
   mode: 'history',
   routes: routers,
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
     } else {

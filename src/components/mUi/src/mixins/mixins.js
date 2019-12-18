@@ -3,10 +3,10 @@ import Emitter from './emitter.js'
 export default {
   mixins: [Emitter],
   methods: {
-    handleDispatch() {
+    handleDispatch () {
       this.dispatch()
     },
-    handleBroadcast() {
+    handleBroadcast () {
       this.broadcast()
     }
   }

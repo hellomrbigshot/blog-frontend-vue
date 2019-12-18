@@ -12,7 +12,7 @@
 npm install
 
 # serve with hot reload at localhost:8080
-npm run dev
+npm run serve
 
 # build for production with minification
 npm run build
@@ -22,7 +22,7 @@ npm run build --report
 ```
 
 ### 博客地址
-[点击查看博客](http://hellomrbigbigshot.xyz)
+[点击查看博客](http://vue.hellomrbigbigshot.xyz)
 <br />
 ### 博客移动版
 [点击跳转到移动版项目](https://github.com/hellomrbigshot/blog-pwa)

@@ -1,26 +1,18 @@
 module.exports = {
+  root: true,
   env: {
-    browser: true,
-    es6: true,
     node: true
   },
-  extends: ['plugin:vue/essential', 'standard'],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly'
+  'extends': [
+    'plugin:vue/essential',
+    '@vue/standard'
+  ],
+  rules: {
+    'no-console': 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'vue/no-parsing-error': '0'
   },
   parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: 'module',
     parser: 'babel-eslint'
-  },
-  plugins: ['vue'],
-  rules: {
-    'no-undef': 0,
-    'vue/no-parsing-error': [2, { 'x-invalid-end-tag': false }],
-    'space-before-function-paren': [
-      'error',
-      { anonymous: 'always', named: 'never', asyncArrow: 'always' }
-    ]
   }
 }

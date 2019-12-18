@@ -40,7 +40,7 @@ export default {
   components: {
     infoCard
   },
-  data() {
+  data () {
     return {
       count: {
         userNum: 0,
@@ -49,11 +49,11 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.initPage()
   },
   methods: {
-    initPage() {
+    initPage () {
       this.Common.axios('/api/statistics').then(res => {
         this.count = res.data.data
       })

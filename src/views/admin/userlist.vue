@@ -20,7 +20,7 @@
 <script>
 export default {
   name: 'userList',
-  data() {
+  data () {
     return {
       user_column: [
         {
@@ -54,21 +54,21 @@ export default {
       page: 1
     }
   },
-  mounted() {
+  mounted () {
     this.getUserList()
   },
   methods: {
-    getUserList(pageSize = '10', page = '1') { // 获取用户列表
+    getUserList (pageSize = '10', page = '1') { // 获取用户列表
       this.Common.axios('/api/user/list', { pageSize, page }).then(res => {
         this.user_list = res.data.data.list
         this.total = res.data.data.total_num
       })
     },
-    pageChange(page) {
+    pageChange (page) {
       this.page = page
       this.getUserList(this.page_size, this.page)
     },
-    pageSizeChange(pageSize) {
+    pageSizeChange (pageSize) {
       this.page_size = pageSize
       this.getUserList(this.page_size, this.page)
     }

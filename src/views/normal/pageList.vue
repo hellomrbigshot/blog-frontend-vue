@@ -27,7 +27,7 @@ export default {
   components: {
     onePage: () => import('./components/onePage')
   },
-  data() {
+  data () {
     return {
       page_list: [],
       show_page: false,
@@ -37,26 +37,26 @@ export default {
       username: this.$route.query.username
     }
   },
-  mounted() {
+  mounted () {
     this.getPageList()
     bus.$on('searchPage', (keywords) => {
       this.searchPage(keywords)
     })
   },
   methods: {
-    getPageList() {
+    getPageList () {
       this.Common.axios('/api/page/pagelist', { type: '', status: 'normal', content: '', pageSize: this.pageSize, page: this.page, secret: false, sort: 'update_time' }).then(res => {
         this.page_list = res.data.data.result
         this.total = res.data.data.total
         this.show_page = true
       })
     },
-    pageChange(page) {
+    pageChange (page) {
       this.page = page
       this.getPageList()
       this.Common.bodyScrollTop()
     },
-    searchPage(keywords) {
+    searchPage (keywords) {
       this.Common.axios('/api/page/searchpage', { keywords }).then(res => {
         this.page_list = res.data.data.result
         this.total = 0

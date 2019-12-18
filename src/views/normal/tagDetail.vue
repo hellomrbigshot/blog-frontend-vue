@@ -27,7 +27,7 @@ export default {
   components: {
     pageList
   },
-  data() {
+  data () {
     return {
       name: this.$route.params.name,
       page: 1,
@@ -39,12 +39,12 @@ export default {
       pageList: []
     }
   },
-  mounted() {
+  mounted () {
     this.getTagDetail()
     this.getPageList()
   },
   methods: {
-    getPageList() {
+    getPageList () {
       this.Common.axios('/api/page/pagelist', {
         type: 'tag',
         content: this.name,
@@ -57,13 +57,13 @@ export default {
         this.total = res.data.data.total
       })
     },
-    getTagDetail() {
+    getTagDetail () {
       this.Common.axios('/api/tag/tagdetail', { name: this.name })
         .then(res => {
           this.detail = res.data.data
         })
     },
-    pageChange(page) {
+    pageChange (page) {
       this.page = page
       this.getPageList()
     }

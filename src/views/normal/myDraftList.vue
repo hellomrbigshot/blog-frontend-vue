@@ -34,7 +34,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       draft_list: [],
       total: 0,
@@ -42,7 +42,7 @@ export default {
       page: 1
     }
   },
-  mounted() {
+  mounted () {
     this.Common.axios('/api/page/limitpagelist',
       {
         type: 'creator',

@@ -79,7 +79,7 @@ export default {
   components: {
     countUp
   },
-  data() {
+  data () {
     return {
       user: JSON.parse(localStorage.getItem('user')),
       imgUrl: defaultImg,
@@ -90,30 +90,30 @@ export default {
       // draft_num: this.$store.state.user.draft_num || JSON.parse(localStorage.getItem('user')).draft_num
     }
   },
-  mounted() {
+  mounted () {
     this.showAvatar()
   },
   computed: {
-    page_num() {
+    page_num () {
       return this.$store.state.user.page_num || this.user.page_num
     },
-    draft_num() {
+    draft_num () {
       return this.$store.state.user.draft_num || this.user.draft_num
     },
-    comment_num() {
+    comment_num () {
       return this.$store.state.user.comment_num || this.user.comment_num
     },
-    avatar() {
+    avatar () {
       return this.$store.state.user.avatar || this.user.avatar
     }
   },
   watch: {
-    avatar(newVal) {
+    avatar (newVal) {
       this.showAvatar()
     }
   },
   methods: {
-    signout() {
+    signout () {
       this.Common.axios('/api/signout').then(res => {
         this.Cookies.remove('user')
         this.Cookies.remove('token')
@@ -121,7 +121,7 @@ export default {
         location.reload()
       })
     },
-    showAvatar() {
+    showAvatar () {
       if (this.avatar) {
         this.imgUrl = '/api/file/avatar/user/?username=' + this.user.username
       } else {

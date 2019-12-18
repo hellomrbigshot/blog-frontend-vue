@@ -15,7 +15,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       tagList: [],
       total: 0,
@@ -23,17 +23,17 @@ export default {
       pageSize: 999
     }
   },
-  mounted() {
+  mounted () {
     this.getTagList()
   },
   methods: {
-    getTagList() {
+    getTagList () {
       this.Common.axios('/api/tag/taglist', { page: this.page, pageSize: this.pageSize }).then(res => {
         this.tagList = res.data.data.result
         this.total = res.data.data.total
       })
     },
-    pageChange(page) {
+    pageChange (page) {
       this.page = page
       this.getTagList()
     }
