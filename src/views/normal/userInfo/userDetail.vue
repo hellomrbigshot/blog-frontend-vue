@@ -26,7 +26,7 @@ export default {
     pageList,
     detailUserInfo
   },
-  data() {
+  data () {
     return {
       username: this.$route.params.username,
       total: 0,
@@ -35,11 +35,11 @@ export default {
       pageList: []
     }
   },
-  mounted() {
+  mounted () {
     this.getPageList()
   },
   methods: {
-    getPageList() {
+    getPageList () {
       const postData = {
         type: 'create_user',
         status: 'normal',
@@ -53,7 +53,7 @@ export default {
         this.total = res.data.data.total
       })
     },
-    pageChange(page) {
+    pageChange (page) {
       this.page = page
       this.getPageList()
     }

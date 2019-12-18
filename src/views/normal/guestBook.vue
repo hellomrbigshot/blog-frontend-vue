@@ -40,7 +40,7 @@ export default {
   components: {
     comments: () => import('./components/commentsForUser')
   },
-  data() {
+  data () {
     return {
       type: 'to_user',
       user: this.Cookies.get('user'),
@@ -51,19 +51,19 @@ export default {
     }
   },
   watch: {
-    async type(newVal, oldVal) {
+    async type (newVal, oldVal) {
       this.page = 1
       this.comments = []
       await this.getCommentList()
       await this.updateCommentStatus()
     }
   },
-  async mounted() {
+  async mounted () {
     await this.getCommentList()
     await this.updateCommentStatus()
   },
   methods: {
-    getCommentList(page) {
+    getCommentList (page) {
       if (page) this.page = page
       const formData = {
         type: this.type,
@@ -77,7 +77,7 @@ export default {
         this.total = res.data.data.total
       })
     },
-    updateCommentStatus() {
+    updateCommentStatus () {
       if (this.type === 'to_user' && this.comments.length > 0 && this.comments.some(comment => !comment.is_read)) {
         const ids = this.comments.map(comment => {
           if (!comment.is_read) return comment._id

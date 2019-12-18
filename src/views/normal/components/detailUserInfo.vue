@@ -161,7 +161,7 @@ export default {
   components: {
     'vue-cropper': VueCropper
   },
-  data() {
+  data () {
     return {
       cur_username: this.Cookies.get('user'),
       username: this.$route.params.username,
@@ -208,12 +208,12 @@ export default {
       }
     }
   },
-  async mounted() {
+  async mounted () {
     await this.getUserDetail()
     this.showAvatar()
   },
   methods: {
-    getUserDetail() {
+    getUserDetail () {
       return this.Common.axios('/api/user/detail', {
         username: this.username
       }).then(res => {
@@ -232,11 +232,11 @@ export default {
         })
       })
     },
-    chooseFile() {
+    chooseFile () {
       this.$refs.fileInput.value = ''
       this.$refs.fileInput.click()
     },
-    uploadImg(e) {
+    uploadImg (e) {
       const file = e.target.files[0]
       if (!/\.(gif|jpg|jpeg|png|bmp|GIF|JPG|PNG)$/.test(e.target.value)) {
         this.$Message.error('图片类型必须是.gif,jpeg,jpg,png,bmp中的一种')
@@ -260,19 +260,19 @@ export default {
       // reader.readAsArrayBuffer(file)
       this.showImgUpload = true
     },
-    realTime(data) {
+    realTime (data) {
       this.previews = data
     },
-    changeScale(num) {
+    changeScale (num) {
       this.$refs.cropper.changeScale(num)
     },
-    rotateLeft() {
+    rotateLeft () {
       this.$refs.cropper.rotateLeft()
     },
-    rotateRight() {
+    rotateRight () {
       this.$refs.cropper.rotateRight()
     },
-    uploadFile() {
+    uploadFile () {
       // 获取截图的base64 数据
       this.$refs.cropper.getCropData(data => {
         // 上传
@@ -287,7 +287,7 @@ export default {
         })
       })
     },
-    showAvatar() {
+    showAvatar () {
       // 显示头像
       if (this.user.avatar) {
         this.imgUrl = '/api/file/avatar/user/?username=' + this.user.username
@@ -303,7 +303,7 @@ export default {
         this.imgShow = true
       }
     },
-    changeBio() {
+    changeBio () {
       // 修改个人简介
       if (!this.bio_edit) {
         this.bio_edit = true

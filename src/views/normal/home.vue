@@ -59,6 +59,7 @@
   </div>
 </template>
 <script>
+import io from 'socket.io-client'
 import blogHeader from './components/blogHeader'
 import blogFooter from './components/blogFooter'
 import siderUserInfo from './components/siderUserInfo'
@@ -68,14 +69,14 @@ export default {
     blogFooter,
     siderUserInfo
   },
-  data() {
+  data () {
     return {
       isCollapsed: true,
       socket: io(`${process.env.NODE_ENV === 'development' ? 'http://localhost:8082' : 'https://hellomrbigbigshot.xyz'}`),
       unreadMsgNum: 0
     }
   },
-  async created() {
+  async created () {
     await this.getUserInfo()
     this.isCollapsed = !this.user
     if (this.user) {
@@ -106,18 +107,18 @@ export default {
     })
   },
   computed: {
-    rotateIcon() {
+    rotateIcon () {
       return ['menu-icon', this.isCollapsed ? 'rotate-icon' : '']
     },
-    menuitemClasses() {
+    menuitemClasses () {
       return ['page-sider', this.isCollapsed ? 'collapsed-menu' : '']
     },
-    user() {
+    user () {
       return this.Cookies.get('user') || this.$route.query.username || ''
     }
   },
   methods: {
-    getUserInfo() {
+    getUserInfo () {
       if (this.user) {
         return this.Common.axios('/api/signin/getUserInfo', {
           username: this.user
@@ -134,11 +135,11 @@ export default {
         })
       }
     },
-    collapsedSider() {
+    collapsedSider () {
       // 侧边栏显示切换
       this.$refs.pageSider.toggleCollapse()
     },
-    handleRouter(name) {
+    handleRouter (name) {
       // 路由跳转
       this.$router.push({ name: name })
     }

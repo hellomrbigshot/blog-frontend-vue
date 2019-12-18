@@ -71,7 +71,7 @@ export default {
       default: 40
     }
   },
-  data() {
+  data () {
     return {
 
     }

@@ -18,19 +18,19 @@
 <script>
 export default {
   name: '404',
-  data() {
+  data () {
     return {
     }
   },
   methods: {
-    goHome() { // 返回 home 页
+    goHome () { // 返回 home 页
       if (this.Cookies.user === 'admin') {
         this.$router.push({ name: 'admin' })
       } else {
         this.$router.push({ name: 'main' })
       }
     },
-    backPage() { // 返回上一页
+    backPage () { // 返回上一页
       this.$router.go(-1)
     }
   }

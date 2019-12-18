@@ -1,5 +1,8 @@
 /* eslint-disable */
 import { Message } from 'iview'
+import axios from 'axios'
+import Qs from 'qs'
+import Cookies from 'js-cookie'
 import { router } from '@/router/index'
 
 let timer = null

@@ -28,7 +28,7 @@ let ctx = null
 const sparks = []
 const fireworks = []
 let i = 20
-function render() {
+function render () {
   setTimeout(render, 1000 / 60)
   ctx.fillStyle = 'rgba(193, 51, 65, 0.1)'
   ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
@@ -47,7 +47,7 @@ function render() {
     fireworks.push(new Firework())
   }
 }
-function Spark(x, y, color) {
+function Spark (x, y, color) {
   this.x = x
   this.y = y
   this.dir = Math.random() * (Math.PI * 2)
@@ -77,7 +77,7 @@ function Spark(x, y, color) {
   }
 }
 
-function Firework(x, y) {
+function Firework (x, y) {
   this.xmove = new Walker({
     radius: 10,
     speed: 0.5
@@ -103,17 +103,17 @@ function Firework(x, y) {
   }
 }
 
-function drawCircle(x, y, radius, color) {
+function drawCircle (x, y, radius, color) {
   color = color || '#FFF'
   ctx.fillStyle = color
   ctx.fillRect(x - radius / 2, y - radius / 2, radius, radius)
 }
 
-function randomColor() {
+function randomColor () {
   return ['#6ae5ab', '#88e3b2', '#36b89b', '#7bd7ec', '#66cbe1', '#f0f', '#00fdb', '#00e2ff', '#ffbf00'][Math.floor(Math.random() * 9)]
 }
 
-function Walker(options) {
+function Walker (options) {
   this.step = function () {
     this.direction = Math.sign(this.target) * this.speed
     this.value += this.direction
@@ -140,12 +140,12 @@ function Walker(options) {
   this.speed = options.speed || 1
 }
 export default {
-  data() {
+  data () {
     return {
       showLinkIcon: false
     }
   },
-  mounted() {
+  mounted () {
     ctx = document.querySelector('canvas').getContext('2d')
     ctx.canvas.width = window.innerWidth
     ctx.canvas.height = window.innerHeight

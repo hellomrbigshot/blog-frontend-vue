@@ -78,7 +78,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       filterActive: 'all',
       filterMapping: {
@@ -104,7 +104,7 @@ export default {
     }
   },
   computed: {
-    filterTodo() {
+    filterTodo () {
       const filterMappingFunciton = {
         all: (todo) => { return todo },
         pending: todo => {
@@ -117,14 +117,14 @@ export default {
       return this.todos.filter(filterMappingFunciton[this.filterActive])
     }
   },
-  mounted() {
+  mounted () {
     this.getTodoList()
   },
   methods: {
-    dateChange(date) {
+    dateChange (date) {
       this.todo.expectedTime = date
     },
-    getTimeTag(date) {
+    getTimeTag (date) {
       if (!date) return ''
       const expectedTime = new Date(date).getTime()
       const nowTime = new Date().getTime()
@@ -136,13 +136,13 @@ export default {
         return 0
       }
     },
-    getTodoList() {
+    getTodoList () {
       this.Common.axios('/api/todo/getTodoList')
         .then(res => {
           this.todos = res.data.data
         })
     },
-    handleAddTodo() { // 新增一条 todo
+    handleAddTodo () { // 新增一条 todo
       this.$refs['todoForm'].validate(valid => {
         if (valid) {
           const sendData = Object.assign({}, this.todo, { expectedTime: this.Common.dateFmt('yyyy-MM-dd hh:mm:ss', this.todo.expectedTime) })
@@ -155,13 +155,13 @@ export default {
         }
       })
     },
-    handleCompleteTodo(id, checked) {
+    handleCompleteTodo (id, checked) {
       this.handleStatusChange(id, checked ? 'completed' : 'pending')
     },
-    handleDeleteTodo(id) { // 删除一条 todo
+    handleDeleteTodo (id) { // 删除一条 todo
       this.handleStatusChange(id, 'deleted')
     },
-    handleKeyDown(e) { // 监听 enter 事件
+    handleKeyDown (e) { // 监听 enter 事件
       if (e.keyCode === 13) {
         this.$refs['contentInput'].blur()
         this.handleAddTodo()
@@ -169,7 +169,7 @@ export default {
 
       }
     },
-    handleStatusChange(id, status) {
+    handleStatusChange (id, status) {
       this.Common.axios('/api/todo/updateTodoStatus', { id, status })
         .then(res => {
           this.todos.find(todo => todo._id === id).status = status

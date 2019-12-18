@@ -63,7 +63,7 @@
 <script>
 export default {
   name: 'Register',
-  data() {
+  data () {
     const validatorName = (rule, value, callback) => {
       if (!value) {
         callback(new Error('请输入账号'))
@@ -101,15 +101,15 @@ export default {
     }
   },
   methods: {
-    uploadSuccess(response, file, fileList) {
+    uploadSuccess (response, file, fileList) {
       // 头像上传成功
       this.formData.avatar = response.data
     },
-    uploadError(response, file, fileList) {
+    uploadError (response, file, fileList) {
       // 头像上传失败
       this.$Message.error('头像上传失败')
     },
-    register(name) {
+    register (name) {
       this.$refs[name].validate(valid => {
         if (valid) {
           const { username } = this.formData
@@ -133,7 +133,7 @@ export default {
         }
       })
     },
-    toLogin() {
+    toLogin () {
       this.$router.push({ name: 'login' })
     }
   }

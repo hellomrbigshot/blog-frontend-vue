@@ -91,7 +91,7 @@ export default {
   components: {
     comments: () => import('./components/commentsForPage')
   },
-  data() {
+  data () {
     return {
       id: this.$route.params.id,
       user: this.Cookies.get('user'),
@@ -111,23 +111,23 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.getPageDetail()
     this.getComments()
   },
   methods: {
-    getPageDetail() {
+    getPageDetail () {
       this.Common.axios('/api/page/detail', { id: this.id }).then(res => {
         this.page = res.data.data
         this.show_detail = true
       })
     },
-    getComments() {
+    getComments () {
       this.Common.axios('/api/comment/getpagecommentlist', { page_id: this.id }).then(res => {
         this.comments = res.data.data
       })
     },
-    submitComment() {
+    submitComment () {
       if (!this.user) {
         // 如果没有登录就跳转到登录页
         this.$router.push({
@@ -151,16 +151,16 @@ export default {
         this.getComments()
       })
     },
-    replyComment(user, content) {
+    replyComment (user, content) {
       this.comment.reply_user = user
       this.comment.reply_content = content
       this.$refs['commentInput'].focus()
     },
-    removeReplyUser() {
+    removeReplyUser () {
       this.comment.reply_user = ''
       this.comment.reply_content = ''
     },
-    scrollToComment() {
+    scrollToComment () {
       const hash = this.$route.params.hash
       if (hash && document.getElementById(hash)) {
         document.getElementById(hash).scrollIntoView()

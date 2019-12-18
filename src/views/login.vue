@@ -88,7 +88,7 @@ export default {
     // mFormItem: () => import('@/components/mUi/src/components/form/form-item'),
     // mInput: () => import('@/components/mUi/src/components/Input/input')
   },
-  data() {
+  data () {
     // const validatorPass = (rule, value, callback) => {
     //   if (!value) {
     //     callback(new Error('请输入密码'))
@@ -108,7 +108,7 @@ export default {
     }
   },
   methods: {
-    logIn(name) {
+    logIn (name) {
       this.$refs[name].validate(valid => {
         if (!valid) return
         const { username } = this.formData
@@ -131,7 +131,7 @@ export default {
         })
       })
     },
-    toRegisterPage() {
+    toRegisterPage () {
       this.$router.push({ name: 'register' })
     }
   }

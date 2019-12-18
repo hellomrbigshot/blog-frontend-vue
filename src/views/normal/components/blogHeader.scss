@@ -9,9 +9,10 @@
         padding: 5px 10px 0;
         margin-top: -5px;
         border-radius: 8px;
+
         &:hover {
-          background: #efefef;
-          background: #eee;
+            background: #efefef;
+            background: #eee;
         }
 
         .brand {
@@ -20,6 +21,7 @@
             display: block;
             font-family: Lato, "PingFang SC", "Microsoft YaHei", sans-serif;
             line-height: 1;
+
             .site-title {
                 display: inline-block;
                 height: 36px;
@@ -43,14 +45,15 @@
             li.menu-item {
                 display: inline-block;
                 font-size: 14px;
+
                 a {
                     color: #555;
                     padding: 5px 10px;
                     width: 50px;
+
                     &:hover {
                         color: #222;
                         font-weight: 500;
-                        font-size: 15px;
                     }
                 }
 
@@ -60,6 +63,7 @@
 
         .site-search {
             float: right;
+
             .site-search-form {
                 position: relative;
                 height: 36px;
@@ -75,6 +79,7 @@
                     text-align: center;
                     border-radius: 50%;
                     transition: all .3s ease-in;
+
                     &:hover {
                         cursor: pointer;
                     }
@@ -90,22 +95,26 @@
                     width: 200px;
                     outline: none;
                     transition: all .3s ease-in;
+
                     &:focus {
                         border-bottom-color: #222;
+
                         .search-icon {
                             color: #222;
                         }
                     }
                 }
             }
+
             &.active {
-              .search-icon {
-                background: #969696;
-                color: #fff;
-              }
-              .search-input {
-                width: 250px;
-              }
+                .search-icon {
+                    background: #969696;
+                    color: #fff;
+                }
+
+                .search-input {
+                    width: 250px;
+                }
             }
 
         }
@@ -130,6 +139,7 @@
 
         .site-meta {
             .brand {
+
                 .logo-line-before,
                 .logo-line-after {
                     display: none !important;

@@ -28,7 +28,7 @@ export default {
       default: 500
     }
   },
-  mounted() {
+  mounted () {
     this.$nextTick(() => {
       setTimeout(() => {
         const numAnim = new CountUp(this.idName, this.startVal, this.endVal)
@@ -41,7 +41,7 @@ export default {
     })
   },
   watch: {
-    endVal(newVal, oldVal) {
+    endVal (newVal, oldVal) {
       this.$nextTick(() => {
         setTimeout(() => {
           const numAnim = new CountUp(this.idName, this.startVal, newVal)

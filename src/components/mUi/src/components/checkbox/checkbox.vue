@@ -47,7 +47,7 @@ export default {
       type: [String, Number, Boolean]
     }
   },
-  data() {
+  data () {
     return {
       currentValue: false,
       group: false,
@@ -55,7 +55,7 @@ export default {
       model: []
     }
   },
-  mounted() {
+  mounted () {
     this.parent = findComponentUpward(this, 'mCheckboxGroup')
     if (this.parent) this.group = true
     if (this.group) {
@@ -65,7 +65,7 @@ export default {
     }
   },
   watch: {
-    value(val) {
+    value (val) {
       if ([this.trueValue, this.falseValue].includes(val)) {
         this.updateModel()
       } else {
@@ -74,7 +74,7 @@ export default {
     }
   },
   methods: {
-    change(event) {
+    change (event) {
       if (this.disabled) return false
       const checked = event.target.checked
       this.currentValue = checked
@@ -88,7 +88,7 @@ export default {
         this.dispatch('mFormItem', 'on-form-change', value)
       }
     },
-    updateModel() {
+    updateModel () {
       this.currentValue = this.value === this.trueValue
     }
   }

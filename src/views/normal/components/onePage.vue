@@ -46,26 +46,10 @@
   </article>
 </template>
 <script>
-marked.setOptions({
-  renderer: new marked.Renderer(),
-  highlight: function (code) {
-    return hljs.highlightAuto(code).value
-  },
-  pedantic: false,
-  gfm: true,
-  tables: true,
-  breaks: true,
-  headerIds: true,
-  headerPrefix: 'vue-express',
-  sanitize: false,
-  smartLists: true,
-  smartypants: false,
-  xhtml: false
-})
 export default {
   props: ['page'],
   computed: {
-    markdownBody() {
+    markdownBody () {
       return this.marked(this.page.content)
     }
   }

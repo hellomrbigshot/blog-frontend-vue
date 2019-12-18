@@ -27,24 +27,24 @@ export default {
       type: [String, Number]
     }
   },
-  data() {
+  data () {
     return {
       currentValue: this.value
     }
   },
   watch: {
-    value(val) {
+    value (val) {
       this.currentValue = val
     }
   },
   methods: {
-    handleInput(event) {
+    handleInput (event) {
       const value = event.target.value
       this.currentValue = value
       this.$emit('input', value)
       this.dispatch('mFormItem', 'on-form-change', value)
     },
-    handleBlur() {
+    handleBlur () {
       console.log('blur')
       this.dispatch('mFormItem', 'on-form-blur', this.currentValue)
     }

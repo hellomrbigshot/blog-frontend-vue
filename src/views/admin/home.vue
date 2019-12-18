@@ -77,20 +77,20 @@
 <script>
 export default {
   computed: {
-    routes() {
+    routes () {
       return this.$store.state.admin.routers
     },
-    user() {
+    user () {
       return this.Cookies.get('user') || ''
     }
   },
   methods: {
-    menuChange(name) {
+    menuChange (name) {
       this.$router.push({
         name
       })
     },
-    handleClickUserDropDown(name) {
+    handleClickUserDropDown (name) {
       if (name === 'loginout') {
         this.Common.axios('/api/signout').then(res => {
           this.Cookies.remove('user')

@@ -14,17 +14,17 @@ export default {
       type: Object
     }
   },
-  provide() {
+  provide () {
     return {
       form: this
     }
   },
-  data() {
+  data () {
     return {
       fields: []
     }
   },
-  created() {
+  created () {
     this.$on('on-form-item-add', field => {
       if (field) this.fields.push(field)
     })
@@ -34,13 +34,13 @@ export default {
   },
   methods: {
     // 全部重置数据
-    resetFields() {
+    resetFields () {
       this.fields.forEach(field => {
         field.resetField()
       })
     },
     // 全部校验数据
-    validate(callback) {
+    validate (callback) {
       return new Promise(resolve => {
         let valid = true
         let count = 0
