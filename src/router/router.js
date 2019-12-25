@@ -140,7 +140,7 @@ export const normalRouter = {
       path: '/pages',
       name: 'normalPage',
       redirect: '/pages/list',
-      component: { template: '<router-view></router-view>' },
+      component: { template: '<router-view/>' },
       meta: {
         login: false,
         title: '首页',
@@ -192,7 +192,7 @@ export const normalRouter = {
       path: '/tags',
       name: 'normalTag',
       redirect: '/tags/list',
-      component: { template: '<router-view></router-view>' },
+      component: { template: '<router-view/>' },
       meta: {
         login: false,
         title: '标签',
@@ -241,16 +241,6 @@ export const normalRouter = {
         inHeaderList: true
       }
     },
-    // {
-    //   name: 'TODOS',
-    //   component: () => import('@/views/normal/todos'),
-    //   path: 'todos',
-    //   meta: {
-    //     login: true,
-    //     title: 'Todos',
-    //     inHeaderList: true
-    //   }
-    // },
     {
       name: 'editPage',
       component: () => import('@/views/normal/newPage'),
@@ -275,7 +265,7 @@ export const normalRouter = {
       path: '/welcome',
       name: 'welcomePage',
       redirect: '/welcome/chineseNewYear',
-      component: { template: '<router-view></router-view>' },
+      component: { template: '<router-view/>' },
       meta: {
         login: false,
         title: '欢迎页',

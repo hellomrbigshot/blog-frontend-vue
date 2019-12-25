@@ -67,7 +67,7 @@
         </Header>
         <Content :style="{margin: '24px', minHeight: '280px', background: '#fff', padding: '20px'}">
           <keep-alive>
-            <router-view></router-view>
+            <router-view :key="$route.fullPath"/>
           </keep-alive>
         </Content>
       </Layout>

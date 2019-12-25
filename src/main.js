@@ -40,7 +40,8 @@ import {
   Page,
   Tabs,
   TabPane,
-  Message
+  Message,
+  Footer
 } from 'iview'
 
 import 'iview/dist/styles/iview.css'
@@ -80,6 +81,7 @@ Vue.component('Button', Button)
 Vue.component('Table', Table)
 Vue.component('Icon', Icon)
 Vue.component('Layout', Layout)
+Vue.component('Footer', Footer)
 Vue.component('Menu', Menu)
 Vue.component('MenuItem', MenuItem)
 Vue.component('Content', Content)

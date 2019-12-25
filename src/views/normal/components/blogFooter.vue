@@ -12,10 +12,7 @@
     <p>由 <a
         class="footer-link"
         href="https://cn.vuejs.org/"
-      >Vue.js</a> 和 <a
-        class="footer-link"
-        href="https://www.iviewui.com/"
-      >iView</a> 强力驱动</p>
+      >Vue.js</a> 强力驱动</p>
     <p :style="{textAlign: 'left', fontSize: '12px'}">备案号：{{ ICP }}</p>
   </div>
 </template>
