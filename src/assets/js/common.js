@@ -3,14 +3,11 @@ import { Message } from 'iview'
 import axios from 'axios'
 import Qs from 'qs'
 import Cookies from 'js-cookie'
-import { router } from '@/router/index'
+import { router } from 'index/router'
 
 let timer = null
 const loadingArr = []
 
-String.prototype.splice = function (index, str) {
-  return `${this.slice(0, index)}${str}${this.slice(index)}`
-}
 // 添加 loading
 axios.interceptors.request.use(
   config => {
@@ -70,7 +67,7 @@ axios.interceptors.response.use(
           Cookies.remove('token')
           Cookies.remove('refreshToken')
           router.replace({
-            name: 'login',
+            name: 'Login',
             query: { redirect: router.currentRoute.fullPath }
           })
       }
@@ -92,6 +89,7 @@ const fetchRefreshToken = () => {
 // token 超时请求一次刷新 token 接口
 const request = (url, formData = {}, headers = {}) => {
   const token = Cookies.get('token')
+  const user = Cookies.get('user')
   headers = Object.assign(headers, { Authorization: `Beare ${token}` })
   return axios({
     url,

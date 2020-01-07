@@ -5,8 +5,31 @@ function resolve (dir) {
 module.exports = {
   runtimeCompiler: true,
   productionSourceMap: false,
+  pages: {
+    index: {
+      entry: 'src/index/main.js',
+      template: 'public/index.html',
+      filename: 'index.html',
+      title: '世说新语',
+      chunks: ['chunk-vendors', 'chunk-common', 'index']
+    },
+    admin: {
+      entry: 'src/admin/main.js',
+      template: 'public/admin.html',
+      filename: 'admin.html',
+      title: '管理',
+      chunks: ['chunk-vendors', 'chunk-common', 'admin']
+    }
+  },
   devServer: {
-    port: 12306,
+    port: 10086,
+    // historyApiFallback: {
+    //   rewrites: [
+    //     { from: /^\/$/, to: '/index.html' },
+    //     { from: /\/admin/, to: '/admin.html' }
+    //   ],
+    //   disableDotRule: true
+    // },
     proxy: {
       '/api': {
         target: 'https://hellomrbigbigshot.xyz',
@@ -24,5 +47,7 @@ module.exports = {
       })
     config.resolve.alias
       .set('@$', resolve('src'))
+      .set('index', resolve('src/index'))
+      .set('admin', resolve('src/admin'))
   }
 }
