@@ -10,9 +10,9 @@ cache:
   - node_modules
 install:
 - git pull
-- rm -f package-lock.json && rm -f node_modules && npm install
+- rm -f yarn.lock && rm -f node_modules && yarn
 script:
-- npm run build
+- yarn build
 after_success:
 - chmod 600 ~/.ssh/id_rsa
 - rm -rf /var/www/pc/*
