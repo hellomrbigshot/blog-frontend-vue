@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+      "baseUrl": "./",
+      "paths": {
+          "@/*": ["src/*"],
+          "index/*": ["src/index/*"],
+          "admin/*": ["src/admin/*"]
+      }
+  },
+  "exclude": ["node_modules", "dist"]
+}
