@@ -10,7 +10,7 @@ cache:
   - node_modules
 install:
 - git pull
-- rm -f package-lock.json && npm install
+- rm -f package-lock.json && rm -f node_modules && npm install
 script:
 - npm run build
 after_success:
