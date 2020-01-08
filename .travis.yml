@@ -10,7 +10,7 @@ cache:
   - node_modules
 install:
 - git pull
-- rm -f yarn.lock && rm -f node_modules && yarn
+- rm -f yarn.lock && rm -rf node_modules && yarn
 script:
 - yarn build
 after_success:
