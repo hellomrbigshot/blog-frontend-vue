@@ -1,6 +1,6 @@
-nguage: node_js
+language: node_js
 node_js:
-- 8.9.1
+- 10.18.0
 branchs:
   only:
   - master
@@ -10,7 +10,7 @@ cache:
   - node_modules
 install:
 - git pull
-- rm -f yarn.lock && rm -rf node_modules && yarn
+- rm -f yarn.lock && yarn
 script:
 - yarn build
 after_success:
