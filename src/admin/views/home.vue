@@ -9,7 +9,7 @@
           <h1>
             <a
               :style="{color: '#fff'}"
-              @click="$router.push({name: 'statistics'})"
+              @click="$router.push({name: 'dashboard'})"
             >管理员后台</a>
           </h1>
         </div>
