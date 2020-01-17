@@ -22,6 +22,9 @@ const RouterConfig = {
 const router = new VueRouter(RouterConfig)
 
 router.beforeEach((to, from, next) => {
+  if (to.path === from.path) {
+    next(false)
+  }
   iView.LoadingBar.start()
   if (!Cookies.get('user') && to.name !== 'login' && to.meta.login) {
     next({
