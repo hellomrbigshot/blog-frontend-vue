@@ -47,7 +47,7 @@ export const routes = [
     },
     children: [
       {
-        path: 'dashboard',
+        path: '/dashboard',
         name: 'dashboard',
         component: () => import('admin/views/dashboard'),
         meta: {
@@ -59,9 +59,9 @@ export const routes = [
     ]
   },
   {
-    path: 'page',
+    path: '/page',
     name: 'page',
-    redirect: 'page/list',
+    redirect: '/page/list',
     component: () => import('admin/views/home'),
     meta: {
       icon: 'ios-paper',
@@ -70,7 +70,7 @@ export const routes = [
     },
     children: [
       {
-        path: 'list',
+        path: '/page/list',
         component: () => import('admin/views/pagelist'),
         name: 'pageList',
         meta: {
@@ -82,9 +82,9 @@ export const routes = [
     ]
   },
   {
-    path: 'user',
+    path: '/user',
     name: 'user',
-    redirect: 'user/list',
+    redirect: '/user/list',
     component: () => import('admin/views/home'),
     meta: {
       icon: 'ios-people',
@@ -93,7 +93,7 @@ export const routes = [
     },
     children: [
       {
-        path: 'list',
+        path: '/user/list',
         component: () => import('admin/views/userlist'),
         name: 'userList',
         meta: {
@@ -105,9 +105,9 @@ export const routes = [
     ]
   },
   {
-    path: 'tag',
+    path: '/tag',
     name: 'tag',
-    redirect: 'tag/list',
+    redirect: '/tag/list',
     component: () => import('admin/views/home'),
     meta: {
       icon: 'ios-pricetags',
@@ -116,7 +116,7 @@ export const routes = [
     },
     children: [
       {
-        path: 'list',
+        path: '/tag/list',
         component: () => import('admin/views/taglist'),
         name: 'tagList',
         meta: {
@@ -130,7 +130,7 @@ export const routes = [
 ]
 export const routers = [
   longinRouter,
-  page404,
+  // page404,
   registerRouter,
   oauthRegisterRouter,
   ...routes

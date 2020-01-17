@@ -1,4 +1,4 @@
-# Vue 版本构建的PC版本博客
+# Vue 构建的PC版本博客
 [![Build Status](https://travis-ci.org/hellomrbigshot/blog-frontend.svg?branch=master)](https://travis-ci.org/hellomrbigshot/blog-frontend)
 
 
@@ -20,19 +20,17 @@ yarn build
 # build for production and view the bundle analyzer report
 yarn report
 ```
+## 介绍
+此项目是用```vue-cli```构造的[本人博客](http://vue.hellomrbigbigshot.xyz)的前端项目，改为多页面应用，分为博客页面和管理页面两个```SPA```。
+本地```yarn serve```成功后后访问```localhost:10086```访问博客界面，访问```localhost:10086/admin/```访问管理界面。
 
-### 博客地址
-[点击查看博客](http://vue.hellomrbigbigshot.xyz)
-<br />
-### 博客移动版
-[点击跳转到移动版项目](https://github.com/hellomrbigshot/blog-pwa)
-<br />
-[点击查看移动版博客](http://m.hellomrbigbigshot.xyz)
-<br />
+## 相关链接
+### 后端项目
+[后端项目](https://github.com/hellomrbigshot/blog-pwa/tree/master/server)
+### vue构建的PWA
+[PWA](https://github.com/hellomrbigshot/blog-pwa)
 ### 小程序
-[点击跳转到小程序项目](https://github.com/hellomrbigshot/blog-weapp)
-<br />
-![image](https://i.loli.net/2019/01/21/5c449f050e159.jpg)
-
-### 后端为 nodejs 构建
-[点击跳转到后端项目](https://github.com/hellomrbigshot/blog-pwa/tree/master/server)
+**待重构**
+[小程序](https://github.com/hellomrbigshot/blog-weapp)
+### react构建的前端
+[react构建的前端](https://github.com/hellomrbigshot/blog-frontend-react)

@@ -7,7 +7,8 @@ import { routers } from './router'
 Vue.use(VueRouter)
 
 const RouterConfig = {
-  // mode: 'history',
+  mode: 'history',
+  base: process.env.NODE_ENV === 'development' ? '/admin' : '/',
   routes: routers,
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
@@ -18,7 +19,7 @@ const RouterConfig = {
   }
 }
 
-export const router = new VueRouter(RouterConfig)
+const router = new VueRouter(RouterConfig)
 
 router.beforeEach((to, from, next) => {
   iView.LoadingBar.start()
@@ -39,3 +40,7 @@ router.beforeEach((to, from, next) => {
 router.afterEach((to, from, next) => {
   iView.LoadingBar.finish()
 })
+
+export {
+  router
+}

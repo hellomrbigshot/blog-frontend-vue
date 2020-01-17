@@ -23,13 +23,13 @@ module.exports = {
   },
   devServer: {
     port: 10086,
-    // historyApiFallback: {
-    //   rewrites: [
-    //     { from: /^\/$/, to: '/index.html' },
-    //     { from: /\/admin/, to: '/admin.html' }
-    //   ],
-    //   disableDotRule: true
-    // },
+    historyApiFallback: {
+      rewrites: [
+        { from: /^\/$/, to: '/index.html' },
+        { from: /^\/admin\//, to: '/admin.html' }
+      ],
+      disableDotRule: true
+    },
     proxy: {
       '/api': {
         target: 'https://hellomrbigbigshot.xyz',
