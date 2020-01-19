@@ -173,11 +173,15 @@
         }
     }
 }
-
+@media (max-width: 900px) {
+  .site-search {
+    display: none;
+  }
+}
 @media (max-width: 767px) {
     .header-inner {
         width: 100% !important;
-        margin-left: -50px;
+        // margin-left: -50px;
 
         .site-meta {
             .brand {
@@ -192,12 +196,12 @@
     }
 
     .site-nav {
-        display: none;
+        display: none!important;
     }
 
     .main-content,
     .main-footer {
-        margin: 20px 20px;
+        margin: 20px auto;
         width: auto;
     }
 
@@ -224,6 +228,15 @@
     h4 {
         font-size: 14px;
     }
+}
+@media (max-width: 600px) {
+  .site-addition {
+    display: none!important;
+  }
+  .header-inner {
+    padding: 5px 0;
+    height: 46px;
+  }
 }
 
 @media (min-width: 1600px) {
