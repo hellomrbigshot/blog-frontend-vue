@@ -15,10 +15,11 @@
       <p>由
         <a
           class="footer-link"
+          target="_blank"
           href="https://cn.vuejs.org/"
         >Vue.js</a>
       强力驱动</p>
-      <p :style="{textAlign: 'left', fontSize: '12px'}">备案号：{{ ICP }}</p>
+      <p :style="{textAlign: 'left', fontSize: '12px'}">备案号：<a class="footer-link" target="_blank" href="http://www.beian.miit.gov.cn">{{ ICP }}</a></p>
     </div>
   </div>
 </template>
