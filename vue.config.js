@@ -32,7 +32,7 @@ module.exports = {
     },
     proxy: {
       '/api': {
-        target: 'https://hellomrbigbigshot.xyz',
+        target: 'http://localhost:8081',
         changeOrigin: true
       }
     }

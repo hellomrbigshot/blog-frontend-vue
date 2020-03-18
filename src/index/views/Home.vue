@@ -127,7 +127,7 @@ export default {
 }
 @media (max-width: 767px) {
   .blog-content {
-    margin: 20px 20px;
+    margin: 20px auto;
     width: auto;
   }
 }

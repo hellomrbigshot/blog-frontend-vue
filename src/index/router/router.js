@@ -179,7 +179,7 @@ export const page404 = {
 export const routers = [
   // 上面定义的路由均写在 routers
   longinRouter,
-  // page404,
+  page404,
   registerRouter,
   oauthRegisterRouter,
   // redirect,

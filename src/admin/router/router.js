@@ -130,7 +130,7 @@ export const routes = [
 ]
 export const routers = [
   longinRouter,
-  // page404,
+  page404,
   registerRouter,
   oauthRegisterRouter,
   ...routes

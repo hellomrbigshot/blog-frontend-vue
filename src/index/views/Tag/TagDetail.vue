@@ -73,7 +73,7 @@ export default {
 
 <style lang="scss" scoped>
 .tag-title {
-  margin: 60px 0;
+  margin-bottom: 60px;
   position: relative;
   h2 {
     margin: 20px 0 10px 20px;
