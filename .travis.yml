@@ -8,15 +8,16 @@ cache:
   apt: true
   directories:
   - node_modules
+before_install:
+- openssl aes-256-cbc -K $encrypted_9b2d7e19d83c_key -iv $encrypted_9b2d7e19d83c_iv
+  -in id_rsa.enc -out ~/.ssh/id_rsa -d
+- chmod 600 ~/.ssh/id_rsa
+- echo -e "Host 39.104.15.110\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 install:
 - git pull
 - rm -f yarn.lock && yarn
 script:
 - yarn build
 after_success:
-- chmod 600 ~/.ssh/id_rsa
-- rm -rf /var/www/pc/*
-- scp -o stricthostkeychecking=no -r ./dist/* /var/www/pc
-before_install:
-- openssl aes-256-cbc -K $encrypted_9c9e33ab7bb2_key -iv $encrypted_9c9e33ab7bb2_iv
-  -in id_rsa.enc -out ~/.ssh/id_rsa -d
+- rm -rf root@39.104.15.110:/home/www/vue_pc/*
+- scp -r ./dist/* root@39.104.15.110:/home/www/vue_pc/*
