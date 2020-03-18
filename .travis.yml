@@ -20,4 +20,4 @@ script:
 - yarn build
 after_success:
 - rm -rf root@39.104.15.110:/home/www/vue_pc/*
-- scp -r ./dist/* root@39.104.15.110:/home/www/vue_pc/*
+- scp -r ./dist/* root@39.104.15.110:/home/www/vue_pc
