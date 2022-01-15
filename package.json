@@ -15,7 +15,7 @@
     "highlight.js": "^9.17.1",
     "iview": "^3.5.4",
     "js-cookie": "^2.2.1",
-    "marked": "^0.8.0",
+    "marked": "^4.0.10",
     "qs": "^6.9.1",
     "simple-m-editor": "^0.4.3",
     "socket.io-client": "^2.3.0",
