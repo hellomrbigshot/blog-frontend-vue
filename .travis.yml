@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- 10.18.0
+- 14.18.2
 branchs:
   only:
   - master
@@ -15,7 +15,7 @@ before_install:
   - echo -e "Host 39.104.15.110\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 install:
 - git pull
-- rm -f yarn.lock && yarn
+- yarn
 script:
 - yarn build
 after_success:
