@@ -1,25 +1,8 @@
 <template>
-  <div>
-    <canvas>>浏览器不支持canvas</canvas>
-    <div class="text">
+  <div style="width: 100vw; height: 100vh; background: #b53b44;">
+    <canvas></canvas>
+    <div :class="['text', showText && 'active']">
       <h1>新年快乐</h1>
-      <router-link
-        class="link"
-        :to="{ name: 'normalPageList' }"
-        @mouseenter.native="showLinkIcon=true"
-        @mouseover.native="showLinkIcon=true"
-        @mouseleave.native="showLinkIcon=false"
-        @mouseout.native="showLinkIcon=false"
-      >
-        <span>继续访问</span>
-        <transition name="slide-fade-x">
-          <Icon
-            type="md-arrow-forward"
-            class="link-icon"
-            v-show="showLinkIcon"
-          />
-        </transition>
-      </router-link>
     </div>
   </div>
 </template>
@@ -142,10 +125,13 @@ function Walker (options) {
 export default {
   data () {
     return {
-      showLinkIcon: false
+      showLinkIcon: false,
+      showText: false,
+      timer: null
     }
   },
   mounted () {
+    this.showText = true
     ctx = document.querySelector('canvas').getContext('2d')
     ctx.canvas.width = window.innerWidth
     ctx.canvas.height = window.innerHeight
@@ -154,10 +140,12 @@ export default {
         new Firework(Math.random() * window.innerWidth, window.innerHeight * Math.random(), ctx)
       )
     }
-    render()
+    this.timer = setTimeout(() => {
+      render()
+    }, 2000)
   },
-  methods: {
-
+  beforeDestroy () {
+    clearTimeout(this.timer)
   }
 }
 </script>
@@ -175,21 +163,22 @@ canvas {
 .text {
   z-index: 1000;
   position: absolute;
-  top: 50%;
+  top: 100%;
   left: 50%;
-  transform: translateX(-50%) translateY(-100%);
+  transform: translateX(-50%);
   margin-top: -20px;
   text-align: center;
-  overflow: hidden;
+  transition: all 2s ease-in-out;
   h1 {
-    font-size: 10.555vw;
+    font-size: 12vw;
     color: transparent;
+    font-weight: 800;
     background: linear-gradient(
       to right,
       rgba(255, 215, 0, 0.8),
       rgba(255, 255, 74, 0.8)
     );
-    -webkit-background-clip: text;
+    background-clip: text;
     font-family: kaiti, FangSong, STLiti;
   }
   .link {
@@ -205,11 +194,9 @@ canvas {
       float: left;
     }
     overflow: hidden;
-    // &:hover {
-    //   .link-icon {
-    //     display: inline-block;
-    //   }
-    // }
   }
+}
+.active {
+  top: 30%;
 }
 </style>
