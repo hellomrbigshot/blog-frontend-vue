@@ -16,7 +16,7 @@
     "iview": "^3.5.4",
     "js-cookie": "^2.2.1",
     "marked": "^0.8.0",
-    "qs": "^6.9.1",
+    "qs": "^6.9.7",
     "simple-m-editor": "^0.4.3",
     "socket.io-client": "^2.3.0",
     "vue": "^2.6.10",
